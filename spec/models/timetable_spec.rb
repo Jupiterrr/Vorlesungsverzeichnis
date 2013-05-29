@@ -56,10 +56,10 @@ describe Timetable do
   describe "#map_wday_to_current_week" do
 
     it "maps to correct date" do
-      time1 = Time.local(2013, 1, 1, 1, 00)
-      time2 = Time.local(2013, 1, 1+14, 1, 00)
-      new_time = Timetable.map_wday_to_current_week(time2)
-      time1.should == new_time
+      now = Time.now
+      time = now + 14.days
+      new_time = Timetable.map_wday_to_current_week(time)
+      now.should be_same_second_as(new_time)
     end
 
   end

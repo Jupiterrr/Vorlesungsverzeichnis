@@ -1,7 +1,8 @@
+@wip
 Feature: Browsing static VVZ
 
-Background: 
-  Given a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1" 
+Background:
+  Given a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1"
   And I am on the vvz page
 
 Scenario: Navigate to event

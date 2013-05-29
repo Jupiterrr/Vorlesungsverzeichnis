@@ -1,3 +1,4 @@
+@wip
 Feature: User authentication
 
 @wip
@@ -17,7 +18,7 @@ Scenario: User logs out
 
 
 Scenario: User logs in for the first time
-  Given a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1" 
+  Given a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1"
   Given a dicipline named "Informatik"
   Given I am logged in
   Then I should be on the signup page

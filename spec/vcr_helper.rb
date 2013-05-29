@@ -2,6 +2,7 @@ require 'rubygems'
 require 'vcr'
 require 'awesome_print'
 require 'pry'
+require 'rspec_candy/matchers'
 
 ENV["RAILS_ENV"] ||= 'test'
 

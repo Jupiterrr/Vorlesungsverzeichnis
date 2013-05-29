@@ -30,6 +30,7 @@ gem 'ri_cal' # timetable -> ical
 gem 'activerecord-postgres-hstore'
 
 # gem 'cancan' # authorization
+gem 'rspec_candy'
 
 group :production do
   gem 'newrelic_rpm'

@@ -1,9 +1,10 @@
+@wip
 Feature: Timetable
 
 Background:
-  Given I am logged in 
-  And the current date is "05.11.2012" 
-  And a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1" 
+  Given I am logged in
+  And the current date is "05.11.2012"
+  And a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1"
 
 # @javascript
 # @allow-rescue

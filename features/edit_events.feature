@@ -1,6 +1,7 @@
+@wip
 Feature: Edit Event
 
-Background: 
+Background:
   Given I am logged in
 
 

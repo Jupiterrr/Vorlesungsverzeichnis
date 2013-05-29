@@ -1,7 +1,8 @@
+@wip
 Feature: Manage Event Dates
 
 Background:
-  Given a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1" 
+  Given a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1"
   Given I am logged in
 
 Scenario: Add Exam Date

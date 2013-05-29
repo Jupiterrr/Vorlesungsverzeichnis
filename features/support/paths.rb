@@ -25,7 +25,7 @@ module NavigationHelpers
       timetable_semester_index_path
     when 'the signup page'
       signup_path
-    when 'the dasboard page'
+    when 'the dashboard page'
       dashboard_index_path
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
