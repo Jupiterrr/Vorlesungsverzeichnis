@@ -1,0 +1,18 @@
+
+@media only screen and (max-width: 767px) {
+  .container {
+    width: auto;
+  }
+  body {
+    padding: 0 10px;
+  }
+  body:after {
+    content: 'mobile';
+    display: none;
+  }
+
+  .verzeichnis {
+
+  }
+}
+

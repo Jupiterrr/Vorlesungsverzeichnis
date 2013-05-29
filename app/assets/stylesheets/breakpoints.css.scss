@@ -1,0 +1,11 @@
+@mixin breakpoint($point) {
+  @if $point == mobil {
+    @media only screen and (max-width: 767px) { @content; }
+  }
+  @if $point == big {
+    @media only screen and (min-width: 767px) { @content; }
+  }
+  // @else if $point == mama-bear {
+  //   @media (max-width: 1250px) { @content; }
+  // }
+}

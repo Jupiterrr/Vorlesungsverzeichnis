@@ -1,0 +1,32 @@
+header#topbar
+  .container          
+    
+    nav#main-nav
+      #menue-btn
+        .open-btn.icon-reorder
+        .close-btn.icon-remove
+      ul.inline
+        li
+          a href=vvz_index_path Vorlesungsverzeichnis
+        li
+          a href=map_index_path Karte
+        li
+          a href=page_path("about") Über das Projekt
+        - if feature(:login_btn, request) || authorized?
+          li.login
+            - if authorized?
+              a#signout href="javascript:;" title="abmelden" data-placement="bottom"
+                i.icon-off
+                |  
+                span abmelden
+            - else
+              button#signin signin
+            
+    h1#logo
+      - path = authorized? ? root_path : vvz_index_path
+      a href=path Vorlesungsverzeichnis
+
+
+- unless content_for?(:inline_flash)
+  .container
+    = render partial: "layouts/show_flash"

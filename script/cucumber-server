@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+require 'socket'
+
+PORT = 5326
+
+
+
+def start_server
+  puts ">> Stating cucumber server"
+  puts ">> Listening on 0.0.0.0:#{PORT}, CTRL+C to stop"
+  Socket.tcp_server_loop(PORT) do |sock, client_addrinfo|
+    begin
+      run()
+    ensure
+      sock.close
+    end
+  end
+end
+
+def run
+  2.times { puts }
+  3.times { puts "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ " }
+  puts
+  
+  system "clear" 
+  command = "bundle exec cucumber #{ARGV.join(" ")}"
+  system command
+end
+
+# def trigger
+#   # puts "Testserver is running."
+#   # Socket.unix("/tmp/sock") {|sock|
+#   #   sock.puts
+#   # }
+#   #nc localhost 5326
+# end
+
+
+#run()
+start_server()

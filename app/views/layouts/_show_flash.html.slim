@@ -1,0 +1,5 @@
+- map = {notice: "success", alert: "block", error: "error", info: "info"}
+- f = flash.to_hash.slice(:notice, :alert, :error)
+- f.each do |name, msg|
+  .alert class="alert-#{map.fetch(name, "block")}"
+    = msg

@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+system "clear" 
+system "rspec #{ARGV[0]}"

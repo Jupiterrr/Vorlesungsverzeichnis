@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -u # prevent unbound variables
+set -e # terminate on error
+
+echo "   Dowload backup"
+curl -o latest.dump `heroku pgbackups:url -a vorlesungsverzeichnis` >/dev/null 2>&1
+
+echo "   Restore backup"
+pg_restore --clean --no-acl --no-owner -h localhost -d vvz_dev latest.dump >/dev/null 2>&1 || true
+rm latest.dump
+
+echo "   Delete User Data"
+bundle exec rake db:clear_user
+
+echo "   Save new Backup"
+bundle exec rake db:backup["db/pg_dumps/production-image.sql"]
+
+
+#bundle exec rake db:restore[db/pg_dumps/production-image.sql]

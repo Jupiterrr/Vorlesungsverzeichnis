@@ -1,0 +1,7 @@
+- page_title @event.name
+.container
+  .content#event_page
+    = render partial: "header"
+    
+    #event-description-tab
+      = @event.j_description

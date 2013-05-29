@@ -1,0 +1,18 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require events
+ *= require basic
+ *2 = require font-awesome
+ *= require map
+ *= require timetable
+ *= require search
+ *= require users
+ *= require mobile
+ *= require sidebar
+ *= require typeahead
+ *= require dashboard
+ * require_tree . 
+ */

@@ -1,0 +1,10 @@
+- children.each do |c|
+	%li
+		- if c.children.nil?
+			%a.item(href="/vvz?a=#{c.id}")= c.name
+		- else
+			= c.name
+	- unless c.children.nil? 
+		%ol
+			= render :partial => "list", :locals => {:children => c.children}
+		

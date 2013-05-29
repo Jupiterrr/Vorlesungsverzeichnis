@@ -1,0 +1,8 @@
+.v3
+  input.super 
+  ul.results
+    - @children.each do |c|
+      - if c.instance_of? Event
+        li class="node event" data-event-id=c.id = c.name
+      - else
+        li class="node" data-vvz-id=c.id = c.name

@@ -1,0 +1,84 @@
+@import "breakpoints.css.scss";
+
+.timetable {
+
+  .event {
+    position: relative;
+    background: red;
+    border: 1px solid #000;
+  }
+
+  .name {
+    display: inline-block;
+    width: 250px;
+  }
+
+
+  // @for $j from 1 through 40 {
+  //   .start#{$j*15} { margin-left: $width * $j; }
+  // }
+
+
+
+}
+
+#timetable-page {
+
+  #ical_url {
+    @include breakpoint(mobil) {
+      width: 90%;
+    }
+  }
+}
+
+.wc-header {
+  table-layout: fixed;
+}
+
+.wc-time-header-cell {
+  font-size: 12px;
+}
+
+.wc-container {
+  min-width: 650px;
+}
+
+.wc-cal-event .wc-time {
+  font-size: 10px !important;
+}
+.wc-cal-event .wc-title {
+  font-size: 12px !important;
+  padding-top: 15px;
+}
+
+#calendar {
+  position: relative;
+  height: 500px;
+  overflow: auto;
+  width: 100%;
+}
+
+#calender-timetable-page {
+  .calendar td { height: 100px; width: 14.28%; }
+
+  .next-month, .previous-month {
+    display: inline-block;
+    padding: 0px 10px;
+  }
+
+  .event {
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid #eee;
+
+    &:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
+  }
+}
+
+
+
+

@@ -1,0 +1,17 @@
+language: ruby
+rvm:
+  - 1.9.3
+  #- 2.0.0
+env:
+  - DB=postgresql
+before_script:
+  #- cp config/database.yml.development-sample config/database.yml
+  - psql -c 'create database vvz_test;' -U postgres
+  - rake db:migrate
+  - export RUBY_GC_MALLOC_LIMIT=50000000
+bundler_args: --without development production
+script: 'bundle exec rspec && bundle exec script/cucumber'
+branches:
+  only:
+    - master
+    - dev

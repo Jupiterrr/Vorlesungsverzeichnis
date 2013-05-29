@@ -1,0 +1,29 @@
+= form_for @poi, :url => map_path(@poi) do |f|
+  -if @poi.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@poi.errors.count, "error")} prohibited this map_edit from being saved:"
+      ul
+        - @poi.errors.full_messages.each do |msg|
+          li= msg
+
+  .field
+    = f.label :name, "Name"
+    = f.text_field :name
+  .field
+    = f.label :building_no, "Gebäudenummer"
+    = f.text_field :building_no
+  .field
+    = f.label :address, "Adresse"
+    = f.text_field :address
+  #map-area
+    = render partial: "map"
+    #pos_changed Die Position wurde verändert.
+  .field
+    = f.hidden_field :lat, id: "form_lat"
+    = f.hidden_field :lng, id: "form_lng"
+
+  .form-actions
+      button.btn.btn-primary type="submit" Speichern
+      |  
+      button.btn Abbrechen
+

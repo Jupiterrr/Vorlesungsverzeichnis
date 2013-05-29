@@ -1,0 +1,10 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag "jquery.weekcalendar"
+- content_for :javascript do
+  = javascript_include_tag "timetable", defer: true
+
+javascript:
+  var events = #{raw @timetable.to_json};
+
+#calendar
+  | Stundenplan wird geladen ...

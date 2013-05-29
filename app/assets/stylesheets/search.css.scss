@@ -1,0 +1,85 @@
+#search_page {
+  
+  .results {
+    margin-top: 30px;
+  }
+
+  .result {
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 12pt;
+      margin: 0;
+      padding: 0;
+      line-height: inherit;
+
+      i.icon {
+        color: #bbb;
+      }
+    }
+    .description {
+      font-size: 0.9em;
+    }
+
+    .seperator {
+      color: #ccc;
+      &:before {
+        content: " | "
+      }
+    }
+
+  }
+
+  .pagination {
+    margin-top: 30px;
+
+    a {
+      padding: 4px 12px;
+      line-height: 20px;
+      font-size: 14px;
+    }
+  }
+
+
+}
+
+
+#map-page .search-input {
+  font-size: 11pt;
+}
+#map-page {
+  .poi-building_no {
+    color: #999;
+    font-size: 0.9em;
+    float: right;
+    //font-style: italic;
+    font-family: serif;
+    margin-left: 3px;
+  }
+}
+
+#vvz_search .add-on {
+  background-color: white;
+}
+
+.search-input {
+  position: relative;
+
+  .typeahead, .tt-hint {
+    padding-left: 27px;
+  }
+  .tt-suggestion {
+    min-width: 199px;
+  }
+  &:before {
+    font-family: FontAwesome;
+    content: "\f002";
+    left: 8px;
+    position: absolute;
+    top: 5px;
+    color: #bbb;
+    z-index: 50;
+  }
+
+}
+  

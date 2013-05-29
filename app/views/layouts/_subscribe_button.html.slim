@@ -1,0 +1,7 @@
+- if current_user
+  - if @event.subscribed?(current_user)
+    a.btn.subscribe-btn.btn-danger.subscribe href=event_unsubscribe_path(@event)
+      | abmelden
+  - else
+    a.btn.subscribe-btn.btn-success.unsubscribe href=event_subscribe_path(@event)
+      | anmelden

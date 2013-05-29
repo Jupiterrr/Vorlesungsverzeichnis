@@ -1,0 +1,26 @@
+- content_for :base_title, " - KIT Campusmap"
+- content_for :title, @poi.name
+p#notice = notice
+
+.container.map
+  .content
+    h2 
+      = @poi.name
+      nav
+        /= link_to 'Bearbeiten', edit_map_path(@poi)
+        / '|
+        = link_to 'Übersicht', map_index_path
+    #map-area.no-padding
+      = render partial: "map"
+    .info
+      p
+        i.icon-home 
+        | Gebäudenummer: 
+        = @poi.building_no
+      p
+        i.icon-envelope
+        = @poi.address
+      br
+      br
+      / p= @poi.type
+      / p= @poi.category

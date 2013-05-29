@@ -1,0 +1,101 @@
+#!/bin/sh
+#
+# bootstrap
+#
+# SETUP YOUR DEVELOPMENT ENVIRONMENT
+
+
+set -u # prevent unbound variables
+set -e # terminate on error
+
+
+
+#
+# Welcome to Vorlesungsverzeichnis
+#
+
+echo ""
+echo "  Vorlesungsverzeichnis"
+echo "  http://kit.carstengriesheimer.de"
+echo ""
+
+
+#
+# Check Ruby version
+#
+ruby_version=$(ruby -e 'puts RUBY_VERSION')
+
+if [[ $ruby_version < "1.9" ]]
+then
+  echo "ruby version is $ruby_version, but needs to be >=1.9" >&2
+  exit 1
+else
+  echo "  + Ruby found."
+fi
+
+# #
+# # Check for Redis
+# #
+# if test ! $(which redis-server)
+# then
+#   echo "  x You need to install Redis. If you use Homebrew, you can run:"
+#   echo "    brew install redis"
+#   exit
+# else
+#   echo "  + Redis found."
+# fi
+
+#
+# Check for Bundler
+#
+if test ! $(which bundle)
+then
+  echo "  Installing Bundler"
+  gem install bundler --no-rdoc --no-ri --quiet
+  which rbenv >/dev/null && rbenv rehash
+else
+  echo "  + Bundler found."
+fi
+
+#
+# Install gems
+#
+echo "  + Bootstrapping your Rubies."
+bundle install --without production --quiet
+which rbenv >/dev/null && rbenv rehash
+
+#
+# Check for PostgreSQL
+#
+if test ! $(which psql)
+then
+  echo "  x You need to install PostgreSQL: http://www.postgresql.org/download/"
+  exit
+else
+  echo "  + PostgreSQL found."
+fi
+
+#
+# Setup Database
+#
+echo "  + Bootstrapping your Database."
+rake db:create
+# psql -q -c 'CREATE DATABASE vvz_dev;' -U postgres && true
+# psql -q -c 'CREATE DATABASE vvz_test;' -U postgres && true
+rake db:restore[db/pg_dumps/production-image.sql]
+
+
+#
+# SUCCESS, BRO!
+#
+# echo "  + Configuration settings saved to config/play.yml."
+# echo "    Feel free to manually update the file anytime you'd like."
+
+
+#
+# Startup instructions
+#
+echo ""
+
+echo "  Good work. We're ready to rock."
+echo "  Run 'script/server' to start playing."

@@ -1,0 +1,8 @@
+.container
+  .content#calender-timetable-page
+    h1 Klausuren
+
+    ul
+      - @dates.each do |date|
+        li
+          = date.title + " " + date.start_time.strftime("%d.%m.%Y")

@@ -1,0 +1,22 @@
+
+- lo = "left_out" if data[:hidden]
+- first = "first" if data[:first]
+- last = "last" if data[:last]
+- classs = [lo, first, last].join(" ")
+
+.spalte class="#{classs}" data-level="#{data[:level]}" data-parentid="#{data[:obj].parent.id}"
+	- data[:obj].children.each do |c|
+	  - item_c = []
+	  - item_c.push("blatt") if c.children.empty?
+	  - item_c.push("active") if @path.include?(c.id)
+	  .item data-id="#{c.id}" class=item_c.join(" ")
+	    - if @admin
+	    	  .settings
+	    	    .edit
+	    a href="vvz?a=#{c.id}"
+  	    = c.name
+        
+	/ "⚑ " + 
+	/ - else
+	/ - active = @path.include?(i.id) ? "active" : ""
+	/ -	%a{:href=> "?a=#{i.id}", :class=> active, :"data-id"=>i.id}= i.name[1..-2]

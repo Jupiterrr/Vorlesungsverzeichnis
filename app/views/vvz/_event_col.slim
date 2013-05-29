@@ -1,0 +1,43 @@
+/ - if current_user
+/   - if current_user.events.include?(event)
+/     a.settings href="#{event_attend_url(event)}?no" title="nicht mehr teilnehmen"
+/       i.icon-minus.icon-white
+/   - else
+/     a.settings href="#{event_attend_url(event)}" title="teilnehmen"
+/       i.icon-plus.icon-white
+.event
+  header
+    h1
+      = event.name
+      small = " #{event.simple_type}"
+
+    p
+      = event.lecturer
+      br
+      a href=event.url = event.url
+
+    - if current_user
+      br
+      .settings
+        - if event.subscribed?(current_user)
+          a#subscribe.btn href=unsubscribe_event_path(event)
+            i.icon-minus 
+            |  abmelden
+        - else
+          a#subscribe.btn href=subscribe_event_path(event)
+            i.icon-plus 
+            |  teilnehmen
+
+  /- event.group_by_day.each do |d|
+    div
+      = to_german_day d["date"]
+      = " " + d["time"]
+      |   |   
+      = d["room"]
+
+  .description
+    = event.j_description
+
+
+  br
+  br

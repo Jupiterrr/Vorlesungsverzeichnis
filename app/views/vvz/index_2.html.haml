@@ -1,0 +1,23 @@
+- content_for :title, "Vorlesungsverzeichnis KIT WS11/12"
+.container
+	.page-header
+		%h1 Vorlesungsverzeichnis:
+		%p
+			Dieses Vorlesungsverzeichnis ist eine Kopie des <a href="http://studium.kit.edu/vvz">offiziellen Verzeichnisses</a> des <a href="http://www.kit.edu">Karlsruher Institut für Technologie</a> (KIT). Es enthält alle Vorlesungen und Lehrveranstaltungen für das Wintersemester 2011/12. 
+	
+	
+	#vvz2
+		.cols
+			- if @kategroien
+				%h3 Fakultäten
+				- @kategroien[:fakultaet].each do |c|
+					%a.item(href="/vvz?a=#{c.id}")= c.name[12..-1]
+				%h3 Sonstige 
+				- @kategroien[:sonstiges].each do |c|
+					%a.item(href="/vvz?a=#{c.id}")= c.name
+			
+			- if @kategorie
+				%h3= @kategorie[:name]
+				%ol
+					= render :partial => "list", :locals => {:children => @kategorie[:children]}
+				

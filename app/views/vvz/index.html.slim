@@ -1,0 +1,33 @@
+- if @event
+  - page_title @event.name
+- else
+  - page_title "#{human_term_name @term.name}" if @term != Vvz.current_term
+== javascript_include_tag "vvz", defer: true
+== javascript_include_tag preload_vvz_path(@term), defer: true
+
+.container.verzeichnis#vvz-page
+  .content
+    header
+      h1 KIT Vorlesungsverzeichnis
+      #terms-dropdown.btn-group
+        a.btn.selected-title href=vvz_path(@term) = human_term_name @term.name
+        button.btn.dropdown-toggle data-toggle="dropdown"
+          span.caret
+        ul.dropdown-menu
+          - @terms.each do |term|
+            li 
+              a href=vvz_path(term) = human_term_name(term.name)
+      form#vvz_search.form-search action=search_index_path
+        input type="hidden" name="type" value="vvz"
+        /.input-prepend
+          label.add-on for="vvz-search-i"
+            i.icon-search
+        .search-input
+          - term_name = @term.name.sub("_", " ").sub("-", "/")
+          input.typeahead id="vvz-search-i" data-term=@term.id type="search" name="q" value="" placeholder="Vorlesungssuche #{term_name}" autocomplete="off"
+      hr.clear
+    = render partial: "vvz"
+
+javascript:
+  window.current_path = #{@path};
+  window.eventID=#{@event ? @event.id : "null"}

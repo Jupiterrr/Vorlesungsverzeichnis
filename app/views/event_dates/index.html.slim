@@ -1,0 +1,23 @@
+h1 Listing event_dates
+
+table
+  tr
+    th Start time
+    th End time
+    th Room
+    th
+    th
+    th
+
+  - @event_dates.each do |event_date|
+    tr
+      td= event_date.start_time
+      td= event_date.end_time
+      td= event_date.room
+      td= link_to 'Show', event_date
+      td= link_to 'Edit', edit_event_date_path(event_date)
+      td= link_to 'Destroy', event_date, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Event date', new_event_date_path

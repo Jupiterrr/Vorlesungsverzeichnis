@@ -1,0 +1,13 @@
+<%= simple_form_for @event do |f| %>
+  <%= f.input :nr %>
+	<%= f.input :name %>
+	<%= f.input :lecturer %>
+  <%= f.input :type, :collection=> Event::TYPES %>
+  <%= f.input :term, :input_html => { :value => "ws11" }, :disabled=>true %>
+	<%= f.input :faculty %>
+	<%= f.input :link %>
+	<div class="actions">
+  	<%= f.button :submit, :class=> "btn primary" %>
+		<button type="reset" class="btn">​Cancel​</button>
+	</div>
+<% end %>

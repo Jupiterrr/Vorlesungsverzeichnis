@@ -1,0 +1,17 @@
+section#sidebar
+  
+  nav
+    a href="/vvz" Vorlesungsverzeichnis
+    a href="/events" Meine Veranstaltungen
+    section.shortcuts
+      - if current_user
+        - current_user.events.each do |event|
+          a href=event_url(event) = event.name
+    - if current_user 
+      a href="/signout" 
+        i.icon-adjust 
+        | abmelden
+    - else
+      a#signin href="/auth/browser_id" 
+        i.icon-adjust 
+        | anmelden

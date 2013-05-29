@@ -1,0 +1,27 @@
+section#vvz.no-padding
+  - col_count = @spalten.count
+  - col_count += 1 if @event
+  - hidden = col_count <= 3 ? "hidden" : ""
+  - back_path = vvz_path(@vvz)
+  a.back class=hidden href=back_path
+    i.icon-chevron-left
+  .box
+    - col_count = @spalten.count
+    - col_count +=1 if @event
+    - left = col_count > 3 ? (col_count - 3) * 330 : 0
+    .overflow style="-webkit-transform: translate(-#{left}px, 0);"
+      - @spalten.each do |spalte|
+        - col_count -= 1
+        - cclass = ""
+        - cclass += "slide_out " if 3 <= col_count
+        - cclass += "last " if col_count == 0
+        .spalte class=cclass
+          - spalte.each do |item|
+            - active = item[:active] ? "active" : ""
+            - if item[:item].is_a?(Event)
+              a.item href="/vvz/#{item[:parent].id}/events/#{item[:item].id}" class=active = item[:item].name
+            - else
+              a.item href="/vvz/#{item[:item].id}" class=active = item[:item].name
+      - if @event
+        .spalte.last
+          = render partial: "event_col", locals: {event: @event}

@@ -1,0 +1,34 @@
+development:
+   encoding: unicode
+   adapter: postgresql
+   host: localhost
+   username: postgres
+   database: vvz_dev
+   pool: 5
+   timeout: 5000
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test: &test
+  encoding: unicode
+  adapter: postgresql
+  host: localhost
+  username: postgres
+  database: vvz_test
+  pool: 5
+  timeout: 2000
+
+production: &production
+  encoding: unicode
+  adapter: postgresql
+  host: localhost
+  database: vvz_dev
+  pool: 5
+  timeout: 2000
+
+staging:
+  <<: *production
+
+cucumber:
+  <<: *test

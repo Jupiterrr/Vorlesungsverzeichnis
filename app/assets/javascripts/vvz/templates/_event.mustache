@@ -1,0 +1,37 @@
+<div class="event">
+  <header>
+    <h1>
+      {{name}}
+      <small>{{type}}</small>
+    </h1>
+
+    <p>
+      {{lecturer}}
+      <br />
+      <a class="external" href="{{url}}" target="_blank" rel="tooltip">{{url}}</a>
+    </p>
+
+    {{#authenticated}}
+    <br />
+    <div class="settings">
+      {{#subscribed}}
+        <a id="subscribe" class="btn" href="javascript:;">
+          <i class="icon-minus"></i> abmelden
+        </a>
+      {{/subscribed}}
+      {{^subscribed}}
+        <a id="subscribe" class="btn" href="javascript:;">
+          <i class="icon-plus"></i> teilnehmen
+        </a>
+      {{/subscribed}}
+    </div>
+    {{/authenticated}}
+
+  </header>
+
+  <div class="description">
+    {{{description}}}
+  </div>
+  <br />
+  <br />
+</div>

@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'socket'
+
+if File.exists?("/tmp/sock")
+  # puts "Testserver is running."
+  # Socket.unix("/tmp/sock") {|sock|
+  #   sock.puts
+  # }
+  #nc localhost 5326
+else
+  binding.pry
+  system "./script/test #{ARGV[0]}"
+  Socket.tcp_server_loop(5326) {|sock, client_addrinfo|
+    begin
+      system "./script/test #{ARGV[0]}"
+    ensure
+      sock.close
+    end
+  }
+end
+

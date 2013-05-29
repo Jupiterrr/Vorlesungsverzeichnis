@@ -1,0 +1,60 @@
+.v3 {
+	
+
+input {
+	width: 100%;
+	height: 50px;
+	font-size: 1.8em;
+	margin-top: 30px;
+	margin-left: -5px;
+}
+
+ul.results {
+	overflow: auto;
+	position: relative;
+	height: 600px;
+	background: #aaa;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	$x: 1%;
+	width: 100% - $x;
+	margin-left: $x / 2;
+	
+	li {
+		color: black;
+		margin: 0;
+		padding: 0;
+		font-size: 2em;
+		line-height: 2em;
+		
+		padding: 5px 10pt;
+		border-bottom: 1px solid black;
+		cursor: pointer;
+		
+		&:hover {
+			background: #ddd;
+		}
+		&:last-child {
+			border: 0;
+		}
+		
+		&.node:not(.event):before {
+			content: "→";
+			float: right;
+			
+		}
+		&.node.active {
+			background: blue;
+		}
+		
+		&:active {
+			background: white;
+		}
+		
+		/*
+		*/
+	}
+}
+
+}

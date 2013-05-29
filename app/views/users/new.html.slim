@@ -1,0 +1,18 @@
+- page_title "Anmeldung" 
+- content_for :inline_flash, true
+
+.container
+  .content#signup
+    header
+      h1
+        | Hallo. Wer bist du?
+      = render partial: "layouts/show_flash"
+
+    = simple_form_for @user, url: signup_path do |f|
+      = f.input :name, placeholder: "z.B. Paul", required: false
+      /= f.label :discipline_ids, "Studiengang"
+      = f.input :discipline_ids, collection: Discipline.order(:name).collect {|p| [ p.name, p.id ] }, prompt: 'Wähle deinen Studiengang', required: false, label: "Studiengang"
+
+      .actions
+        = f.button :submit, "Anmelden", :class=> "btn btn-primary"
+        a#wrong-persona.btn.btn-link href="javascript:;" Besitzt du schon ein Konto?

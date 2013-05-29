@@ -1,0 +1,24 @@
+*.swp
+.DS_Store
+.Trashes
+.bundle
+
+.env
+.rvmrc
+.ruby-version
+.ruby-gemset
+.rbenv
+.rbenv-version
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+/spec/tmp
+
+# Ignore the default SQLite database and db dumps
+/db/*.sqlite3
+/dbs/*.sql
+/dbs/*.sql.gz
+/db/structure.sql
+
+vvz.sublime-workspace

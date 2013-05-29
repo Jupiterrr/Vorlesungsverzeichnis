@@ -1,0 +1,35 @@
+/ - content_for :stylesheet do
+/   = stylesheet_link_tag "jquery.weekcalendar"
+/ - content_for :javascript do
+/   = javascript_include_tag "calender", defer: true
+
+.container
+  .content#calender-timetable-page
+    h1 Kalender - Klausuren
+    
+    - f @view == "tab"
+
+  /  | Anzeigen als: 
+    - params = request.GET.to_hash
+    - if params["view"] == "table"
+      | Tabelle
+    - else
+      - params["view"] = "tabel"
+      a href="?#{to_params(params)}" Tabelle
+    - if params["view"] == "list"
+      | Liste
+    - else
+      - params["view"] = "list"
+      a href="?#{to_params(params)}" Liste
+
+    = calendar @dates, start_day: :monday, params: request.GET do |date|
+      .event
+        = link_to date.title, date.event
+
+  /  - params = request.GET.to_hash
+    - if params["type"] == "exam"
+      - params.delete("type")
+      a href="?#{to_params(params)}" Alles Termine anzeigen
+    - else
+      - params["type"] = "exam"
+      a href="?#{to_params(params)}" Nur Klausuren anzeigen

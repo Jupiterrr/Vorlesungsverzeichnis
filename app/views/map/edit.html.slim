@@ -1,0 +1,10 @@
+.container.map
+   .content
+      h2 Ort bearbeiten
+      nav 
+         = link_to 'Show', map_path(@poi)
+         '|
+         = link_to 'Back', map_path 
+      hr.clear
+
+      == render 'form'

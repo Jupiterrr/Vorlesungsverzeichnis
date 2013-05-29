@@ -1,0 +1,22 @@
+footer
+  .container
+    .content
+      
+      #disclaimer-hint.pull-right
+        small
+          a href=page_path("about") style="color: #333;" Angaben ohne Gewähr
+
+      
+      a href="mailto: hallo@carstengriesheimer.de" Kontakt
+      - unless current_user
+        a#beta-login-link href="javascript:;" Beta-Login
+
+      - if feature(:facebook)
+        .social-btn
+          a.fb-like href="https://www.facebook.com/Vorlesungsverzeichnis" data-href="https://www.facebook.com/Vorlesungsverzeichnis" data-send="true" data-layout="button_count" data-width="136" data-show-faces="false" data-font="verdana"
+
+        .social-btn
+          a.twitter-share-button href="https://twitter.com/share" data-url="http://kit.carstengriesheimer.de" data-text="Das KIT Vorlesungsverzeichnis wie es sein sollte. Schön und schnell." data-via="KIT_VVZ" data-lang="de" data-related="KIT_VVZ"
+
+  #fame
+    | präsentiert von <a href="http://carstengriesheimer.de">Carsten</a>.

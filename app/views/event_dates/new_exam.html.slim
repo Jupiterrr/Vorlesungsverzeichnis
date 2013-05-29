@@ -1,0 +1,19 @@
+.container
+  .content#event_date_page
+    h1 Neuer Klausurtermin
+
+    = simple_form_for @event_date do |f|
+      -if @event_date.errors.any?
+        #error_explanation
+          h2 = "#{pluralize(@event_date.errors.count, "error")} prohibited this event_date from being saved:"
+          ul
+            - @event_date.errors.full_messages.each do |msg|
+              li= msg
+      
+      = f.input :start_time, label: "Datum", as: :date, start_year: Date.today.year, end_year: Date.today.year+1, order: [:day, :month, :year], required: true
+      = f.hidden_field :type
+
+      = f.button :submit, "Speichern"
+      br 
+      br
+      = link_to 'Back', event_dates_path

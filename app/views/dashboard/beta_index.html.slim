@@ -1,0 +1,43 @@
+.container.verzeichnis
+  .content
+    
+    aside.rigth-sidebar.wide
+      nav#feed-event-list
+        header.item 
+          | Meine Veranstaltungen 
+          a.pull-right.add-more-btn href=vvz_index_path title="mehr hinzufügen"
+            i.icon-plus-sign-alt
+        - if @user_events.empty?
+          .body.item.center
+            | Such dir deine Vorlesungen im 
+            a href=vvz_index_path Vorlesungsverzeichnis 
+            |  aus
+        - else
+          ul.unstyled
+            - @user_events.each do |event|
+              li
+                a href=event_path(event) = event.name
+      br
+      nav
+        ul.unstyled
+          li
+            a href=timetable_index_path Stundenplan
+          /li
+            a href=exam_timetable_index_path Klausuren
+
+    .main-small
+      ul#activity-feed.unstyled
+        - @upcomming.each do |date|
+          - event = date.event
+          li.activity
+            i.icon-time.icon
+            a href=event_path(event) = event.name
+            .event-date = upcomming_date(date)
+
+      /h2 Activity
+      /ul
+        - @activities.each do |activity|
+          li
+            = activity.inspect
+
+    .clearfix

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Usage: script/server
+# Starts the rails server.
+
+bundle exec rails server thin

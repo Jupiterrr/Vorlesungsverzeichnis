@@ -1,0 +1,27 @@
+#vvz .breadcrumb {
+	font-size: 0.9em;
+	padding: 3px 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	
+	a {
+		color: #7A93A0;
+		text-overflow: 
+		ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 150px;
+		display: inline-block;
+		-webkit-transition: max-width 0.3s ease-in-out;
+
+	}
+	
+	a:hover {
+		max-width: 400px;
+		-webkit-transition-delay: .4s;
+	}
+	
+	li {
+		display: inline-block;
+	}
+}

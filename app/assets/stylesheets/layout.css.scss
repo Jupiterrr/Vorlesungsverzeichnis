@@ -1,0 +1,168 @@
+@import "breakpoints.css.scss";
+
+::-webkit-scrollbar-thumb:vertical {background-color: #bbb; height:200px; }
+
+::-webkit-scrollbar-thumb:horizontal {background-color: #999; height:10px !important;}
+
+::-webkit-scrollbar { height:10px; width:7px; background: #eee; }
+
+
+
+header.page-header {
+  border-bottom: 0;
+  margin:0;
+}
+
+// h1 {
+//   color: #338C6D;
+//   //margin-top: 30px;
+//   font-size: 1.8em;
+//   font-weight: normal;
+//   span {
+//     color: #000;
+//   }
+// }
+h1 {
+    margin: 0;
+    font-size: 14pt;
+    font-weight: normal;
+    margin-bottom: 15px;
+    line-height: 22pt;
+}
+body h2 {
+    font-weight: normal;
+    font-size: 13.5pt;
+    margin-bottom: 0px;
+}
+
+
+.content, p {
+  font-size: 11pt;
+  line-height: 15pt;
+}
+p {
+  margin: 0 0 2em 0;
+}
+
+small {
+  font-size: .8em;
+}
+
+.topbar {
+  background: #75B7CB;
+  padding: 2px 0;
+}
+
+.container { width: 990px; }
+
+.content {
+  /*padding-left: 240px;
+  padding-top: 1px;*/
+  padding: 20px 30px 20px 20px;
+  
+  border-radius: 4px;
+  background: #fff;
+  margin: 0 0 0px 0;
+}
+
+footer {
+  
+  .content { 
+    background: none; 
+    padding-top: 10px;
+  }
+}
+.fb-comments {
+  display: block !important;
+  text-align: center;
+  margin-top: 35px;
+}
+
+#fame {
+  position: fixed;
+  bottom: 0px;
+  right: 3px;
+  font-size: 10px;
+  //background: #E3E3E2;
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+}
+.mobile #fame {
+  display: none;
+}
+
+.no-padding {
+  margin: 0 -30px 0 -20px;
+}
+
+.big-list {
+  h2 ~ ul {
+    -moz-column-count: 2; /* Firefox */
+    -webkit-column-count: 2; /* Safari and Chrome */
+    column-count: 2;
+  }
+  h2:first-child {
+    margin-top: 0;
+  }
+}
+
+.mobile .big-list {
+  h2 ~ ul {
+    -moz-column-count: 1; /* Firefox */
+    -webkit-column-count: 1; /* Safari and Chrome */
+    column-count: 1;
+  }
+
+}
+
+ul.inline {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  li {
+    margin: 0 10px 0 0;
+    display: inline;
+  }
+}
+
+header form {
+  margin-bottom: 0;
+}
+
+.social-btn {
+  display: inline-block;
+  height: 20px;
+  width: 136px;
+  position: relative;
+  margin-right: 5px;
+  vertical-align: text-bottom;
+}
+
+
+
+// CONTENT HEADER
+// --------------
+
+.content > header {
+  @include breakpoint(mobil) {
+    .tt-query, input.typeahead, .tt-hint {
+      -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+      box-sizing: border-box;         /* Opera/IE 8+ */
+      width: 100%;
+      padding: 14px 30px;
+    }
+    .twitter-typeahead { display: block !important; }
+  }
+}
+
+
+
+
+@import "vvz";
+@import "vvz/breadcrumb";
+@import "vvz/search";
+
+@import "v3";

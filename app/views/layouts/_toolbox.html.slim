@@ -1,0 +1,13 @@
+.dropdown.toolbox
+  button.icon-cogs.user-box.dropdown-toggle data-toggle="dropdown"
+  ul.dropdown-menu
+    li 
+      - if session[:nojs] 
+        a href="?nojs=0" Javascript: off
+      - else
+        a href="?nojs=1" Javascript: on
+    li 
+      a href="#" Login
+    / li.divider
+    
+

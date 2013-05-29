@@ -1,0 +1,32 @@
+.container
+  .content#event_page
+    = render partial: "header"
+
+    /a#add-exam-date.btn href=new_event_date_path(@event, type: :exam) 
+      i.icon-plus
+      |  Klausurtermin
+
+    - dates = @event.dates.order("start_time")
+    - if dates.count > 0
+      .dates
+        - future_dates, past_dates = dates.partition {|date| !date.end_time.past? }
+        h3 Termine
+        ul.unstyled.future_dates
+          - future_dates.each do |date|
+            li
+              .date= pretty_event_date(date)
+              span.seperator
+              .room
+                | Raum: 
+                = date.room
+        - if past_dates.count > 0
+          a.collapse-btn href="javascript:;" rel="collapse" data-target=".past_dates" Zeige verangene Termine
+          ul.unstyled.past_dates.hide
+            - past_dates.each do |date|
+              li
+                .date= pretty_event_date(date)
+                span.seperator
+                .room
+                  | Raum: 
+                  = date.room
+      

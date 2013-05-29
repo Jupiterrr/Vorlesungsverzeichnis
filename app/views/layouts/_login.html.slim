@@ -1,0 +1,22 @@
+
+.login
+  - if current_user
+    .dropdown
+      a.user-box.dropdown-toggle data-toggle="dropdown" href="#"
+        i.icon-user 
+        i.icon-caret-down
+      .dropdown-menu 
+        = current_user.name
+
+    i.seperator |
+    a.icon-signout.signout href="#" title="abmelden" rel="tooltip"
+
+    /= link_to "Abmelden", signout_path
+  - else
+    /img alt="Sign in" src="https://browserid.org/i/sign_in_red.png"
+    / button.signin Sign in
+    form method='post' action='/auth/browser_id/callback' noValidate='noValidate'
+      input type='hidden' name='assertion'/>
+      a#signin href="/auth/browser_id" Anmelden
+  script type="text/javascript"
+    | window.loggedIn=#{!!current_user};

@@ -1,0 +1,37 @@
+.container.verzeichnis
+  .content
+    h1 Meine Veranstaltungen 
+    aside.rigth-sidebar.wide
+      nav
+        ul.unstyled
+          li
+            a href=timetable_index_path Stundenplan
+          /li
+            a href=exam_timetable_index_path Klausuren
+
+    .main-small
+      #user-event-list
+        - if @user_events.empty?
+          .empty
+            | Wähe deine Vorlesungen im 
+            a href=vvz_index_path Vorlesungsverzeichnis 
+            |  aus
+          br
+        - else
+          ul.list
+            - @user_events.each do |event|
+              li.item
+                i.icon-book.icon
+                a.title href=event_path(event) 
+                  = event.name
+                .actions
+                  a.delete href=unsubscribe_event_path(event) title="entfernen"
+                    i.icon-trash
+
+      a.add-more-btn.btn href=vvz_index_path title="mehr hinzufügen"
+        i.icon-plus
+        |  Veranstaltungen hinzufügen
+
+    .clearfix
+
+    

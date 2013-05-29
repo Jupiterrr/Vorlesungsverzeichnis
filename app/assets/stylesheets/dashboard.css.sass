@@ -1,0 +1,57 @@
+@import "breakpoints.css.scss"
+
+
+#feed-event-list
+  
+  .add-more-btn
+    color: white
+    &:hover 
+      text-decoration: none
+      color: #60b044
+
+  li a 
+    padding-top: 6px
+    padding-bottom: 5px
+    font-size: 14px
+  
+  .item 
+    padding: 8px 10px 8px 8px
+    border-bottom: 1px solid #eeeeee
+  header 
+    background: #c3c3c3 //#f6f7f8
+    font-size: 16px
+
+.rigth-sidebar.wide 
+  width: 333px
+
+// #activity-feed
+  .activity
+    padding: 1em 0 1em 45px
+    position: relative
+    border-top: 1px solid #f1f1f1
+
+    &:first-child
+      border-top: 0
+
+    a
+      margin-right: 5px
+      display: inline-block
+
+    .event-date
+      color: #bbb
+      display: inline
+
+    .icon
+      position: absolute
+      //top: 15px
+      left: 11px
+      color: #bbb
+
+
+.main-small 
+  width: 595px
+  @include breakpoint(mobil)
+    width: auto
+
+.center
+  text-align: center

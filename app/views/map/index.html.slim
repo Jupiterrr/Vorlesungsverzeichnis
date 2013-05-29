@@ -1,0 +1,106 @@
+- if @poi
+  - page_title @poi.name
+- else
+  - page_title "Campus Karte"
+== javascript_include_tag "map", defer: true
+/
+  <style>
+    html, body, #map_canvas {
+      /* margin: 0;
+      padding: 0; */
+      height: 100%;
+    }
+  </style>
+| <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+.container#map-page.map
+  .content
+    header
+      h1 KIT Campus Karte
+      /input#map-search.input-medium.search-query type="search" placeholder="Suche nach Orten"
+      .search-input
+        input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
+      hr.clear
+      /a.btn.edit 
+        / rel="tooltip" title="Karte bearbeiten"
+        i.icon-edit
+        |  Karte Bearbeiten
+      
+    .no-padding
+      #map_canvas data-poi=@poi.to_json.to_json
+      
+    br
+    ul.flat#categories_selector.categories
+      - @groups.each do |group|
+        li
+          label.btn.btn-label for="ccb#{group.id}" style="border-left-color:#{@colors[group]};"
+            input id="ccb#{group.id}" type="checkbox" data-group-id=group.id data-pois=group.pois.map(&:id) data-color=@colors[group][1..6]
+            = group.name
+
+    br
+    = link_to "Liste aller Einrichtungen", list_map_index_path
+
+/
+  #edit_modal.modal.hide.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    .modal-header
+      button.close type="button" data-dismiss="modal" aria-hidden="true" 
+        i.icon-remove
+      h3#myModalLabel Karte bearbeiten
+    .modal-body
+      p Such dir einen Ort aus, den du bearbeiten möchtest:
+      br
+      .row
+        input.input-medium.search-query type="search" placeholder="Suche"
+        span.seperator
+        select
+          option value="" Auswahl
+          - @groups_with_orphan.each do |group|
+            optgroup label=group.name
+              - group.pois.each do |poi|
+                option value=poi.id = poi.name
+      br
+    .modal-footer
+      .btn.pull-left#add-poi-btn
+        i.icon-plus
+        |  Ort hinzufügen
+      a.btn data-dismiss="modal" Schließen
+  
+
+  #edit_modal2.modal.hide.fade tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true"
+    .modal-header
+      button.close type="button" data-dismiss="modal" aria-hidden="true" 
+        i.icon-remove
+      h3#myModalLabel2 Karte bearbeiten
+    .modal-body
+      label Name
+      input.span4 name="name" type="text"
+      .map style="height: 200px;"
+      label Kategorie
+      ul.flat.categories
+        - @groups.each do |group|
+          li
+            label.btn for="cb#{group.id}"
+              /input id="cb#{group.id}" type="checkbox" data-id=group.id
+              input id="cb#{group.id}" type="radio" name="categorie" value=group.id
+              = group.name
+    /  button.category_label title="entfernen"
+        | Gebäude 
+        i.icon-ok
+        i.icon-remove
+      button.category_label title="entfernen"
+        | Essen 
+        i.icon-ok
+        i.icon-remove
+        / icon-minus-sign
+      button.category_label.add title="hinzufügen"
+        | Parkplätze 
+        i.icon-plus
+    .modal-footer
+      a.btn.btn-primary.save_btn data-dismiss="modal" Speichern
+      a.btn data-dismiss="modal" Schließen
+
+/ preload overlay
+/ img src="/Campus-Sued.png" style="display: none;"
+
+javascript:
+  var pois = #{raw @js_pois.to_json};
+  var poi = #{raw @poi ? @poi.to_json.to_json : "null"};
