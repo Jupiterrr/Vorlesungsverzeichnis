@@ -19,6 +19,7 @@ $ script/server
 ## Built With
 - [Ruby on Rails](https://github.com/rails/rails) - Our back end is a Rails app.
 - [PostgreSQL](http://www.postgresql.org/) - Our main data store is in Postgres.
+- [Heroku](http://heroku.com/) - Our hosting platform is Heroku.
 
 <!---
 ## Documentation
