@@ -16,6 +16,11 @@ To start the server run
 $ script/server
 ```
 
+## Built With
+- [Ruby on Rails](https://github.com/rails/rails) - Our back end is a Rails app.
+- [PostgreSQL](http://www.postgresql.org/) - Our main data store is in Postgres.
+
+
 ## Documentation
 [Tomdoc](http://tomdoc.org/)
 
