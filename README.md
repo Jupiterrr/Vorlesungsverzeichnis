@@ -20,9 +20,10 @@ $ script/server
 - [Ruby on Rails](https://github.com/rails/rails) - Our back end is a Rails app.
 - [PostgreSQL](http://www.postgresql.org/) - Our main data store is in Postgres.
 
-
+<!---
 ## Documentation
 [Tomdoc](http://tomdoc.org/)
+--->
 
 <!---
 ## Testing
@@ -47,6 +48,7 @@ When you run test with the @javascript tag cucumber will use phantomjs and won't
 With a little hack you can now find the proper error message in `log/diagnostic.log`.
 But most often you can easily reproduce the error in your development environment.
 --->
+
 ## Author
 Carsten Griesheimer:
 [Twitter](https://twitter.com/jupiterrrr),
