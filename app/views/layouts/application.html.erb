@@ -5,7 +5,7 @@
     <%= page_title %>
   </title>
   <meta charset="utf-8">
-  
+
   <meta name="description" content="Dieses Vorlesungsverzeichnis ist eine verbesserte Kopie des offiziellen Verzeichnisses des Karlsruher Institut für Technologie (KIT). Es enthält Vorlesungen und Lehrveranstaltungen für das Sommersemester 2013.">
   <meta name="keywords" content="KIT, VVZ, Karlsruher Institut für Technologie, SS13, SS2013, Sommersemester 2013, Vorlesungsverzeichnis, Uni Karlsruhe, Campusmap, Karte">
   <meta name="language" content="de">
@@ -13,7 +13,7 @@
   <meta name="author" content="Carsten Griesheimer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  
+
   <%= csrf_meta_tags %>
   <%= render partial: "layouts/fb/meta" if feature(:facebook) %>
 
@@ -22,13 +22,13 @@
   <!-- <link href="http://fonts.googleapis.com/css?family=Muli:300,400,300italic,400italic" rel="stylesheet" type="text/css"> -->
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.2/css/font-awesome.min.css">
-  
+
   <%= stylesheet_link_tag "application" %>
   <%= yield :stylesheet %>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap-tooltip.js" defer></script>
-  
+
   <%= javascript_include_tag  "application", defer: true %>
   <%= yield :javascript %>
 
@@ -43,7 +43,7 @@
 
   <%= render :partial => "layouts/footer" %>
 
-  <%= render partial: "layouts/browserid_js" %>
+  <%= render partial: "layouts/browserid_js" unless feature(:backdoor) || authorized? %>
   <%= render partial: "layouts/analytics" if feature(:analytics) %>
   <%= render partial: "layouts/fb/like_setup" if feature(:facebook) %>
   <%= render partial: "layouts/uservoice" if feature(:uservoice) %>

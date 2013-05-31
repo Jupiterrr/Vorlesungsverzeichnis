@@ -2,7 +2,7 @@ class EarlyAccess < ActiveRecord::Base
   attr_accessible :mail
 
   def self.allowed?(mail)
-    exists?(mail: mail)
+    exists?(mail: mail) || !Features.feature(:restrict_beta_access)
   end
 
   def self.add(mail)

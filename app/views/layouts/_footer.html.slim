@@ -1,15 +1,18 @@
 footer
   .container
     .content
-      
+
       #disclaimer-hint.pull-right
         small
           a href=page_path("about") style="color: #333;" Angaben ohne Gewähr
 
-      
+
       a href="mailto: hallo@carstengriesheimer.de" Kontakt
       - unless current_user
-        a#beta-login-link href="javascript:;" Beta-Login
+        - if feature(:backdoor)
+          a href=backdoor_path Beta-Login
+        - else
+          a#beta-login-link href="javascript:;" Beta-Login
 
       - if feature(:facebook)
         .social-btn
