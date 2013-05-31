@@ -16,4 +16,13 @@ namespace :db do
     User.destroy_all
   end
 
+  task :seed_user => :environment do
+    user = User.create({
+      uid: "test@user.edu",
+      name: "Test User",
+      disciplines: [Discipline.first]
+    })
+    user.events << Event.find(:all, :order => "RANDOM()", :limit => 6)
+  end
+
 end
