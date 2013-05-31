@@ -13,10 +13,6 @@
 //= require vvz/backbone/column_manager
 //= require vvz/search
 
-//= require ../twitter/bootstrap-dropdown.js
-$(function() {
-  $('.dropdown-toggle').dropdown()
-})
 
 
 //1= require ../jquery

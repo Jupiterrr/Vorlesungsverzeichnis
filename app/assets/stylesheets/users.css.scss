@@ -9,7 +9,7 @@
 
    .list {
       list-style: none;
-      margin: 0; 
+      margin: 0;
    }
 
    .item {
@@ -26,6 +26,10 @@
       padding: 10px 10px;
       padding-left: 0;
       width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 530px;
    }
    .item:hover .title { text-decoration: underline; }
 
@@ -35,17 +39,29 @@
       padding-right: 8px;
    }
 
-   .actions { display: none; }
-   .item:hover .actions { display: table-cell; }
-   
-   .delete {
-      color: #c0c0c0;
-
-      &:hover { 
-         color: red; 
+   .actions {
+      display: table-cell;
+      visibility: hidden;
+      a.dropdown-toggle {
          text-decoration: none;
+         color: #ddd;
+         &:hover { color: #c2c2c2; }
+      }
+      .dropdown-menu {
+         top: 80%;
+         width: 140px;
+         left: 100%;
+         margin-left: -140px;
+         font-size: .8em;
+         min-width: 140px;
       }
    }
+
+   .item:hover .actions, .dropdown.open {
+      visibility: visible;
+   }
+   .dropdown.open a.dropdown-toggle { color: #c2c2c2; }
+
 
 }
 
@@ -61,11 +77,11 @@
    background: #eee;
    padding: 10px;
    margin: 0 -30px 0 -20px;
-   text-align: center; 
+   text-align: center;
 
    label {
       display: inline-block;
-      margin-right: 10px; 
+      margin-right: 10px;
    }
 
    input {
@@ -75,7 +91,7 @@
       font-size: 15px;
       border: 1px solid #E1E1E8;
       margin: 0;
-      margin-right: 10px; 
+      margin-right: 10px;
    }
 
 }
@@ -98,8 +114,8 @@ p {
    }
    input[type=text] {
       padding: 5px 10px;
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
       box-sizing: border-box;
       height: 100%;
    }

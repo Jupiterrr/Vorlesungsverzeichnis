@@ -9,11 +9,12 @@
 //2= require twitter/bootstrap
 //1= require_tree .
 
-//= require search 
+//= require search
 
 //1= require twitter/bootstrap-typeahead
 //0= require twitter/bootstrap/bootstrap-tooltip
-//= require lib/typeahead.min 
+//= require lib/typeahead.min
+//= require twitter/bootstrap-dropdown
 
 $(function() {
   $(".ical_url input").on("click", function() {
@@ -36,6 +37,8 @@ $(function() {
     }
   });
 
+  $('.dropdown-toggle').dropdown()
+
   $(window).on("styleChange", function(event, isMobile) {
     //console.log("stylechange", isMobile)
   })
@@ -54,5 +57,5 @@ $(function() {
   $(window).click(function() {
     $("#main-nav").removeClass("active");
   });
-  
+
 })
