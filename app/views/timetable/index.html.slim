@@ -6,15 +6,15 @@
     = render partial: "timetable"
     hr
     h2 Export
-    p 
-      | Verwende folgende Adresse, um über andere Anwendungen auf deinen Stundenplan zuzugreifen. Deine Termine werden dann z.B. in Google Kalender oder Apple Kalender angezeigt. Du kannst diese Adresse kopieren und in jeden Kalender einfügen, der das iCal-Format unterstützt. 
+    p
+      | Verwende folgende Adresse, um über andere Anwendungen auf deinen Stundenplan zuzugreifen. Deine Termine werden dann z.B. in Google Kalender oder Apple Kalender angezeigt. Du kannst diese Adresse kopieren und in jeden Kalender einfügen, der das iCal-Format unterstützt.
       br
       | Für einige Programme gibt es <a href="https://github.com/Jupiterrr/Vorlesungsverzeichnis/wiki/Stundenplan-exportieren" target="_blank">Anleitungen</a>.
-      
+
     .ical_url
-      label.control-label for="url" Kalender URL: 
-      input#ical_url.input-xxlarge value=timetable_ical_url(current_user.timetable_id) 
-      a.btn.btn-danger.btn-small href=regenerate_timetable_index_path
+      label.control-label for="url" Kalender URL:
+      input#ical_url.input-xxlarge value=timetable_ical_url(current_user.timetable_id)
+      /a.btn.btn-danger.btn-small href=regenerate_timetable_index_path
         i.icon-refresh
-        |  URL zurücksetzen 
+        |  URL zurücksetzen
     br
