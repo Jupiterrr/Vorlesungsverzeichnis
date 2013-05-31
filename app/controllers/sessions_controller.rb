@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   #   puts "Session Exception: " << e.inspect
   #   head 500
   end
-  
+
   def destroy
     session[:user_id] = nil
     session[:browserID_logout] = params[:r] != "browserid"
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
   # for cucumber testing only
   def backdoor
-    user = User.find_by_uid(params[:email])
+    user = User.find_by_uid("test@user.edu")
     session[:user_id] = user.id
     redirect_to root_url
   end

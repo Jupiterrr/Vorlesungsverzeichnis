@@ -1,6 +1,6 @@
 header#topbar
-  .container          
-    
+  .container
+
     nav#main-nav
       #menue-btn
         .open-btn.icon-reorder
@@ -15,13 +15,13 @@ header#topbar
         - if feature(:login_btn, request) || authorized?
           li.login
             - if authorized?
-              a#signout href="javascript:;" title="abmelden" data-placement="bottom"
+              a#signout href=signout_path title="abmelden" data-placement="bottom"
                 i.icon-off
-                |  
+                |
                 span abmelden
             - else
               button#signin signin
-            
+
     h1#logo
       - path = authorized? ? root_path : vvz_index_path
       a href=path Vorlesungsverzeichnis
