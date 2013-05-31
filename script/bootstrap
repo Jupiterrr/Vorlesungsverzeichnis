@@ -83,7 +83,7 @@ rake db:create
 # psql -q -c 'CREATE DATABASE vvz_dev;' -U postgres && true
 # psql -q -c 'CREATE DATABASE vvz_test;' -U postgres && true
 rake db:restore[db/pg_dumps/production-image.sql]
-
+rake db:seed_user
 
 #
 # SUCCESS, BRO!
