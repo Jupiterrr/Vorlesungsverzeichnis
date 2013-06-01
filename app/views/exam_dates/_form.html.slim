@@ -1,0 +1,18 @@
+= simple_form_for @exam_date do |f|
+  - if @exam_date.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@exam_date.errors.count, "error")} prohibited this exam_date from being saved:"
+      ul
+        - @exam_date.errors.full_messages.each do |message|
+          li = message
+
+  = f.input :discipline_id, collection: Discipline.order(:name).collect {|p| [ p.name, p.id ] }, prompt: 'Wähle einen Studiengang', required: true, label: "Studiengang"
+
+  = f.input :name, required: true
+
+  = f.input :date, label: "Datum", required: true
+
+  br
+
+  .actions
+    = f.submit 'Speichern', class: "btn"

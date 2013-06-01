@@ -1,0 +1,37 @@
+.container.verzeichnis
+  .content
+    h1 Klausurtermine
+    ul.nav.nav-pills
+      - @disciplines.each do |discipline, exam_dates|
+        li
+          a href="##{discipline.name}" = discipline.name
+
+    - @disciplines.each do |discipline, exam_dates|
+      h2 id=discipline.name = discipline.name
+      .main-small
+        table.table.table-striped#exam-dates-table
+          - exam_dates.each do |exam_date|
+            tr
+              td.main
+                a href=exam_date_path(exam_date) = exam_date.name
+              td
+                span = exam_date.date.strftime("%d.%m.%Y")
+              td
+                .actions.dropdown
+                  a.dropdown-toggle data-toggle="dropdown" href="#"
+                    i.icon-chevron-down
+                  ul.dropdown-menu
+                    li
+                      = link_to 'Anzeigen', exam_date
+                    - if authorized?
+                      li
+                        = link_to 'Ändern', edit_exam_date_path(exam_date)
+                      li
+                        = link_to 'Löschen', exam_date, :confirm => 'Are you sure?', :method => :delete
+
+
+    br
+
+    a.add-more-btn.btn href=new_exam_date_path
+      i.icon-plus
+      |  Termin hinzufügen

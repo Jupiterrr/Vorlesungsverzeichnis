@@ -1,13 +1,16 @@
 KITBox::Application.routes.draw do
 
+  resources :exam_dates
+
+
   mount API => '/api'
 
   resources :dashboard, only: :index
   resources :documents, only: :new
   resources :search, only: :index
   resources :users, only: [:new]
-  
-  
+
+
   resources :timetable, only: :index do
     collection do
       get 'regenerate'
@@ -25,7 +28,7 @@ KITBox::Application.routes.draw do
     end
     resources :dates, controller: "event_dates", only: [:new, :create]
   end
-  
+
 
   resources :map, only: [:index, :show] do
     collection do
@@ -33,7 +36,7 @@ KITBox::Application.routes.draw do
       get 'list'
     end
   end
-  
+
 
   resources :vvz, only: [:index, :show, :preload] do
     member do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502215103) do
+ActiveRecord::Schema.define(:version => 20130601074624) do
 
   create_table "disciplines", :force => true do |t|
     t.string   "name"
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(:version => 20130502215103) do
   end
 
   add_index "documents", ["event_id"], :name => "index_documents_on_event_id"
+
+  create_table "early_accesses", :force => true do |t|
+    t.string   "mail"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "event_activities", :force => true do |t|
     t.integer  "event_id"
@@ -88,6 +94,20 @@ ActiveRecord::Schema.define(:version => 20130502215103) do
 
   add_index "events_vvzs", ["event_id"], :name => "index_events_vvzs_on_event_id"
   add_index "events_vvzs", ["vvz_id"], :name => "index_events_vvzs_on_vvz_id"
+
+  create_table "exam_dates", :force => true do |t|
+    t.integer  "event_id"
+    t.date     "date"
+    t.integer  "discipline_id"
+    t.hstore   "data"
+    t.string   "type"
+    t.string   "name"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "exam_dates", ["discipline_id"], :name => "index_exam_dates_on_discipline_id"
+  add_index "exam_dates", ["event_id"], :name => "index_exam_dates_on_event_id"
 
   create_table "pg_search_documents", :force => true do |t|
     t.text     "content"

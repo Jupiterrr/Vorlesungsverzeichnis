@@ -1,0 +1,16 @@
+.container.verzeichnis
+  .content
+    h1 = @exam_date.name
+    /p#notice = notice
+
+    p
+      strong Date:
+      = @exam_date.date
+    p
+      strong Discipline:
+      = @exam_date.discipline.name
+
+
+    = link_to 'Ändern', edit_exam_date_path(@exam_date)
+    '|
+    = link_to 'Zurück', exam_dates_path
