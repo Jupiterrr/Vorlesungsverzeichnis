@@ -8,20 +8,20 @@
     display: inline-block;
     position: relative;
   }
-  
-  #logo { 
-    margin: 0; 
+
+  #logo {
+    margin: 0;
     margin-left: 10px;
-    
+
     display: inline-block;
     font-size: 11pt;
-    margin-right: 15px; 
+    margin-right: 15px;
     line-height: 30px;
     a {
       text-decoration: none;
     }
-    // a:hover { 
-    //   color: lighten(#0069D6, 15%); 
+    // a:hover {
+    //   color: lighten(#0069D6, 15%);
     // }
   }
 
@@ -52,16 +52,16 @@
       margin: 0;
     }
 
-    a { 
+    a {
       font-weight: bold;
       margin-left: 10px;
-      
+
       padding: 0 5px;
       // color: #888;
       font-weight: normal;
 
-      &:hover {  
-        // text-decoration: none; 
+      &:hover {
+        // text-decoration: none;
         //background: #0069D6;
         //color: #fff;
         // color: #333
@@ -73,16 +73,23 @@
   }
 }
 
-.login { 
+#topbar nav .login {
+  margin-left: 2em;
 
   a {
     padding: 0 6px;
   }
 
   a:hover, a:hover .arrow-down {
-    color: #0069D6;
-    border-top-color: #0069D6;
+    color: #0069d6;
+    //border-top-color: #0069D6;
     text-decoration: none;
+  }
+
+  .user-name {
+    display: inline-block;
+    color: #333;
+    &:hover { text-decoration: underline; }
   }
 
   #signin {
@@ -92,6 +99,12 @@
     color: transparent;
     border: 0;
     background-repeat: no-repeat;
+  }
+
+  #signout {
+    margin-left: 0px;
+    color: #333;
+    margin-right: -8px;
   }
 
   #signout span {
@@ -142,21 +155,21 @@
   top: 5px; left: 5px;
 
   &:hover > button { color: #333; }
-  & > button { 
-    border: 0; 
-    background: transparent; 
-    color: rgba(0,0,0,0.15); 
+  & > button {
+    border: 0;
+    background: transparent;
+    color: rgba(0,0,0,0.15);
     font-size: 12pt;
   }
   .dropdown-menu a { color: #333;}
 
 }
 
-#crumbs { 
+#crumbs {
   list-style: none; margin: 0;
   margin: 0 0 .5em 0;
   font-size: 10pt;
-  
+
   li { display: inline;}
   li::after {
     content: ' › ';
@@ -169,6 +182,8 @@
   display: none;
 }
 @media only screen and (max-width: 767px) {
+
+  .login .user-name { display: none; }
 
   #menue-btn {
     display: inline-block;
@@ -194,7 +209,7 @@
   }
   #main-nav.active {
     #menue-btn, a {
-      color: white; 
+      color: white;
     }
     #menue-btn {
       background: #282A2D; //#E03736; //#282A2D;
@@ -211,14 +226,16 @@
       margin: 0;
       &:last-child { border-bottom: 0; }
     }
-    li a {
-      padding: 10px 13px; 
+    li a, #signout {
+      padding: 10px 13px;
       display: block;
       font-size: 1.2em;
       margin-left: 0;
       line-height: 18pt;
+      color: white;
+      &:hover { text-decoration: none; }
     }
-    
+
     .open-btn { display: none; }
     .close-btn { display: inline-block; }
   }

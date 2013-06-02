@@ -15,6 +15,7 @@ header#topbar
         - if feature(:login_btn, request) || authorized?
           li.login
             - if authorized?
+              a.user-name href="/" = current_user.name
               a#signout href=signout_path title="abmelden" data-placement="bottom"
                 i.icon-off
                 |
