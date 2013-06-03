@@ -7,7 +7,8 @@ html, body {
 	//font-family: 'Muli', arial, sans-serif;
 	font-family: 'Open Sans', arial, sans-serif;
 
-	background: $bg_color;
+	background: #F8F4E6 url(bg_noise.png) 0 0 repeat;
+	-webkit-font-smoothing: antialiased;
 }
 
 a, a:hover {
@@ -75,6 +76,10 @@ p.vorschlaege {
 	margin-top: 50px;
 }
 
+.content {
+	border: 1px solid #e5e5e5;
+}
+
 .tooltip-inner {
 	white-space: nowrap;
 }
@@ -136,6 +141,7 @@ form .field_with_errors {
 
 footer .content {
 	font-size: .9em;
+	border: 0;
 	a { margin-right: 10px;}
 	small { font-size: .9em; }
 }
