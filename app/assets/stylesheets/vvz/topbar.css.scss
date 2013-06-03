@@ -1,8 +1,8 @@
 @import "breakpoints.css.scss";
 
 #topbar {
-  padding-top: 15px;
-  padding-bottom: 5px;
+  padding-top: 1.2em;
+  padding-bottom: .8em;
 
   a {
     display: inline-block;
@@ -183,8 +183,8 @@
 }
 @media only screen and (max-width: 767px) {
 
-  .login .user-name { display: none; }
-
+  #topbar nav .login .user-name { display: none; }
+  #topbar nav .login #signout,  #topbar nav .login #signout:hover { color: white; }
   #menue-btn {
     display: inline-block;
     padding: 0 10px;

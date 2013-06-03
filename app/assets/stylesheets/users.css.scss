@@ -26,9 +26,9 @@
       padding: 10px 10px;
       padding-left: 0;
       width: 100%;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+      // text-overflow: ellipsis;
+      // white-space: nowrap;
+      // overflow: hidden;
       max-width: 530px;
    }
    .item:hover .title { text-decoration: underline; }
@@ -49,7 +49,7 @@
          &:hover { color: #c2c2c2; }
       }
       .dropdown-menu {
-         top: 80%;
+         top: 100%;
          width: 140px;
          left: 100%;
          margin-left: -140px;
