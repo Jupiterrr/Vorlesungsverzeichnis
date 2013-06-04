@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Vvz < ActiveRecord::Base
   has_and_belongs_to_many :events, uniq: true
-  has_ancestry primary_key_format: /.*/
+  has_ancestry
 
   include PgSearch
   multisearchable :against => [:name]
@@ -13,7 +13,7 @@ class Vvz < ActiveRecord::Base
                   }
 
   JSON_PREFIX = "#"
-  
+
   alias_attribute :leaf?, :is_leaf
   alias_attribute :is_leaf?, :is_leaf
 
@@ -25,7 +25,7 @@ class Vvz < ActiveRecord::Base
   def children!
     is_leaf? ? events : children
   end
-  
+
   def self.leafs
     where(is_leaf: true)
   end
@@ -37,7 +37,7 @@ class Vvz < ActiveRecord::Base
   def self.root
     roots.first
   end
-  
+
   def preload_id
     JSON_PREFIX + id.to_s
   end
@@ -67,19 +67,19 @@ class Vvz < ActiveRecord::Base
       end
       a.push mapping(siblings, self)
     end
-    
+
     unless children.empty?
       a.push mapping(children, nil)
     else
       a.push mapping(events, event)
     end
   end
-  
+
   def self.current_term
     terms = self.roots.first.children
     @@current_term ||= terms.find_by_name("SS_2013") || terms.first
   end
-  
+
   def self.find_or_current_term(id)
     id.nil? ? self.current_term : self.find(id)
   end
@@ -97,24 +97,24 @@ class Vvz < ActiveRecord::Base
   end
 
   def self.term(university, term_name)
-    root = self.university(university) 
+    root = self.university(university)
     root.children.find_by_name(term_name)
   end
 
   def term
     path[1]
   end
-  
+
   def vvz_path
     if vvz_node?
       # drops university and term id
-      path_ids[2..-1] 
-    else 
+      path_ids[2..-1]
+    else
       []
     end
   end
 
-  private 
+  private
 
   def self.terms
     root = university("KIT")
@@ -155,6 +155,6 @@ class Vvz < ActiveRecord::Base
       :value => "Steinbuch Centre for Computing"
     }
   ]
-  
+
 end
 

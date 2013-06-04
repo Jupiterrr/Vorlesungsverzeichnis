@@ -8,10 +8,10 @@ gem 'awesome_print'
 gem 'pry'
 
 # API
-gem 'grape'
-gem 'grape-swagger'
+gem 'grape', '>= 0.4.1'
+gem 'grape-swagger', '>= 0.5.0'
 gem 'rack-cors'
-gem 'garner'
+gem 'garner', '>= 0.3.2'
 
 # View
 gem 'slim-rails'
@@ -23,7 +23,7 @@ gem 'kaminari' # pagination
 
 # Database
 gem 'pg'
-gem 'ancestry'
+gem 'ancestry', '~> 2.0.0'
 # gem 'redis', :require=> false
 gem 'pg_search' # search
 gem 'ri_cal' # timetable -> ical
@@ -39,11 +39,11 @@ end
 
 group :production, :staging do
   gem 'memcachier'
-  gem 'dalli' # memcach
+  gem 'dalli', '>= 2.6.4' # memcach
   gem 'rack-cache', :require => 'rack/cache'
   # gem 'rack-contrib', :require => 'rack/contrib'
   gem 'therubyracer'
-  gem 'less-rails'
+  gem 'less-rails', '~> 2.3.3'
   gem 'thin'
 end
 
@@ -58,7 +58,7 @@ group :development do
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'meta_request', '0.2.5'
+  gem 'meta_request', '>= 0.2.5'
   gem 'taps'
 end
 
@@ -81,7 +81,7 @@ group :test do
   gem 'spork'
   gem 'vcr'
   gem 'timecop'
-  gem 'webmock', '< 1.10'
+  gem 'webmock', '>= 1.10'
 
   # gem 'rspec-prof'
 end
