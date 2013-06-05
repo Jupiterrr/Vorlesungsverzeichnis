@@ -1,12 +1,12 @@
 class Collection extends Backbone.Collection
   #class: "Colum:Collection"
   model: vvz.Node.Model
-  
+
   initialize: (models, options) ->
     if options && model = @get(options.activeID)
       @activeModel = model.activate()
 
-    @bind "change:active", (changedModel, active) -> 
+    @bind "change:active", (changedModel, active) ->
       if active == true && @activeModel != changedModel
         @deactivateActive()
         @activeModel = changedModel
@@ -32,9 +32,8 @@ class CollumnView extends Backbone.View
 
 class NodeCollumnView extends CollumnView
   # class: "NodeColum:View",
-  events: 
+  events:
     "enter" : "clicked"
-
 
   initialize: ->
     #console.log "NodeCollumnView init", @collection
@@ -42,7 +41,7 @@ class NodeCollumnView extends CollumnView
     #children = _.sortBy(children, (child) -> child.get("name"))
 
     @nodes = [] # NodeViews
-    
+
     # init views
     for item in @collection.models
       view = new vvz.Node.View
@@ -53,22 +52,22 @@ class NodeCollumnView extends CollumnView
 
     # if id = @get("activeID")
     #   activeNode = @collection.get(id)
-    #   console.log "activeNode", 
-    
+    #   console.log "activeNode",
+
   clicked: (event, view) ->
     # console.log "col clicked"
     @open(view.model)
     return false;
-  
+
   open: (model) ->
     #@close()
     if model.isEvent()
       view = new vvz.Event.EventView(parent: model)
     else
       collection = new vvz.Colum.Collection(model.get("children"))
-      view = new vvz.Colum.View 
+      view = new vvz.Colum.View
         collection: collection
-    
+
     #vvz.columnManager.add(view)
     vvz.columnManager.addAfter(this, view)
     @setHistory(model)
@@ -80,7 +79,7 @@ class NodeCollumnView extends CollumnView
   close: ->
     #console.log "close", @collection.activeModel
     vvz.columnManager.removeAfter(this)
-  
+
   render: ->
     $(@el).empty()
     if @nodes.length > 0

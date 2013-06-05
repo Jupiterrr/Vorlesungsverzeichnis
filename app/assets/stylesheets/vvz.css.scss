@@ -147,6 +147,9 @@ $col_width: 990px / 3 - 0.8;
     overflow-y: auto;
     float: left;
   }
+  .event-spalte {
+    width: $col_width*2;
+  }
 
   .spalte, .spalte.last:nth-child(1), .spalte.last:nth-child(2) {
     border-right: 1px solid #E2E2E2;
