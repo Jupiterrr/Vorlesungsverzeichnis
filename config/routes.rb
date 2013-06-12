@@ -1,13 +1,18 @@
 KITBox::Application.routes.draw do
 
+  resources :disciplines, only: [:index, :show] do
+    resources :exam_dates
+  end
+
+
   mount API => '/api'
 
   resources :dashboard, only: :index
   resources :documents, only: :new
   resources :search, only: :index
   resources :users, only: [:new]
-  
-  
+
+
   resources :timetable, only: :index do
     collection do
       get 'regenerate'
@@ -15,6 +20,7 @@ KITBox::Application.routes.draw do
     end
   end
   match '/timetable/:timetable_id.ics', to: 'timetable#ical', :as => :timetable_ical
+
 
 
   resources :events, only: [:show] do
@@ -25,7 +31,7 @@ KITBox::Application.routes.draw do
     end
     resources :dates, controller: "event_dates", only: [:new, :create]
   end
-  
+
 
   resources :map, only: [:index, :show] do
     collection do
@@ -33,7 +39,7 @@ KITBox::Application.routes.draw do
       get 'list'
     end
   end
-  
+
 
   resources :vvz, only: [:index, :show, :preload] do
     member do

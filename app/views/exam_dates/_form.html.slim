@@ -1,4 +1,4 @@
-= simple_form_for [ :discipline, @exam_date] do |f|
+= simple_form_for [@exam_date.discipline, @exam_date] do |f|
   - if @exam_date.errors.any?
     #error_explanation
       h2 = "#{pluralize(@exam_date.errors.count, "error")} prohibited this exam_date from being saved:"
@@ -6,13 +6,13 @@
         - @exam_date.errors.full_messages.each do |message|
           li = message
 
-  = f.input :name, required: true, label: "Fach / Veranstaltung"
+  = f.input :name, required: true, label: "Fach / Veranstaltung", input_html: {class:"input-xlarge"}
 
-  /= f.input :date, label: "Datum", as: :string, placeholder: "Beispiel: 5.8.2013"
   .input.string.required.exam_date_date
     = f.label :date, '<abbr title="required">*</abbr> Datum'.html_safe
-    = f.text_field :date, type: :date
-  /, required: true, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year]
+    = f.text_field :date, type: :date, class:"input-xlarge"
+
+  = f.input :text, as: :text, label: "Anmerkungen", input_html: {rows: 4, class:"input-xlarge"}
 
   br
 

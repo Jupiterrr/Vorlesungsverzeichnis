@@ -59,16 +59,16 @@ small {
   /*padding-left: 240px;
   padding-top: 1px;*/
   padding: 20px 30px 20px 20px;
-  
+
   border-radius: 4px;
   background: #fff;
   margin: 0 0 0px 0;
 }
 
 footer {
-  
-  .content { 
-    background: none; 
+
+  .content {
+    background: none;
     padding-top: 10px;
   }
 }
@@ -163,6 +163,5 @@ header form {
 
 @import "vvz";
 @import "vvz/breadcrumb";
-@import "vvz/search";
 
 @import "v3";

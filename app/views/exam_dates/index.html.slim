@@ -1,0 +1,27 @@
+.container.verzeichnis
+  .content
+    .pull-right
+        .btn-group
+          a.add-more-btn.btn href=new_discipline_exam_date_path(@discipline) title="Termin hinzufügen" rel="tooltip"
+            i.icon-plus
+        .btn-group
+          a.btn href="?style=list" class=(@style == "list" ? "active" : "") title="Listen Ansicht"
+            i.icon-list
+          a.btn href="?style=calendar" class=(@style != "list" ? "active" : "") title="Kalender Ansicht"
+            i.icon-calendar
+    h1
+      | Klausurtermine
+      | &nbsp;&nbsp;
+      .btn-group.dropdown-btn
+        a.btn.selected-title href=discipline_exam_dates_path(@discipline) = @discipline.name
+        button.btn.dropdown-toggle data-toggle="dropdown"
+          span.caret
+        ul.dropdown-menu
+          - Discipline.order(:name).all.each do |discipline|
+            li
+              a href=discipline_exam_dates_path(discipline) = discipline.name
+
+    - if @style == "list"
+      = render partial: "list"
+    - else
+      = render partial: "calendar"

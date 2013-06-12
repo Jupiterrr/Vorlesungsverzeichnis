@@ -1,0 +1,8 @@
+.container.verzeichnis
+  .content
+    h1 Studiengänge
+
+    ul
+      - @disciplines.each do |discipline|
+        li
+          a href=discipline_path(discipline) = discipline.name

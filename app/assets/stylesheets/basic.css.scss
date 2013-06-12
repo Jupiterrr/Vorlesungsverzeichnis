@@ -150,10 +150,13 @@ footer .content {
 	padding: 3px 8px;
 }
 
+.dropdown-btn ul {
+	max-height: 400px;
+	overflow-y: auto;
+}
 
 @import "vvz";
 @import "vvz/breadcrumb";
-@import "vvz/search";
 @import "vvz/topbar";
 
 @import "v3";

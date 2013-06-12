@@ -38,11 +38,23 @@ Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
   DatabaseCleaner.strategy = :truncation
 end
 
-After do |s| 
+Before do
+  DatabaseCleaner.start
+  # minimal seed data
+  node = Vvz.create name: "KIT"
+  node = node.children.create name: "term"
+  node = node.children.create name: "Node1"
+  node = node.children.create name: "Node2", is_leaf: true
+  node.events.create name: "Schwedisch 1", _type: "type"
+end
+
+
+
+After do |s|
   # fails fast
   Cucumber.wants_to_quit = true if s.failed?
   # signout
-  visit "http://localhost:2000/signout"
+  #visit "http://localhost:2000/signout"
   DatabaseCleaner.clean
 end
 
@@ -52,7 +64,7 @@ end
 
 # Spork.each_run do
 #   # This code will be run each time you run your specs.
-  
+
 #   Before('@selenium') do |scenario|
 #     Capybara.current_driver = :selenium
 #   end

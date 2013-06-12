@@ -1,21 +1,23 @@
-@wip
+
 Feature: Manage Exam Dates
 
 Background:
   Given I am logged in
-  Given I am on the exam dates page
-  Given Disciplines: Informatik
 
 Scenario: View Dates
-  Given I am logged out
-  Given a exam date named "Salatwettessen", "15.09.2013"
-  Given I am on the exam dates page
-  Then I should see "Salatwettessen"
-  And I should see "15.09.2013"
+  Given an exam date
+  And I am on my exam dates page
+  Then I should see the exam date
 
 Scenario: Add Exam Date
+  Given I am on my exam dates page
   When I click "Termin hinzufügen"
-  And I select "Informatik" from "exam_date_discipline_id"
-  And I fill in "exam_date_name" with "Informatik Hauptklausur"
-  And press "Speichern"
-  Then I should see "Informatik Hauptklausur"
+  And fill in the form and submit
+  Then I should see the exam date
+
+Scenario: Update Date
+  Given an exam date
+  And I am on the page of the exam date
+  When I click "Bearbeiten"
+  And I change the name and submit
+  Then I should see the updated exam date

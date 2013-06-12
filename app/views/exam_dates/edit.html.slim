@@ -1,0 +1,9 @@
+.container.verzeichnis
+  .content
+    h1 Klausurtermin bearbeiten
+
+    == render 'form'
+
+    = link_to 'Zurück', discipline_exam_date_path(discipline, @exam_date)
+    /= link_to 'Back', discipline_exam_dates_path(discipline)
+

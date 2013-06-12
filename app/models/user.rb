@@ -2,8 +2,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :events
   has_and_belongs_to_many :disciplines
   before_create :generate_timetable_id
-  
-  validates :uid, :name, :discipline_ids, :presence => true
+
+  validates :uid, :name, :disciplines, :presence => true
 
   def generate_timetable_id
     self.timetable_id = SecureRandom.urlsafe_base64

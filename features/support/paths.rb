@@ -27,6 +27,10 @@ module NavigationHelpers
       signup_path
     when 'the dashboard page'
       dashboard_index_path
+    when 'my exam dates page'
+      discipline_exam_dates_path(@current_user.disciplines.first)
+    when 'the page of the exam date'
+      discipline_exam_date_path(@exam_date.discipline, @exam_date)
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
       "Now, go and add a mapping in features/support/paths.rb"

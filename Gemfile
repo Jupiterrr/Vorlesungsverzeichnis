@@ -20,6 +20,7 @@ gem 'high_voltage'
 gem 'simple_calendar', '~> 0.1.8'
 gem 'sitemap_generator'
 gem 'kaminari' # pagination
+gem 'rails_autolink'
 
 # Database
 gem 'pg'
@@ -31,6 +32,8 @@ gem 'activerecord-postgres-hstore'
 
 # gem 'cancan' # authorization
 gem 'rspec_candy'
+
+gem 'validates_timeliness', '~> 3.0'
 
 group :production do
   gem 'newrelic_rpm'

@@ -42,6 +42,10 @@ $(function() {
   $(window).on("styleChange", function(event, isMobile) {
     //console.log("stylechange", isMobile)
   })
+
+  $("#js-exam-dates-disciplines").change(function(a, b) {
+    window.location = "#" + this.value
+  })
 })
 
 function isMobile() {

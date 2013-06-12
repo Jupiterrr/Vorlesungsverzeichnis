@@ -1,0 +1,52 @@
+.container
+  .content
+    - if authorized?
+      .pull-right
+        a.add-more-btn.btn.btn-small href=new_exam_calendar_exam_date_path(@discipline)
+          i.icon-plus
+          |  Termin hinzufügen
+    h1 Klausurtermine
+
+    .main-small
+
+      hr
+
+
+      a.exam-calendar-link href=calendar_exam_dates_path(@discipline) Kalender
+      h2 id=CGI::escape(@discipline.name) = @discipline.name
+
+
+      table.table.table-striped#exam-dates-table
+        - @discipline.exam_dates.sort{|x, y| x.date <=> y.date }.each do |exam_date|
+          tr
+
+            td.main
+              a href=exam_date_path(exam_date) = exam_date.name
+
+            td
+              span = exam_date.date.strftime("%d.%m.%Y")
+
+            - if authorized?
+              td
+                .actions.dropdown
+                  a.dropdown-toggle data-toggle="dropdown" href="#"
+                    i.icon-chevron-down
+                  ul.dropdown-menu
+                    li
+                      = link_to 'Anzeigen', exam_date
+                    - if authorized?
+                      li
+                        = link_to 'Ändern', edit_exam_date_path(exam_date)
+                      li
+                        = link_to 'Löschen', exam_date, :confirm => 'Are you sure?', :method => :delete
+
+        - if authorized?
+          tfoot
+            tr
+              td colspan=3
+                small
+                  a.add-more-btn href=new_exam_calendar_exam_date_path(@discipline)
+                    |  Termin hinzufügen
+
+
+

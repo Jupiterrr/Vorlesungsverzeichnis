@@ -1,0 +1,21 @@
+.container.verzeichnis
+  .content
+    .pull-right
+      .btn-group
+        a.add-more-btn.btn href=edit_discipline_exam_date_path(discipline, @exam_date)
+          i.icon-edit
+          |  Bearbeiten
+    h1 = "#{@exam_date.discipline.name} Klausurtermin:"
+
+    .exam-date-title
+      h1 = "#{@exam_date.name}"
+      h4 = @exam_date.date.strftime("%d.%m.%Y")
+
+
+    - if @exam_date.text.present?
+      p.exam-date-description.well
+        = auto_link h(@exam_date.text)
+
+    = link_to 'Bearbeiten', edit_discipline_exam_date_path(discipline, @exam_date)
+    '|
+    = link_to 'Zurück', discipline_exam_dates_path(discipline)

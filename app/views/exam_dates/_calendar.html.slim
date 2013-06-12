@@ -1,0 +1,17 @@
+- content_for :javascript do
+  = javascript_include_tag "exam_dates", defer: true
+
+- months = %w(Januar Februar März April Mai Juni Juli August September Oktober November Dezember)
+table.table.table-striped.exam-calendar-table
+  - 12.times do |i|
+    tr
+      td = months[i]
+      td
+        - month = DateTime.new(Time.now.year, i+1)
+        - month.days_in_month.times do |day|
+          - date = DateTime.new(Time.now.year, i+1, day+1)
+          - odd_week = date.cweek.odd?
+          - day_events = @exam_date_calendar.get_day(date)
+          a.calendar-day class=(odd_week.presence && "odd-week") data-exams=(day_events.presence && day_events.to_json) data-date=date.strftime("%d.%m.%Y") href="javascript:;"
+            span = day+1
+

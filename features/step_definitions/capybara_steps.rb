@@ -26,7 +26,8 @@ end
 
 When /^(?:|I )click "([^\"]*)"(?: within "([^\"]*)")?$/ do |link, selector|
   with_scope(selector) do
-    click_link(link)
+    #click_link(link)
+    first(:link, link).click
   end
 end
 
@@ -189,7 +190,7 @@ Then /^the "([^\"]*)" checkbox(?: within "([^\"]*)")? should not be checked$/ do
     end
   end
 end
- 
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -202,7 +203,7 @@ end
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   actual_params   = CGI.parse(URI.parse(current_url).query)
   expected_params = Hash[expected_pairs.rows_hash.map{|k,v| [k,[v]]}]
- 
+
   if actual_params.respond_to? :should
     actual_params.should == expected_params
   else

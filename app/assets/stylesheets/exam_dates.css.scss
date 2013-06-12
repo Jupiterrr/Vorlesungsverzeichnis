@@ -1,0 +1,60 @@
+// Place all the styles related to the exam_dates controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#exam-dates-table {
+  .main { width: 99%; }
+  td { white-space: nowrap; }
+  .actions a { text-decoration: none; }
+  .dropdown-toggle {
+    color: #ccc;
+  }
+  .open .dropdown-toggle, .dropdown-toggle:hover { color: #999; }
+}
+
+.calendar-day {
+  display: inline-block;
+  height: 22px;
+  width: 22px;
+  //margin-right: 1px;
+  text-align: center;
+  color: #000;
+  span {
+    font-size: 0.7em;
+
+  }
+  cursor: default;
+
+  &:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  ul { display:none; }
+  &.odd-week {
+    background: #eee;
+  }
+}
+.calendar-day[data-exams] {
+  cursor: pointer;
+  background: #F14E32;
+}
+
+.exam-calendar-table tr:hover td:first-child {
+  text-decoration: underline;
+}
+
+.exam-date-title {
+  margin: 1em 0 2em 0;
+  h1 {
+    margin-bottom: 0;
+    color: #4285f4;
+  }
+  h4 {
+    margin-top: 0;
+    font-weight: bold;
+    font-size: .9em;
+  }
+}
+
+
+
