@@ -117,7 +117,7 @@ task :remove_prefix_numbers => :environment do
   end
 end
 
-task :update_event_descriptions => :environment do 
+task :update_event_descriptions => :environment do
   require "fetcher/fetcher"
   hash = Fetcher.update_event_descriptions!()
   binding.pry
@@ -127,7 +127,7 @@ task :update_event_descriptions => :environment do
 end
 
 
-task :save_eventdesc => :environment do 
+task :save_eventdesc => :environment do
   a = []
   Event.all.each do |event|
     a << event.external_id
@@ -139,7 +139,7 @@ task :save_eventdesc => :environment do
   end
 end
 
-task :load_eventdesc => :environment do 
+task :load_eventdesc => :environment do
   hash = File.open("tmp/edesc.dump",'r') do|file|
     Marshal.load(file)
   end

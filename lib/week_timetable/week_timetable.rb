@@ -4,6 +4,7 @@ class WeekTimetable
   attr_reader :dates
 
   def initialize(event_dates=[])
+    #binding.pry
     reduced_dates = reduce_dates(event_dates)
     week_dates = map_dates_to_week(reduced_dates)
     @dates = week_dates

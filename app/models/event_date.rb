@@ -1,19 +1,19 @@
 class EventDate < ActiveRecord::Base
   belongs_to :event
   self.inheritance_column = nil
-  
+
   validates :start_time, presence: true
 
 
   #EventDate.where(event_id: events)
 
-  # scope :upcomming, lambda { 
+  # scope :upcomming, lambda {
   #   not_ended.where("DATE(start_time) = DATE(?) OR DATE(start_time) = DATE(?)", Time.now, Time.now + 1.day)
   # }
 
   scope :today, lambda { day(Time.now) }
 
-  scope :not_ended, lambda { 
+  scope :not_ended, lambda {
     where('end_time > ?', Time.now)
   }
 
@@ -49,18 +49,18 @@ class EventDate < ActiveRecord::Base
     t
   end
 
-  def start_time
-    correct_time read_attribute(:start_time)
+  def start_time_local
+    correct_time(start_time)
   end
 
-  def end_time
-    correct_time read_attribute(:end_time)
+  def end_time_local
+    correct_time(end_time)
   end
 
   private
 
   def correct_time(time)
-    time.in_time_zone("CET") - 1.hour
+    time.in_time_zone("Berlin")
   end
 
 end

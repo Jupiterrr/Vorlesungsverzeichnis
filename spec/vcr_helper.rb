@@ -3,6 +3,7 @@ require 'vcr'
 require 'awesome_print'
 require 'pry'
 require 'rspec_candy/matchers'
+require 'timecop'
 
 ENV["RAILS_ENV"] ||= 'test'
 
@@ -27,7 +28,7 @@ RSpec.configure do |config|
    config.filter_run :focus if FOCUS
    config.formatter = !FOCUS ? 'progress' : 'documentation'
    config.filter_run_excluding :long
-   config.extend VCR::RSpec::Macros
+
    # config.around(:each) do |example|
    #   Timeout::timeout(2) {
    #     example.run

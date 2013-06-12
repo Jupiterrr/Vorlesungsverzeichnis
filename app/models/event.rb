@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :event_dates, :dependent => :destroy #, :as => :dates
   has_many :activities, class_name: "EventActivity"
-  
+
   include PgSearch
   multisearchable :against => [:name, :nr, :lecturer, :description]
 
@@ -15,15 +15,15 @@ class Event < ActiveRecord::Base
       :trigram => {:prefix => true}
     }
 
-  # scope :today, lambda { 
+  # scope :today, lambda {
   #   joins(:event_dates).where("DATE(start_time) = DATE(?)", Time.now)
   # }
 
-  # scope :not_ended, lambda { 
+  # scope :not_ended, lambda {
   #   where('end_time > ?', Time.now)
   # }
 
-  # scope :tomorrow, lambda { 
+  # scope :tomorrow, lambda {
   #   joins(:event_dates).where("DATE(start_time) = DATE(?)", Time.now + 1.day)
   # }
 
@@ -57,7 +57,7 @@ class Event < ActiveRecord::Base
   def to_preload
     children = children!.map { |n| n.preload_id }
     [preload_id, name, children]
-  end 
+  end
 
   def preload_id
     JSON_PREFIX + id.to_s
@@ -68,7 +68,7 @@ class Event < ActiveRecord::Base
   end
 
   def dates; event_dates end
-    
+
   def week
     EventDate.week(id)
   end
@@ -77,14 +77,14 @@ class Event < ActiveRecord::Base
     groups = dates.group_by {|d| d["time"] + Date.parse(d["date"]).wday.to_s + d["room"] }
     groups.values.map(&:first)
   end
-  
+
   def self.to_ical(events)
     RiCal.Calendar do |cal|
       events.each do |event|
         event.dates.each do |date|
           start_time, end_time = date["time"].split("-")
           date_s = date["date"]
-          
+
           cal.event do |e|
             e.summary     = event.name
             #event.description = "First US Manned Spaceflight\n(NASA Code: Mercury 13/Friendship 7)"
@@ -109,7 +109,7 @@ class Event < ActiveRecord::Base
     end
     data
   end
-  
+
   # only rails should change these attributes
   SAFE_ATTRIBUTES = [:id, :created_at, :updated_at]
 
@@ -119,7 +119,7 @@ class Event < ActiveRecord::Base
 
   def save_attributes
     ignored_keys = SAFE_ATTRIBUTES.map(&:to_s)
-    self.attributes.except(*ignored_keys) 
+    self.attributes.except(*ignored_keys)
   end
 
   def find_or_create
@@ -144,6 +144,10 @@ class Event < ActiveRecord::Base
   rescue JSON::ParserError => e
     logger.warn e.message
     read_attribute(:description).html_safe
+  end
+
+  def find_by_no(event_no)
+    where("nr LIKE '%?'", event_no).first
   end
 
 end

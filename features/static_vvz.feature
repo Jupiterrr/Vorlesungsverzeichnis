@@ -1,18 +1,14 @@
-@wip
 Feature: Browsing static VVZ
 
-Background:
-  Given a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1"
+Scenario: Navigate to an event
+  Given a simple vvz hierarchy with an event
   And I am on the vvz page
+  When I navigate to the event
+  Then I see the event
 
-Scenario: Navigate to event
-  When I click "Node1"
-  When I click "Node2"
-  When I click "Schwedisch 1"
-  Then I see the "Schwedisch 1" vvz_event page
-
-# @wip
-# Scenario: Navigate back with back_button
-#   Given I navigated to the "Schwedisch 1" vvz_event page
-#   When I click the back button
-#   Then I see "Node 1"
+@wip
+Scenario: Navigate back with back_button
+  Given a simple vvz hierarchy with an event
+  And I am on the vvz page of the event
+  When I click the back button
+  Then I should be on the vvz root

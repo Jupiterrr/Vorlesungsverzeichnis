@@ -7,7 +7,7 @@ class TimetableController < ApplicationController
     @timetable = timetable.as_json
   end
 
-  def regenerate 
+  def regenerate
     current_user.generate_timetable_id
     current_user.save
     redirect_to action: "index"

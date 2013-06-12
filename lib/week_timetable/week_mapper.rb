@@ -1,5 +1,3 @@
-require_relative "event_date_proxy"
-
 class WeekTimetable
 
   # Maps dates to a given Week
@@ -12,24 +10,19 @@ class WeekTimetable
 
     def map_dates_to_week(event_dates, week=Time.now)
       event_dates.map do |event_date|
-        ed_proxy = EventDateProxy.new(event_date)
-        ed_proxy.start_time = map_date_to_week(event_date.start_time, week)
-        ed_proxy.end_time = map_date_to_week(event_date.end_time, week)
-        ed_proxy
+        event_date.readonly! # prevent changes on the object in the db
+        event_date.start_time = map_date_to_week(event_date.start_time, week)
+        event_date.end_time = map_date_to_week(event_date.end_time, week)
+        event_date
       end
     end
 
     # maps the weekday index to a date in the current week
     def map_date_to_week(date, week=Time.now)
-      date = date.to_datetime
-      last_sunday = week.beginning_of_week - 1.day
-      new_date = last_sunday.advance({
-        days: date.wday,
-        hours: date.hour,
-        minutes: date.minute,
-        seconds: date.second
-      })
-      new_date = new_date.change(offset: date.zone)
+      date = date.to_datetime.utc
+      s = week.utc.beginning_of_week(:sunday) # last sunday
+      new_date = DateTime.new(s.year, s.month, s.day, date.hour, date.minute, date.second)
+      new_date = new_date.advance(days: date.wday)
       new_date
     end
 

@@ -1,11 +1,15 @@
 FactoryGirl.define do
-  #sequence(:name) { |n| "node #{n}" }
-  sequence(:external_id) { |n| "0x#{n}" }
 
-  factory :vvz do
+  factory :discipline do
+    name "Informatik"
   end
 
-  factory :event do |f|
-    external_id
+  factory :user do
+    uid "test@user.edu"
+    name "Test User"
+    disciplines {[FactoryGirl.create(:discipline)]}
   end
+
+
+
 end

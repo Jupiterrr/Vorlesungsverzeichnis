@@ -16,8 +16,8 @@ class Timetable
     @week_dates.map do |date|
       {
         "id" => date.event.id,
-        "start" => js_time(date.start_time),
-        "end" => js_time(date.end_time),
+        "start" => js_time(date.start_time_local),
+        "end" => js_time(date.end_time_local),
         "title" => date.event.name,
         "url" => event_url(date.event)
       }
