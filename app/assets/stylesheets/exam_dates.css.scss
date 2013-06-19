@@ -43,6 +43,9 @@
   &.odd-week {
     background: #eee;
   }
+  &.today {
+    border: 3px double #f7b42c;
+  }
 }
 .calendar-day[data-exams] {
   cursor: pointer;

@@ -11,7 +11,10 @@ table.table.table-striped.exam-calendar-table
           - date = DateTime.new(Time.now.year, i+1, day+1)
           - odd_week = date.cweek.odd?
           - day_events = @exam_date_calendar.get_day(date)
-          a.calendar-day class=(odd_week.presence && "odd-week") data-exams=(day_events.presence && day_events.to_json) data-date=date.strftime("%d.%m.%Y") href="javascript:;"
+          - classes = []
+          - classes << "odd-week" if odd_week.present?
+          - classes << "today" if date.today?
+          a.calendar-day class=classes.join(" ") data-exams=(day_events.presence && day_events.to_json) data-date=date.strftime("%d.%m.%Y") href="javascript:;"
             span = day+1
             .count
               - day_events.count.times do

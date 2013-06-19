@@ -1,7 +1,7 @@
 class ExamDatesController < ApplicationController
 
   before_filter :authorize #, except: [:index, :show, :calendar]
-  caches_action :index, :layout => false, cache_path: :index_cache_path.to_proc
+  caches_action :index, :layout => false, cache_path: :index_cache_path.to_proc, expires_in: 1.day
 
   def index
     @discipline = Discipline.find(params[:discipline_id])
@@ -70,21 +70,21 @@ class ExamDatesController < ApplicationController
   helper_method :show_calendar
 
   def expire_index
-    base = discipline_exam_dates_path(discipline)
-    expire_action "#{base}#calendar"
-    expire_action "#{base}#list"
+    expire_action cach_path("calendar")
+    expire_action cach_path("list")
   end
 
   protected
 
   def index_cache_path
-    base = discipline_exam_dates_path(discipline)
-    if show_calendar?
-      "#{base}#calendar"
-    else
-      "#{base}#list"
-    end
+    view = show_calendar? ? "calendar" : "list"
+    cach_path(view)
   end
 
+  def cach_path(view)
+    base = discipline_exam_dates_path(discipline)
+    day = Time.now.wday
+    "#{base}##{view}##{day}"
+  end
 
 end
