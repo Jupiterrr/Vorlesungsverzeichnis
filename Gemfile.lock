@@ -32,6 +32,8 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    acts_as_paranoid (0.4.2)
+      activerecord (~> 3.2)
     addressable (2.3.4)
     ancestry (2.0.0)
       activerecord (>= 3.0.0)
@@ -301,6 +303,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgres-hstore
+  acts_as_paranoid (~> 0.4.0)
   ancestry (~> 2.0.0)
   awesome_print
   better_errors

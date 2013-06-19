@@ -7,6 +7,7 @@ class ExamDate < ActiveRecord::Base
 
   serialize :data, ActiveRecord::Coders::Hstore
   include Rails.application.routes.url_helpers
+  acts_as_paranoid
 
   self.inheritance_column = nil
 

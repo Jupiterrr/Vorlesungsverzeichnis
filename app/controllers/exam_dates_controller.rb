@@ -53,6 +53,10 @@ class ExamDatesController < ApplicationController
     redirect_to discipline_exam_dates_path(discipline)
   end
 
+  def delete
+    destroy
+  end
+
   private
 
   def discipline

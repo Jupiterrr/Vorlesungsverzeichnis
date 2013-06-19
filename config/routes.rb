@@ -1,7 +1,9 @@
 KITBox::Application.routes.draw do
 
   resources :disciplines, only: [:index, :show] do
-    resources :exam_dates
+    resources :exam_dates do
+      get 'delete', on: :member
+    end
   end
 
 

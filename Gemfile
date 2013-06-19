@@ -29,6 +29,7 @@ gem 'ancestry', '~> 2.0.0'
 gem 'pg_search' # search
 gem 'ri_cal' # timetable -> ical
 gem 'activerecord-postgres-hstore'
+gem "acts_as_paranoid", "~>0.4.0"
 
 # gem 'cancan' # authorization
 gem 'rspec_candy'
