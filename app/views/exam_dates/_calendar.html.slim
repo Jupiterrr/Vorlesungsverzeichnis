@@ -13,4 +13,7 @@ table.table.table-striped.exam-calendar-table
           - day_events = @exam_date_calendar.get_day(date)
           a.calendar-day class=(odd_week.presence && "odd-week") data-exams=(day_events.presence && day_events.to_json) data-date=date.strftime("%d.%m.%Y") href="javascript:;"
             span = day+1
+            .count
+              - day_events.count.times do
+                | .
 

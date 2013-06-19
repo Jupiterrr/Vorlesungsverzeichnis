@@ -14,14 +14,24 @@
 
 .calendar-day {
   display: inline-block;
-  height: 22px;
+  height: 23px;
   width: 22px;
+  position: relative;
   //margin-right: 1px;
   text-align: center;
   color: #000;
   span {
-    font-size: 0.7em;
-
+    font-size: 0.75em;
+  }
+  .count {
+    position: absolute;
+    bottom: 0;
+    line-height: 100%;
+    text-align: right;
+    width: 100%;
+    color: #fff;
+    //opacity: 1;
+    font-weight: bold;
   }
   cursor: default;
 
@@ -36,7 +46,8 @@
 }
 .calendar-day[data-exams] {
   cursor: pointer;
-  background: #F14E32;
+  color: #FFF;
+  background-color: #0081C2;
 }
 
 .exam-calendar-table tr:hover td:first-child {
