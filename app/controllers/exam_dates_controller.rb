@@ -6,8 +6,8 @@ class ExamDatesController < ApplicationController
   def index
     @discipline = Discipline.find(params[:discipline_id])
     @dates = @discipline.exam_dates.order(:date)
-    @style = params[:style] == "calendar" ? "calendar" : "list"
-    if @style != "list"
+    @style = show_calendar? ? "calendar" : "list"
+    if show_calendar?
       @exam_date_calendar = ExamDateCalendar.new(@dates)
     end
   end
@@ -28,7 +28,7 @@ class ExamDatesController < ApplicationController
     @exam_date = discipline.exam_dates.new(params[:exam_date])
 
     if @exam_date.save
-      expire_action :action => :index
+      expire_index
       redirect_to discipline_exam_date_path(discipline, @exam_date), notice: 'Exam date was successfully created.'
     else
       render action: "new"
@@ -39,7 +39,7 @@ class ExamDatesController < ApplicationController
     @exam_date = ExamDate.find(params[:id])
 
     if @exam_date.update_attributes(params[:exam_date])
-      expire_action :action => :index
+      expire_index
       redirect_to discipline_exam_date_path(discipline, @exam_date), notice: 'Exam date was successfully updated.'
     else
       render action: "edit"
@@ -49,6 +49,7 @@ class ExamDatesController < ApplicationController
   def destroy
     @exam_date = ExamDate.find(params[:id])
     @exam_date.destroy
+    expire_index
     redirect_to discipline_exam_dates_path(discipline)
   end
 
@@ -59,10 +60,27 @@ class ExamDatesController < ApplicationController
   end
   helper_method :discipline
 
-  protected
-  def index_cache_path
-    style = params[:style] == "calendar" ? "calendar" : "list"
-    "#{request.path}##{style}"
+  def show_calendar?
+    params[:style] == "calendar"
   end
+  helper_method :show_calendar
+
+  def expire_index
+    base = discipline_exam_dates_path(discipline)
+    expire_action "#{base}#calendar"
+    expire_action "#{base}#list"
+  end
+
+  protected
+
+  def index_cache_path
+    base = discipline_exam_dates_path(discipline)
+    if show_calendar?
+      "#{base}#calendar"
+    else
+      "#{base}#list"
+    end
+  end
+
 
 end
