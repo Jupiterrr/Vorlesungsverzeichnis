@@ -1,0 +1,9 @@
+<osm-script>
+  <query type="way">
+    <has-kv k="amenity" v="university"/>
+    <bbox-query e="8.42702865600586" n="49.019971765823975" s="49.007305486084334" w="8.403854370117188"/>
+  </query>
+  <print mode="body"/>
+  <recurse type="down"/>
+  <print mode="skeleton"/>
+</osm-script>

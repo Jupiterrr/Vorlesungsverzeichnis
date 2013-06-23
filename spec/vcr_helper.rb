@@ -29,6 +29,7 @@ RSpec.configure do |config|
    config.formatter = !FOCUS ? 'progress' : 'documentation'
    config.filter_run_excluding :long
 
+   config.extend VCR::RSpec::Macros
    # config.around(:each) do |example|
    #   Timeout::timeout(2) {
    #     example.run
