@@ -18,10 +18,6 @@ class ApplicationController < ActionController::Base
       case current_user.authorize_status
       when :signup
         redirect_to signup_path
-      when :no_beta
-        session[:browserID_logout] = true
-        redirect_to vvz_index_path, alert: "#{current_user.uid} ist nicht für die Beta freigegeben."
-        session[:user_id] = nil
       when :ok
       end
     else

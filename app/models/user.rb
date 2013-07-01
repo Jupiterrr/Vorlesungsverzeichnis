@@ -15,11 +15,7 @@ class User < ActiveRecord::Base
 
   def authorize_status
     if new?
-      if EarlyAccess.allowed?(uid)
-        :signup
-      else
-        :no_beta
-      end
+      :signup
     else
       :ok
     end
@@ -36,10 +32,6 @@ class User < ActiveRecord::Base
       user.save validate: false
     end
     user
-  end
-
-  def allow!
-    EarlyAccess.add uid
   end
 
 end

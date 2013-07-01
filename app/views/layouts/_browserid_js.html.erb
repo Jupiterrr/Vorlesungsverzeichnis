@@ -14,22 +14,21 @@
   if (signinLink3) {
     signinLink3.onclick = function() { navigator.id.request(); };
   };
-   
+
   var signoutLink = document.getElementById('signout');
   if (signoutLink) {
-    signoutLink.onclick = function() { 
+    signoutLink.onclick = function() {
       navigator.id.logout(); };
   };
-  
+
   var currentUser = <%= browser_id_uid %>;
   console.log("currentUser", currentUser)
 
-  <%=raw "alert('logout');" if flash[:browser_id_logout] %>
   <% if session[:browserID_logout] %>
     <% session[:browserID_logout] = false %>
     <%= "navigator.id.logout();" %>
   <% end %>
-  
+
   navigator.id.watch({
     loggedInUser: currentUser,
     onlogin: function(assertion) {
@@ -39,12 +38,12 @@
         url: '/signin', // This is a URL on your website.
         data: {assertion: assertion},
         beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-        success: function(res, status, xhr) { 
+        success: function(res, status, xhr) {
           //console.log("login successful", res.email);
           //console.log("redirect", res.redirect)
           window.location = res.redirect;
         },
-        error: function(res, status, xhr) { 
+        error: function(res, status, xhr) {
           console.log("Login failure", res, status);
           alert("Login failure")
           navigator.id.logout();
