@@ -11,7 +11,7 @@
       height: 100%;
     }
   </style>
-| <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+| <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 .container#map-page.map
   .content
     header
@@ -20,14 +20,14 @@
       .search-input
         input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
       hr.clear
-      /a.btn.edit 
+      /a.btn.edit
         / rel="tooltip" title="Karte bearbeiten"
         i.icon-edit
         |  Karte Bearbeiten
-      
+
     .no-padding
       #map_canvas data-poi=@poi.to_json.to_json
-      
+
     br
     ul.flat#categories_selector.categories
       - @groups.each do |group|
@@ -42,7 +42,7 @@
 /
   #edit_modal.modal.hide.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
     .modal-header
-      button.close type="button" data-dismiss="modal" aria-hidden="true" 
+      button.close type="button" data-dismiss="modal" aria-hidden="true"
         i.icon-remove
       h3#myModalLabel Karte bearbeiten
     .modal-body
@@ -63,11 +63,11 @@
         i.icon-plus
         |  Ort hinzufügen
       a.btn data-dismiss="modal" Schließen
-  
+
 
   #edit_modal2.modal.hide.fade tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true"
     .modal-header
-      button.close type="button" data-dismiss="modal" aria-hidden="true" 
+      button.close type="button" data-dismiss="modal" aria-hidden="true"
         i.icon-remove
       h3#myModalLabel2 Karte bearbeiten
     .modal-body
@@ -83,16 +83,16 @@
               input id="cb#{group.id}" type="radio" name="categorie" value=group.id
               = group.name
     /  button.category_label title="entfernen"
-        | Gebäude 
+        | Gebäude
         i.icon-ok
         i.icon-remove
       button.category_label title="entfernen"
-        | Essen 
+        | Essen
         i.icon-ok
         i.icon-remove
         / icon-minus-sign
       button.category_label.add title="hinzufügen"
-        | Parkplätze 
+        | Parkplätze
         i.icon-plus
     .modal-footer
       a.btn.btn-primary.save_btn data-dismiss="modal" Speichern
