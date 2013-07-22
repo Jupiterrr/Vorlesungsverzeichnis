@@ -156,5 +156,16 @@ task :seed_disciplines => :environment do
   end
 end
 
+task :add_fak => :environment do
+  fak = Poi.create(
+    name: "Fak. Chemieingenieurwesen und Verfahrenstechnik",
+    lat: 49.0098201,
+    lng: 8.4132949,
+    building_no: "10.91",
+    address: "Kaiserstr. 12, 76131 Karlsruhe"
+  )
+  PoiGroup.find_by_name("Fakultäten").pois << fak
+end
+
 # ActiveRecord::Base.establish_connection
 # ActiveRecord::Base.connection.execute('DELETE FROM "events_vvzs"')
