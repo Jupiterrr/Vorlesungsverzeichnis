@@ -5,7 +5,7 @@ section#vvz.no-padding
   - back_path = vvz_path(@vvz)
   a.back class=hidden href=back_path
     i.icon-chevron-left
-  .box
+  .box role="tree"
     - col_count = @spalten.count
     - col_count +=1 if @event
     - left = col_count > 3 ? (col_count - 3) * 330 : 0
@@ -15,13 +15,13 @@ section#vvz.no-padding
         - cclass = ""
         - cclass += "slide_out " if 3 <= col_count
         - cclass += "last " if col_count == 0
-        .spalte class=cclass
+        .spalte class=cclass role="group"
           - spalte.each do |item|
             - active = item[:active] ? "active" : ""
             - if item[:item].is_a?(Event)
-              a.item href="/vvz/#{item[:parent].id}/events/#{item[:item].id}" class=active = item[:item].name
+              a.item href="/vvz/#{item[:parent].id}/events/#{item[:item].id}" class=active role="treeitem" = item[:item].name
             - else
-              a.item href="/vvz/#{item[:item].id}" class=active = item[:item].name
+              a.item href="/vvz/#{item[:item].id}" class=active role="treeitem" = item[:item].name
       - if @event
         .spalte.last
           = render partial: "event_col", locals: {event: @event}

@@ -1,41 +1,41 @@
 class Model extends Backbone.Model
   #class: "Node:Model",
-    
-  defaults: 
+
+  defaults:
     children: []
     active: false
-    
+
   initialize: ->
     #@set("url", @url)
 
   activate: ->
+    # console.log "aktivate", this
     @set(active: true)
-    
+
   deactivate: ->
     @set(active: false)
-    
+
   getChild: (id) ->
     children = @get("children")
     match = _.find(children, (child) -> child.id == id)
 
   isEvent: ->
     @get("isEvent")
-    
+
   url: ->
     if @isEvent()
       "/vvz/#{@get("parent").id}/events/#{@id}"
     else
-      "/vvz/#{@id}" 
+      "/vvz/#{@id}"
 
 
 class View extends Backbone.View
   #class: "Node:View",
-    
+
   template: HoganTemplates["vvz/templates/item"]
-  blatt: false
-    
+
   events:
-    "click": "clicked"
+    "click": "onClick"
 
   initialize: ->
     @model.bind('change', @render, this)
@@ -47,16 +47,17 @@ class View extends Backbone.View
     data.url = @model.url()
     html = @template.render(data)
     $(@el).html(html)
+    if @model.get("active")
+      $(@el).find("a").focus()
     return this
 
-  clicked: (event) ->
-    # console.log "click", this 
+  onClick: (event) =>
+    # console.log "click", this
     unless event.ctrlKey || event.metaKey
       @model.activate()
-      $(@el).trigger("enter", this)
-      false
+      return false
 
-  
+
 class Data
 
   attributes: {}
@@ -69,7 +70,7 @@ class Data
       children = item[3]
       children = (@parse(child) for child in children)
       isEvent = false
-      
+
     node = new Model
       id: item[0],
       name: item[1],
@@ -78,33 +79,33 @@ class Data
 
     for child in children
       child.attributes.parent = node
-    
+
     node
 
   seed: (node) ->
     @attributes.seed_data = node
     @attributes.root = @parse(node)
-    
+
 
   getPath: (id_array) ->
     rootID = id_array.shift()
     parent = @attributes.root
-    if parent.id != rootID 
+    if parent.id != rootID
       console.error("Path does not exist! Root ID wrong.", {rootID: parent.id, id: rootID})
-    
+
     getChildByID = (id) ->
       child = parent.getChild(id)
-      if !child 
+      if !child
         console.error("Path does not exist!", {path: id_array, id: id})
-      child 
+      child
 
     path = (getChildByID(id) for id in id_array)
-      
-  getRoot: -> 
+
+  getRoot: ->
     @attributes.root
 
 
-vvz.Node = 
+vvz.Node =
   View: View
   Model: Model
   Tree: new Data()

@@ -11,7 +11,7 @@ class vvz.ColumnManagerClass
     @styleChange(true)
     $(window).on("styleChange", => @styleChange())
     $(window).on("resize", @resize)
-    
+
 
   styleChange: (first) =>
     # console.log "set styleChange"
@@ -19,15 +19,13 @@ class vvz.ColumnManagerClass
     unless isMobile()
       $(".spalte").width('')
 
-    #console.log "width", @width
-    #@width = $(".spalte").width()+1;
-    @width = $("#vvz").width() / @maxColCount;  
+    @width = $("#vvz").width() / @maxColCount;
     @reorder(true) unless first
 
   resize: (e,v) =>
-    @width = $("#vvz").width() / @maxColCount; 
+    @width = $("#vvz").width() / @maxColCount;
     #console.log "resize width:", @width
-    if isMobile() 
+    if isMobile()
       $(".spalte").width(@width)
       @reorder(true)
 
@@ -40,11 +38,12 @@ class vvz.ColumnManagerClass
 
   add: (colView, noReorder) ->
     # console.log "add"#, colView
-    $(colView.el).width(@width) if isMobile() 
+    $(colView.el).width(@width) if isMobile()
     @push(colView)
     @reorder() unless noReorder
-  
+
   pop: (_delay) ->
+    # console.log "pop"
     col = @cols.pop()
     if _delay
       delay(200, -> col.remove())
@@ -57,11 +56,16 @@ class vvz.ColumnManagerClass
     speed = 0
     if i >= 0
       speed = if force then 0 else 250
-      x = if isMobile() then 1 else 0
+      x = 1#if isMobile() then 1 else 0
       $(".overflow").transition({ x: "#{-i*(@width+x)}px" }, speed, "ease-out");
+
+    for col, index in @cols
+      if @cols.length - 3 <= index
+      then col.show() else col.hide()
+
     delay 0, =>
       @back_btn.toggleClass("hidden", i <= 0)
-      
+
       $(".spalte").removeClass("last")
       last = _.last(@cols)
       last.collection.deactivateActive() if last.collection
@@ -76,16 +80,16 @@ class vvz.ColumnManagerClass
         else
           i -= 1
           if i > 0
-            delay 100, -> set_height() 
+            delay 100, -> set_height()
           else
             $("#vvz.mobile .box").height()
 
       delay 50, -> set_height()
-     
 
   back: =>
     # console.log "back"
     @pop(true)
+    _(@cols).last().collection.deactivateActive()
     @reorder()
 
   push: (colView) ->
@@ -101,4 +105,7 @@ class vvz.ColumnManagerClass
     for colView in colViews
       @add(colView, true)
     @reorder(true)
+
+
+
 

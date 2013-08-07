@@ -1,6 +1,6 @@
 class AppView extends Backbone.View
 
-  initialize: -> 
+  initialize: ->
     @el = $("#vvz .overflow")
     @back_btn = $("#vvz .back")
     @build(current_path)
@@ -13,12 +13,12 @@ class AppView extends Backbone.View
     # clone, because the original path object should not change
     path = _.clone(path)
     console.log "path", path
-    
+
     #existing_cols = @el.find(".spalte").toArray()
     @el.empty()
     @back_btn.attr("href", "javascript:;")
     cols = []
-    
+
     isEventPage = !!window.eventID
 
     # console.error("Cols missing", path) if isEventPage && path.length + 1 > existing_cols.length
@@ -27,7 +27,7 @@ class AppView extends Backbone.View
     # if isEventPage
     #   eventCol = existing_cols.pop()
 
-    root = vvz.Node.Tree.getRoot() 
+    root = vvz.Node.Tree.getRoot()
     cols.push @buildCol(root)
 
     parent = root
@@ -44,11 +44,27 @@ class AppView extends Backbone.View
       cols.push new vvz.Event.EventView parent: model
 
     vvz.columnManager.seed(cols)
-   
-  
+
+    console.log "App:", "ready"
+    vvz.ready = true
+
+    # @el.find("[role=treeitem]").first().focus()
+
+    # @lastFocus = null
+    # $(window).on('blur', -> @lastFocus = $(":focus")[0])
+    # $(window).on('focus', ->
+    #   delay 10, -> $(@lastFocus).focus()
+    # )
+    $(window).on("keydown", @handleKeyDown)
+
+
+
+
+
   buildCol: (model) ->
     collection = new vvz.Colum.Collection(model.get("children"))
-    new vvz.Colum.View 
+    model.set("childCollection", collection)
+    new vvz.Colum.View
       collection: collection
 
   enterNode: (model) ->
@@ -56,15 +72,30 @@ class AppView extends Backbone.View
     new_view = new vvz.Colum.View parent: model
     vvz.columnManager.add(new_view)
     new_view
-  
+
   enterEvent: (item) ->
     view = new vvz.Event.EventView model: item.model
     @addCol(view)
+
+  handleKeyDown: (e)=>
+    if e.altKey || e.ctrlKey || e.shiftKey || e.metaKey || e.target.tagName == "INPUT"
+      # do nothing
+      return true
+
+    switch e.keyCode
+      when 83 #s
+        $(".search-input .typeahead").focus()
+        return false
+      # when 86 #v
+      #   $(@el).find("a.active").last().focus()
+      #   return false
 
 
 @vvz ||= {}
 
 $ ->
-  vvz.columnManager = new vvz.ColumnManagerClass( $("#vvz .overflow") )
+  el = $("#vvz .overflow")
+  vvz.columnManager = new vvz.ColumnManagerClass(el)
+  vvz.keyNavigator = new vvz.KeyNavigation(el)
+  vvz.ready = false
   vvz.App = new AppView()
-  

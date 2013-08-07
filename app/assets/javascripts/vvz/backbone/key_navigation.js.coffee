@@ -28,7 +28,7 @@ class vvz.KeyNavigation
     if $(":focus").is("input")
       return true
 
-    if (e.keyCode != @keyCodes.tab) && (e.altKey || e.ctrlKey || e.shiftKey)
+    if e.altKey || e.ctrlKey || e.shiftKey || e.metaKey
       # do nothing
       return true
 
@@ -44,12 +44,12 @@ class vvz.KeyNavigation
 
     switch e.keyCode
       when @keyCodes.up
-        console.log "up"
+        # console.log "up"
         @up(e)
         e.stopPropagation()
         return false
       when @keyCodes.down, @keyCodes.tab
-        console.log "down"
+        # console.log "down"
         @down(e)
         e.stopPropagation()
         return false
@@ -71,7 +71,6 @@ class vvz.KeyNavigation
     $("a[role=treeitem].active").last().trigger("navUp")
 
   right: (e) ->
-    console.log "right"
     $("a[role=treeitem].active").last().trigger("navRight")
 
   left: (e) ->
