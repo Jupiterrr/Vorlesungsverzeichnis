@@ -61,9 +61,6 @@ module KITBox
     config.assets.initialize_on_precompile = false
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
-
-    config.middleware.use Rack::Deflater
-
     if Rails.env == 'test'
       require 'diagnostic'
       config.middleware.use(MyApp::DiagnosticMiddleware)
