@@ -9,6 +9,7 @@
 .ruby-gemset
 .rbenv
 .rbenv-version
+.rbenv-vars
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
