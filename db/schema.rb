@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601074624) do
+ActiveRecord::Schema.define(:version => 20130904234217) do
 
   create_table "disciplines", :force => true do |t|
     t.string   "name"
@@ -61,6 +61,9 @@ ActiveRecord::Schema.define(:version => 20130601074624) do
     t.string   "room"
     t.string   "type"
     t.integer  "event_id"
+    t.string   "uuid"
+    t.datetime "api_last_modified"
+    t.hstore   "data"
   end
 
   add_index "event_dates", ["event_id"], :name => "index_event_dates_on_event_id"
@@ -78,6 +81,9 @@ ActiveRecord::Schema.define(:version => 20130601074624) do
     t.datetime "updated_at"
     t.string   "external_id"
     t.text     "original_name"
+    t.text     "user_text_md"
+    t.hstore   "linker_attributes"
+    t.hstore   "data"
   end
 
   add_index "events", ["external_id"], :name => "index_events_on_external_id"
@@ -104,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20130601074624) do
     t.string   "name"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.time     "deleted_at"
   end
 
   add_index "exam_dates", ["discipline_id"], :name => "index_exam_dates_on_discipline_id"
