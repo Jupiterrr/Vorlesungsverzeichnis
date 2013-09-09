@@ -4,6 +4,7 @@ class EventDate < ActiveRecord::Base
 
   validates :start_time, presence: true
 
+  serialize :data, ActiveRecord::Coders::Hstore
 
   #EventDate.where(event_id: events)
 

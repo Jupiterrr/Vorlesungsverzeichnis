@@ -1,3 +1,4 @@
+source ENV['GEMFURY_URL'] if ENV['GEMFURY_URL']
 source 'http://rubygems.org'
 ruby '1.9.3'
 
@@ -6,6 +7,9 @@ gem 'unicorn'
 
 gem 'awesome_print'
 gem 'pry'
+gem 'pry-remote'
+
+gem 'kit_api' #, :path => File.join('..', 'kit_api')
 
 # API
 gem 'grape', '>= 0.4.1'

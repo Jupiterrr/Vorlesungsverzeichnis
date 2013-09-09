@@ -5,7 +5,10 @@ class Event < ActiveRecord::Base
   has_many :event_dates, :dependent => :destroy #, :as => :dates
   has_many :activities, class_name: "EventActivity"
 
-  include PgSearch
+  serialize :linker_attributes, ActiveRecord::Coders::Hstore
+  serialize :data, ActiveRecord::Coders::Hstore
+
+
   multisearchable :against => [:name, :nr, :lecturer, :description]
 
   pg_search_scope :vvz_search,
@@ -14,6 +17,7 @@ class Event < ActiveRecord::Base
       :tsearch => {:prefix => true},
       :trigram => {:prefix => true}
     }
+
 
   # scope :today, lambda {
   #   joins(:event_dates).where("DATE(start_time) = DATE(?)", Time.now)
@@ -131,13 +135,29 @@ class Event < ActiveRecord::Base
   end
 
   def j_description
+    in_view = ["SWS", "Website", "Vortragssprache", "VAB"]
+
     if data = read_attribute(:description)
       hash = JSON.parse data
-      text = hash.reduce("") do |s, item|
+      rest_hash = hash.except(*in_view)
+      text = rest_hash.reduce("") do |s, item|
         s << "<section class=\"desc\">"
         s << "<h4>%s</h4>" % item[0]
         s << item[1]
         s << "</section>"
+      end
+
+      if dates.present?
+        dates_s  = "<section class=\"desc\">"
+        dates_s += "<h4>Termine</h4>"
+        dates_s += '<ul class="unstyled">'
+        dates.each do |d|
+          dates_s += "<li class=\"event_col_date\">#{pretty_event_date(d)}</li>"
+        end
+        dates_s += "</ul>"
+        dates_s +=  "</section>"
+
+        text += dates_s
       end
       text.html_safe
     end
@@ -150,4 +170,17 @@ class Event < ActiveRecord::Base
     where("nr LIKE '%?'", event_no).first
   end
 
+
+
+  def pretty_event_date(date)
+    days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
+    s = date.start_time_local
+    e = date.end_time_local
+    if s.to_date == s.to_date
+      day = days[s.wday][0..1]
+      "#{day}, #{s.strftime("%H:%M")}-#{e.strftime("%H:%M")} Uhr, #{s.strftime("%d.%m.%Y")}<br /> #{date.room}".html_safe
+    else
+      "#{s.strftime("%d.%m.%Y %H:%M")} - #{e.strftime("%d.%m.%Y %H:%M")} - #{date.room}"
+    end
+  end
 end

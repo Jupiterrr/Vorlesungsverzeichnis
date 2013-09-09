@@ -6,7 +6,7 @@
 /     a.settings href="#{event_attend_url(event)}" title="teilnehmen"
 /       i.icon-plus.icon-white
 .event
-  header
+  header.padding
     h1
       = event.name
       small = " #{event.simple_type}"
@@ -14,30 +14,45 @@
     p
       = event.lecturer
       br
-      a href=event.url = event.url
+      a href=event.url KIT Vorlesungsverzeichnis
 
+  table.tip-bar
+    tr
+      td
+        - if event.data["sws"].present?
+          | SWS #{event.data["sws"]}
+      td
+        - if event.data["language"].present?
+          = event.data["language"] || "deutsch"
+      td
+        - if event.data["workspace_url"].present?
+          a href=event.data["workspace_url"] VAB
+      td
+        - if event.data["website"].present?
+          a href=event.data["website"] Website
+
+  section.padding
     - if current_user
       br
       .settings
         - if event.subscribed?(current_user)
           a#subscribe.btn href=unsubscribe_event_path(event)
-            i.icon-minus 
+            i.icon-minus
             |  abmelden
         - else
           a#subscribe.btn href=subscribe_event_path(event)
-            i.icon-plus 
+            i.icon-plus
             |  teilnehmen
 
-  /- event.group_by_day.each do |d|
-    div
-      = to_german_day d["date"]
-      = " " + d["time"]
-      |   |   
-      = d["room"]
+    /- event.group_by_day.each do |d|
+      div
+        = to_german_day d["date"]
+        = " " + d["time"]
+        |   |
+        = d["room"]
 
-  .description
-    = event.j_description
-
+    .description
+      = event.j_description
 
   br
   br

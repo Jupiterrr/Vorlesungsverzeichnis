@@ -77,7 +77,7 @@ class Vvz < ActiveRecord::Base
 
   def self.current_term
     terms = self.roots.first.children
-    @@current_term ||= terms.find_by_name("SS_2013") || terms.first
+    @@current_term ||= terms.find_by_name("WS 13/14") || terms.first
   end
 
   def self.find_or_current_term(id)

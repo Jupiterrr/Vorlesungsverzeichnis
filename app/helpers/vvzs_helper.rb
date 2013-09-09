@@ -1,7 +1,7 @@
 module VvzsHelper
   def tree_seed(node_hash)
     #node, children = node_hash.to_a.first
-    
+
     tree(node_hash).first.to_s.html_safe
   end
 
@@ -25,8 +25,8 @@ module VvzsHelper
   end
 
   def events_js(parent)
-    parent.events.map do |event| 
-      [event.id, event.name, 1]
+    parent.events.map do |event|
+      [event.id, event.name || "", 1]
     end
   end
 
@@ -43,18 +43,17 @@ module VvzsHelper
     "#{vvz_url(vvz)}/events/#{event.id}"
   end
 
-  def human_term_name(name)
+  def human_term_name(name, type=:normal)
     t = name.clone
     t.gsub!("_", " ")
-    t.gsub!("WS", "Wintersemester")
-    t.gsub!("SS", "Sommersemester")
-    # binding.pry
-    if t.include? "-"
-      puts t
-      a,b = t.match(/(\d+)-(\d+)/).captures
-      t.gsub!(/(\d+)-(\d+)/) {|y| "20#{a}/#{b}" }
+    unless type == :short
+      t.gsub!("WS", "Wintersemester")
+      t.gsub!("SS", "Sommersemester")
     end
-    
+    t.gsub!("-", "/")
+    if t =~ / \d\d\/\d\d/
+      t.gsub!(" ", " 20")
+    end
     t
   end
 end

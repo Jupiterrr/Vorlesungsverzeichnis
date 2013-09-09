@@ -209,10 +209,16 @@ $col_width: 990px / 3 - 0.8;
   }
 
   .event {
-    $padding_sides: 20px;
-    //width: $col_width - 2*$padding_sides;
-    padding: 20px $padding_sides;
-    word-wrap: break-word;
+
+    padding: 20px 0;
+
+    & > .padding {
+      $padding_sides: 20px;
+      //width: $col_width - 2*$padding_sides;
+      padding: 0 $padding_sides;
+      word-wrap: break-word;
+    }
+
 
     a {
       white-space: nowrap;
@@ -223,7 +229,7 @@ $col_width: 990px / 3 - 0.8;
     }
 
     & > header {
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     h1 {
@@ -254,6 +260,23 @@ $col_width: 990px / 3 - 0.8;
     section.desc {
       margin-bottom: 20px;
     }
+
+    .event_col_date {
+      margin-bottom: .5em;
+      line-height: 1.2em;
+    }
+
+
+
+    .tip-bar {
+      width: 100%;
+      text-align: center;
+      table-layout: fixed;
+      background-color: #f0f0f0;
+      margin-bottom: 20px;
+    }
+
+
 
     button {
       display: none;

@@ -32,7 +32,7 @@ module EventsHelper
   end
 
   def pretty_event_date(date)
-    days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag)
+    days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
     s = date.start_time_local
     e = date.end_time_local
     if s.to_date == s.to_date
