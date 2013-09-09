@@ -1,22 +1,13 @@
 #search_page {
-  
+
   .results {
     margin-top: 30px;
   }
 
   .result {
-    margin-bottom: 20px;
+    margin-bottom: 2em;
+    font-size: 11pt;
 
-    h2 {
-      font-size: 12pt;
-      margin: 0;
-      padding: 0;
-      line-height: inherit;
-
-      i.icon {
-        color: #bbb;
-      }
-    }
     .description {
       font-size: 0.9em;
     }
@@ -30,6 +21,16 @@
 
   }
 
+  .result.directory {
+    font-size: 1em;
+    margin-bottom: 1em;
+
+    i {
+      margin-left: 5px;
+      color: #bbb;
+    }
+  }
+
   .pagination {
     margin-top: 30px;
 
@@ -40,6 +41,9 @@
     }
   }
 
+  #big-search {
+    width: 500px;
+  }
 
 }
 
@@ -82,4 +86,3 @@
   }
 
 }
-  

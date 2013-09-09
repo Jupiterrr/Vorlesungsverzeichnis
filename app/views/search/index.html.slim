@@ -1,4 +1,4 @@
-- page_title "Suche" 
+- page_title "Suche"
 
 .container
   .content#search_page
@@ -7,54 +7,31 @@
 
     form.form-search
       input type="hidden" name="type" value="vvz"
-      input#big-search.search-query.input-xlarge  type="search" name="q" value=params[:q] autocomplete="off"
-      |  
-      button.btn type="submit" Suchen
+      .input-append
+        input#big-search.search-query.input-xlarge  type="search" name="q" value=params[:q] autocomplete="off"
+        button.btn type="submit" Suchen
+      '
+      select name="term" style="width: auto;"
+        - @terms.each do |term|
+          option value=term.id selected=@term==term = human_term_name(term.name, :long)
 
     - if @vvz_results && !@vvz_results.empty?
       .results
         - @vvz_results.each do |r|
-          .result
-            h2 
-              a href=vvz_url(r) 
-                = r.name
-              |  
-              i.icon.icon-folder-close
+          .result.directory
+            a href=vvz_url(r)
+              = r.name
+            |
+            i.icon.icon-folder-close
       hr
     - if @event_results
       ol.results.unstyled
         - @event_results.each do |r|
             li.result
-              h2 
-                /a href=event_url(r) = r.name
-                a href=vvz_event_url(r) = r.name
+              a href=vvz_event_url(r) = r.name
               .description
                 = r.simple_type
                 span.seperator
                 = r.lecturer
 
-      = paginate @event_results, theme: "bootstrap", param_name: "p" 
-
-
-/if @pagination
-  .pagination.pagination-small
-    ul
-      @pagination.each |p|
-        li.disabled
-          a href="#" «
-        li 
-          a href="#" 1
-        li 
-          a href="#" 2
-        li 
-          a href="#" 3
-        li 
-          a href="#" 4
-        li 
-          a href="#" »
-
-javascript:
-  $(function() {
-    $("#big-search").focus();
-  })
-  
+      = paginate @event_results, theme: "bootstrap", param_name: "p"
