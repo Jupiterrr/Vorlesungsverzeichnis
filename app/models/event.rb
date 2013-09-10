@@ -1,5 +1,8 @@
 class Event < ActiveRecord::Base
   include PgSearch
+  include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::UrlHelper
+
   has_and_belongs_to_many :vvzs#, uniq: true
   has_and_belongs_to_many :users
   has_many :event_dates, :dependent => :destroy #, :as => :dates
@@ -104,14 +107,15 @@ class Event < ActiveRecord::Base
 
   def as_json(user=nil)
     keys = [:name, :nr, :url, :lecturer].map(&:to_s)
-    data = self.attributes.slice(*keys)
-    data[:type] = simple_type.rstrip
-    data[:description] = j_description
+    hash = self.attributes.slice(*keys)
+    hash[:type] = simple_type.rstrip
+    hash[:description] = j_description
+    hash[:data] = data
     if user
-      data[:authenticated] = true
-      data[:subscribed] = subscribed?(user)
+      hash[:authenticated] = true
+      hash[:subscribed] = subscribed?(user)
     end
-    data
+    hash
   end
 
   # only rails should change these attributes
@@ -143,7 +147,7 @@ class Event < ActiveRecord::Base
       text = rest_hash.reduce("") do |s, item|
         s << "<section class=\"desc\">"
         s << "<h4>%s</h4>" % item[0]
-        s << item[1]
+        s << auto_link(item[1], sanitize: false)
         s << "</section>"
       end
 
@@ -159,7 +163,7 @@ class Event < ActiveRecord::Base
 
         text += dates_s
       end
-      text.html_safe
+      html = text.html_safe
     end
   rescue JSON::ParserError => e
     logger.warn e.message

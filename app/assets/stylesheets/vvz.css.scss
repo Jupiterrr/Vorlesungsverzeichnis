@@ -1,7 +1,7 @@
 @import "breakpoints.css.scss";
 
-$col_width: 312.4px;
-$col_width: 990px / 3 - 0.8;
+$content-width: 990px;
+$col_width: ($content-width - 3px) / 3;
 
 @-webkit-keyframes blink {
   0% { background: #E3E3E2; }
@@ -13,11 +13,6 @@ $col_width: 990px / 3 - 0.8;
   100% { background: #00ff00; }
 }
 
-
-.description {
-  margin-bottom: 1.0em;
-  line-height: 1.4em;
-}
 
 .mobile .verzeichnis {
 
@@ -211,12 +206,11 @@ $col_width: 990px / 3 - 0.8;
   .event {
 
     padding: 20px 0;
+    font-size: 10.5pt;
+    p, ul { font-size: 10.5pt; }
 
-    & > .padding {
-      $padding_sides: 20px;
-      //width: $col_width - 2*$padding_sides;
-      padding: 0 $padding_sides;
-      word-wrap: break-word;
+    > .padding {
+      padding: 0 20px;
     }
 
 
@@ -228,7 +222,7 @@ $col_width: 990px / 3 - 0.8;
       display: inline-block;
     }
 
-    & > header {
+    > header {
       margin-bottom: 20px;
     }
 
@@ -253,12 +247,15 @@ $col_width: 990px / 3 - 0.8;
       font-weight: bold;
       margin-bottom: 5px;
     }
+
+    .description {
+    }
+
     p {
-      font-size: 10pt;
-      margin: 0;
+      margin-bottom: .5em;
     }
     section.desc {
-      margin-bottom: 20px;
+      margin-bottom: 2em;
     }
 
     .event_col_date {
@@ -269,11 +266,20 @@ $col_width: 990px / 3 - 0.8;
 
 
     .tip-bar {
-      width: 100%;
-      text-align: center;
-      table-layout: fixed;
       background-color: #f0f0f0;
       margin-bottom: 20px;
+      // clearfix
+      &:before, &:after { content:""; display:table; }
+      &:after { clear:both; }
+      /* For IE 6/7 (trigger hasLayout) */
+      zoom:1;
+
+      .bar-item {
+        float: left;
+        margin-right: 1em;
+        display: inline-block;
+        &:empty, &:last-child { margin-right: 0; }
+      }
     }
 
 
@@ -314,12 +320,6 @@ $col_width: 990px / 3 - 0.8;
 }
 
 #vvz.mobile {
-  .overflow {
-    //width: auto;
-  }
-  .spalte {
-    //width: 100%;
-  }
   .slide_out {
     margin-left: -115%;
   }

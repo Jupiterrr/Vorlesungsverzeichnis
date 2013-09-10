@@ -1,5 +1,5 @@
 <div class="event">
-  <header>
+  <header class="padding">
     <h1>
       {{name}}
       <small>{{type}}</small>
@@ -8,9 +8,32 @@
     <p>
       {{lecturer}}
       <br />
-      <a class="external" href="{{url}}" target="_blank" rel="tooltip">{{url}}</a>
+      <a class="external" href="{{url}}" target="_blank" rel="tooltip">KIT Vorlesungsverzeichnis</a>
     </p>
 
+  </header>
+
+  <div class="tip-bar padding">
+    {{#data.sws}}
+      <div class="bar-item">SWS {{data.sws}}</div>
+    {{/data.sws}}
+    {{#data.language}}
+      <div class="bar-item">{{data.language}}</div>
+    {{/data.language}}
+    {{#data.workspace_url}}
+      <div class="bar-item">
+        <a href="{{data.workspace_url}}">VAB</a>
+      </div>
+    {{/data.workspace_url}}
+    {{#data.website}}
+      <div class="bar-item">
+        <a href="{{data.website}}">Website</a>
+      </div>
+    {{/data.website}}
+
+  </div>
+
+  <section class="padding">
     {{#authenticated}}
     <br />
     <div class="settings">
@@ -27,11 +50,10 @@
     </div>
     {{/authenticated}}
 
-  </header>
-
-  <div class="description">
-    {{{description}}}
-  </div>
+    <div class="description">
+      {{{description}}}
+    </div>
+  </section>
   <br />
   <br />
 </div>

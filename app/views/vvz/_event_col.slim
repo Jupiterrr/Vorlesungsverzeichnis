@@ -16,20 +16,19 @@
       br
       a href=event.url KIT Vorlesungsverzeichnis
 
-  table.tip-bar
-    tr
-      td
-        - if event.data["sws"].present?
-          | SWS #{event.data["sws"]}
-      td
-        - if event.data["language"].present?
-          = event.data["language"] || "deutsch"
-      td
-        - if event.data["workspace_url"].present?
-          a href=event.data["workspace_url"] VAB
-      td
-        - if event.data["website"].present?
-          a href=event.data["website"] Website
+  .tip-bar.padding
+    .bar-item
+      - if event.data["sws"].present?
+        | SWS #{event.data["sws"]}
+    .bar-item
+      - if event.data["language"].present?
+        = event.data["language"] || "deutsch"
+    .bar-item
+      - if event.data["workspace_url"].present?
+        a href=event.data["workspace_url"] VAB
+    .bar-item
+      - if event.data["website"].present?
+        a href=event.data["website"] Website
 
   section.padding
     - if current_user
