@@ -173,9 +173,11 @@ ul.flat, ol.flat {
   line-height: 18px;
 }
 .tooltipi {
-  max-width: 200px;
-  display: inline-block;
-  padding: 3px 8px;
+  max-width: 180px;
+  display: inline-block !important;
+  padding: 4px 8px;
+  font-size: 10pt !important;
+  line-height: 1.2em;
   color: #ffffff;
   text-align: center;
   text-decoration: none;
