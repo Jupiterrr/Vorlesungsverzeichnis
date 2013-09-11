@@ -12,17 +12,23 @@
   #logo {
     margin: 0;
     margin-left: 10px;
-
-    display: inline-block;
-    font-size: 11pt;
     margin-right: 15px;
+    display: inline-block;
+
+    font-family: 'Helvetica Neue', Helvetica;
+    font-size: 23px;
+    font-weight: bold;
     line-height: 30px;
+
     a {
       text-decoration: none;
+      -webkit-transition: color 0.1s ease-in 0;
+      -moz-transition: color 0.1s ease-in 0;
+      transition: all 0.1s ease-in;
     }
-    // a:hover {
-    //   color: lighten(#0069D6, 15%);
-    // }
+    a:hover {
+      color: lighten(#0069D6, 15%);
+    }
   }
 
   #page-search {
@@ -58,7 +64,7 @@
 
       padding: 0 5px;
       // color: #888;
-      font-weight: normal;
+      font-weight: bold;
 
       &:hover {
         // text-decoration: none;
