@@ -68,6 +68,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request', '>= 0.2.5'
   gem 'taps'
+  gem 'launchy'
 end
 
 group :development, :test do

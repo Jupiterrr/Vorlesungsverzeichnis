@@ -187,4 +187,10 @@ class Event < ActiveRecord::Base
       "#{s.strftime("%d.%m.%Y %H:%M")} - #{e.strftime("%d.%m.%Y %H:%M")} - #{date.room}"
     end
   end
+
+  def open
+    host = Rails.env.production? ? "www.kithub.de" : "localhost:3000"
+    Launchy.open("http://#{host}/vvz/#{vvzs.first.id}/events/#{id}")
+  end
+
 end
