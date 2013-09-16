@@ -1,5 +1,10 @@
 KITBox::Application.routes.draw do
 
+  constraints(:host => /kit.carstengriesheimer.de/) do
+    root :to => redirect("http://www.kithub.de")
+    match '/*path', :to => redirect {|params| "http://www.kithub.de/#{params[:path]}"}
+   end
+
   resources :disciplines, only: [:index, :show] do
     resources :exam_dates do
       get 'delete', on: :member
