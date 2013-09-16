@@ -5,6 +5,7 @@ require "vvz_updater/vvz_updater/tree_diff"
 require "vvz_updater/vvz_updater/tree_diff/pair_finder"
 require "vvz_updater/vvz_updater/event_linker"
 require "vvz_updater/vvz_updater/event_updater"
+require "vvz_updater/vvz_updater/event_date_updater"
 
 KitApi.logger.level = Logger::INFO
 
@@ -53,6 +54,21 @@ module VVZUpdater
       end
       worker.join
 
+      connection.disconnect
+    end
+
+    def update_event(db_event)
+      connection = KitApi::Connection.connect
+
+      # linker
+      db_leaf = db_event.vvzs.first
+      events = KitApi.get_events_by_parent(connection, db_leaf.external_id)
+      linker_event = events.find {|e| e.external_id == db_event.external_id}
+      EventLinker.new(db_leaf, db_leaf.term.name).update(linker_event)
+
+      # event updater
+      updater_event = KitApi.get_event(connection, db_event.external_id)
+      EventUpdater.new(db_event).update(updater_event)
       connection.disconnect
     end
 
@@ -122,16 +138,16 @@ module VVZUpdater
       connection.disconnect
     end
 
-    def update_event(id)
-      connection = KitApi::Connection.connect
+    # def update_event(id)
+    #   connection = KitApi::Connection.connect
 
-      db_event = Event.find(id)
-      event = KitApi.get_event(connection, db_event.external_id)
-      ap event
-      EventUpdater.new(db_event).update(event)
+    #   db_event = Event.find(id)
+    #   event = KitApi.get_event(connection, db_event.external_id)
 
-      connection.disconnect
-    end
+    #   EventUpdater.new(db_event).update(event)
+
+    #   connection.disconnect
+    # end
 
   end
 end

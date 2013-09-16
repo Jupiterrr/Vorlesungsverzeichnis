@@ -5,6 +5,7 @@ module VVZUpdater
 
       def initialize(db_event)
         @db_event = db_event
+        @date_updater = EventDateUpdater.new(:event_updater)
       end
 
       def update(event)
@@ -31,13 +32,12 @@ module VVZUpdater
             preconditions: attributes.fetch(:preconditions),
             contents: attributes.fetch(:contents),
             website: attributes.fetch(:website),
-            short_comment: attributes.fetch(:short_comment)
+            short_comment: attributes.fetch(:short_comment),
+            last_run: Time.now
           },
           description: description_hash(event).to_json
         })
-        #@db_event.data["event_last_modified"] = attributes.fetch(:last_modified)
-        #@db_event.data["last_scraped"] = Time.now
-        #update_dates(db_event, new_event.dates)
+        @date_updater.update(@db_event, event.dates)
       end
 
       def description_hash(event)
