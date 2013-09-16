@@ -1,7 +1,9 @@
 <script src="//login.persona.org/include.js"></script>
 <script type="text/javascript">
+  console.log(111);
   var signinLink = document.getElementById('signin');
   if (signinLink) {
+
     signinLink.onclick = function() { navigator.id.request(); };
   };
 

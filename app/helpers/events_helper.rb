@@ -33,8 +33,8 @@ module EventsHelper
 
   def pretty_event_date(date)
     days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
-    s = date.start_time_local
-    e = date.end_time_local
+    s = date.start_time + 1.hour
+    e = date.end_time + 1.hour
     if s.to_date == s.to_date
       day = days[s.wday]
       "#{day}, #{s.strftime("%d.%m.%Y <span class=\"seperator\" /> %H:%M")} - #{e.strftime("%H:%M")}".html_safe

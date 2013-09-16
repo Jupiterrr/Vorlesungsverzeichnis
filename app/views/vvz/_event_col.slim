@@ -32,7 +32,6 @@
 
   section.padding
     - if current_user
-      br
       .settings
         - if event.subscribed?(current_user)
           a#subscribe.btn href=unsubscribe_event_path(event)

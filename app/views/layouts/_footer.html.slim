@@ -10,9 +10,7 @@ footer
       a href="mailto: hallo@carstengriesheimer.de" Kontakt
       - unless current_user
         - if feature(:backdoor)
-          a href=backdoor_path Beta-Login
-        - else
-          a#beta-login-link href="javascript:;" Beta-Login
+          a href=backdoor_path Backdoor
 
       - if feature(:facebook)
         .social-btn

@@ -6,22 +6,24 @@ header#topbar
         .open-btn.icon-reorder
         .close-btn.icon-remove
       ul.inline
+        - if authorized?
+          li
+            a href=root_path Dashboard
         li
           a href=vvz_index_path Vorlesungsverzeichnis
         li
           a href=map_index_path Karte
         li
           a href=page_path("about") Über das Projekt
-        - if feature(:login_btn, request) || authorized?
-          li.login
-            - if authorized?
-              a.user-name href="/" = current_user.name
-              a#signout href=signout_path title="abmelden" data-placement="bottom"
-                i.icon-off
-                |
-                span abmelden
-            - else
-              button#signin signin
+        li.login
+          - if authorized?
+            a.user-name href="/" = current_user.name
+            a#signout href=signout_path title="abmelden" data-placement="bottom"
+              i.icon-off
+              |
+              span abmelden
+          - else
+            button#signin signin
 
     h1#logo
       - path = authorized? ? root_path : vvz_index_path

@@ -1,6 +1,7 @@
-.container.verzeichnis
+.container.verzeichnis.dashboard
   .content
     h1 Meine Veranstaltungen
+    hr
     aside.rigth-sidebar.wide
       nav
         ul.unstyled
@@ -12,10 +13,16 @@
     .main-small
       #user-event-list
         - if @user_events.empty?
-          .empty
-            ' Wähe deine Vorlesungen im
+          .emptyy
+            ' Wähle deine Vorlesungen im
             a href=vvz_index_path Vorlesungsverzeichnis
-            |  aus
+            |  aus.
+            br
+            br
+            div
+              a href=vvz_index_path
+                = image_tag "attend-tutorial.jpg", class: "img-polaroid"
+
           br
         - else
           ul.list
@@ -25,20 +32,23 @@
                 a.title href=event_path(event)
                   = event.name
                 .actions
-                  .dropdown
+                  a.remove-action href=unsubscribe_event_path(event) title="entfernen" rel="tooltip"
+                    i.icon-trash
+                  /.dropdown
                     a.dropdown-toggle data-toggle="dropdown" href="#"
                       i.icon-chevron-down
                     ul.dropdown-menu
                       li
                         a href=unsubscribe_event_path(event) Abmelden
 
+      hr
       a.add-more-btn.btn href=vvz_index_path title="mehr hinzufügen"
         i.icon-plus
         |  Veranstaltungen hinzufügen
-      '
-      a.btn.btn-small.btn-link href=unsubscribe_all_events_path onclick='return confirm("Willst du wirklich alle entfernen?")'
-        i.icon-trash
-        |  alle entfernen
+      - unless @user_events.empty?
+        a.remove-all style="margin-left:1em;" href=unsubscribe_all_events_path onclick='return confirm("Willst du wirklich alle entfernen?")'
+          i.icon-trash
+          |  alle entfernen
 
 
     .clearfix

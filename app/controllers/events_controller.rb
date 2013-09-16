@@ -32,16 +32,16 @@ class EventsController < ApplicationController
     event = Event.find(params[:id])
     current_user.events.delete event
     respond_to do |format|
-      format.html { redirect_to :back, notice: "Erfolgreich abgemeldet" }
-      format.json { render json: { message: "Erfolgreich abgemeldet" }  }
+      format.html { redirect_to :back, notice: "Erfolgreich entfernt" }
+      format.json { render json: { message: "Erfolgreich entfernt" }  }
     end
   end
 
   def unsubscribe_all
     current_user.events.clear
     respond_to do |format|
-      format.html { redirect_to :back, notice: "Erfolgreich abgemeldet" }
-      format.json { render json: { message: "Erfolgreich abgemeldet" }  }
+      format.html { redirect_to :back, notice: "Erfolgreich entfernt" }
+      format.json { render json: { message: "Erfolgreich entfernt" }  }
     end
   end
 

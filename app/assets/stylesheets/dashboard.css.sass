@@ -1,27 +1,39 @@
 @import "breakpoints.css.scss"
 
+.dashboard
+  .remove-all
+    margin-left: 1em
+    color: #999
+    &:hover
+      color: #DA4F49
+
+  .remove-action
+    color: #999
+    &:hover
+      color: #DA4F49
+      text-decoration: none
 
 #feed-event-list
-  
+
   .add-more-btn
     color: white
-    &:hover 
+    &:hover
       text-decoration: none
       color: #60b044
 
-  li a 
+  li a
     padding-top: 6px
     padding-bottom: 5px
     font-size: 14px
-  
-  .item 
+
+  .item
     padding: 8px 10px 8px 8px
     border-bottom: 1px solid #eeeeee
-  header 
+  header
     background: #c3c3c3 //#f6f7f8
     font-size: 16px
 
-.rigth-sidebar.wide 
+.rigth-sidebar.wide
   width: 333px
 
 // #activity-feed
@@ -48,7 +60,7 @@
       color: #bbb
 
 
-.main-small 
+.main-small
   width: 595px
   @include breakpoint(mobil)
     width: auto

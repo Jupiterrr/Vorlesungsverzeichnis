@@ -14,10 +14,11 @@ class Timetable
 
   def as_json
     @week_dates.map do |date|
+      binding.pry
       {
         "id" => date.event.id,
-        "start" => js_time(date.start_time_local),
-        "end" => js_time(date.end_time_local),
+        "start" => js_time(date.start_time + 1.hour),
+        "end" => js_time(date.end_time + 1.hour),
         "title" => date.event.name,
         "url" => event_url(date.event)
       }
