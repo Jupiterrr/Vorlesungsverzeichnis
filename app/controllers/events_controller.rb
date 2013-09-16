@@ -1,16 +1,16 @@
 class EventsController < ApplicationController
-    
+
   def show
     @event = Event.find(params[:id])
     respond_to do |format|
-      format.html { 
+      format.html {
         authorize
         @event = Event.find(params[:id])
       }
-      format.json do 
+      format.json do
         data = @event.as_json(current_user)
         data[:authenticated] = !!current_user
-        render json: data 
+        render json: data
       end
     end
   end
@@ -18,7 +18,7 @@ class EventsController < ApplicationController
   def dates
     @event = Event.find(params[:id])
   end
-  
+
   def subscribe
     event = Event.find(params[:id])
     event.subscribe current_user
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
       format.json { render json: { message: "Erfolgreich angemeldet" }  }
     end
   end
-  
+
   def unsubscribe
     event = Event.find(params[:id])
     current_user.events.delete event
@@ -37,5 +37,12 @@ class EventsController < ApplicationController
     end
   end
 
-  
+  def unsubscribe_all
+    current_user.events.clear
+    respond_to do |format|
+      format.html { redirect_to :back, notice: "Erfolgreich abgemeldet" }
+      format.json { render json: { message: "Erfolgreich abgemeldet" }  }
+    end
+  end
+
 end

@@ -36,6 +36,9 @@ KITBox::Application.routes.draw do
       get 'unsubscribe'
       get 'dates'
     end
+    collection do
+      get 'unsubscribe_all'
+    end
     resources :dates, controller: "event_dates", only: [:new, :create]
   end
 

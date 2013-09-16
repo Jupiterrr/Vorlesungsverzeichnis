@@ -6,14 +6,14 @@
         ul.unstyled
           li
             a href=timetable_index_path Stundenplan
-          li
+          /li
             a href=discipline_exam_dates_path(current_user.disciplines.first) Klausurtermine
 
     .main-small
       #user-event-list
         - if @user_events.empty?
           .empty
-            | Wähe deine Vorlesungen im
+            ' Wähe deine Vorlesungen im
             a href=vvz_index_path Vorlesungsverzeichnis
             |  aus
           br
@@ -35,6 +35,11 @@
       a.add-more-btn.btn href=vvz_index_path title="mehr hinzufügen"
         i.icon-plus
         |  Veranstaltungen hinzufügen
+      '
+      a.btn.btn-small.btn-link href=unsubscribe_all_events_path onclick='return confirm("Willst du wirklich alle entfernen?")'
+        i.icon-trash
+        |  alle entfernen
+
 
     .clearfix
 
