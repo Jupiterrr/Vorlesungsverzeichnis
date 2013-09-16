@@ -61,7 +61,8 @@ class EventDate < ActiveRecord::Base
   private
 
   def correct_time(time)
-    time.in_time_zone("Berlin")
+    # time.in_time_zone("Berlin")
+    time + 1.hour
   end
 
 end
