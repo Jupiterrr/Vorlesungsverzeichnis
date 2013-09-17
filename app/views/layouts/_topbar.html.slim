@@ -15,7 +15,7 @@ header#topbar
           a href=map_index_path Karte
         li
           a href=page_path("about") Über das Projekt
-        li.login
+        /li.login
           - if authorized?
             a.user-name href="/" = current_user.name
             a#signout href=signout_path title="abmelden" data-placement="bottom"
