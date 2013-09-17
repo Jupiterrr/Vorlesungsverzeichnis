@@ -36,11 +36,13 @@
         - if event.subscribed?(current_user)
           a#subscribe.btn href=unsubscribe_event_path(event)
             i.icon-minus
-            |  abmelden
+            '
+            span abmelden
         - else
           a#subscribe.btn href=subscribe_event_path(event)
             i.icon-plus
-            |  teilnehmen
+            '
+            span teilnehmen
 
     /- event.group_by_day.each do |d|
       div
@@ -51,6 +53,16 @@
 
     .description
       = event.j_description
+
+    - if @date_groups.present?
+      section.desc.dates
+        h4 Termine
+        - @date_groups.each do |(day, start_time, end_time, room), dates|
+          div
+            a rel="collapse" href="javascript:;" data-target="#date-list-#{dates.object_id}"= "#{day}, #{start_time.join(":")}-#{end_time.join(":")}, #{room} (#{dates.count})"
+            ol.hide id="date-list-#{dates.object_id}"
+              - dates.sort_by(&:start_time).each do |date|
+                li = date.start_time.strftime("%d.%m.%Y")
 
   br
   br

@@ -151,18 +151,18 @@ class Event < ActiveRecord::Base
         s << "</section>"
       end
 
-      if dates.present?
-        dates_s  = "<section class=\"desc\">"
-        dates_s += "<h4>Termine</h4>"
-        dates_s += '<ul class="unstyled">'
-        dates.each do |d|
-          dates_s += "<li class=\"event_col_date\">#{pretty_event_date(d)}</li>"
-        end
-        dates_s += "</ul>"
-        dates_s +=  "</section>"
+      # if dates.present?
+      #   dates_s  = "<section class=\"desc\">"
+      #   dates_s += "<h4>Termine</h4>"
+      #   dates_s += '<ul class="unstyled">'
+      #   dates.each do |d|
+      #     dates_s += "<li class=\"event_col_date\">#{pretty_event_date(d)}</li>"
+      #   end
+      #   dates_s += "</ul>"
+      #   dates_s +=  "</section>"
 
-        text += dates_s
-      end
+      #   text += dates_s
+      # end
       html = text.html_safe
     end
   rescue JSON::ParserError => e

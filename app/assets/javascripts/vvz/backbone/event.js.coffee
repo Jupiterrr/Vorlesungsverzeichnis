@@ -1,15 +1,15 @@
 class Model extends vvz.Node.Model
-    
+
   class: "Event:Model"
-  
+
   urlRoot: "/events"
 
   initialize: ->
-    # track request with google analytics 
-    
+    # track request with google analytics
+
   url: ->
     "#{@urlRoot}/#{@id}"
-  
+
   vvzPath: ->
     "/vvz/#{@get("parent").id}#{@url()}"
 
@@ -22,7 +22,7 @@ class Model extends vvz.Node.Model
         console.log("sub ok", data)
         @set "subscribed": true
       error: @error
-   
+
   unsubscribe: ->
     console.log("unsubscribe", this)
     $.ajax
@@ -34,8 +34,8 @@ class Model extends vvz.Node.Model
       error: @error
 
   toggleSubscription: ->
-    if @get("subscribed") 
-      @unsubscribe() 
+    if @get("subscribed")
+      @unsubscribe()
     else
       @subscribe()
 
@@ -44,14 +44,14 @@ class Model extends vvz.Node.Model
     # data.loggedIn = !!currentUser
     data
 
-  error: (d, e, x) => 
+  error: (d, e, x) =>
     console.log("error", d, e, x)
 
 
 class EventView extends vvz.Colum.CollumnView
-  
+
   class: "Event:EventView"
-  
+
   events:
    "click #subscribe" : "subscribe"
 
@@ -59,33 +59,42 @@ class EventView extends vvz.Colum.CollumnView
 
   initialize: ->
     #$(@el).addClass("event")
-  
+
     @delegateEvents(@events)
     model = @options.parent.toJSON()
-     
+
     @model = new Model(model)
     @model.fetch()
-    @model.bind('change', @render, this)
-
-    if typeof _gaq != 'undefined' 
+    @model.once('change', @render, this)
+    @render
+    @model.bind 'change:subscribed', (a,unsubscribed)->
+      if !unsubscribed
+        $("#subscribe i").attr("class", "icon-plus")
+        $("#subscribe span").text("teilnehmen")
+      else
+        $("#subscribe i").attr("class", "icon-minus")
+        $("#subscribe span").text("abmelden")
+    if typeof _gaq != 'undefined'
       _gaq.push(['_trackPageview', @model.vvzPath()])
-  
+
   render: ->
-    data = @model.toJSON()
-    html = @template.render(data)
-    $(@el).html(html)
-    $(@el).find('a[rel=tooltip]').tooltip()
+    # data = @model.toJSON()
+    # html = @template.render(data)
+    # $(@el).html(html)
+    # $(@el).find('a[rel=tooltip]').tooltip()
+    $(@el).html(@model.get("html"))
+    accordionyziseThis($(@el))
 
   subscribe: ->
     $(@el).find("#subscribe i").attr("class", "icon-spinner icon-spin")
     @model.toggleSubscription()
     false
-    
-  
+
+
 class NodeView extends vvz.Node.View
-  
+
   class: "Event:NodeView"
-  
+
 
 
 vvz.Event =

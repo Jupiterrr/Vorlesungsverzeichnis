@@ -16,16 +16,22 @@
 //= require lib/typeahead.min
 //= require twitter/bootstrap-dropdown
 
+function accordionyziseThis(parent) {
+  parent = parent || $(document.body);
+  parent.find('a[rel=collapse]').click(function() {
+    selector = $(this).data("target")
+    $(selector).toggleClass("hide")
+  })
+}
+
 $(function() {
   $(".ical_url input").on("click", function() {
     $(this).select();
   })
   $('a[rel=tooltip]').tooltip()
   $('#signout').tooltip()
-  $('a[rel=collapse]').click(function() {
-    selector = $(this).data("target")
-    $(selector).toggleClass("hide")
-  })
+  accordionyziseThis()
+
 
   var isCurrentlyMobile = isMobile();
   $("body").toggleClass("mobile", isCurrentlyMobile);
