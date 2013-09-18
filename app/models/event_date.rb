@@ -50,18 +50,8 @@ class EventDate < ActiveRecord::Base
     t
   end
 
-  def start_time_local
-    correct_time(start_time)
-  end
-
-  def end_time_local
-    correct_time(end_time)
-  end
-
-  private
-
-  def correct_time(time)
-    time.in_time_zone("Berlin")
+  def source
+    data["source"]
   end
 
 end

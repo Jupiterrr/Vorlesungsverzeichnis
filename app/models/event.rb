@@ -150,19 +150,6 @@ class Event < ActiveRecord::Base
         s << auto_link(item[1], sanitize: false)
         s << "</section>"
       end
-
-      # if dates.present?
-      #   dates_s  = "<section class=\"desc\">"
-      #   dates_s += "<h4>Termine</h4>"
-      #   dates_s += '<ul class="unstyled">'
-      #   dates.each do |d|
-      #     dates_s += "<li class=\"event_col_date\">#{pretty_event_date(d)}</li>"
-      #   end
-      #   dates_s += "</ul>"
-      #   dates_s +=  "</section>"
-
-      #   text += dates_s
-      # end
       html = text.html_safe
     end
   rescue JSON::ParserError => e
@@ -178,8 +165,8 @@ class Event < ActiveRecord::Base
 
   def pretty_event_date(date)
     days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
-    s = date.start_time_local
-    e = date.end_time_local
+    s = date.start_time
+    e = date.end_time
     if s.to_date == s.to_date
       day = days[s.wday][0..1]
       "#{day}, #{s.strftime("%H:%M")}-#{e.strftime("%H:%M")} Uhr, #{s.strftime("%d.%m.%Y")}<br /> #{date.room}".html_safe
