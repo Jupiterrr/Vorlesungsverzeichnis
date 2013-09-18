@@ -7,37 +7,34 @@ module VVZUpdater
 
 
     def update(db_event, dates)
-      all_existing_dates = db_event.dates
-
-      existing_dates = all_existing_dates.select do |date|
-        # destroy if it has no source
-        date.destroy if date.data["source"].nil?
-        date.data["source"] == @source
-      end
+      existing_dates = db_event.dates
+      own, other = existing_dates.partition {|d| d.source == @source}
 
       new_dates = []
       updated_dates = []
 
       dates.each do |date|
         db_date = existing_dates.find {|ed| ed.uuid == date.id}
-        if db_date.nil?
-          db_date = EventDate.new(uuid: date.id)
-          new_dates << db_date
+        case
+        when db_date.present? && db_date.source == @source
+          db_date.update_attributes(attributes(date))
+          updated_dates << db_date
+        when !db_date.present?
+          new_dates << EventDate.create(attributes(date))
+        else
+          # present but other source
         end
-        update_date(db_date, date)
-        updated_dates << db_date
       end
 
       db_event.dates << new_dates
 
-      removed_dates = (existing_dates - updated_dates)
-      EventDate.destroy(removed_dates)
-
+      unchanged_own = (own - updated_dates)
+      EventDate.destroy(unchanged_own)
     end
 
-    def update_date(db_date, date)
-      # return if db_date.api_last_modified >= date.last_modified
-      db_date.update_attributes({
+    def attributes(date)
+      {
+        uuid: date.id,
         room: date.room.title,
         start_time: date.start,
         end_time: date.end,
@@ -46,7 +43,7 @@ module VVZUpdater
           room_id: date.room.id,
           source: @source
         }
-      })
+      }
     end
 
   end

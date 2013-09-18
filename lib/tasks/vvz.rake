@@ -202,3 +202,7 @@ task :update_event_and_test, [:event_id] => :environment do |t, args|
   ap EventDateTester.new.run_test(db_event)
 end
 
+task :destroy_event_dates_without_source => :environment do |t, args|
+  EventDate.where("data is not NULL").where("not data ? 'source'").destroy_all
+end
+
