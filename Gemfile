@@ -10,6 +10,7 @@ gem 'pry'
 gem 'pry-remote'
 
 gem 'kit_api', '~> 0.0.2'#, :path => File.join('..', 'kit_api')
+gem 'celluloid'
 
 # API
 gem 'grape', '>= 0.4.1'

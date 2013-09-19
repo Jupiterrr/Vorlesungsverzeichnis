@@ -54,6 +54,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    celluloid (0.15.1)
+      timers (~> 1.1.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -286,6 +288,7 @@ GEM
     tilt (1.4.1)
     timecop (0.6.1)
     timeliness (0.3.7)
+    timers (1.1.0)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -320,6 +323,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   capybara (~> 2.0)
+  celluloid
   coffee-rails (>= 3.1.1)
   cucumber-rails
   dalli (>= 2.6.4)

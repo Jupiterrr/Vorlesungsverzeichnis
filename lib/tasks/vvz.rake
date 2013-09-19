@@ -13,7 +13,7 @@ namespace :term do
     connection.disconnect
   end
 
-  task :update, [:term] => :environment do |t, args|
+  task :update_tree, [:term] => :environment do |t, args|
     puts "Update Term tree"
     require "vvz_updater/vvz_updater"
     #.gsub("_", " ") # Heroku doesn't like witespaces
@@ -42,12 +42,17 @@ namespace :term do
     #binding.pry
   end
 
-  task :new_term, [:term] => :environment do |t, args|
+  task :update, [:term] => :environment do |t, args|
     require "vvz_updater/vvz_updater"
     args.term or raise "You have to pass a term!"
+    puts "Updating tree:"
     VVZUpdater.updater_tree(args.term)
+    puts "Linking leafs to events:"
     VVZUpdater.link_events(args.term)
+    puts "Updating events:"
     VVZUpdater.update_events(args.term)
+    puts "Improve event names:"
+    VVZUpdater.improve_names(args.term)
   end
 
 end
@@ -57,11 +62,13 @@ end
 # Some event names contain the numbers insted of
 # the actual name. This task calls the DataEnhancement
 # to fix that
-task :fix_names => :environment do
-  require "data_enhancement"
-  DataEnhancement.improve_names
+task :fix_names, [:term] => :environment do |t, args|
+  require "vvz_updater/vvz_updater"
+  VVZUpdater.improve_names(args.term)
 end
 
+
+# depracted
 task :mark_leafs => :environment do
   uni = Vvz.root
   terms = uni.children
@@ -76,6 +83,7 @@ task :mark_leafs => :environment do
   end
 end
 
+# depracted
 # When created eventes currently doesn't get the terms assigned
 # so we do it afterwards with this task
 task :set_term => :environment do |t, args|
@@ -114,16 +122,6 @@ task :remove_prefix_numbers => :environment do
     end
   end
 end
-
-task :update_event_descriptions => :environment do
-  require "fetcher/fetcher"
-  hash = Fetcher.update_event_descriptions!()
-  binding.pry
-  File.open("tmp/edesc.dump",'w') do|file|
-    Marshal::dump(hash, file)
-  end
-end
-
 
 task :seed_disciplines => :environment do
   open("db/disciplines.txt").read.each_line do |line|
@@ -205,4 +203,18 @@ end
 task :destroy_event_dates_without_source => :environment do |t, args|
   EventDate.where("data is not NULL").where("not data ? 'source'").destroy_all
 end
+
+task :go => :environment do |t, args|
+  require "vvz_updater/vvz_updater"
+  connection = KitApi::Connection.connect
+  uuid = "0x62818d1647a2644ca66d6813c28393bd"
+  event = KitApi.get_event(connection, uuid)
+  binding.pry
+  connection.disconnect
+end
+
+
+
+
+
 

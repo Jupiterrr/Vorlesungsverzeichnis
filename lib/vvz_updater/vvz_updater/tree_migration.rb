@@ -28,11 +28,7 @@ module VVZUpdater
 
       def new_node(db_parent, new_node)
          #puts "new"
-         attributes = new_node.attributes
-         if new_node.children.empty?
-            attributes[:is_leaf] = true
-         end
-         node = db_parent.children.create attributes
+         node = db_parent.children.create attributes(new_node)
          new_node.children.each do |child|
             new_node(node, child)
          end
@@ -40,13 +36,20 @@ module VVZUpdater
 
       def changed_node(db_node, new_node)
          #puts "change"
-         db_node.update_attributes new_node.attributes
+         db_node.update_attributes attributes(new_node)
       end
 
       def deleted_node(db_node)
          #puts "delete"
          db_node.subtree.delete_all
          db_node.delete
+      end
+
+      def attributes(new_node)
+         {
+            name: new_node.name,
+            is_leaf: new_node.children.empty?
+         }
       end
 
    end

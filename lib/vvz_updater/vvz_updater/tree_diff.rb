@@ -4,7 +4,7 @@ module VVZUpdater
     def self.diff(db_node, new_node)
       changes = []
 
-      if  new_node != db_node
+      if  new_node.name != db_node.name
         changes << Change.new(:change, nil, [db_node, new_node])
       end
 
