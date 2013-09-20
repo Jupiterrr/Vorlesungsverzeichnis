@@ -7,6 +7,7 @@ class Features
 
   flipper(:backdoor) { Rails.env.development?; false }
   flipper(:restrict_beta_access) { Features.public? }
+  flipper(:login) { |request| request.params["l"]=="1" }
 
   def self.public?
     Rails.env.production? || Rails.env.staging?

@@ -15,19 +15,21 @@ header#topbar
           a href=map_index_path Karte
         li
           a href=page_path("about") Über das Projekt
-        /li.login
-          - if authorized?
-            a.user-name href="/" = current_user.name
-            a#signout href=signout_path title="abmelden" data-placement="bottom"
-              i.icon-off
-              |
-              span abmelden
-          - else
-            button#signin signin
+        - if feature(:login, request) || authorized?
+          li.login
+            - if authorized?
+              a.user-name href="/" = current_user.name
+              a#signout href=signout_path title="abmelden" data-placement="bottom"
+                i.icon-off
+                |
+                span abmelden
+            - else
+              button#signin signin
 
     h1#logo
-      - path = authorized? ? root_path : vvz_index_path
-      a href=path KitHub
+      a href=root_path KitHub
+    - if authorized?
+      a style="color:#BD362F;" href="https://jupiterrr.wufoo.com/forms/z7x4m1/" onclick="window.open(this.href,  null, 'height=437, width=680, toolbar=0, location=0, status=1, scrollbars=1, resizable=1'); return false" target="_blank" Problem melden
 
 
 - unless content_for?(:inline_flash)

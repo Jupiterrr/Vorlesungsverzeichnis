@@ -9,8 +9,8 @@ class EventsController < ApplicationController
     end
     respond_to do |format|
       format.html {
-        authorize
-        @event = Event.find(params[:id])
+        redirect_to event_vvz_path(@event.vvzs.first, @event)
+        #authorize
       }
       format.json do
         data = @event.as_json(current_user)
