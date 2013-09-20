@@ -18,12 +18,10 @@ class WeekTimetable
     end
 
     # maps the weekday index to a date in the current week
-    def map_date_to_week(date, week=Time.now)
-      date = date.to_datetime.utc
-      s = week.utc.beginning_of_week(:sunday) # last sunday
-      new_date = DateTime.new(s.year, s.month, s.day, date.hour, date.minute, date.second)
-      new_date = new_date.advance(days: date.wday)
-      new_date
+    def map_date_to_week(datetime, week=Time.now)
+      date = datetime.to_date
+      week_date = Date.today.beginning_of_week(:sunday) + date.wday
+      week_datetime = datetime.advance(days: (week_date-date))
     end
 
   end

@@ -1,6 +1,8 @@
 require './lib/week_timetable/week_timetable'
 
 class Timetable
+  include Rails.application.routes.url_helpers
+
   attr_reader :week
 
   def initialize(events=[])
@@ -14,19 +16,14 @@ class Timetable
 
   def as_json
     @week_dates.map do |date|
-      binding.pry
       {
         "id" => date.event.id,
-        "start" => js_time(date.start_time + 1.hour),
-        "end" => js_time(date.end_time + 1.hour),
+        "start" => js_time(date.start_time),
+        "end" => js_time(date.end_time),
         "title" => date.event.name,
-        "url" => event_url(date.event)
+        "url" => event_path(date.event)
       }
     end
-  end
-
-  def event_url(event)
-    "events/#{event.id}"
   end
 
   def js_time(time)
@@ -46,8 +43,8 @@ class Timetable
             e.dtstart     = date.start_time
             e.dtend       = date.end_time
             e.location    = date.room || ""
-            e.url         = event.url
-            #e.uid         = "#{event.id}@kit.edu"
+            e.url         = Rails.application.routes.url_helpers.event_url(event, host: "www.kithub.de")
+            e.uid         = "#{date.id}@kit.edu"
           end
         end
       end
