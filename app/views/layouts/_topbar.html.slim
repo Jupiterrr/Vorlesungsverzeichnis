@@ -9,12 +9,12 @@ header#topbar
         - if authorized?
           li
             a href=root_path Dashboard
+          li
+            a href=timetable_index_path Stundenplan
         li
           a href=vvz_index_path Vorlesungsverzeichnis
         li
           a href=map_index_path Karte
-        li
-          a href=page_path("about") Über das Projekt
         - if feature(:login, request) || authorized?
           li.login
             - if authorized?
