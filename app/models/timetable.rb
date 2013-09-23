@@ -20,7 +20,7 @@ class Timetable
         "id" => date.event.id,
         "start" => js_time(date.start_time),
         "end" => js_time(date.end_time),
-        "title" => date.event.name,
+        "title" => "<span class='tt-title' title='test'>#{date.event.name}</span><span class='tt-room'>#{date.room}</span>",
         "url" => event_path(date.event)
       }
     end

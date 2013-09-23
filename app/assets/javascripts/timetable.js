@@ -41,7 +41,7 @@ $(document).ready(function() {
       var year = new Date().getFullYear();
       var month = new Date().getMonth();
       var day = new Date().getDate();
-      
+
       var new_events = [];
       $(events).each(function(i, e) {
          var new_event = {
