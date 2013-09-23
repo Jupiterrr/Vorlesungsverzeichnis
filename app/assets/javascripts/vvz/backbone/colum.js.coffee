@@ -84,7 +84,9 @@ class NodeCollumnView extends CollumnView
 
   setHistory: (model) ->
     if history && history.replaceState
-      history.replaceState({}, "", model.url())
+      pageTitle = model.get("name")
+      history.replaceState({}, pageTitle, model.url())
+      $('title').text(pageTitle);
 
   close: ->
     # console.log "close", @collection.activeModel.get("name")
