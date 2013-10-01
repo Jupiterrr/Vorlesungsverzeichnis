@@ -10,10 +10,10 @@ KITBox::Application.configure do
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=3600"
-  
+
   config.assets.compress = false
   config.assets.debug = true
-  
+
   # Log error messages when you accidentally call methods on nil
   config.whiny_nils = true
 
@@ -40,4 +40,4 @@ KITBox::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
-HOST = "localhost:3000"
+HOST = ENV['HOST'] || "localhost:3000"

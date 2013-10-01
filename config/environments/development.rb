@@ -34,6 +34,4 @@ KITBox::Application.configure do
   config.after_initialize { ActiveRecord::Base.logger.level = 1 }
 end
 
-require 'pry'
-IRB = Pry
-HOST = "localhost:3000"
+HOST = ENV['HOST'] || "localhost:3000"
