@@ -74,8 +74,6 @@ class EventView extends vvz.Colum.CollumnView
       else
         $("#subscribe i").attr("class", "icon-minus")
         $("#subscribe span").text("abmelden")
-    if typeof _gaq != 'undefined'
-      _gaq.push(['_trackPageview', @model.vvzPath()])
 
   render: ->
     # data = @model.toJSON()

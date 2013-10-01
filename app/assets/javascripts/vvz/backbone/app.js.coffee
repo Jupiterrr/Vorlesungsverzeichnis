@@ -93,6 +93,12 @@ class AppView extends Backbone.View
 
 @vvz ||= {}
 
+trackPageview = (pageTitle, pageUrl) ->
+  if _gaq?
+    _gaq.push(["_set", "title", pageTitle])
+    _gaq.push(['_trackPageview', pageUrl])
+vvz.trackPageview = _.debounce(trackPageview, 3000);
+
 $ ->
   el = $("#vvz .overflow")
   vvz.columnManager = new vvz.ColumnManagerClass(el)

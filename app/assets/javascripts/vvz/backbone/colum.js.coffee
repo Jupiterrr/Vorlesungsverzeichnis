@@ -80,13 +80,13 @@ class NodeCollumnView extends CollumnView
     vvz.columnManager.addAfter(this, view)
     @setHistory(model)
 
-
-
   setHistory: (model) ->
+    pageTitle = model.get("name")
+    pageUrl = model.url()
     if history && history.replaceState
-      pageTitle = model.get("name")
-      history.replaceState({}, pageTitle, model.url())
-      $('title').text(pageTitle);
+      history.replaceState({}, pageTitle, pageUrl)
+    $('title').text(pageTitle)
+    vvz.trackPageview(pageTitle, pageUrl)
 
   close: ->
     # console.log "close", @collection.activeModel.get("name")
