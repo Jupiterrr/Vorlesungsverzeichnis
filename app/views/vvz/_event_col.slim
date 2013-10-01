@@ -7,14 +7,12 @@
 /       i.icon-plus.icon-white
 .event
   header.padding
-    h1
-      = event.name
-      small = " #{event.simple_type}"
+    h1 = event.name
+    .event-type = " #{event.simple_type}"
 
     p
-      = event.lecturer
-      br
-      a href=event.url target="_blank" KIT Vorlesungsverzeichnis
+      .lecturer = event.lecturer
+      a.offical-website href=event.url target="_blank" KIT Vorlesungsverzeichnis
 
   .tip-bar.padding
     .bar-item
