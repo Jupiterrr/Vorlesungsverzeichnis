@@ -55,6 +55,12 @@ namespace :term do
     VVZUpdater.improve_names(args.term)
   end
 
+  task :update_event, [:event_id] => :environment do |t, args|
+    require "vvz_updater/vvz_updater"
+    db_event = Event.find(args[:event_id])
+    VVZUpdater.update_event(db_event)
+  end
+
 end
 
 
