@@ -1,5 +1,7 @@
 class EventDate < ActiveRecord::Base
   belongs_to :event
+  belongs_to :room
+
   self.inheritance_column = nil
 
   validates :start_time, presence: true

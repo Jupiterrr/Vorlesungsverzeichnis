@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130904234217) do
+ActiveRecord::Schema.define(:version => 20130930145450) do
 
   create_table "disciplines", :force => true do |t|
     t.string   "name"
@@ -58,15 +58,17 @@ ActiveRecord::Schema.define(:version => 20130904234217) do
   create_table "event_dates", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string   "room"
+    t.string   "room_name"
     t.string   "type"
     t.integer  "event_id"
     t.string   "uuid"
     t.datetime "api_last_modified"
     t.hstore   "data"
+    t.integer  "room_id"
   end
 
   add_index "event_dates", ["event_id"], :name => "index_event_dates_on_event_id"
+  add_index "event_dates", ["room_id"], :name => "index_event_dates_on_room_id"
 
   create_table "events", :force => true do |t|
     t.string   "nr"
@@ -145,6 +147,17 @@ ActiveRecord::Schema.define(:version => 20130904234217) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "rooms", :force => true do |t|
+    t.integer  "poi_id"
+    t.string   "uuid"
+    t.string   "name"
+    t.hstore   "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "rooms", ["poi_id"], :name => "index_rooms_on_poi_id"
 
   create_table "users", :force => true do |t|
     t.string   "provider"

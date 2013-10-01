@@ -1,6 +1,7 @@
 class Poi < ActiveRecord::Base
   has_and_belongs_to_many :poi_groups
-  
+  has_many :rooms
+
   def self.search(query)
     query = "%" + query.downcase + "%"
     where("lower(name) LIKE ? OR building_no LIKE ?", query, query)
@@ -20,4 +21,5 @@ class Poi < ActiveRecord::Base
     :conditions => "poi_groups_pois.poi_id IS NULL",
     :select     => "DISTINCT pois.*"
   }
+
 end
