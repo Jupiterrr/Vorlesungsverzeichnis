@@ -20,7 +20,7 @@ class Timetable
         "id" => date.event.id,
         "start" => js_time(date.start_time),
         "end" => js_time(date.end_time),
-        "title" => "<span class='tt-title' title='test'>#{date.event.name}</span><span class='tt-room'>#{date.room}</span>",
+        "title" => "<span class='tt-title' title='test'>#{date.event.name}</span><span class='tt-room'>#{date.room_name}</span>",
         "url" => event_path(date.event)
       }
     end
@@ -43,7 +43,7 @@ class Timetable
             e.summary     = event.name
             e.dtstart     = date.start_time
             e.dtend       = date.end_time
-            e.location    = date.room || ""
+            e.location    = date.room_name || ""
             e.description = event_url
             e.url         = event_url
             e.uid         = "#{date.id}@kit.edu"

@@ -8,7 +8,7 @@ class DatePresenter
     {
       'start_time' => @date.start_time,
       'end_time' => @date.end_time,
-      'room' => @date.room
+      'room' => @date.room_name
     }
   end
 

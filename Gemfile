@@ -6,10 +6,9 @@ gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 
 gem 'awesome_print'
-gem 'pry'
-gem 'pry-remote'
+gem 'pry-rails'
 
-gem 'kit_api', '~> 0.0.2'#, :path => File.join('..', 'kit_api')
+gem 'kit_api', '~> 0.0.3'#, :path => File.join('..', 'kit_api')
 gem 'celluloid'
 
 # API
@@ -70,6 +69,9 @@ group :development do
   gem 'meta_request', '>= 0.2.5'
   gem 'taps'
   gem 'launchy'
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
+  gem 'pry-debugger'
 end
 
 group :development, :test do

@@ -3,8 +3,8 @@ module VVZUpdater
 
     def initialize(source)
       @source = source.to_s
+      @room_cach = {}
     end
-
 
     def update(db_event, dates)
       existing_dates = db_event.dates
@@ -35,16 +35,22 @@ module VVZUpdater
     def attributes(date)
       {
         uuid: date.id,
-        room: date.room.title,
         start_time: date.start,
         end_time: date.end,
         api_last_modified: date.last_modified,
+        room_id: find_room_id(date.room),
         data: {
-          room_id: date.room.id,
           source: @source
         }
       }
     end
 
+    def find_room_id(room)
+      @room_cach[room.id] ||= \
+        Room.find_or_create_by_uuid({
+          uuid: room.id,
+          name: room.title
+        }).id
+    end
   end
 end

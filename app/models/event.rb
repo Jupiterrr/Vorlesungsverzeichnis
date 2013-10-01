@@ -169,9 +169,9 @@ class Event < ActiveRecord::Base
     e = date.end_time
     if s.to_date == s.to_date
       day = days[s.wday][0..1]
-      "#{day}, #{s.strftime("%H:%M")}-#{e.strftime("%H:%M")} Uhr, #{s.strftime("%d.%m.%Y")}<br /> #{date.room}".html_safe
+      "#{day}, #{s.strftime("%H:%M")}-#{e.strftime("%H:%M")} Uhr, #{s.strftime("%d.%m.%Y")}<br /> #{date.room_name}".html_safe
     else
-      "#{s.strftime("%d.%m.%Y %H:%M")} - #{e.strftime("%d.%m.%Y %H:%M")} - #{date.room}"
+      "#{s.strftime("%d.%m.%Y %H:%M")} - #{e.strftime("%d.%m.%Y %H:%M")} - #{date.room_name}"
     end
   end
 

@@ -65,22 +65,5 @@ module VVZUpdater
         "<a href=\"#{url}\">#{url}</a>" if url.present?
       end
 
-      def update_dates(dates)
-        @db_event.dates.destroy_all
-        attr_dates = dates.map do |d|
-          {
-            start_time: d.start,
-            end_time: d.end,
-            room: d.room.title,
-            uuid: d.id,
-            api_last_modified: d.last_modified,
-            data: {
-              room_uuid: d.room.id,
-            }
-          }
-        end
-        @db_event.dates.create attr_dates
-      end
-
    end
 end

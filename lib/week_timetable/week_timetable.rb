@@ -5,7 +5,7 @@ class WeekTimetable
 
   def initialize(event_dates=[])
     groups = event_dates.group_by do |date|
-      [date.start_time.wday, [date.start_time.hour, date.start_time.min], [date.end_time.hour, date.end_time.min], date.room]
+      [date.start_time.wday, [date.start_time.hour, date.start_time.min], [date.end_time.hour, date.end_time.min], date.room_name]
     end
     raw_dates = groups.map {|k,v| v.first }
     week_dates = map_dates_to_week(raw_dates)

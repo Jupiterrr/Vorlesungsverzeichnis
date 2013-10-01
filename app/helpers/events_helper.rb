@@ -48,7 +48,7 @@ module EventsHelper
     text = ""
     text << "<em>" << date_to_human(time) << " "
     text << time.strftime("%H:%M Uhr") << "</em> "
-    text << "in <em>" << @next.room << "</em>"
+    text << "in <em>" << @next.room_name << "</em>"
     text.html_safe
   end
 

@@ -29,7 +29,7 @@ class VvzController < ApplicationController
     days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
     @date_groups = @event.dates.group_by do |date|
       day = days[date.start_time.wday][0..1]
-      [day, [date.start_time.hour, date.start_time.min], [date.end_time.hour, date.end_time.min], date.room]
+      [day, [date.start_time.hour, date.start_time.min], [date.end_time.hour, date.end_time.min], date.room_name]
     end
     index
     render :action => :index
