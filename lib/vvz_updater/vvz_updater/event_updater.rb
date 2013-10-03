@@ -1,5 +1,4 @@
 # encoding: UTF-8
-require 'pry-remote'
 module VVZUpdater
    class EventUpdater
 
