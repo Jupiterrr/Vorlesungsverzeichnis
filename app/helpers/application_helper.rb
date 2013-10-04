@@ -5,6 +5,7 @@ module ApplicationHelper
   def page_title(title=nil)
     if title
       @page_title = "#{title} - #{DEFAULT_TITLE}"
+      content_for(:title, title)
     else
       @page_title ||= DEFAULT_TITLE
     end

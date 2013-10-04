@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>
-    <%= page_title %>
+    <%= yield(:title).presence || page_title %>
   </title>
   <meta charset="utf-8">
 

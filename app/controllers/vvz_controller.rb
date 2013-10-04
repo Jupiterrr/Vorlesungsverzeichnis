@@ -1,9 +1,9 @@
 class VvzController < ApplicationController
 
   caches_page :preload
-  caches_action :index, :layout => false
-  caches_action :show, :layout => false
-  caches_action :events, :layout => false, :unless => proc { authorized? }
+  caches_action :index, :unless => proc { authorized? } #, :layout => false
+  caches_action :show, :unless => proc { authorized? } #, :layout => false
+  caches_action :events, :unless => proc { authorized? }
 
   def index
     expire_page :action => :preload, :format => :js if params[:expire]
