@@ -3,8 +3,7 @@ class TimetableController < ApplicationController
   before_filter :authorize, only: [:index, :regenerate]
 
   def index
-    timetable = Timetable.by_user(current_user)
-    @timetable = timetable.as_json
+    @timetable = Timetable.by_user(current_user)
   end
 
   def regenerate

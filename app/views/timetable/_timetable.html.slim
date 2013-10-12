@@ -1,10 +1,56 @@
-- content_for :stylesheet do
+/- content_for :stylesheet do
   = stylesheet_link_tag "jquery.weekcalendar"
-- content_for :javascript do
+/- content_for :javascript do
   = javascript_include_tag "timetable", defer: true
 
-javascript:
+/ javascript:
   var events = #{raw @timetable.to_json};
 
-#calendar
+/#calendar
   | Stundenplan wird geladen ...
+
+.no-padding
+  table.timetable
+    thead
+      tr
+        th.empty.time-col
+        - @timetable.week.each do |day|
+          th.day-title = day.name
+    tr
+      td.time-col
+        .pause.min-15
+        .time.min-90
+          .start 8:00
+          .end 9:30
+        .pause.min-15
+        .time.min-90
+          .start 9:45
+          .end 11:15
+        .pause.min-15
+        .time.min-90
+          .start 11:30
+          .end 13:00
+        .pause.min-60
+        .time.min-90
+          .start 14:00
+          .end 15:30
+        .pause.min-15
+        .time.min-90
+          .start 15:45
+          .end 17:15
+        .pause.min-15
+        .time.min-90
+          .start 17:30
+          .end 19:00
+        .pause.min-15
+
+
+      - @timetable.week.each do |day|
+        td
+          - day.dates.each do |date|
+            - ts = date.start_time
+            - tsm = (ts.hour-8)*60+ts.min+15
+            - te = date.end_time
+            - d = (te-ts).to_i/60
+            .date style="top: #{tsm}px; height: #{d}px;"
+              = date.title

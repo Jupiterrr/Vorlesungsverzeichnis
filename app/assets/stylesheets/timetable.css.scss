@@ -127,6 +127,78 @@
   }
 }
 
+$minute: 1px;
 
+.timetable {
+  table-layout: fixed;
+  width: 100%;
+
+  td {
+    vertical-align: top;
+    position: relative;
+  }
+  th {
+    font-weight: normal;
+  }
+  .time-col {
+    width: 20px;
+    border-right: 5px solid transparent;
+  }
+  .empty.time-col {
+    background: none;
+    border-right: 5px solid transparent;
+  }
+
+  tbody {
+    border: 1px solid #E2E2E2;
+    border-right: 0;
+    border-left: 0;
+    background: #F9F9F9;
+  }
+
+
+  .min-15 {
+    height: $minute*15;
+  }
+  .min-60 {
+    height: $minute*60;
+  }
+  .min-90 {
+    height: $minute*90;
+  }
+  .pause {
+    background: #FFA3A3;
+  }
+
+
+  .time {
+    position: relative;
+    padding-right: 6px;
+    background: #FB484D;
+    color: #fff;
+    text-align: right;
+  }
+  .time .start,  .time .end{
+    position: absolute;
+    right: 6px;
+    font-size: 12px;
+  }
+  .time .end {
+    bottom: 0px;
+  }
+  .time .start {
+    top: 2px;
+  }
+
+
+  .date {
+    position: absolute;
+    background: #0081C2;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 0 2px;
+    word-break: break-word;
+  }
+}
 
 

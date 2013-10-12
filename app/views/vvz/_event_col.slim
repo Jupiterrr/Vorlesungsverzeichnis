@@ -42,25 +42,20 @@
             '
             span teilnehmen
 
-    /- event.group_by_day.each do |d|
-      div
-        = to_german_day d["date"]
-        = " " + d["time"]
-        |   |
-        = d["room"]
-
     .description
       = event.j_description
 
     - if @date_groups.present?
       section.desc.dates
         h4 Termine
-        - @date_groups.each do |(day, start_time, end_time, room), dates|
+        - @date_groups.each do |(day, start_time, end_time, room_name), dates|
           div
             - template = "%02i:%02i"
             - st = template % start_time
             - et = template % end_time
-            a rel="collapse" href="javascript:;" data-target="#date-list-#{dates.object_id}"= "#{day}, #{st}-#{et}, #{room} (#{dates.count})"
+            - if (room = dates.first.room) && (poi = room.poi)
+              a href=map_path(poi) = room.name
+            a rel="collapse" href="javascript:;" data-target="#date-list-#{dates.object_id}"= "#{day}, #{st}-#{et}, #{room_name} (#{dates.count})"
             ol.hide id="date-list-#{dates.object_id}"
               - dates.sort_by(&:start_time).each do |date|
                 li = date.start_time.strftime("%d.%m.%Y")

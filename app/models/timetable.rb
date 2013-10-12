@@ -6,29 +6,35 @@ class Timetable
   attr_reader :week
 
   def initialize(events=[])
-    dates = events.map(&:dates).flatten
-    @week_dates = WeekTimetable.new(dates).dates
+    @dates = events.map(&:dates).flatten
+    @week_dates = WeekTimetable.new(@dates).dates
   end
 
   def self.by_user(user)
     Timetable.new(user.events)
   end
 
-  def as_json
-    @week_dates.map do |date|
-      {
-        "id" => date.event.id,
-        "start" => js_time(date.start_time),
-        "end" => js_time(date.end_time),
-        "title" => "<span class='tt-title' title='test'>#{date.event.name}</span><span class='tt-room'>#{date.room_name}</span>",
-        "url" => event_path(date.event)
-      }
-    end
+  # def as_json
+  #   @week_dates.map do |date|
+  #     {
+  #       "id" => date.event.id,
+  #       "start" => js_time(date.start_time),
+  #       "end" => js_time(date.end_time),
+  #       "title" => "<span class='tt-title' title='test'>#{date.event.name}</span><span class='tt-room'>#{date.room_name}</span>",
+  #       "url" => event_path(date.event)
+  #     }
+  #   end
+  # end
+
+  # def js_time(time)
+  #   time.to_i*1000
+  # end
+
+
+  def week
+    WeekTimetable.new(@dates).week
   end
 
-  def js_time(time)
-    time.to_i*1000
-  end
 
   def self.to_ical(timetable_id)
     user = User.find_by_timetable_id timetable_id
