@@ -132,8 +132,6 @@ class NodeCollumnView extends CollumnView
     @collection.navUp()
 
   navRight: ->
-    unless @collection.activeModel
-      debugger
     collection = @collection.activeModel.get("childCollection")
     if collection && collection.length > 0
       collection.first().activate()

@@ -179,15 +179,6 @@ $col_width: ($content-width - 3px) / 3;
     }
 
   }
-  .item:focus:before {
-    content: "\f105";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    text-decoration: inherit;
-    -webkit-font-smoothing: antialiased;
-    margin-right: .3em;
-  }
 
   .spalte.last .item {
     color: #0069D6;
