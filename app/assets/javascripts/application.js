@@ -59,6 +59,12 @@ function isMobile() {
   return size.indexOf("mobile") !=-1;
 }
 
+$.ajaxSetup({
+  beforeSend: function(xhr) {
+    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  }
+});
+
 $(function() {
   $("#menue-btn").click(function() {
     $("#main-nav").toggleClass("active");

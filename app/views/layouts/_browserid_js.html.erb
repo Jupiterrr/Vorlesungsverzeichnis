@@ -39,7 +39,6 @@
         type: 'POST',
         url: '/signin', // This is a URL on your website.
         data: {assertion: assertion},
-        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
         success: function(res, status, xhr) {
           //console.log("login successful", res.email);
           //console.log("redirect", res.redirect)
