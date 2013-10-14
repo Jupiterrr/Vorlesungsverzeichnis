@@ -25,6 +25,7 @@ gem 'simple_calendar', '~> 0.1.8'
 gem 'sitemap_generator'
 gem 'kaminari' # pagination
 gem 'rails_autolink'
+gem 'redcarpet' # markdown
 
 # Database
 gem 'pg'

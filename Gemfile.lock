@@ -232,6 +232,7 @@ GEM
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
+    redcarpet (3.0.0)
     ref (1.0.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
@@ -369,6 +370,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 3.2.13)
   rails_autolink
+  redcarpet
   ri_cal
   rspec-rails
   rspec_candy

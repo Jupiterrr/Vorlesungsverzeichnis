@@ -27,4 +27,21 @@ module ApplicationHelper
     URI.escape(params.collect{|k,v| "#{k}=#{v}"}.join('&'))
   end
 
+  class RenderEvent < Redcarpet::Render::HTML
+    def header(text, header_level)
+      # level = header_level + 2
+      "<b class=\"head\">#{text}</b>"
+    end
+  end
+
+  def markdown(text, wrapper=true)
+    renderer = Redcarpet::Markdown.new(RenderEvent, :hard_wrap=>true, :filter_html=>true, :autolink=>true, :no_intraemphasis=>true, :fenced_code=>true, :gh_blockcode=>true)
+    html = renderer.render(text).html_safe
+    if wrapper
+      content_tag(:div, html, class: "markdown")
+    else
+      html
+    end
+  end
+
 end
