@@ -12,7 +12,7 @@ $(document).ready(function() {
       overlapEventsSeparate: true,
       firstDayOfWeek : 1,
       businessHours :{start: 7, end: 20, limitDisplay: true },
-      daysToShow : 7,
+      daysToShow : 6,
       use24Hour: true,
       readonly: true,
       dateFormat: "",
@@ -23,7 +23,7 @@ $(document).ready(function() {
       scrollToHourMillis: 0,
       timeslotHeight: 15,
       height : function($calendar) {
-         return 500; //$(window).height() - $("h1").outerHeight() - 1;
+         return 830; //$(window).height() - $("h1").outerHeight() - 1;
       },
       // eventRender : function(calEvent, $event) {
       // },
