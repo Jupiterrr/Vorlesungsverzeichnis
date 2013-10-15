@@ -246,6 +246,11 @@
     .open-btn { display: none; }
     .close-btn { display: inline-block; }
   }
+  @include breakpoint(mobil) {
+    #main-nav .login[date-login='1'] {
+      padding: 10px 13px;
+    }
+  }
 }
 
 #topbar #menue-search-btn {

@@ -16,7 +16,7 @@ header#topbar
         li
           a href=map_index_path Karte
         - if feature(:login, request) || authorized?
-          li.login
+          li.login date-login=(current_user ? 0 : 1)
             - if authorized?
               a.user-name href="/" = current_user.name
               a#signout href=signout_path title="abmelden" data-placement="bottom"
