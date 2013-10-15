@@ -42,7 +42,10 @@
 
    .actions {
       display: table-cell;
-      visibility: hidden;
+      // visibility: hidden;
+      transition: all .2s ease-in;
+      transition-delay: .2s;
+       opacity: 0;
       a.dropdown-toggle {
          text-decoration: none;
          color: #ddd;
@@ -57,8 +60,11 @@
          min-width: 140px;
       }
    }
+   .item:hover .actions {
+      opacity: 1;
+   }
 
-   .item:hover .actions, .dropdown.open {
+   .dropdown.open {
       visibility: visible;
    }
    .dropdown.open a.dropdown-toggle { color: #c2c2c2; }
