@@ -4,7 +4,7 @@ require 'active_support/all'
 
 describe WeekTimetable::WeekMapper do
   before do
-    Timecop.freeze(DateTime.now.utc)
+    Timecop.freeze(DateTime.now)
   end
 
   it "maps to correct new date" do

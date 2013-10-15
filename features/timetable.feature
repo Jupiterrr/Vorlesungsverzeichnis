@@ -4,7 +4,7 @@ Feature: Timetable
 Background:
   Given I am logged in
   And the current date is "05.11.2012"
-  And a vvz node hierarchy "Node1", "Node2" and and event "Schwedisch 1"
+  And a simple vvz hierarchy with an event
 
 # @javascript
 # @allow-rescue

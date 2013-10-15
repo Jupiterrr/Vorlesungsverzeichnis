@@ -1,22 +1,18 @@
 require "spec_helper"
-require './app/models/timetable'
+# require './app/models/timetable'
 
 describe Timetable do
-  before do
-    @now = DateTime.new(2013, 1, 1, 14, 0, 0).utc
-    Timecop.freeze(@now)
-  end
+  let!(:now) { DateTime.new(2013, 1, 1, 14, 0, 0) }
 
-  after do
-    Timecop.return
-  end
+  before { Timecop.freeze(now) }
+  after  { Timecop.return }
 
   let(:event) { Event.create name: "Test Event" }
   let(:user) { FactoryGirl.create(:user) }
 
   before do
-    @start = @now+2.hours
-    event.dates.create start_time: @start, end_time: @start+3.hours
+    @start = now+2.hours
+    @date = event.dates.create start_time: @start, end_time: @start+3.hours
   end
 
   describe "as_json" do
@@ -37,8 +33,9 @@ describe Timetable do
     end
     it "returns dates with correct time" do
       ical = Timetable.to_ical(user.timetable_id)
-      event = ical.events.first
-      event.dtstart_property.to_datetime.should eq @start
+      rical = RiCal.parse_string(ical).first
+      event = rical.events.first
+      event.dtstart_property.to_zulu_time.should == @start.utc
     end
   end
 end
