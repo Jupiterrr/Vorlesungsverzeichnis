@@ -27,3 +27,7 @@ Then(/^I see the event$/) do
     page.should have_content(@event.name)
   end
 end
+
+Then("I should be at the vvz root") do
+  all(".spalte").count.should <= 3
+end
