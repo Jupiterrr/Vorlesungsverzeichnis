@@ -5,7 +5,7 @@ class Features
   flipper :uservoice, false
   flipper(:analytics) { Rails.env.production? }
 
-  flipper(:backdoor) { Rails.env.development?; false }
+  flipper(:backdoor) { Rails.env.test? }
   flipper(:restrict_beta_access) { Features.public? }
   flipper(:login, true)
 

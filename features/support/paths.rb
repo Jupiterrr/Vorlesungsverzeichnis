@@ -13,16 +13,21 @@ module NavigationHelpers
       event = Event.find_by_name "Schwedisch 1"
       vvz = event.vvzs.first
       "/events/#{event.id}"
+    when 'the event page'
+      "/events/#{@event.id}"
     when "vvz", 'the vvz page'
       vvz_index_path
+    when "the vvz page of the event", "the vvz event page"
+      vvz = @event.vvzs.first
+      "/vvz/#{vvz.id}/events/#{@event.id}"
     when 'the "Schwedisch 1" vvz page'
       event = Event.find_by_name "Schwedisch 1"
       vvz = event.vvzs.first
-      vvz_event_path(vvz, event)
+      "/vvz/#{vvz.id}/events/#{event.id}"
     when /the semester page/
       semester_index_path
     when 'the timetable page'
-      timetable_semester_index_path
+      timetable_index_path
     when 'the signup page'
       signup_path
     when 'the dashboard page'
