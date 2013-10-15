@@ -7,12 +7,10 @@ class VvzController < ApplicationController
 
   def index
     expire_page :action => :preload, :format => :js if params[:expire]
-
     @vvz = Vvz.find_or_current_term(params[:id])
     @id = @vvz.preload_id
 
     @path = @vvz.vvz_path
-
     @term = @vvz.term or raise "Term not found!"
     @terms = Vvz.terms
 

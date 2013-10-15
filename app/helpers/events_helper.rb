@@ -31,17 +31,55 @@ module EventsHelper
     days[i] + "s"
   end
 
-  def pretty_event_date(date)
-    days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
-    s = date.start_time
-    e = date.end_time
-    if s.to_date == s.to_date
-      day = days[s.wday]
-      "#{day}, #{s.strftime("%d.%m.%Y <span class=\"seperator\" /> %H:%M")} - #{e.strftime("%H:%M")}".html_safe
-    else
-      "#{s.strftime("%d.%m.%Y %H:%M")} - #{e.strftime("%d.%m.%Y %H:%M")}"
+  class DateFormater
+
+    DAYS = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
+
+    def initialize(date)
+      @date = date
     end
+
+    def day
+      DAYS[@date.start_time.wday]
+    end
+
+    def day_short
+      day[0..1]
+    end
+
+    def format_time(time)
+      time.strftime("%H:%M")
+    end
+
+    def time
+      format_time(@date.start_time) << " - " << format_time(@date.end_time)
+    end
+
+    def time_short
+      format_time(@date.start_time) << "-" << format_time(@date.end_time)
+    end
+
+    def date
+      @date.start_time.strftime("%d.%m.%Y")
+    end
+
+    def room
+      @date.room_name
+    end
+
   end
+
+  def date_formater(date)
+    DateFormater.new(date)
+  end
+  # def pretty_event_date(date)
+
+
+  #   start_time_s = s.strftime("%H:%M")
+  #   end_time_s = e.strftime("%H:%M")
+  #   room_s =
+  #   "<span class=\"fr\">#{date_s}</span> #{day}, #{start_time_s} - #{end_time_s} <br/>#{room_s}".html_safe
+  # end
 
   def next_date(event, date)
     time = date.start_time

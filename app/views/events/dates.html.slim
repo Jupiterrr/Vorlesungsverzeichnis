@@ -1,32 +1,32 @@
+- require './lib/week_timetable/week_timetable'
 .container
   .content#event_page
-    = render partial: "header"
+    = render partial: "header", locals: {nonav: true}
 
-    /a#add-exam-date.btn href=new_event_date_path(@event, type: :exam) 
-      i.icon-plus
-      |  Klausurtermin
+    h1.sub-title Termine
 
     - dates = @event.dates.order("start_time")
     - if dates.count > 0
       .dates
-        - future_dates, past_dates = dates.partition {|date| !date.end_time.past? }
-        h3 Termine
-        ul.unstyled.future_dates
-          - future_dates.each do |date|
-            li
-              .date= pretty_event_date(date)
-              span.seperator
-              .room
-                | Raum: 
-                = date.room
-        - if past_dates.count > 0
-          a.collapse-btn href="javascript:;" rel="collapse" data-target=".past_dates" Zeige verangene Termine
-          ul.unstyled.past_dates.hide
-            - past_dates.each do |date|
-              li
-                .date= pretty_event_date(date)
-                span.seperator
-                .room
-                  | Raum: 
-                  = date.room
-      
+        - groups = WeekTimetable.group_repeating(dates)
+        - groups.each do |key, dates|
+          .repeated-date
+            - date_pick = dates.first
+            - df = date_formater(date_pick)
+            span.day = df.day
+            span.time
+              i.icon-time
+              '
+              =  df.time + " Uhr"
+            span.room
+              i.icon-home
+              '
+              = df.room
+            ul.repeated-dates-list
+              - dates.each do |d|
+                li class=("past" if d.end_time.past?) = d.start_time.strftime("%d.%m.%Y")
+            hr
+
+    - else
+      | Es wurden keine Termine eingetragen.
+

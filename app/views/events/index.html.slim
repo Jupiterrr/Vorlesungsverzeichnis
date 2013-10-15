@@ -1,11 +1,11 @@
 h1 Veranstaltungen
 
-br 
+br
 br
 
 
 - @events.each do |e|
- p 
+ p
   h3
     = link_to e.name, event_path(e)
   div.termine
@@ -15,8 +15,8 @@ br
       div.termin
         = to_german_day d["date"]
         = " " + d["time"]
-        .room 
-          | Ort: 
+        .room
+          | Ort:
           = d["room"]
 
 
@@ -25,9 +25,9 @@ br
   - wochentage = %w(Montag Dienstag Mittwoch Donnerstag Freitag Samstag Sonntag)
   #stundenplan
     table.table
-      thead 
+      thead
         tr
-          th 
+          th
           - wochentage.each do |day|
             th= day
       tbody
@@ -35,7 +35,7 @@ br
           tr
             td= time
             - 7.times do
-              td 
+              td
           tr
             - 8.times do
               td
@@ -66,8 +66,8 @@ br
           tr
             - 7.times do
               td
-            
-            
+
+
   table#minitable2.table
     thead
       tr
@@ -88,8 +88,8 @@ br
                   td
 
 
-      
-      
+
+
 
 br
 br
@@ -98,7 +98,7 @@ a.btn.btn-primary href=url_to_ical(events_url) target="_blank"
   |  Zu deinem Kalender hinzufügen
 br
 br
-| Oder importiere die iCalendar-Datei in deinen Kalender:  
-a.btn.btn-mini href="#{events_url}.ics" 
-  i.icon-download  
+| Oder importiere die iCalendar-Datei in deinen Kalender:
+a.btn.btn-mini href="#{events_url}.ics"
+  i.icon-download
   |  events.ics

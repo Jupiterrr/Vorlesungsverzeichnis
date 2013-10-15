@@ -2,6 +2,57 @@
 .container
   .content#event_page
     = render partial: "header"
-    
-    #event-description-tab
-      = @event.j_description
+
+    aside.rigth-sidebar.wide
+      h5
+        ' Aktuelle Termine
+        a href=dates_event_path(event) alle
+      - dates = @event.dates.order("start_time").where("start_time > ?", Time.now).first(3)
+      - if dates.count > 0
+        .dates
+          ul.unstyled.next-dates-list
+            - dates.each do |date|
+              li.sidebar-box
+                .date
+                  - df = date_formater(date)
+                  .top-date-row
+                    .time = df.time_short
+                    .room = df.room
+                    .date = df.day_short + ", " + df.date
+
+      - else
+        - if @event.dates.any?
+          | Alle Termine liegen in der Vergangenheit.
+        - else
+          | Es wurden keine Termine eingetragen.
+        br
+
+      br
+      .event-wiki-text
+        h5
+          ' Hinweise von Studenten
+          a href=edit_user_text_event_path(event) bearbeiten
+        - if event.user_text_md
+          .sidebar-box = markdown event.user_text_md
+        - else
+          .sidebar-box
+            ' Gibt es ein Übungsblatt? Link zu den Vorlesungsfolien? Passwort zum VAB?
+            a href=edit_user_text_event_path(event) Mach den Anfang
+            '  und schreibe einen Hinweise für deine Kommilitonen.
+
+      br
+      div
+        = link_to "im Vorlesungsverzeichnis anzeigen", event_vvz_path(@event.vvzs.first, @event)
+
+
+
+    #event-description-tab.main-small
+      section.desc
+        h4 Dozenten
+        = @event.lecturer
+      - if @event.j_description.present?
+        = @event.j_description
+      - else
+        .sidebar-box Für diese Veranstaltung liegt keine Beschreibung vor.
+
+    hr.clear

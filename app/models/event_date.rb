@@ -34,6 +34,9 @@ class EventDate < ActiveRecord::Base
     joins(:event => :users).where("users.id" => User.first)
   }
 
+  def room_name
+    room ? room.name : read_attribute(:room_name)
+  end
   # Returns the day of the date as an Integer
   # monday = 0, tuesday = 1, ..., sunday = 6
   def day

@@ -1,27 +1,29 @@
 header
-  ul.pull-right.inline
-    li 
-      - if @event.subscribed?(current_user)
-        a.btn.subscribe.btn-small href=unsubscribe_event_path(@event)
-          | abmelden
-      - else
-        a.btn.unsubscribe.btn-small href=subscribe_event_path(@event)
-          | anmelden
-
-  h1= @event.name
-  .lecturer
-    = @event.lecturer
- 
-  .clearfix
-
-
-  nav
-    ul.nav.nav-tabs
-      li class=(request.path == event_path(@event) && "active")
-        a href=event_path(@event) Beschreibung
-      li class=(request.path == dates_event_path(@event) && "active")
-        a href=dates_event_path(@event) Termine
+  - unless local_assigns[:nonav]
+    ul.pull-right.nav.nav-pills
+      - if website = event.data["website"]
+        li
+          a href=website target="_blank"
+            i.icon-external-link
+            |  Webseite
+      - if vab = event.data["workspace_url"]
+        li
+          a href=vab target="_blank"
+            i.icon-external-link
+            |  VAB
       li
-        a href=@event.url target="_blank"
+        a href=event.url target="_blank"
           i.icon-external-link
-          |  offiziellen Seite
+          |  KIT Vorlesungsverzeichnis
+      li
+        - if event.subscribed?(current_user)
+          a.subscribe.muted href=unsubscribe_event_path(event)
+            |  abmelden
+        - else
+          a.unsubscribe href=subscribe_event_path(event)
+           |  anmelden
+
+  h1
+    a href=event_path(event) = event.name
+
+  hr.clear

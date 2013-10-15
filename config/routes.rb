@@ -2,7 +2,7 @@ KITBox::Application.routes.draw do
 
   constraints(:host => /kit.carstengriesheimer.de/) do
     root :to => redirect("http://www.kithub.de")
-    match '/*path', :to => redirect {|params| "http://www.kithub.de/#{params[:path]}"}
+    match '/*path', :to => redirect {|params,request| "http://www.kithub.de/#{params[:path]}"}
    end
 
   resources :disciplines, only: [:index, :show] do
@@ -35,9 +35,12 @@ KITBox::Application.routes.draw do
       get 'subscribe'
       get 'unsubscribe'
       get 'dates'
+      get 'edit_user_text'
+      put 'update_user_text'
     end
     collection do
       get 'unsubscribe_all'
+      post 'preview_md'
     end
     resources :dates, controller: "event_dates", only: [:new, :create]
   end
@@ -71,7 +74,6 @@ KITBox::Application.routes.draw do
 
 
   get '/robots.txt' => 'welcomes#robots'
-
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
