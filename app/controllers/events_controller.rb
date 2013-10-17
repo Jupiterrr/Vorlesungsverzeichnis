@@ -11,8 +11,8 @@ class EventsController < ApplicationController
     end
     respond_to do |format|
       format.html {
-        authorize
-        #redirect_to event_vvz_path(@event.vvzs.first, @event)
+        redirect_to event_vvz_path(@event.vvzs.first, @event) unless current_user.admin?
+        # authorize
       }
       format.json do
         data = @event.as_json(current_user)

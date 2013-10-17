@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :disciplines
   before_create :generate_timetable_id
 
+  serialize :data, ActiveRecord::Coders::Hstore
   validates :uid, :name, :disciplines, :presence => true
 
   def generate_timetable_id
@@ -32,6 +33,10 @@ class User < ActiveRecord::Base
       user.save validate: false
     end
     user
+  end
+
+  def admin?
+    data["admin_role"] == "true"
   end
 
 end

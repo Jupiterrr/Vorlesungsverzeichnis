@@ -19,6 +19,8 @@ header#topbar
           li.login date-login=(current_user ? 0 : 1)
             - if authorized?
               a.user-name href="/" = current_user.name
+              - if current_user.admin?
+                span style="color:red;" admin
               a#signout href=signout_path title="abmelden" data-placement="bottom"
                 i.icon-off
                 |
