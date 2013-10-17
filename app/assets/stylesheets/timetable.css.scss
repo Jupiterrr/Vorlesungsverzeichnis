@@ -70,6 +70,15 @@
   padding-top: 5px;
 }
 
+#calendar .wc-grid-timeslot-header, #calendar .wc-time-column-header {
+  width: 40px;
+}
+
+.wc-time-header-cell {
+  padding: 0 5px 10px 5px !important;
+  // height: 49.3px !important;
+}
+
 #calendar {
   position: relative;
   min-height: 500px;
