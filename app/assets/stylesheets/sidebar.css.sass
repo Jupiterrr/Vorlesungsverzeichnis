@@ -6,18 +6,24 @@
   //background: #EEE;
   //padding: 5px;
 
+.rigth-sidebar.wide
+  width: 333px
 
 aside + .main
   margin-right: 240px
 
 @include breakpoint(mobil)
-  .rigth-sidebar
+  .rigth-sidebar, .rigth-sidebar.wide
     float: none
     width: auto
+    margin-bottom: 1.5em
+    padding-bottom: 1em
+    border: 1px solid #EEE
+    padding: .5em
 
-    nav 
+    nav
       display: inline-block
-  
+
   aside + .main
     margin-right: 0
 
@@ -27,26 +33,26 @@ aside > nav
   background: #FAFAFB
   border-radius: 4px
   overflow: hidden
-  
+
   ul
     margin: 0
-  
+
   li
     border-bottom: 1px solid #EEE
     border-top: 1px solid #FFF
-    
+
     &:first-child
       border-top: 0
-    
+
     &:last-child
       border-bottom: 0
-  
+
   li a
     display: block
     padding: 6px 10px 5px 8px
     text-shadow: 0 1px 0 #FFF
     border-left: 2px solid #FAFAFB
-    
+
     &:hover
       background: #FDFDFE
       text-decoration: none
