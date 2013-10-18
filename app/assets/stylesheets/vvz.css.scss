@@ -362,7 +362,7 @@ $col_width: ($content-width - 3px) / 3;
 }
 
 .showcase .item {
-  width: 450px;
+  width: 460px;
   float: left;
   color: inherit;
   text-decoration: none;
@@ -385,7 +385,10 @@ $col_width: ($content-width - 3px) / 3;
     margin: 0;
     line-height: inherit;
   }
-  p { margin: 0; }
+  p {
+    margin: 0;
+    color: #333;
+  }
 }
 
 
