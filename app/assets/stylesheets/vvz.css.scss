@@ -361,4 +361,32 @@ $col_width: ($content-width - 3px) / 3;
   }
 }
 
+.showcase .item {
+  width: 450px;
+  float: left;
+  color: inherit;
+  text-decoration: none;
+
+  @include breakpoint(mobil) {
+    max-width: inherit;
+    margin-bottom: 1em;
+  }
+  i {
+    padding: 0 .7em 0 0;
+    vertical-align: top;
+    padding-top: 25px;
+    color: #A6B4C5;
+    width: 30px;
+    text-align: center;
+  }
+  h3 {
+    font-size: 13pt;
+    font-weight: normal;
+    margin: 0;
+    line-height: inherit;
+  }
+  p { margin: 0; }
+}
+
+
 

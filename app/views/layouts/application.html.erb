@@ -39,7 +39,9 @@
   <%= render :partial => "layouts/topbar" %>
   <%#= render :partial => "layouts/breadcrumb" %>
 
-  <%= yield %>
+  <div class="main-content" role="main">
+    <%= yield %>
+  </div>
 
   <%= render :partial => "layouts/footer" %>
 
