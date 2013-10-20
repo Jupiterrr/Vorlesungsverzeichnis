@@ -21,6 +21,15 @@ describe WeekTimetable::WeekMapper do
     new_date.should == DateTime.new(2013, 1, 7, 11, 0, 0, '+2')
   end
 
+  context "at a sunday" do
+    it "maps to correct week" do
+      week = DateTime.new(2013, 1, 6)
+      time = DateTime.new(2013, 1, 5+7, 11, 0, 0, '+2')
+      new_date = subject.map_date_to_week(time, week)
+      new_date.should == DateTime.new(2013, 1, 5, 11, 0, 0, '+2')
+    end
+  end
+
   after do
     Timecop.return
   end
