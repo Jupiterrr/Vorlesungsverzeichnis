@@ -15,7 +15,7 @@ module VVZUpdater
   class << self
 
     def improve_names(term_name)
-      DataEnhancement.improve_names(term_name)
+      VVZUpdater::DataEnhancer.new(term_name).improve_names()
     end
 
     def updater_tree(term)
