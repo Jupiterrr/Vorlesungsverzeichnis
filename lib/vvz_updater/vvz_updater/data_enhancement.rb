@@ -22,7 +22,7 @@ module VVZUpdater
     def improve_name(event)
       if stupid_name?(event.original_name)
         event_no = /[[:digit:]]+/.match(event.original_name)
-        if link = find_event(event_no)
+        if link = find_event(event_no, event)
           event.name = tutorium?(event.original_name) ? "Tutorium zu #{link.name}" : "Übung zu #{link.name}"
           puts "#{event.original_name} => #{event.name}" if @options[:logging]
           event.save
@@ -38,8 +38,8 @@ module VVZUpdater
       /^Tutorium / =~ name
     end
 
-    def find_event(event_no)
-      @event_scope.find(:first, conditions: ["nr LIKE ?", "%" + event_no.to_s])
+    def find_event(event_no, event)
+      @event_scope.find(:first, conditions: ["nr LIKE ? AND id != ?", "%" + event_no.to_s, event.id])
     end
 
   end
