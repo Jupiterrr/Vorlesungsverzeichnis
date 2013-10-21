@@ -1,5 +1,5 @@
 # Vorlesungsverzeichnis [![Build Status](https://travis-ci.org/Jupiterrr/Vorlesungsverzeichnis.png?branch=master)](https://travis-ci.org/Jupiterrr/Vorlesungsverzeichnis) [![Code Climate](https://codeclimate.com/github/Jupiterrr/Vorlesungsverzeichnis.png)](https://codeclimate.com/github/Jupiterrr/Vorlesungsverzeichnis)
-[kit.carstengriesheimer.de](http://kit.carstengriesheimer.de)
+[www.kithub.de](http://www.kithub.de)
 
 For students of the [Karlsruher Institut für Technologie](http://www.kit.edu).
 
