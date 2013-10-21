@@ -8,7 +8,7 @@ class Model extends vvz.Node.Model
     # track request with google analytics
 
   url: ->
-    "#{@urlRoot}/#{@id}.json"
+    "#{@urlRoot}/#{@id}"
 
   vvzPath: ->
     "/vvz/#{@get("parent").id}#{@url()}"
@@ -64,7 +64,7 @@ class EventView extends vvz.Colum.CollumnView
     model = @options.parent.toJSON()
 
     @model = new Model(model)
-    @model.fetch()
+    @model.fetch(url: @model.url()+".json")
     @model.once('change', @render, this)
     @render
     @model.bind 'change:subscribed', (a,unsubscribed)->
