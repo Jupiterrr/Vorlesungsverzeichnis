@@ -27,8 +27,8 @@
           | Es wurden keine Termine eingetragen.
         br
 
-      br
-      .event-wiki-text
+      //br
+      //.event-wiki-text
         h5
           ' Hinweise von Studenten
           a href=edit_user_text_event_path(event) bearbeiten
@@ -40,7 +40,7 @@
             a href=edit_user_text_event_path(event) Mach den Anfang
             '  und schreibe einen Hinweise für deine Kommilitonen.
 
-      br
+      //br
       div
         = link_to "im Vorlesungsverzeichnis anzeigen", event_vvz_path(@event.vvzs.first, @event)
 
