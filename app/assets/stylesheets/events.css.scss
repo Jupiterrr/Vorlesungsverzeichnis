@@ -128,20 +128,6 @@
     margin-bottom: 1em;
   }
 
-  .top-date-row {
-    display: table;
-    width: 100%;
-    .room, .time, .date {
-      display: table-cell;
-    }
-    .room {
-      text-align: center;
-    }
-    .date {
-      text-align: right;
-    }
-  }
-
   .repeated-date {
     .day, .room, .time {
       display: inline-block;
@@ -154,11 +140,7 @@
     }
   }
 
-  .next-dates-list {
-    li {
-      margin-bottom: .5em;
-    }
-  }
+
 
   .dates {
     h3 {
@@ -213,9 +195,6 @@
   }
   .desc:first-child h4 { margin-top: 0; }
 
-  aside h5 { color: #555; }
-  aside h5 a { font-weight: normal; }
-
   .desc p { margin: 0; }
   .desc strong { margin: 1em 0 .5em 0; position: relative; display: block; }
 }
@@ -246,3 +225,22 @@
   p { margin: 0 0 .6em 0; }
 }
 
+.top-date-row {
+  display: table;
+  width: 100%;
+  .room, .time, .date {
+    display: table-cell;
+  }
+  .room {
+    text-align: center;
+  }
+  .date {
+    text-align: right;
+  }
+}
+
+.next-dates-list {
+  li {
+    margin-bottom: .5em;
+  }
+}

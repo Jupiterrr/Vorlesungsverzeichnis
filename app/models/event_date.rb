@@ -34,6 +34,9 @@ class EventDate < ActiveRecord::Base
     joins(:event => :users).where("users.id" => User.first)
   }
 
+  scope :current, lambda { where(["start_time <= ? AND end_time >= ?", Time.now, Time.now]) }
+
+
   def room_name
     room ? room.name : read_attribute(:room_name)
   end

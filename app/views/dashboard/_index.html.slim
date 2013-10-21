@@ -4,11 +4,23 @@
     hr
     aside.rigth-sidebar.wide
       nav
-        ul.unstyled
+        ul.unstyled.sidebar-box
           li
             a href=timetable_index_path Stundenplan
           /li
             a href=discipline_exam_dates_path(current_user.disciplines.first) Klausurtermine
+      - unless @today.empty?
+        h5 Heute
+        ul.unstyled.next-dates-list
+          - @today.each do |date|
+            li.sidebar-box
+              - event = date.event
+              a.title href=event_path(event) = event.name
+              .date
+                - df = date_formater(date)
+                span.time = df.time_short + " Uhr"
+                ' ,
+                span.room = df.room
 
     .main-small
       #user-event-list
