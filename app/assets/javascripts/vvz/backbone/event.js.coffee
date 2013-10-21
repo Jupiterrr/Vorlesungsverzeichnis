@@ -8,7 +8,7 @@ class Model extends vvz.Node.Model
     # track request with google analytics
 
   url: ->
-    "#{@urlRoot}/#{@id}"
+    "#{@urlRoot}/#{@id}.json"
 
   vvzPath: ->
     "/vvz/#{@get("parent").id}#{@url()}"
