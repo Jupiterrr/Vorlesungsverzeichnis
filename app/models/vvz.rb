@@ -43,7 +43,10 @@ class Vvz < ActiveRecord::Base
   end
 
   def mapping(array, active)
-    array.sort! {|a,b| a[:name] <=> b[:name]}
+    begin
+      array.sort! {|a,b| a[:name] <=> b[:name]}
+    rescue
+    end
     array.map do |i|
       {item: i, active: i == active, parent: self}
     end
