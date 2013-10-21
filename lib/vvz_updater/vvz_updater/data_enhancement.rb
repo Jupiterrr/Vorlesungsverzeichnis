@@ -16,16 +16,15 @@ module VVZUpdater
     # Public: tries to improve names like 'Übung zu 100212'.
     # Removes all improved names before.
     def improve_names
-      @event_scope.each {|event| improve_name(event) }
+      @event_scope.original_with_number.each {|event| improve_name(event) }
     end
 
     def improve_name(event)
-      if stupid_name?(event.original_name)
-        event_no = /[[:digit:]]+/.match(event.original_name)
-        if link = find_event(event_no, event)
-          event.name = tutorium?(event.original_name) ? "Tutorium zu #{link.name}" : "Übung zu #{link.name}"
+      matcher = GenericMatcher.new(event.original_name)
+      if matcher.match?
+        if link = find_event(matcher.event_no, event)
+          event.update_attributes(name: matcher.fix_name(link.name))
           puts "#{event.original_name} => #{event.name}" if @options[:logging]
-          event.save
         end
       end
     end
@@ -40,6 +39,34 @@ module VVZUpdater
 
     def find_event(event_no, event)
       @event_scope.find(:first, conditions: ["nr LIKE ? AND id != ?", "%" + event_no.to_s, event.id])
+    end
+
+    class GenericMatcher
+
+      REGEX = /^?(\S+) (?:zu|für|for)\s+?(\d+)/
+
+      def initialize(name)
+        @name = name
+      end
+
+      def event_no
+        @name.match(self.class::REGEX)[1] rescue nil
+      end
+
+      def match?
+        self.class::REGEX =~ @name
+      end
+
+      def event_no
+        @name.match(self.class::REGEX)[2] rescue nil
+      end
+
+      def fix_name(master_name)
+        type = @name.match(self.class::REGEX)[1] rescue nil
+        type = "Tutorium" if type == "Tutorial"
+        type = "Übung" if type == "bung"
+        "#{type} zu #{master_name}"
+      end
     end
 
   end

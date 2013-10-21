@@ -21,6 +21,8 @@ class Event < ActiveRecord::Base
       :trigram => {:prefix => true}
     }
 
+  scope :with_number, lambda { where("name ~ '[0-9]{5,}'") }
+  scope :original_with_number, lambda { where("original_name ~ '[0-9]{5,}'") }
 
   # scope :today, lambda {
   #   joins(:event_dates).where("DATE(start_time) = DATE(?)", Time.now)
