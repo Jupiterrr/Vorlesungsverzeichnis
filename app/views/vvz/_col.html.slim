@@ -15,8 +15,8 @@
 	    	    .edit
 	    a href="vvz?a=#{c.id}"
   	    = c.name
-        
-	/ "⚑ " + 
+
+	/ "⚑ " +
 	/ - else
 	/ - active = @path.include?(i.id) ? "active" : ""
 	/ -	%a{:href=> "?a=#{i.id}", :class=> active, :"data-id"=>i.id}= i.name[1..-2]

@@ -141,6 +141,15 @@ $col_width: ($content-width - 3px) / 3;
 
     overflow-y: auto;
     float: left;
+
+    .divider {
+      background: #FF7E7E;
+      padding: 1px 10px 0 10px;
+      border-bottom: 1px solid #E2E2E2;
+      line-height: 16px;
+      background: #C0C0C0;
+      &:first-child { padding-top: 1px; }
+    }
   }
 
   .spalte, .spalte.last:nth-child(1), .spalte.last:nth-child(2) {

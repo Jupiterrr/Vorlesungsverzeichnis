@@ -42,13 +42,14 @@ class Vvz < ActiveRecord::Base
     JSON_PREFIX + id.to_s
   end
 
+  ColItem = Struct.new(:item, :active, :parent)
   def mapping(array, active)
     begin
       array.sort! {|a,b| a[:name] <=> b[:name]}
     rescue
     end
     array.map do |i|
-      {item: i, active: i == active, parent: self}
+      ColItem.new(i, i == active, self)
     end
   end
 
@@ -62,19 +63,39 @@ class Vvz < ActiveRecord::Base
     depth > 1
   end
 
+  ItemGroup = Struct.new(:name, :items)
+
+  class Col < Struct.new(:items, :is_event_col)
+    def groups
+      [ItemGroup.new(nil, items)]
+    end
+
+    def is_event_col; false end
+
+  end
+
+  class VvzEventListCol < Col
+
+    def is_event_col; true end
+
+    def groups
+      groups = items.group_by {|item| item.item.simple_type }
+      groups.map {|type, events| ItemGroup.new(type, events) }
+    end
+
+  end
+
   def collums(event=nil)
     a = []
     unless is_term?
-      unless parent.is_term?
-        a.push mapping(parent.siblings, parent)
-      end
-      a.push mapping(siblings, self)
+      a.push(Col.new(mapping(parent.siblings, parent))) unless parent.is_term?
+      a.push(Col.new(mapping(siblings, self)))
     end
 
-    unless children.empty?
-      a.push mapping(children, nil)
+    if children.empty?
+      a.push(VvzEventListCol.new(mapping(events, event)))
     else
-      a.push mapping(events, event)
+      a.push(Col.new(mapping(children, nil)))
     end
   end
 

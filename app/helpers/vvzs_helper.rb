@@ -26,7 +26,7 @@ module VvzsHelper
 
   def events_js(parent)
     parent.events.map do |event|
-      [event.id, event.name || "", 1]
+      [event.id, event.name || "", 1, event.simple_type]
     end
   end
 

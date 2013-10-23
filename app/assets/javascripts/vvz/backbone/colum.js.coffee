@@ -28,15 +28,6 @@ class Collection extends Backbone.Collection
       @activeModel.deactivate()
       @activeModel = null
 
-  navDown: ->
-    currentIndex = @indexOf(@activeModel)
-    if nextItem = @at(currentIndex+1)
-      nextItem.activate()
-
-  navUp: ->
-    currentIndex = @indexOf(@activeModel)
-    if nextItem = @at(currentIndex-1)
-      nextItem.activate()
 
 class CollumnView extends Backbone.View
   # class: "Colum:View"
@@ -96,9 +87,22 @@ class NodeCollumnView extends CollumnView
     el = $(@el)
     el.empty()
     el.addClass("js")
+
+    fragment = document.createDocumentFragment()
     if @nodes.length > 0
-      for view in @nodes
-        el.append(view.el)
+      groups = _.groupBy(@nodes, (event) -> event.model.attributes.eventType || "null");
+      groupPairs = _.pairs(groups)
+      sortedGroups = _.sortBy(groupPairs, (g) -> g[0] )
+
+      for group in sortedGroups
+        title = group[0]
+        items = group[1]
+        if title != "null"
+          fragment.appendChild($('<div class="divider">'+title+'</div>')[0])
+
+        for view in items
+          fragment.appendChild(view.el)
+      el.append(fragment)
     else
       el.addClass("empty")
       el.append("Keine Veranstaltungen vorhanden")
@@ -126,15 +130,21 @@ class NodeCollumnView extends CollumnView
     return view
 
   navDown: ->
-    @collection.navDown()
+    item = @$el.find(".active").parent()
+    nextItem = item.next()
+    return unless nextItem
+    nextItem = nextItem.next() if nextItem.hasClass("divider")
+    $(nextItem).trigger("click")
 
   navUp: ->
-    @collection.navUp()
+    item = @$el.find(".active").parent()
+    prevItem = item.prev()
+    return unless prevItem
+    prevItem = prevItem.prev() if prevItem.hasClass("divider")
+    $(prevItem).trigger("click")
 
   navRight: ->
-    collection = @collection.activeModel.get("childCollection")
-    if collection && collection.length > 0
-      collection.first().activate()
+    @$el.next().find("a:first").trigger("click")
 
 
 vvz.Colum =

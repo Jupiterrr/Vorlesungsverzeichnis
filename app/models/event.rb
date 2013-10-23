@@ -140,7 +140,7 @@ class Event < ActiveRecord::Base
   end
 
   def simple_type
-    self._type[/^([^(, ]*)/].to_s
+    self._type.nil? ? "" : self._type[/^([^(, ]*)/]
   end
 
   def j_description

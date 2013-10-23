@@ -66,6 +66,7 @@ class Data
     if item[2] == 1
       children = []
       isEvent = true
+      eventType = item[3]
     else
       children = item[3]
       children = (@parse(child) for child in children)
@@ -75,7 +76,8 @@ class Data
       id: item[0],
       name: item[1],
       children: children,
-      isEvent: isEvent
+      isEvent: isEvent,
+      eventType: eventType
 
     for child in children
       child.attributes.parent = node

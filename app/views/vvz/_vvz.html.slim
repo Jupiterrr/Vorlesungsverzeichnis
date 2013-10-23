@@ -16,12 +16,16 @@ section#vvz.no-padding
         - cclass += "slide_out " if 3 <= col_count
         - cclass += "last " if col_count == 0
         .spalte class=cclass role="group"
-          - spalte.each do |item|
-            - active = item[:active] ? "active" : ""
-            - if item[:item].is_a?(Event)
-              a.item href="/vvz/#{item[:parent].id}/events/#{item[:item].id}" class=active role="treeitem" = item[:item].name
-            - else
-              a.item href="/vvz/#{item[:item].id}" class=active role="treeitem" = item[:item].name
+          - groups = spalte.groups.sort_by {|g| g.name}
+          - groups.each do |group|
+            - if group.name
+              .divider = group.name || "Yeah"
+            - group.items.each do |item|
+              - active = item[:active] ? "active" : ""
+              - if item[:item].is_a?(Event)
+                a.item href="/vvz/#{item[:parent].id}/events/#{item[:item].id}" class=active role="treeitem" = item[:item].name
+              - else
+                a.item href="/vvz/#{item[:item].id}" class=active role="treeitem" = item[:item].name
       - if @event
         .spalte.last
           = render partial: "event_col", locals: {event: @event}
