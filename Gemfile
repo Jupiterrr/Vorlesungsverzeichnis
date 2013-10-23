@@ -35,6 +35,7 @@ gem 'pg_search' # search
 gem 'ri_cal' # timetable -> ical
 gem 'activerecord-postgres-hstore'
 gem "acts_as_paranoid", "~>0.4.0"
+gem 'paper_trail', '>= 3.0.0.beta1' # versioning
 
 # gem 'cancan' # authorization
 gem 'rspec_candy'

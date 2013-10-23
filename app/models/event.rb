@@ -11,6 +11,7 @@ class Event < ActiveRecord::Base
   serialize :linker_attributes, ActiveRecord::Coders::Hstore
   serialize :data, ActiveRecord::Coders::Hstore
 
+  has_paper_trail only: [:user_text_md]
 
   multisearchable :against => [:name, :nr, :lecturer, :description]
 
@@ -23,6 +24,8 @@ class Event < ActiveRecord::Base
 
   scope :with_number, lambda { where("name ~ '[0-9]{5,}'") }
   scope :original_with_number, lambda { where("original_name ~ '[0-9]{5,}'") }
+
+  # scope :orphans, lambda { group("events.id").joins(:vvzs).having("COUNT(vvzs.id) = 0") }
 
   # scope :today, lambda {
   #   joins(:event_dates).where("DATE(start_time) = DATE(?)", Time.now)

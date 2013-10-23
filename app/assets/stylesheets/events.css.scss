@@ -223,6 +223,7 @@
     display: block;
   }
   p { margin: 0 0 .6em 0; }
+  p:last-child { margin-bottom: 0; }
 }
 
 .top-date-row {
@@ -231,10 +232,10 @@
   .room, .time, .date {
     display: table-cell;
   }
-  .room {
+  .time {
     text-align: center;
   }
-  .date {
+  .room {
     text-align: right;
   }
 }

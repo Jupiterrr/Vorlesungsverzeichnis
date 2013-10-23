@@ -168,6 +168,8 @@ GEM
     newrelic_rpm (3.6.3.104)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    paper_trail (3.0.0.beta1)
+      activerecord (>= 3.0, < 5.0)
     pg (0.15.1)
     pg-hstore (1.1.7)
     pg_search (0.6.4)
@@ -358,6 +360,7 @@ DEPENDENCIES
   meta_request (>= 0.2.5)
   newrelic-grape
   newrelic_rpm
+  paper_trail (>= 3.0.0.beta1)
   pg
   pg_search
   poltergeist (~> 1.1)
