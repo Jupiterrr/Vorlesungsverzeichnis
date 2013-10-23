@@ -207,10 +207,7 @@ $col_width: ($content-width - 3px) / 3;
 
 
     a {
-      white-space: nowrap;
-      max-width: 250px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      word-break: break-word;
       display: inline-block;
     }
 
