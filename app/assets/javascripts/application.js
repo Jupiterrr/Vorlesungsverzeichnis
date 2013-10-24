@@ -10,6 +10,8 @@
 //1= require_tree .
 
 //= require search
+//= require bootstrap-markdown/js/markdown
+//= require bootstrap-markdown/js/bootstrap-markdown
 
 //1= require twitter/bootstrap-typeahead
 //0= require twitter/bootstrap/bootstrap-tooltip

@@ -245,3 +245,20 @@
     margin-bottom: .5em;
   }
 }
+
+.event_user_text_md {
+  display: inline-block;
+  width: 700px;
+  textarea.md-input {
+    background: inherit;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    padding: 10px;
+  }
+  .md-editor>.md-preview {
+    min-height: 200px;
+    background: #f0f0f0;
+    padding: 10px;
+  }
+  margin-bottom: .5em;
+}

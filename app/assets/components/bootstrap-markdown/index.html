@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Bootstrap-markdown : Bootstrap plugin for markdown editing" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="css/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-markdown.min.css">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Bootstrap Markdown</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/toopay/bootstrap-markdown">View on GitHub</a>
+
+          <h1 id="project_title">Bootstrap Markdown</h1>
+          <h2 id="project_tagline">Markdown editing meet Bootstrap</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/toopay/bootstrap-markdown/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/toopay/bootstrap-markdown/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>Simple Markdown editing tools that works!</h2>
+        <p><strong>Bootstrap-Markdown</strong> designed to be easily integrated with your bootstrap project. It exposes useful API that allow you to fully hook-in into the plugin</p>
+
+        <hr/>
+
+        <h1>Markup</h1>
+        <p>Switch regular textarea within your form into <strong>Bootstrap-Markdown</strong> editor seamlessly by adding <code class="prettyprint">data-provide=&quot;markdown&quot;</code> attribute</p>
+
+        <!-- MARKUP-TEXTAREA -->
+        <div class="well">
+          <h5>Code</h5>
+          <pre class="prettyprint">&lt;form&gt;
+    &lt;input name=&quot;title&quot; type=&quot;text&quot; placeholder=&quot;Title?&quot; /&gt;
+    &lt;textarea name=&quot;content&quot; data-provide=&quot;markdown&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;
+    &lt;label class=&quot;checkbox&quot;&gt;
+      &lt;input name=&quot;publish&quot; type=&quot;checkbox&quot;&gt; Publish
+    &lt;/label&gt;
+    &lt;hr/&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn&quot;&gt;Submit&lt;/button&gt;
+  &lt;/form&gt; </pre>
+        </div>
+
+        <div class="well">
+          <h5>Result</h5>
+          <form>
+              <input name="title" type="text" placeholder="Title?"/>
+              <textarea name="content" data-provide="markdown" rows="15">### Hello there 
+How are you?
+
+I have bellow task for you :
+
+Select from this text...
+Click the bold on THIS WORD and make THESE ONE italic
+Link GOOGLE to google.com
+Test to insert image (and try to tab after write the image description)
+Test Preview
+And ending here... Click "List"
+
+Enjoy!</textarea>
+              <label class="checkbox">
+                <input name="publish" type="checkbox"> Publish
+              </label>
+              <hr/>
+              <button type="submit" class="btn">Submit</button>
+          </form>
+        </div>
+
+        <p>Inline editing with <strong>Bootstrap-Markdown</strong> is done by adding <code class="prettyprint">data-provide=&quot;markdown-editable&quot;</code> attribute</p>
+
+        <!-- MARKUP-EDITABLE -->
+        <div class="well">
+          <h5>Code</h5>
+          <pre class="prettyprint">&lt;div data-provide=&quot;markdown-editable&quot;&gt;
+          &lt;h3&gt;This is some editable heading&lt;/h3&gt;
+          &lt;p&gt;Well, actually all contents within this &quot;markdown-editable&quot; context is really editable. Just click anywhere!&lt;/p&gt;
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="well">
+          <h5>Result</h5>
+          <div data-provide="markdown-editable">
+          <h3>This is some editable heading</h3>
+          <p>Well, actually all contents within this "markdown-editable" context is really editable. Just click anywhere!</p>
+          </div>
+        </div>
+
+        <hr/>
+
+        <h1>Usage</h1>
+        <p>Beside using above data-attributes, you could call it via code</p>
+        <pre class="prettyprint">$(&quot;#some-textarea&quot;).markdown({autofocus:false,savable:false})</pre>
+        <p>Noted that <strong>Bootstrap-Markdown</strong> could be used as a standalone input (without any form). Set <code>savable</code> parameter to <code>true</code> will do the job. Options can be passed via data attributes or via code. Available options are:</p>
+
+        <table class="table table-bordered table-striped">
+          <colgroup>
+            <col class="span1">
+            <col class="span7">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Option Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>autofocus</code>
+              </td>
+              <td><code>boolean</code></td>
+              <td>Indicates that editor will focused after instantiated. Default to <code>false</code></td>
+            </tr>
+            <tr>
+              <td>
+                <code>savable</code>
+              </td>
+              <td><code>boolean</code></td>
+              <td>Indicates that editor will have save button and action. Default to <code>false</code></td>
+            </tr>
+            <tr>
+              <td>
+                <code>hideable</code>
+              </td>
+              <td><code>boolean</code></td>
+              <td>If set to <code>true</code> then the editor will be hidden on <code>blur</code> event. Default to <code>false</code></td>
+            </tr>
+            <tr>
+              <td>
+                <code>width</code>
+              </td>
+              <td><code>mixed</code></td>
+              <td>The edtor width. Default to <code>inherit</code>. You could supply any numerical value (that will be set as css), or supply valid Bootstrap class (something like <code>span2</code>)</td>
+            </tr>
+            <tr>
+              <td>
+                <code>height</code>
+              </td>
+              <td><code>mixed</code></td>
+              <td>The edtor height. Default to <code>inherit</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="well">
+          <h5>Some examples</h5>
+          <hr/>
+          <p>Custom width using <code>data-width="400"</code> attribute</p>
+          <textarea data-provide="markdown" data-width="400"></textarea><br/>
+          <hr/>
+          <p>Hideable on blur using <code>data-hideable="true"</code> attribute</p>
+          <textarea data-provide="markdown" data-hideable="true"></textarea>
+          <hr/>
+          <p>Savable using <code>data-savable="true"</code> attribute</p>
+          <textarea data-provide="markdown" data-savable="true"></textarea>
+          <hr/>
+        </div>
+
+        <h3>Events/Hook</h3>
+        <p>There are four main events within <strong>Bootstrap-Markdown</strong> lifecycle : <code>onShow</code>, <code>onPreview</code>, <code>onSave</code> and <code>onBlur</code>. Heres an example to hook into those events via code:</p>
+
+        <div class="well">
+        <h5>Code</h5>
+        <pre class="prettyprint">$(&quot;#target-editor&quot;).markdown({
+  savable:true,
+  onShow: function(e){
+    alert(&quot;Showing &quot;
+      +e.$textarea.prop(&quot;tagName&quot;).toLowerCase()
+      +&quot;#&quot;
+      +e.$textarea.attr(&quot;id&quot;)
+      +&quot; as Markdown Editor...&quot;)
+  },
+  onPreview: function(e) {
+    var previewContent
+
+    if (e.isDirty()) {
+      var originalContent = e.getContent()
+
+      previewContent = &quot;Prepended text here...&quot;
+             + &quot;\n&quot;
+             + originalContent
+             + &quot;\n&quot;
+             +&quot;Apended text here...&quot;
+    } else {
+      previewContent = &quot;Default content&quot;
+    }
+
+    return previewContent
+  },
+  onSave: function(e) {
+    alert(&quot;Saving '&quot;+e.getContent()+&quot;'...&quot;)
+  },
+  onBlur: function(e) {
+    alert(&quot;Blur triggered!&quot;)
+  }
+})</pre>
+        </div>
+
+        <div class="well">
+        <h5>Result</h5>
+          <textarea id="target-editor"></textarea>
+          <br/>
+          <button id="editor-triger-init" class="btn btn-primary">Transform into Bootstrap-Markdown</button>
+        </div>
+
+        <h3>Editor Panel</h3>
+        <p><strong>Bootstrap-Markdown</strong> panel could be easily extended to suit your own specific needs. You can just set <code>additionalButtons</code> param, with your own buttons group. Heres an example to add button group into editor panel</p>
+
+        <div class="well">
+        <h5>Code</h5>
+        <pre class="prettyprint">$(&quot;#target-editor-with-custom-buttons&quot;).markdown({
+  additionalButtons: [
+    [{
+          name: &quot;groupCustom&quot;,
+          data: [{
+            name: &quot;cmdBeer&quot;,
+            toggle: true, // this param only take effect if you load bootstrap.js
+            title: &quot;Beer&quot;,
+            icon: &quot;icon icon-glass&quot;,
+            callback: function(e){
+              // Replace selection with some drinks
+              var chunk, cursor, 
+                  selected = e.getSelection(), content = e.getContent(),
+                  drinks = [&quot;Heinekken&quot;, &quot;Budweiser&quot;, 
+                            &quot;Iron City&quot;, &quot;Amstel Light&quot;, 
+                            &quot;Red Stripe&quot;, &quot;Smithwicks&quot;, 
+                            &quot;Westvleteren&quot;, &quot;Sierra Nevada&quot;, 
+                            &quot;Guinness&quot;, &quot;Corona&quot;, &quot;Calsberg&quot;],
+                  index = Math.floor((Math.random()*10)+1)
+
+
+              // Give random drink
+              chunk = drinks[index]
+
+              // transform selection and set the cursor into chunked text
+              e.replaceSelection(chunk)
+              cursor = selected.start
+
+              // Set the cursor
+              e.setSelection(cursor,cursor+chunk.length)
+            }
+          }]
+    }]
+  ]
+})</pre></div>
+
+        <div class="well">
+        <h5>Result</h5>
+          <textarea id="target-editor-with-custom-buttons"></textarea>
+        </div>
+
+        <h3>API</h3>
+        <p>As you may already notice by now, all hook would passed Editor instance (declared as <code>e</code> in all above examples). It means you could easily use its API to interact with the editor for any purposes. Heres the complete list of <strong>Bootstrap-Markdown</strong> APIs.</p>
+
+        <table class="table table-bordered table-striped">
+          <colgroup>
+            <col class="span1">
+            <col class="span7">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Method Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>showEditor()</code>
+              </td>
+              <td>Toggle on the editor visibility</td>
+            </tr>
+            <tr>
+              <td>
+                <code>showPreview()</code>
+              </td>
+              <td>Toggle on the preview visibility</td>
+            </tr>
+            <tr>
+              <td>
+                <code>hidePreview()</code>
+              </td>
+              <td>Toggle off the editor visibility</td>
+            </tr>
+            <tr>
+              <td>
+                <code>isDirty()</code>
+              </td>
+              <td>Check the editor content state, return true if the original content was changed</td>
+            </tr>
+            <tr>
+              <td>
+                <code>getContent()</code>
+              </td>
+              <td>Get the editor content</td>
+            </tr>
+            <tr>
+              <td>
+                <code>setContent(<em>string</em> content)</code>
+              </td>
+              <td>Set the editor content</td>
+            </tr>
+            <tr>
+              <td>
+                <code>findSelection(<em>string</em> words)</code>
+              </td>
+              <td>Find some words/sentence within the editor and returned selection object(containing word position and other useful information).</td>
+            </tr>
+            <tr>
+              <td>
+                <code>getSelection()</code>
+              </td>
+              <td>Get the current selected chunk of words within the editor.</td>
+            </tr>
+            <tr>
+              <td>
+                <code>setSelection(<em>int</em> start, <em>int</em> end)</code>
+              </td>
+              <td>Tell the editor to select a span of words from <code>start</code> to <code>end</code>.</td>
+            </tr>
+            <tr>
+              <td>
+                <code>replaceSelection(<em>string</em> content)</code>
+              </td>
+              <td>Replace the current selected chunk of words within the editor with any content.</td>
+            </tr>
+            <tr>
+              <td>
+                <code>getNextTab()</code>
+              </td>
+              <td>Get the next tab memory. Returned selection object(containing word position and other useful information).</td>
+            </tr>
+            <tr>
+              <td>
+                <code>setNextTab(<em>int</em> start, <em>int</em> end)</code>
+              </td>
+              <td>Tell the editor to select a span of words from <code>start</code> to <code>end</code> at next <code>tab</code> keypress event.</td>
+            </tr>
+            <tr>
+              <td>
+                <code>enableButtons(<em>string</em> name)</code>
+              </td>
+              <td>Enabled a button by <code>name</code> that described in <code>buttons</code> or <code>additionalButtons</code> arrays. Passing <code>all</code> will enabled all buttons.</td>
+            </tr>
+            <tr>
+              <td>
+                <code>disableButtons(<em>string</em> name)</code>
+              </td>
+              <td>Disabled a button by <code>name</code> that described in <code>buttons</code> or <code>additionalButtons</code> arrays. Passing <code>all</code> will disabled all buttons.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert alert-info">
+          <strong>NOTE</strong>
+          <p>Altought the primary purpose of this plugin is to provide Markdown editor, the design is allowing the plugin to be used as a general purpose editor.</p>
+          <p>The preview functionalities and html to markdown conversion are provided by 3rd party codes : <a href="https://github.com/evilstreak/markdown-js" target="_blank">markdown-js</a> and <a href="https://github.com/domchristie/to-markdown" target="_blank">to-markdown</a>. Without them, this plugin would still work and convert the content as-is, so you could easily modify those functionalities yourself via available hooks.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright"><strong>Bootstrap-Markdown</strong> maintained by <a href="https://github.com/toopay">toopay</a></p>
+      </footer>
+    </div>
+
+    
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"type="text/javascript"></script> 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="js/markdown.js"></script>
+  <script src="js/to-markdown.js"></script>
+  <script src="js/bootstrap-markdown.js"></script>
+  <script src="js/main.js"></script>
+  </body>
+</html>

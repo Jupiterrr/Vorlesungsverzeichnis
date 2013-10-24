@@ -9,7 +9,7 @@ html, body {
   color: #000;
 }
 
-a, a:hover {
+a, a:hover, a.btn-link, a.btn-link:hover {
   color: $blue;
 }
 
