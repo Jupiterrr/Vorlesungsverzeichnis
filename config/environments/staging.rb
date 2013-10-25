@@ -19,7 +19,7 @@ KITBox::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
-  
+
   #config.cache_store = :dalli_store, :expires_in => 1.day, :compress => true
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
@@ -40,7 +40,7 @@ KITBox::Application.configure do
   config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "DEBUG").upcase)
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store
+  config.cache_store = :null_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -61,12 +61,6 @@ KITBox::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # Use Dalli as the rack-cache metastore
-  config.action_dispatch.rack_cache = {
-    :metastore    => Dalli::Client.new,
-    :entitystore  => 'file:tmp/cache/rack/body',
-    :allow_reload => false
-  }
   config.static_cache_control = "public, max-age=2592000" # changed
 end
 HOST = ENV['HOST']
