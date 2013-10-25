@@ -13,11 +13,6 @@ a, a:hover, a.btn-link, a.btn-link:hover {
   color: $blue;
 }
 
-::-webkit-scrollbar-thumb:vertical {background-color: #bbb; height:200px; }
-::-webkit-scrollbar-thumb:horizontal {background-color: #999; height:10px !important;}
-::-webkit-scrollbar { height:10px; width:7px; background: #eee; }
-
-
 .fr { float: right; }
 .fl { float: left; }
 
@@ -29,25 +24,12 @@ hr.clear {
 .hide { display: none; }
 
 
-header.page-header {
-  border-bottom: 0;
-  margin:0;
-}
-.page-header {
-  -webkit-box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
-  -moz-box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
-}
+
 
 aside h5 {
   margin: 0 0 8px 0;
 }
 
-.fb-comments {
-  display: block !important;
-  text-align: center;
-  margin-top: 35px;
-}
 
 p.vorschlaege {
     text-align: center;
@@ -64,16 +46,7 @@ p.vorschlaege {
   border-radius: 5px;
 }
 
-#content {
-  padding-left: 240px;
-  padding-top: 1px;
-  width: 940px;
-  margin-top: 50px;
-}
 
-.content {
-  border: 1px solid #e5e5e5;
-}
 
 .tooltip-inner {
   white-space: nowrap;
@@ -134,12 +107,6 @@ form .field_with_errors {
   }
 }
 
-footer .content {
-  font-size: .9em;
-  border: 0;
-  a { margin-right: 10px;}
-  small { font-size: .9em; }
-}
 
 .tooltip-inner {
   padding: 3px 8px;
@@ -150,9 +117,20 @@ footer .content {
   overflow-y: auto;
 }
 
-@import "vvz";
-@import "vvz/breadcrumb";
-@import "vvz/topbar";
 
-@import "v3";
-@import "layout";
+
+.icon-box {
+  display: table;
+  i, .content {
+    display: table-cell;
+  }
+}
+
+
+
+@import "vvz.css.scss";
+@import "vvz/breadcrumb.css.scss";
+@import "vvz/topbar.css.scss";
+
+@import "v3.css.scss";
+@import "layout.css.scss";

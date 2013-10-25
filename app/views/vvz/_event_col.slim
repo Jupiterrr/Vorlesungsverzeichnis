@@ -1,10 +1,10 @@
 / - if current_user
 /   - if current_user.events.include?(event)
 /     a.settings href="#{event_attend_url(event)}?no" title="nicht mehr teilnehmen"
-/       i.icon-minus.icon-white
+/       i.fa-minus.fa-white
 /   - else
 /     a.settings href="#{event_attend_url(event)}" title="teilnehmen"
-/       i.icon-plus.icon-white
+/       i.fa-plus.fa-white
 .event
   header.padding
     h1 = event.name
@@ -33,12 +33,12 @@
       .settings
         - if event.subscribed?(current_user)
           a#subscribe.btn href=unsubscribe_event_path(event)
-            i.icon-minus
+            i.fa-minus.fa
             '
             span abmelden
         - else
           a#subscribe.btn href=subscribe_event_path(event)
-            i.icon-plus
+            i.fa-plus.fa
             '
             span teilnehmen
 

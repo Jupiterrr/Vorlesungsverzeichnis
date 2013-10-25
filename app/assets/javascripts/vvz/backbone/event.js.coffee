@@ -69,10 +69,10 @@ class EventView extends vvz.Colum.CollumnView
     @render
     @model.bind 'change:subscribed', (a,unsubscribed)->
       if !unsubscribed
-        $("#subscribe i").attr("class", "icon-plus")
+        $("#subscribe i").attr("class", "fa-plus fa")
         $("#subscribe span").text("teilnehmen")
       else
-        $("#subscribe i").attr("class", "icon-minus")
+        $("#subscribe i").attr("class", "fa-minus fa")
         $("#subscribe span").text("abmelden")
 
   render: ->
@@ -84,7 +84,7 @@ class EventView extends vvz.Colum.CollumnView
     accordionyziseThis($(@el))
 
   subscribe: ->
-    $(@el).find("#subscribe i").attr("class", "icon-spinner icon-spin")
+    $(@el).find("#subscribe i").attr("class", "fa-spinner fa-spin fa")
     @model.toggleSubscription()
     false
 

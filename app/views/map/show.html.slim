@@ -4,7 +4,7 @@ p#notice = notice
 
 .container.map
   .content
-    h2 
+    h2
       = @poi.name
       nav
         /= link_to 'Bearbeiten', edit_map_path(@poi)
@@ -14,11 +14,11 @@ p#notice = notice
       = render partial: "map"
     .info
       p
-        i.icon-home 
-        | Gebäudenummer: 
+        i.fa-home.fa
+        | Gebäudenummer:
         = @poi.building_no
       p
-        i.icon-envelope
+        i.fa-envelope.fa
         = @poi.address
       br
       br

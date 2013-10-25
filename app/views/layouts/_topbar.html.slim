@@ -1,10 +1,9 @@
 header#topbar
   .container
-
     nav#main-nav
       #menue-btn
-        .open-btn.icon-reorder
-        .close-btn.icon-remove
+        .open-btn.fa-reorder.fa
+        .close-btn.fa-minus.fa
       ul.inline
         - if authorized?
           li
@@ -22,16 +21,16 @@ header#topbar
               - if current_user.admin?
                 span style="color:red;" admin
               a#signout href=signout_path title="abmelden" data-placement="bottom"
-                i.icon-off
-                |
+                i.fa-power-off.fa
+                '
                 span abmelden
             - else
-              button#signin signin
+              button#signin.signin-btn.signin-btn-js signin
 
     h1#logo
       a href=root_path KitHub
 
 
-- unless content_for?(:inline_flash)
+- if content_for?(:inline_flash)
   .container
     = render partial: "layouts/show_flash"

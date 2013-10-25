@@ -40,26 +40,26 @@
           ul.list
             - @user_events.each do |event|
               li.item
-                i.icon-book.icon
+                i.fa-book.fa.icon
                 a.title href=event_path(event)
                   = event.name
                 .actions
                   a.remove-action href=unsubscribe_event_path(event) title="entfernen" rel="tooltip"
-                    i.icon-trash
+                    i.fa-trash-o.fa
                   /.dropdown
                     a.dropdown-toggle data-toggle="dropdown" href="#"
-                      i.icon-chevron-down
+                      i.fa-chevron-down
                     ul.dropdown-menu
                       li
                         a href=unsubscribe_event_path(event) Abmelden
 
       hr
       a.add-more-btn.btn href=vvz_index_path title="mehr hinzufügen"
-        i.icon-plus
+        i.fa-plus.fa
         |  Veranstaltungen hinzufügen
       - unless @user_events.empty?
         a.remove-all style="margin-left:1em;" href=unsubscribe_all_events_path onclick='return confirm("Willst du wirklich alle entfernen?")'
-          i.icon-trash
+          i.fa-trash-o.fa
           |  alle entfernen
 
 
