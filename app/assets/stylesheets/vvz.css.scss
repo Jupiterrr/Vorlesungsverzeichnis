@@ -359,14 +359,16 @@ $col_width: ($content-width - 3px) / 3;
 }
 
 .showcase .item {
-  width: 460px;
+  width: 450px;
   float: left;
   color: inherit;
   text-decoration: none;
+  &:first-child { margin-right: 30px; }
 
   @include breakpoint(mobil) {
     max-width: inherit;
     margin-bottom: 1em;
+    width: auto;
   }
   i {
     padding: 0 .7em 0 0;
@@ -381,10 +383,16 @@ $col_width: ($content-width - 3px) / 3;
     font-weight: normal;
     margin: 0;
     line-height: inherit;
+    margin-bottom: .1em;
   }
   p {
     margin: 0;
     color: #333;
+  }
+
+  .signin-btn {
+    background-size: 90%;
+    margin-top: 1em;
   }
 }
 
