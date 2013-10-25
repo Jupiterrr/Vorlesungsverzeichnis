@@ -1,6 +1,7 @@
 GIT
-  remote: git@github.com:cgallemore/font-awesome-sass.git
+  remote: git://github.com/cgallemore/font-awesome-sass.git
   revision: a78fa1e486f4f261efa62cb3925020960d885dc9
+  ref: a78fa1e486
   specs:
     font-awesome-sass (4.0.0)
       sass-rails (>= 3.1.1)

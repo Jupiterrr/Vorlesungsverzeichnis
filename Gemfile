@@ -62,7 +62,7 @@ group :assets do
   gem 'coffee-rails', '>= 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
-gem 'font-awesome-sass', git: "git@github.com:cgallemore/font-awesome-sass.git"
+gem 'font-awesome-sass', git: "git://github.com/cgallemore/font-awesome-sass.git", ref: 'a78fa1e486'
 gem 'hogan_assets'
 
 group :development do
