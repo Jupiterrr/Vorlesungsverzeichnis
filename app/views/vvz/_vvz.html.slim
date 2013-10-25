@@ -4,7 +4,7 @@ section#vvz.no-padding
   - hidden = col_count <= 3 ? "hidden" : ""
   - back_path = vvz_path(@vvz)
   a.back class=hidden href=back_path
-    i.icon-chevron-left
+    i.fa-chevron-left.fa
   .box role="tree"
     - col_count = @spalten.count
     - col_count +=1 if @event

@@ -61,8 +61,9 @@ group :assets do
   gem 'sass-rails', '>= 3.1.5'
   gem 'coffee-rails', '>= 3.1.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'hogan_assets'
 end
+gem 'font-awesome-sass', git: "git@github.com:cgallemore/font-awesome-sass.git"
+gem 'hogan_assets'
 
 group :development do
   gem 'quiet_assets'
@@ -96,6 +97,5 @@ group :test do
   gem 'vcr'
   gem 'timecop'
   gem 'webmock', '>= 1.10'
-
   # gem 'rspec-prof'
 end

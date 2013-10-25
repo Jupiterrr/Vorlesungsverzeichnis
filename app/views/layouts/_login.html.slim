@@ -3,9 +3,9 @@
   - if current_user
     .dropdown
       a.user-box.dropdown-toggle data-toggle="dropdown" href="#"
-        i.icon-user 
+        i.icon-user
         i.icon-caret-down
-      .dropdown-menu 
+      .dropdown-menu
         = current_user.name
 
     i.seperator |
@@ -20,3 +20,4 @@
       a#signin href="/auth/browser_id" Anmelden
   script type="text/javascript"
     | window.loggedIn=#{!!current_user};
+    | alert(111)

@@ -19,7 +19,7 @@ KITBox::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
-  
+
   #config.cache_store = :dalli_store, :expires_in => 1.day, :compress => true
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
@@ -46,7 +46,7 @@ KITBox::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w(vvz.js lib.css)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

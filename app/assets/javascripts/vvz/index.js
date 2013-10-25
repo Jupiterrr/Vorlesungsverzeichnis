@@ -13,6 +13,6 @@
 //= require vvz/backbone/column_manager
 //= require vvz/backbone/key_navigation
 //= require vvz/search
-
+//= require_self
 
 //1= require_tree .
