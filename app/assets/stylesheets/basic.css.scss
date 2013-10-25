@@ -128,9 +128,9 @@ form .field_with_errors {
 
 
 
-@import "vvz";
-@import "vvz/breadcrumb";
-@import "vvz/topbar";
+@import "vvz.css.scss";
+@import "vvz/breadcrumb.css.scss";
+@import "vvz/topbar.css.scss";
 
-@import "v3";
-@import "layout";
+@import "v3.css.scss";
+@import "layout.css.scss";

@@ -2,8 +2,8 @@ header#topbar
   .container
     nav#main-nav
       #menue-btn
-        .open-btn.icon-reorder
-        .close-btn.icon-remove
+        .open-btn.fa-reorder.fa
+        .close-btn.fa-minus.fa
       ul.inline
         - if authorized?
           li
@@ -21,7 +21,7 @@ header#topbar
               - if current_user.admin?
                 span style="color:red;" admin
               a#signout href=signout_path title="abmelden" data-placement="bottom"
-                i.icon-off
+                i.fa-power-off.fa
                 |
                 span abmelden
             - else

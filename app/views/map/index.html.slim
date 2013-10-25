@@ -3,14 +3,7 @@
 - else
   - page_title "Campus Karte"
 == javascript_include_tag "map", defer: true
-/
-  <style>
-    html, body, #map_canvas {
-      /* margin: 0;
-      padding: 0; */
-      height: 100%;
-    }
-  </style>
+
 | <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 .container#map-page.map
   .content
@@ -22,7 +15,7 @@
       hr.clear
       /a.btn.edit
         / rel="tooltip" title="Karte bearbeiten"
-        i.icon-edit
+        i.fa-edit.fa
         |  Karte Bearbeiten
 
     .no-padding
@@ -45,7 +38,7 @@
   #edit_modal.modal.hide.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
     .modal-header
       button.close type="button" data-dismiss="modal" aria-hidden="true"
-        i.icon-remove
+        i.fa-remove.fa
       h3#myModalLabel Karte bearbeiten
     .modal-body
       p Such dir einen Ort aus, den du bearbeiten möchtest:
@@ -62,7 +55,7 @@
       br
     .modal-footer
       .btn.pull-left#add-poi-btn
-        i.icon-plus
+        i.fa-plus.fa
         |  Ort hinzufügen
       a.btn data-dismiss="modal" Schließen
 
@@ -70,7 +63,7 @@
   #edit_modal2.modal.hide.fade tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true"
     .modal-header
       button.close type="button" data-dismiss="modal" aria-hidden="true"
-        i.icon-remove
+        i.fa-remove.fa
       h3#myModalLabel2 Karte bearbeiten
     .modal-body
       label Name
@@ -86,16 +79,16 @@
               = group.name
     /  button.category_label title="entfernen"
         | Gebäude
-        i.icon-ok
-        i.icon-remove
+        i.fa-ok.fa
+        i.fa-remove.fa
       button.category_label title="entfernen"
         | Essen
-        i.icon-ok
-        i.icon-remove
-        / icon-minus-sign
+        i.fa-ok.fa
+        i.fa-remove.fa
+        / fa-minus.fa-sign
       button.category_label.add title="hinzufügen"
         | Parkplätze
-        i.icon-plus
+        i.fa-plus.fa
     .modal-footer
       a.btn.btn-primary.save_btn data-dismiss="modal" Speichern
       a.btn data-dismiss="modal" Schließen

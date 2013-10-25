@@ -4,16 +4,16 @@ header
       - if website = event.data["website"]
         li
           a href=website target="_blank"
-            i.icon-external-link
+            i.fa-external-link.fa
             |  Webseite
       - if vab = event.data["workspace_url"]
         li
           a href=vab target="_blank"
-            i.icon-external-link
+            i.fa-external-link.fa
             |  VAB
       li
         a href=event.url target="_blank"
-          i.icon-external-link
+          i.fa-external-link.fa
           |  KIT Vorlesungsverzeichnis
       li
         - if event.subscribed?(current_user)

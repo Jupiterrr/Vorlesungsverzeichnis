@@ -21,7 +21,7 @@
         input type="hidden" name="type" value="vvz"
         /.input-prepend
           label.add-on for="vvz-search-i"
-            i.icon-search
+            i.fa-search.fa
         .search-input
           - term_name = @term.name.sub("_", " ").sub("-", "/")
           input.typeahead id="vvz-search-i" data-term=@term.id type="search" name="q" value="" placeholder="Vorlesungssuche #{term_name}" autocomplete="off"
@@ -31,14 +31,14 @@
       hr
       .showcase
         .item.icon-box.timetable
-          i.icon-exchange.icon-2x
+          i.fa-exchange.fa-2x
           .content
             h3 Stundenplan
             p Melde dich an und stelle deinen Stundenplan zusammen. <br />Verbinde ihn anschließend einfach mit dem Kalender auf deinem Smartphone oder Computer.
             br
             button.signin-btn.signin-btn-js anmelden
         .item.icon-box.timetable
-          i.icon-map-marker.icon-2x
+          i.fa-map-marker.fa-2x
           .content
             h3 Campus-Karte
             p Du weißt nicht wo der Grashof-Hörsaal ist oder wo die Mathe-Fachschaft liegt? Schau es dir an. Alle Hörsääle, Bibliotheken, Fachschaften und Institute auf einer <a href="/map">Karte</a>.
