@@ -110,14 +110,16 @@ module VVZUpdater
 
 
 
-    def update_event(db_event)
+    def update_event(db_event, use_linker=true)
       connection = KitApi::Connection.connect
 
       # linker
-      db_leaf = db_event.vvzs.first
-      events = KitApi.get_events_by_parent(connection, db_leaf.external_id)
-      linker_event = events.find {|e| e.external_id == db_event.external_id}
-      EventLinker.new(db_leaf, db_leaf.term.name).update(linker_event)
+      if use_linker
+        db_leaf = db_event.vvzs.first
+        events = KitApi.get_events_by_parent(connection, db_leaf.external_id)
+        linker_event = events.find {|e| e.external_id == db_event.external_id}
+        EventLinker.new(db_leaf, db_leaf.term.name).update(linker_event)
+      end
 
       # event updater
       updater_event = KitApi.get_event(connection, db_event.external_id)
@@ -154,6 +156,7 @@ module VVZUpdater
       connection = KitApi::Connection.connect
       term = Vvz.term("KIT", term_name)
       uuids = Event.where(term: term_name).order("RANDOM()").pluck(:external_id)
+      # uuids = Event.where(term: term_name).limit(20).pluck(:external_id)
 
       # reporter
       r = {

@@ -8,11 +8,16 @@ module VVZUpdater
       end
 
       def update(event)
+        attributes = attributes_hash(event)
+        status = @db_event.update_attributes(attributes)
+        @date_updater.update(@db_event, event.dates)
+      end
+
+      def attributes_hash(event)
         attributes = event.attributes
-        status = @db_event.update_attributes({
+        hash = {
           nr: attributes.fetch(:nr),
           term: attributes.fetch(:term),
-          name: attributes.fetch(:name),
           _type: attributes.fetch(:type),
           lecturer: attributes.fetch(:lecturer).map(&:title).join(", "),
           #faculty: attributes.fetch(:organizer),
@@ -35,8 +40,9 @@ module VVZUpdater
             last_run: Time.now
           },
           description: description_hash(event).to_json
-        })
-        @date_updater.update(@db_event, event.dates)
+        }
+        hash[:name] = attributes.fetch(:name) if @db_event.name.nil?
+        hash
       end
 
       def description_hash(event)

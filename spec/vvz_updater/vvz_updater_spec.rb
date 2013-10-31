@@ -3,15 +3,13 @@ require "vvz_updater/vvz_updater"
 
 describe VVZUpdater::EventUpdater, vcr: {match_requests_on: [:body, :uri]} do
 
-  xit "updates" do
-    event_id = "0x8e926b86147a4f499bb5b007a6c41a85"
-    db_event = Event.create external_id: event_id
-    connection = KitApi::Connection.connect
-    event = KitApi.get_event(connection, event_id)
-    updater = VVZUpdater::EventUpdater.new(db_event)
-    updater.update(event)
-    db_event.dates.should have(15).items
-    connection.disconnect
+  describe ".update_event" do
+    it "updates correctly" do
+      db_event = Event.create! external_id: "0xaefda07be09a7c43875d5ce13378a1cc"
+      updater = VVZUpdater.update_event(db_event, false)
+      db_event.dates.should have(23).items
+      db_event.dates.map(&:room_id).flatten.should have(23).items
+    end
   end
 
 end

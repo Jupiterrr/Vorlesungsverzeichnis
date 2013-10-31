@@ -1,35 +1,60 @@
+require 'pry-remote'
+
 module VVZUpdater
   class EventDateUpdater
 
     def initialize(source)
       @source = source.to_s
-      @room_cach = {}
+    end
+
+    def db_room_cach
+      @db_room_cach ||= Hash.new do |cache, room|
+        cache[room] = find_or_create_room(room)
+      end
     end
 
     def update(db_event, dates)
-      existing_dates = db_event.dates
-      own, other = existing_dates.partition {|d| d.source == @source}
+      all_existing_dates = db_event.dates
+      existing_dates_m, new_dates = matches(dates, all_existing_dates)
 
-      new_dates = []
-      updated_dates = []
+      create(new_dates, db_event)
+      update_many(existing_dates_m)
 
-      dates.each do |date|
-        db_date = existing_dates.find {|ed| ed.uuid == date.id}
-        case
-        when db_date.present? && db_date.source == @source
-          db_date.update_attributes(attributes(date))
-          updated_dates << db_date
-        when !db_date.present?
-          new_dates << EventDate.create(attributes(date))
-        else
-          # present but other source
+      removed = find_removable(existing_dates_m, all_existing_dates)
+      EventDate.destroy(removed)
+    end
+
+    Match = Struct.new(:date, :db_date)
+    def matches(dates, db_dates)
+      matches = dates.map do |date|
+        db_date = db_dates.find {|db_date| db_date.uuid == date.id}
+        Match.new(date, db_date)
+      end
+      matches.partition {|d| d.db_date.present? }
+      # [matching, no_match]
+    end
+
+    def find_removable(matches, existing_dates)
+      existing_dates.select do |ed|
+        matches.none? {|match| ed.uuid == match.date.id} && ed.source == @source
+      end
+    end
+
+    def create(matches, db_event)
+      attributes = matches.map {|match| attributes(match.date) }
+      db_event.dates.create attributes
+    end
+
+    def update_many(matches)
+      matches.each do |match|
+        if allowed_to_update?(match.db_date)
+          match.db_date.update_attributes(attributes(match.date))
         end
       end
+    end
 
-      db_event.dates << new_dates
-
-      unchanged_own = (own - updated_dates)
-      EventDate.destroy(unchanged_own)
+    def allowed_to_update?(db_date)
+      db_date.source == @source || @source == :event_updater
     end
 
     def attributes(date)
@@ -38,19 +63,23 @@ module VVZUpdater
         start_time: date.start,
         end_time: date.end,
         api_last_modified: date.last_modified,
-        room_id: find_room_id(date.room),
+        room_id: date.room && find_room(date.room).id,
         data: {
           source: @source
         }
       }
     end
 
-    def find_room_id(room)
-      @room_cach[room.id] ||= \
-        Room.find_or_create_by_uuid({
-          uuid: room.id,
-          name: room.title
-        }).id
+    def find_room(room)
+      db_room_cach[room]
+    end
+
+    def find_or_create_room(room)
+      Room.find_or_create_by_uuid!({
+        uuid: room.id,
+        name: room.title
+      })
     end
   end
 end
+
