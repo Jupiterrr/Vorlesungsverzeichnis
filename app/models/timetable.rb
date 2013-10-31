@@ -1,4 +1,5 @@
-require './lib/week_timetable/week_timetable'
+require_dependency "week_timetable/week_timetable"
+require_dependency "event_date_grouper"
 
 class Timetable
   include Rails.application.routes.url_helpers

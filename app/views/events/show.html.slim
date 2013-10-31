@@ -18,8 +18,10 @@
                   .top-date-row
                     .date = df.day_short + ", " + df.date
                     .time = df.time_short
-                    .room = df.room
-
+                    - if date.room.poi
+                      a.room href=map_path(date.room.poi)  = df.room
+                    - else
+                      .room = df.room
 
       - else
         - if @event.dates.any?

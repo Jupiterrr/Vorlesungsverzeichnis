@@ -22,7 +22,7 @@ module KITBox
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += %W(#{config.root}/lib)
+    # config.autoload_paths += %W(#{config.root}/lib)
 
     # Auto-load API and its subdirectories
     config.paths.add "app/api", :glob => "**/*.rb"
@@ -60,6 +60,7 @@ module KITBox
     config.assets.version = '1.0'
     config.assets.initialize_on_precompile = false
     config.assets.paths << Rails.root.join("app", "assets", "components")
+    config.watchable_dirs['lib'] = [:rb]
 
     if Rails.env == 'test'
       require 'diagnostic'

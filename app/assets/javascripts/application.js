@@ -6,9 +6,10 @@
 
 function accordionyziseThis(parent) {
   parent = parent || $(document.body);
-  parent.find('a[rel=collapse]').click(function() {
-    selector = $(this).data("target")
-    $(selector).toggleClass("hide")
+  parent.find('[data-toggle=collapse-js]').click(function(event) {
+    if (event.target.tagName == "A") return;
+    selector = $(this).data("target") || $(this).parent().find(".collapse-body")
+    $(selector).toggleClass("active")
   })
 }
 

@@ -103,4 +103,8 @@ module EventsHelper
     days[date.wday]
   end
 
+  def wday_to_day(wday)
+    %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)[wday]
+  end
+
 end

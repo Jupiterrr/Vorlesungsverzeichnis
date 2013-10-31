@@ -1,4 +1,7 @@
 # encoding: UTF-8
+require_dependency "feature_flipper"
+require_dependency "event_date_grouper"
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :prepend_view_paths

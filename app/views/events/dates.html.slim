@@ -1,4 +1,3 @@
-- require './lib/week_timetable/week_timetable'
 .container
   .content#event_page
     = render partial: "header", locals: {nonav: true}
@@ -8,10 +7,10 @@
     - dates = @event.dates.order("start_time")
     - if dates.count > 0
       .dates
-        - groups = WeekTimetable.group_repeating(dates)
-        - groups.each do |key, dates|
+        - groups = EventDateGrouper.group(dates)
+        - groups.each do |group|
           .repeated-date
-            - date_pick = dates.first
+            - date_pick = group.event_dates.first
             - df = date_formater(date_pick)
             span.day = df.day
             span.time
@@ -21,7 +20,10 @@
             span.room
               i.fa-home.fa
               '
-              = df.room
+              - if date_pick.room.poi
+                a.room href=map_path(date_pick.room.poi)  = df.room
+              - else
+                .room = df.room
             ul.repeated-dates-list
               - dates.each do |d|
                 li class=("past" if d.end_time.past?) = d.start_time.strftime("%d.%m.%Y")

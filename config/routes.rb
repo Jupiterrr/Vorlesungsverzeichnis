@@ -1,3 +1,4 @@
+require "role_constraint"
 KITBox::Application.routes.draw do
 
   constraints(:host => /kit.carstengriesheimer.de/) do

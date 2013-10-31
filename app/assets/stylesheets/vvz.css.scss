@@ -271,6 +271,29 @@ $col_width: ($content-width - 3px) / 3;
       line-height: 1.2em;
     }
 
+    .combined-date {
+      cursor: pointer;
+
+      .room {
+        margin-right: .5em;
+      }
+
+    }
+
+    .date-group {
+      margin-bottom: .5em;
+      ol {
+        padding: 5px;
+      }
+    }
+
+    .collapse-body {
+      display: none;
+    }
+    .collapse-body.active {
+      display: inherit;
+    }
+
 
 
     .tip-bar {

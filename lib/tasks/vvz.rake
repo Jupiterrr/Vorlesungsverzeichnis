@@ -211,16 +211,71 @@ task :destroy_event_dates_without_source => :environment do |t, args|
 end
 
 task :go => :environment do |t, args|
-  require "vvz_updater/vvz_updater"
-  connection = KitApi::Connection.connect
-  uuid = "0x62818d1647a2644ca66d6813c28393bd"
-  event = KitApi.get_event(connection, uuid)
+  # require "vvz_updater/vvz_updater"
+  # connection = KitApi::Connection.connect
+  # uuid = "0x62818d1647a2644ca66d6813c28393bd"
+  # event = KitApi.get_event(connection, uuid)
+  # binding.pry
+  # connection.disconnect
+  p = Poi.where("name LIKE ?", "%gebäude%")
   binding.pry
-  connection.disconnect
+end
+
+task :room_to_poi => :environment do |t, args|
+  require "poi_selector"
+  selector = PoiSelector.new
+  rooms_without_poi = Room.all #where(poi_id: nil)
+  rooms_without_poi.each do |room|
+    if result = selector.select(room.name)
+      room.poi = result.poi
+      room.data["poi.accuracy"] = result.accuracy
+      room.save!
+    end
+  end
+end
+
+task :clear_room_pois => :environment do |t, args|
+  Room.all.each do |room|
+    room.poi = nil
+    room.save!
+  end
+end
+
+task :create_building_group => :environment do |t, args|
+  group = PoiGroup.find_or_create_by_name("Gebäude")
+
+  buildings = Poi.where("name LIKE ?", "%gebäude%")
+  groups = buildings.group_by {|b| b.building_no }
+  groups.map do |no, buildings|
+    if buildings.count == 1
+      building = buildings.first
+    else
+      ap buildings
+      building = buildings.first
+      # binding.pry # manually select correct building
+    end
+    [no, building]
+  end
+  groups.values.flatten.each do |poi|
+    poi.poi_groups << group
+  end
+
+  building_nos = Poi.group(:building_no).pluck(:building_no)
+  building_nos.map do |no|
+    next if groups.has_key?(no)
+    if positiong_poi = Poi.where(building_no: no).first
+      group.pois.create building_no: no, name: "Gebäude #{no}", lat: positiong_poi.lat, lng: positiong_poi.lng
+    end
+  end
 end
 
 
 
-
-
-
+namespace :db do
+  task :pull do
+    db = "vvz_dev_p"
+    sh "dropdb #{db}" rescue
+    sh "heroku pg:pull vorlesungsverzeichnis::silver #{db}"
+  end
+end
+# dropdb vvz_dev_p; heroku pg:pull vorlesungsverzeichnis::silver vvz_dev_p

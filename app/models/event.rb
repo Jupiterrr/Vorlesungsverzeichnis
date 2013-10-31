@@ -66,6 +66,10 @@ class Event < ActiveRecord::Base
     write_attribute(:original_name, name) if original_name.nil?
   end
 
+  def name
+    read_attribute(:name) || original_name
+  end
+
   def to_preload
     children = children!.map { |n| n.preload_id }
     [preload_id, name, children]
