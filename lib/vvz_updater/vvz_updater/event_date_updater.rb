@@ -1,5 +1,3 @@
-require 'pry-remote'
-
 module VVZUpdater
   class EventDateUpdater
 
