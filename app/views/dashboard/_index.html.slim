@@ -20,7 +20,7 @@
                 - df = date_formater(date)
                 span.time = df.time_short + " Uhr"
                 ' ,
-                - if date.room.poi
+                - if date.room && date.room.poi
                   a.room href=map_path(date.room.poi)  = df.room
                 - else
                   .room = df.room

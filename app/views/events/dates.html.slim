@@ -20,7 +20,7 @@
             span.room
               i.fa-home.fa
               '
-              - if date_pick.room.poi
+              - if date_pick.room && date_pick.room.poi
                 a.room href=map_path(date_pick.room.poi)  = df.room
               - else
                 .room = df.room
