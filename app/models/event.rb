@@ -24,8 +24,7 @@ class Event < ActiveRecord::Base
 
   scope :with_number, lambda { where("name ~ '[0-9]{5,}'") }
   scope :original_with_number, lambda { where("original_name ~ '[0-9]{5,}'") }
-
-  # scope :orphans, lambda { group("events.id").joins(:vvzs).having("COUNT(vvzs.id) = 0") }
+  scope :without_vvz, lambda { joins("LEFT OUTER JOIN events_vvzs ON events_vvzs.event_id = events.id").where("events_vvzs.event_id is NULL") }
 
   # scope :today, lambda {
   #   joins(:event_dates).where("DATE(start_time) = DATE(?)", Time.now)
