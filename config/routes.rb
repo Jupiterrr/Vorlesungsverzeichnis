@@ -47,12 +47,13 @@ KITBox::Application.routes.draw do
   end
 
 
-  resources :map, only: [:index, :show] do
+  resources :map, only: [:index] do
     collection do
       get 'search'
       get 'list'
     end
   end
+  get "/map/:id" => "map#index", :as => :map
 
 
   resources :vvz, only: [:index, :show, :preload] do
