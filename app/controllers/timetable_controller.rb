@@ -14,10 +14,7 @@ class TimetableController < ApplicationController
   end
 
   def ical
-    text = Timetable.to_ical(params[:timetable_id]).to_s
-    text = text.gsub("\n", "\r\n")
-    text = text.gsub("VERSION:2.0\r\n", "")
-    text = text.sub("\r\n", "\r\nVERSION:2.0\r\n")
+    text = Timetable.to_ical(params[:timetable_id])
     render text: text, content_type: Mime::ICS
   end
 

@@ -12,7 +12,8 @@ class Timetable
   end
 
   def self.by_user(user)
-    Timetable.new(user.events)
+    events = user.events.includes(:event_dates => :room)
+    Timetable.new(events)
   end
 
   def as_json
@@ -34,7 +35,7 @@ class Timetable
   def self.to_ical(timetable_id)
     user = User.find_by_timetable_id timetable_id
     raise ActiveRecord::RecordNotFound if user.nil?
-    events = user.events
+    events = user.events.includes(:event_dates => :room)
     ical = RiCal.Calendar do |cal|
       cal.add_x_property 'X-WR-CALNAME', "KitHub.de"
       events.each do |event|
@@ -55,6 +56,11 @@ class Timetable
     # rical puts symbols instead of strings in the file
     # so we remove the prepending colon
     output = ical.to_s.gsub("X-WR-CALNAME::", "X-WR-CALNAME:")
+
+    output = output.gsub("\n", "\r\n")
+    output = output.gsub("VERSION:2.0\r\n", "")
+    output = output.sub("\r\n", "\r\nVERSION:2.0\r\n")
+    output
   end
 
 end
