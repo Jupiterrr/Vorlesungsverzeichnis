@@ -1,28 +1,103 @@
+class MapRouter
+
+  constructor: (initPoi, map) ->
+    @map = map
+    @options =
+      history: window.history && window.history.replaceState
+    @currentPoi = initPoi
+    @baseTitle = document.title.split(" - ")[1] || document.title
+
+    window.onpopstate = (event) =>
+      # console.log "popstate show", event.state
+      if event && event.state
+        if event.state.noPoi
+          @map.closeActive()
+        else
+          poi = event.state
+          @openPoi(poi, true)
+
+    if @currentPoi
+      delay 1000, =>
+        @map.showMarker(@currentPoi)
+        if @options.history
+          state = @copyPoi(@currentPoi)
+          window.history.replaceState(state , document.title, window.location.href);
+    else
+      if @options.history
+        window.history.replaceState({noPoi: true} , document.title, window.location.href);
+
+  openPoi: (poi, force) =>
+    @currentPoi = poi
+    @map.showMarker(poi)
+    @setTitle(poi)
+    if @options.history && !force
+      state = @copyPoi(poi)
+      window.history.pushState(state, @pageTitle(poi), "/map/#{poi.id}")
+
+  copyPoi: (poi) ->
+    copy = {
+      address: poi.address,
+      building_no: poi.building_no,
+      id: poi.id,
+      lat: poi.lat,
+      lng: poi.lng,
+      name: poi.name,
+      type: poi.type
+    }
+
+  pageTitle: (poi) ->
+    pageTitle = "#{poi.name} - #{@baseTitle}"
+
+  setTitle: (poi) ->
+    document.title = @pageTitle(poi)
+    $("#poi-title-js").text(poi.name)
+
 class Map
 
   infoBoxTemplate: HoganTemplates["map/templates/infobox"]
 
   constructor: (el, poi) ->
     @el = el
+    @initPoi = poi
 
     if poi
       center = new google.maps.LatLng(poi.lat, poi.lng)
     else
-      center = new google.maps.LatLng(49.0118, 8.413081350509648)
-    
+      center = new google.maps.LatLng(49.012419, 8.41527)
+
     @mapOptions =
       zoom: 16,
       center: center,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     # var canvas = document.getElementById(@mapID);
     @map = new google.maps.Map(@el, @mapOptions)
-    # @initOverley();
+
+    layerControlDiv = document.createElement('div')
+    layerControl = new LayerControl(layerControlDiv, @map)
+
+    layerControlDiv.index = 1
+    @map.controls[google.maps.ControlPosition.TOP_RIGHT].push(layerControlDiv)
+
+    homeControlDiv = document.createElement('div')
+    homeControlDiv.index = 1
+    @map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv)
+    homeControlDiv.classList.add "btn-group"
+
+    homeControl = new HomeControl(homeControlDiv, @map, text: "Campus Süd", latlng: [49.012419, 8.41527], zoom: 16 )
+    homeControl2 = new HomeControl(homeControlDiv, @map, text: "Campus Nord", latlng: [49.096295, 8.431363], zoom: 15)
+
+
 
     @infoBox = @createInfoBox()
     @tooltip = @createTooltip()
 
     @search = new MapSearch($('#map-search'))
-    $(@search).on("select", (event, poi) => @showMarker(poi))
+    @router = new MapRouter(@initPoi, this)
+
+    $(@search).on("select", (event, poi) =>
+      console.log "select"
+      @router.openPoi(poi)
+    )
 
     # selectView = new SelectView()
     # $(".edit").on("click", () => selectView.show())
@@ -37,32 +112,19 @@ class Map
     #  var poi = $("#map_canvas").data("poi");
     #  if (!!poi) { show(poi); }
 
-    if poi
-      delay 1000, => @showMarker(poi)
+    google.maps.event.addListener(@map, "click", =>
+      @closeActive()
+    )
 
-    google.maps.event.addListener(@map, "click", => @closeActive() )
 
 
-  # add KIT Overlay
-  # initOverley: () ->
-  #   #  Bounds of overlay
-  #   imageBounds = new google.maps.LatLngBounds(
-  #     new google.maps.LatLng(49.007537,8.4014),
-  #     new google.maps.LatLng(49.022033, 8.4323)
-  #   )
-  #   #  Overlay
-  #   kitOverlay = new google.maps.GroundOverlay(
-  #     '/Campus-Sued.png',
-  #     imageBounds, {editable: true}
-  #   )
-  #   kitOverlay.setMap(@map)
 
 
   showMarker: (poi) ->
-    console.log("show", poi, poi.name)
+    # console.log("show", poi, poi.name)
     @activeMarker.setMap(null) if @activeMarker
     @panTo(poi)
-    @activeMarker = @addCircle(poi, "selected")    
+    @activeMarker = @addCircle(poi, "selected")
     @addInfowindow(poi, @activeMarker)
 
   panTo: (poi) ->
@@ -87,7 +149,7 @@ class Map
     boxText.innerHTML = @infoBoxTemplate.render
       poi: poi
       link: "/map/#{poi.id}"
-            
+
     @infoBox.setContent(boxText)
     @infoBox.open(@map, marker)
 
@@ -121,10 +183,10 @@ class Map
     @addTooltip(poi, marker) unless window.isMobile()
     google.maps.event.addListener(marker, "click", => @addInfowindow(poi, marker))
     marker
-  
+
   addCircles: (pois, color) ->
     markers = (@addCircle(poi, color) for poi in pois)
-  
+
   createTooltip: ->
     new InfoBox
       content: ""
@@ -143,7 +205,7 @@ class Map
       enableEventPropagation: false
 
   addTooltip: (poi, marker) ->
-    google.maps.event.addListener marker, "mouseover", => 
+    google.maps.event.addListener marker, "mouseover", =>
       @showTooltip(marker, poi) unless @selectedMarker == marker
     google.maps.event.addListener(marker, "mouseout", => @tooltip.close())
     google.maps.event.addListener(marker, "click", => @tooltip.close())
@@ -159,7 +221,7 @@ class Map
     index = {}
     (index[poi.id] = poi for poi in pois)
     @poiIndex = index
-  
+
 
 
 $(() ->

@@ -1,7 +1,7 @@
 - if @map_presenter.poi
-  - page_title @map_presenter.poi.name
+  - page_title @map_presenter.poi.name + " - KitHub Campus Karte"
 - else
-  - page_title "Campus Karte"
+  - page_title "KitHub Campus Karte"
 
 == javascript_include_tag "map", defer: true
 <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
@@ -9,7 +9,11 @@
 .container#map-page.map
   .content
     header
-      h1 KIT Campus Karte
+      h1
+        ' KIT Campus Karte
+        - if @map_presenter.poi
+          '  -
+          span#poi-title-js= @map_presenter.poi.name
       .search-input
         input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
       hr.clear
@@ -17,14 +21,15 @@
     .no-padding
       #map_canvas data-poi=@map_presenter.poi.to_json
 
-    br
-    ul.flat#categories_selector.categories
-      - @map_presenter.color_groups.each do |colour_group|
-        - group = colour_group.group
-        li
-          label.btn.btn-label for="ccb#{group.id}" style="border-left-color:#{colour_group.color};"
-            input id="ccb#{group.id}" type="checkbox" data-group-id=group.id data-pois=group.pois.map(&:id) data-color=colour_group.color[1..6]
-            = group.name
+
+    .categories-bar.no-padding
+      ul.flat#categories_selector.categories.padding
+        - @map_presenter.color_groups.each do |colour_group|
+          - group = colour_group.group
+          li
+            label.btn.btn-label for="ccb#{group.id}" style="border-left-color:#{colour_group.color};"
+              input id="ccb#{group.id}" type="checkbox" data-group-id=group.id data-pois=group.pois.map(&:id) data-color=colour_group.color[1..6]
+              = group.name
 
     br
     = link_to "Liste aller Einrichtungen", list_map_index_path
