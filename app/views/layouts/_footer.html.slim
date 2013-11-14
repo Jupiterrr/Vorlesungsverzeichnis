@@ -5,12 +5,12 @@ footer
       small
         a href=page_path("about") style="color: #333;" Angaben ohne Gewähr
 
-      a href="mailto: hallo@carstengriesheimer.de" Kontakt
-      a href=page_path("about") Über das Projekt
-      a style="color:#BD362F;" href="https://jupiterrr.wufoo.com/forms/z7x4m1/" onclick="window.open(this.href,  null, 'height=437, width=680, toolbar=0, location=0, status=1, scrollbars=1, resizable=1'); return false" target="_blank" Problem melden
-      - unless current_user
-        - if feature(:backdoor)
-          a href=backdoor_path Backdoor
+    a href="mailto: hallo@carstengriesheimer.de" Kontakt
+    a href=page_path("about") Über das Projekt
+    a style="color:#BD362F;" href="https://jupiterrr.wufoo.com/forms/z7x4m1/" onclick="window.open(this.href,  null, 'height=437, width=680, toolbar=0, location=0, status=1, scrollbars=1, resizable=1'); return false" target="_blank" Problem melden
+    - unless current_user
+      - if feature(:backdoor)
+        a href=backdoor_path Backdoor
 
     - if feature(:facebook)
       .social-btn
