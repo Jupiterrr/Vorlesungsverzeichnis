@@ -13,13 +13,6 @@
     width: 250px;
   }
 
-
-  // @for $j from 1 through 40 {
-  //   .start#{$j*15} { margin-left: $width * $j; }
-  // }
-
-
-
 }
 
 #calendar .wc-cal-event {
@@ -39,15 +32,6 @@
 .tt-room {
   margin-top: .5em;
   display: block;
-}
-
-#timetable-page {
-
-  #ical_url {
-    @include breakpoint(mobil) {
-      width: 90%;
-    }
-  }
 }
 
 .wc-header {
@@ -76,7 +60,6 @@
 
 .wc-time-header-cell {
   padding: 0 5px 10px 5px !important;
-  // height: 49.3px !important;
 }
 
 #calendar {
@@ -107,6 +90,85 @@
   }
 }
 
+p.desc-export {
+  // margin-bottom: 1.5em;
+}
 
+.ical-btns {
+  background: #eee;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 0 -30px 2em -20px;
+  // text-align: center;
+
+  h5 {
+    padding: 0; margin: 0;
+    margin-bottom: .2em;
+    margin-right: .5em;
+    font-weight: normal;
+    display: inline-block;
+    color: #000;
+  }
+  a.btn {
+    box-shadow: 0 0 1px #fff;
+  }
+
+  @include breakpoint(mobil) {
+    a.btn {
+      display: block;
+      margin-top: .5em;
+    }
+  }
+}
+
+
+p.desc-alertnate-ical {
+  margin-bottom: 1em;
+}
+
+.ical_url {
+
+  background: #f5f5f5;
+  // text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 2em;
+
+  h5 {
+    padding: 0; margin: 0;
+    margin-bottom: .2em;
+    margin-right: .5em;
+    font-weight: normal;
+    display: inline-block;
+    color: #000;
+  }
+
+  input {
+    text-align: center;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid #E1E1E8;
+    margin: 0;
+    margin-right: 10px;
+    width: 400px;
+    box-sizing: border-box;
+    padding: 14px 8px;
+  }
+
+  @include breakpoint(mobil) {
+    h5, a.btn {
+      display: block;
+    }
+    input {
+      margin-bottom: .5em;
+      margin-top: .5em;
+      width: 100%;
+    }
+  }
+}
+
+.timetable-page p {
+  max-width: 800px;
+}
 
 

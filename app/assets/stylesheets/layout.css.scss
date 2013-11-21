@@ -24,6 +24,7 @@ body h2 {
 }
 aside h5 { color: #555; }
 aside h5 a { font-weight: normal; }
+h5 { color: #333; }
 
 .content, p {
   font-size: 11pt;
@@ -49,6 +50,9 @@ small {
   padding-right: 30px;
   padding-left: 20px;
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.padding {
+  @include conatiner-padding;
 }
 
 .signin-btn {

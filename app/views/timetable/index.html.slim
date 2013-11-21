@@ -3,18 +3,40 @@
   / #map-bar
   .content
     h1 Stundenplan
-    = render partial: "timetable"
-    hr
-    h2 Export
-    p
-      | Verwende folgende Adresse, um über andere Anwendungen auf deinen Stundenplan zuzugreifen. Deine Termine werden dann z.B. in Google Kalender oder Apple Kalender angezeigt. Du kannst diese Adresse kopieren und in jeden Kalender einfügen, der das iCal-Format unterstützt.
-      br
-      | Für einige Programme gibt es <a href="https://github.com/Jupiterrr/Vorlesungsverzeichnis/wiki/Stundenplan-exportieren" target="_blank">Anleitungen</a>.
 
-    .ical_url
-      label.control-label for="url" Kalender URL:
-      input#ical_url.input-xxlarge value=timetable_ical_url(current_user.timetable_id)
-      /a.btn.btn-danger.btn-small href=regenerate_timetable_index_path
-        i.fa-refresh.fa
-        |  URL zurücksetzen
-    br
+    = render partial: "timetable"
+
+
+    h2 Export
+
+    p.desc-export
+      | Du kannst deinen Stundenplan in viele Kalender-Programme exportieren. Deine Termine werden dann z.B. in Google Kalender oder Apple Kalender angezeigt. Klicke dazu auf einen der Buttons unten.
+
+    .no-padding.ical-btns
+      .padding
+        h5 Termine hinzufügen zu:
+        a.btn href="http://www.google.com/calendar/render?cid=#{timetable_ical_url(current_user.timetable_id)}" target="_blank"
+          i.fa.fa-google-plus style="color: #B12C23;"
+          |  Google Kalender
+        '
+        a.btn href="#{timetable_ical_url(current_user.timetable_id, protocol: "webcal")}"
+          i.fa.fa-apple style="color: #7A7A7A;"
+          |  Apple Kalender
+        '
+        a.btn href="#{timetable_ical_url(current_user.timetable_id, protocol: "webcal")}"
+          i.fa.fa-windows style="color: #5CB4E3;"
+          |  Microsoft Outlook
+
+    p.desc-alertnate-ical
+      | Alternativ kannst du Termine mit einer ICS-Dateien oder Kalender-URL in dein Kalender-Programm importieren.
+
+    .no-padding.ical_url
+      .padding
+        h5 Kalender URL:
+        input type="text" value=timetable_ical_url(current_user.timetable_id)
+        a.btn href=timetable_ical_url(current_user.timetable_id) download="kithub.ics"
+          .fa.fa-download
+          |  Download kithub.ics
+
+    small.ical-tutorial
+      | Falls du Probleme hast oder Hilfe brauchst, findest du <a href="https://github.com/Jupiterrr/Vorlesungsverzeichnis/wiki/Stundenplan-exportieren" target="_blank">hier einige Anleitungen</a>. Du kannst mir gerne eine <a href="https://jupiterrr.wufoo.com/forms/z7x4m1/" onclick="window.open(this.href,  null, 'height=437, width=680, toolbar=0, location=0, status=1, scrollbars=1, resizable=1'); return false" target="_blank">Nachricht schreiben</a>.
