@@ -1,7 +1,7 @@
 require "spec_helper"
 require "vvz_updater/vvz_updater"
 
-describe VVZUpdater::EventUpdater, vcr: {match_requests_on: [:body, :uri]} do
+describe VVZUpdater, vcr: {match_requests_on: [:body, :uri]} do
 
   describe ".update_event", no_ci: true do
     it "updates correctly" do
