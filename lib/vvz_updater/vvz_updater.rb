@@ -83,6 +83,7 @@ module VVZUpdater
 
 
     def link_events(term_name)
+      Celluloid.start
       connection = KitApi::Connection.connect
       term = Vvz.term("KIT", term_name)
       leafs = term.leafs
@@ -153,6 +154,7 @@ module VVZUpdater
 
 
     def update_events(term_name)
+      Celluloid.start
       connection = KitApi::Connection.connect
       term = Vvz.term("KIT", term_name)
       uuids = Event.where(term: term_name).order("RANDOM()").pluck(:external_id)
