@@ -4,7 +4,7 @@ class EventDate < ActiveRecord::Base
 
   self.inheritance_column = nil
 
-  validates :start_time, presence: true
+  # validates :start_time, presence: true
 
   serialize :data, ActiveRecord::Coders::Hstore
 

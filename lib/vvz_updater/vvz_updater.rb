@@ -1,5 +1,5 @@
 require "kit_api"
-require 'celluloid/autostart'
+require 'celluloid'
 
 require "vvz_updater/vvz_updater/tree_migration"
 require "vvz_updater/vvz_updater/tree_diff"
@@ -165,9 +165,10 @@ module VVZUpdater
         connection: connection,
         destroyed: []
       }
-      reporter = Reporter.new(r)
 
+      reporter = Reporter.new(r)
       pool = EventGetter.pool(size: 30, args: [connection])
+      # pool = EventGetter.new(connection)
 
       futures = uuids.map { |uuid| pool.future.get_event(uuid) }
 
