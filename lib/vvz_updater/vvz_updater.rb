@@ -37,7 +37,9 @@ module VVZUpdater
 
       def initialize(r)
         @start = Time.now
-        every(1) { print_r }
+        @instant_logging = !ENV["DYNO"].present?
+        @log_timer = @instant_logging ? 1 : 5
+        every(@log_timer) { print_r }
         @r = r
       end
 
@@ -55,8 +57,13 @@ module VVZUpdater
 
         rqs = "%5.1f" % (connection.request_count / duration)
         destroyed_events = @r[:destroyed] ? ("%3i" % @r[:destroyed].count) : ""
-        print 13.chr
-        print "#{progress}  ~ #{prediction}  ~  #{rqs}rqs  -  #{destroyed_events}"
+        txt = "#{progress}  ~ #{prediction}  ~  #{rqs}rqs  -  #{destroyed_events}"
+        if @instant_logging
+          print 13.chr
+          print txt
+        else
+          puts txt
+        end
       end
 
     end
