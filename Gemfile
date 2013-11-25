@@ -8,7 +8,7 @@ gem 'unicorn'
 gem 'awesome_print'
 gem 'pry-rails'
 
-gem 'kit_api', '~> 0.0.4'#, :path => File.join('..', 'kit_api')
+gem 'kit_api', '~> 0.0.5'#, :path => File.join('..', 'kit_api')
 gem 'celluloid'
 
 # API

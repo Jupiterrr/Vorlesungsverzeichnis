@@ -5,54 +5,40 @@ module VVZUpdater
       @source = source.to_s
     end
 
-    def db_room_cach
-      @db_room_cach ||= Hash.new do |cache, room|
-        cache[room] = find_or_create_room(room)
-      end
-    end
-
     def update(db_event, dates)
-      all_existing_dates = db_event.dates
-      existing_dates_m, new_dates = matches(dates, all_existing_dates)
+      grouper = DateGrouper.new(dates, db_event.dates)
 
-      create(new_dates, db_event)
-      update_many(existing_dates_m)
-
-      removed = find_removable(existing_dates_m, all_existing_dates)
-      EventDate.destroy(removed)
+      create(grouper.new_dates, db_event)
+      update_many(grouper.existing_date_pairs)
+      destroy(grouper.removed_db_dates)
     end
 
-    Match = Struct.new(:date, :db_date)
-    def matches(dates, db_dates)
-      matches = dates.map do |date|
-        db_date = db_dates.find {|db_date| db_date.uuid == date.id}
-        Match.new(date, db_date)
-      end
-      matches.partition {|d| d.db_date.present? }
-      # [matching, no_match]
-    end
-
-    def find_removable(matches, existing_dates)
-      existing_dates.select do |ed|
-        matches.none? {|match| ed.uuid == match.date.id} && ed.source == @source
-      end
-    end
-
-    def create(matches, db_event)
-      attributes = matches.map {|match| attributes(match.date) }
+    def create(dates, db_event)
+      attributes = dates.map {|date| attributes(date) }
       db_event.dates.create attributes
     end
 
-    def update_many(matches)
-      matches.each do |match|
-        if allowed_to_update?(match.db_date)
-          match.db_date.update_attributes(attributes(match.date))
-        end
+    def update_many(pairs)
+      pairs.each {|pair| update_pair(pair) }
+    end
+
+    def update_pair(pair)
+      if allowed_to_update?(pair.db_date)
+        pair.db_date.update_attributes(attributes(pair.date))
       end
     end
 
+    def destroy(db_dates)
+      remove = db_dates.select {|db_date| allowed_to_remove?(db_date) }
+      EventDate.destroy(remove)
+    end
+
     def allowed_to_update?(db_date)
-      db_date.source == @source || @source == :event_updater
+      db_date.source.nil? || db_date.source == @source || @source == :event_updater
+    end
+
+    def allowed_to_remove?(db_date)
+      db_date.source.nil? || db_date.source == @source
     end
 
     def attributes(date)
@@ -68,6 +54,12 @@ module VVZUpdater
       }
     end
 
+    def db_room_cach
+      @db_room_cach ||= Hash.new do |cache, room|
+        cache[room] = find_or_create_room(room)
+      end
+    end
+
     def find_room(room)
       db_room_cach[room]
     end
@@ -81,3 +73,5 @@ module VVZUpdater
   end
 end
 
+require_relative "event_date_updater/value_set"
+require_relative "event_date_updater/date_grouper"
