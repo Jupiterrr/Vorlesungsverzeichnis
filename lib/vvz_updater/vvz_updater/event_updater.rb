@@ -14,53 +14,51 @@ module VVZUpdater
       end
 
       def attributes_hash(event)
-        attributes = event.attributes
         hash = {
-          nr: attributes.fetch(:nr),
-          term: attributes.fetch(:term),
-          _type: attributes.fetch(:type),
-          lecturer: attributes.fetch(:lecturer).map(&:title).join(", "),
-          #faculty: attributes.fetch(:organizer),
-          url: attributes.fetch(:url),
-          original_name: attributes.fetch(:name),
+          nr: event.nr,
+          term: event.term,
+          _type: event.type,
+          lecturer: event.lecturer.map(&:title).join(", "),
+          #faculty: event.organizer,
+          url: event.url,
+          original_name: event.name,
           data: {
-            sws: attributes.fetch(:sws),
-            language: attributes.fetch(:language),
-            workspace_url: attributes.fetch(:workspace_url),
-            target_group: attributes.fetch(:target_group),
-            description: attributes.fetch(:name),
-            literature: attributes.fetch(:literature),
-            remark: attributes.fetch(:remark),
-            comments: attributes.fetch(:comments),
-            examTopics: attributes.fetch(:examTopics),
-            preconditions: attributes.fetch(:preconditions),
-            contents: attributes.fetch(:contents),
-            website: attributes.fetch(:website),
-            short_comment: attributes.fetch(:short_comment),
+            sws: event.sws,
+            language: event.language,
+            workspace_url: event.workspace_url,
+            target_group: event.target_group,
+            description: event.name,
+            literature: event.literature,
+            remark: event.remark,
+            comments: event.comments,
+            examTopics: event.examTopics,
+            preconditions: event.preconditions,
+            contents: event.contents,
+            website: event.website,
+            short_comment: event.short_comment,
             last_run: Time.now
           },
           description: description_hash(event).to_json
         }
-        hash[:name] = attributes.fetch(:name) if @db_event.name.nil?
+        hash[:name] = event.name if @db_event.name.nil?
         hash
       end
 
       def description_hash(event)
-        attributes = event.attributes
         hash = {
-          "Zielgruppe" => attributes.fetch(:target_group),
-          "Beschreibung" => attributes.fetch(:description),
-          "Literaturhinweise" => attributes.fetch(:literature),
-          "Bemerkung" => attributes.fetch(:remark),
-          "Kommentar" => attributes.fetch(:comments),
-          "Nachweis" => attributes.fetch(:examTopics),
-          "Voraussetzungen" => attributes.fetch(:preconditions),
-          "Lehrinhalt" => attributes.fetch(:contents),
-          "SWS" => attributes.fetch(:sws),
-          "Vortragssprache" => attributes.fetch(:language),
-          "VAB" => to_link(attributes.fetch(:workspace_url)),
-          "Website" => to_link(attributes.fetch(:website)),
-          "Kurzbeschreibung" => attributes.fetch(:short_comment)
+          "Zielgruppe" => event.target_group,
+          "Beschreibung" => event.description,
+          "Literaturhinweise" => event.literature,
+          "Bemerkung" => event.remark,
+          "Kommentar" => event.comments,
+          "Nachweis" => event.examTopics,
+          "Voraussetzungen" => event.preconditions,
+          "Lehrinhalt" => event.contents,
+          "SWS" => event.sws,
+          "Vortragssprache" => event.language,
+          "VAB" => to_link(event.workspace_url),
+          "Website" => to_link(event.website),
+          "Kurzbeschreibung" => event.short_comment
         }
         hash.delete_if {|key, value| value.nil? }
         hash

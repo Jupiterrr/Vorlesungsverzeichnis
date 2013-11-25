@@ -17,7 +17,6 @@ module VVZUpdater
       db_event = find_or_create(event)
       db_event.update_attributes({
         linker_attributes: {
-          dates: event.dates,
           last_run: Time.now
         }
       })
