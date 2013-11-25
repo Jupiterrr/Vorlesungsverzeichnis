@@ -26,16 +26,16 @@ describe PoiSelector do
     end
   end
 
-  describe "--" do
-    before do
-      group = PoiGroup.create(name: "Gebäude")
-      group.pois.create building_no: "10.91"
-    end
-    it "selects Grashof" do
-      Poi.create! name: "Grashof", building_no: "10.91"
-      room_name = "10.91 Grashof"
-      ap subject.select(room_name)
-    end
-  end
+  # describe "--" do
+  #   before do
+  #     group = PoiGroup.create(name: "Gebäude")
+  #     group.pois.create building_no: "10.91"
+  #   end
+  #   it "selects Grashof" do
+  #     Poi.create! name: "Grashof", building_no: "10.91"
+  #     room_name = "10.91 Grashof"
+  #     ap subject.select(room_name)
+  #   end
+  # end
 
 end
