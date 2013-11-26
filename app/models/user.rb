@@ -39,4 +39,12 @@ class User < ActiveRecord::Base
     data["admin_role"] == "true"
   end
 
+  def discipline
+    disciplines.first
+  end
+
+  def discipline_name
+    discipline && discipline.name
+  end
+
 end

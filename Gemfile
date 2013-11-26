@@ -46,6 +46,7 @@ group :production do
   gem 'newrelic_rpm'
   gem 'newrelic-grape'
 end
+gem 'intercom-rails', '~> 0.2.21'
 
 group :production, :staging do
   gem 'memcachier'
