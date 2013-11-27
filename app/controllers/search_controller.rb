@@ -11,7 +11,7 @@ class SearchController < ApplicationController
     @term = Vvz.find(@term_id)
 
     @vvz_results = @term.descendants.vvz_search(q).limit(15) if @page == 0
-    event_search = Event.vvz_search(q).where(term: @term.name)
+    event_search = Event.vvz_search(q).where(term: @term.name).not_orphans
 
     respond_to do |format|
       format.html {
