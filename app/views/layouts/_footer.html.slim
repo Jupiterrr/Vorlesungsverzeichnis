@@ -2,25 +2,47 @@ footer
   .container
 
     #disclaimer-hint.pull-right
-      small
-        a href=page_path("about") style="color: #333;" Angaben ohne Gewähr
+      - if feature(:facebook)
+        .social-btn
+          a.fb-like href="https://www.facebook.com/Vorlesungsverzeichnis" data-href="https://www.facebook.com/Vorlesungsverzeichnis" data-send="true" data-layout="button_count" data-width="136" data-show-faces="false" data-font="verdana"
 
-    a href="mailto: hallo@carstengriesheimer.de" Kontakt
-    a href=page_path("about") Über das Projekt
-    a style="color:#BD362F;" href="https://jupiterrr.wufoo.com/forms/z7x4m1/" onclick="window.open(this.href,  null, 'height=437, width=680, toolbar=0, location=0, status=1, scrollbars=1, resizable=1'); return false" target="_blank" Problem melden
-    - unless current_user
-      - if feature(:backdoor)
-        a href=backdoor_path Backdoor
+    .fuild-row
+      .span3.footer-menu
+        h5 Seiten
+        ul
+          li
+            a href="/vvz" Vorlesungsverzeichnis
+          li
+            a href="/map" Karte
+          li
+            a href="/pages/about" Über das Projekt
 
-    - if feature(:facebook)
-      .social-btn
-        a.fb-like href="https://www.facebook.com/Vorlesungsverzeichnis" data-href="https://www.facebook.com/Vorlesungsverzeichnis" data-send="true" data-layout="button_count" data-width="136" data-show-faces="false" data-font="verdana"
+      .span3.footer-menu
+        h5 Kontakt
+        ul
+          li
+            a href="mailto: hallo@carstengriesheimer.de" E-Mail
+          li
+            a style="color:#BD362F;" href="https://jupiterrr.wufoo.com/forms/z7x4m1/" onclick="window.open(this.href,  null, 'height=437, width=680, toolbar=0, location=0, status=1, scrollbars=1, resizable=1'); return false" target="_blank" Problem melden
 
-      .social-btn style="width: 96px;"
-        a.twitter-share-button href="https://twitter.com/share" data-url="http://www.kithub.de" data-text="Das KIT Vorlesungsverzeichnis wie es sein sollte. Schön und schnell." data-via="KIT_VVZ" data-lang="de" data-related="KIT_VVZ"
+      .span3.footer-menu.social-links
+        h5 Folgen
+        ul
+          li
+            a.social-link href="https://www.facebook.com/Vorlesungsverzeichnis"
+              i.fa.fa-facebook
+              | Facebook
+          li
+            a.social-link href="https://twitter.com/KIT_VVZ"
+              i.fa.fa-twitter
+              | Twitter
+          li
+            a.social-link href="https://github.com/Jupiterrr/Vorlesungsverzeichnis"
+              i.fa.fa-github
+              | Github
 
-      .social-btn
-        iframe src="http://ghbtns.com/github-btn.html?user=Jupiterrr&repo=Vorlesungsverzeichnis&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"
+
+
 
   #fame
     | präsentiert von <a href="http://carstengriesheimer.de">Carsten</a>.

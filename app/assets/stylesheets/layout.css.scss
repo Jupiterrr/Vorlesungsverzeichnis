@@ -105,7 +105,6 @@ body > footer {
     height: 20px;
     width: 136px;
     position: relative;
-    margin-right: 5px;
     vertical-align: text-bottom;
   }
 
@@ -121,6 +120,46 @@ body > footer {
   }
   @include breakpoint(mobil) {
     #fame { display: none; }
+  }
+
+  .footer-menu {
+    ul {
+      list-style: none;
+      margin: 0;
+    }
+
+    h5 {
+      margin: 0;
+      font-size: 10pt;
+    }
+
+    a {
+      color: #555;
+    }
+  }
+
+  .social-link i.fa {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 21px;
+    color: #FFF;
+    margin-right: 5px;
+    &.fa-facebook { background: #2C4389; }
+    &.fa-twitter { background: #139AE9; }
+    &.fa-github {
+      color: #262626;
+      background: rgba(0, 0, 0, 0);
+      font-size: 20px;
+    }
+  }
+  .social-links li {
+    // line-height: 30px;
+  }
+
+  .span3 {
+    width: 175px;
   }
 
 }
