@@ -4,7 +4,9 @@
   var matches = document.getElementsByClassName("signin-btn-js");
   var l = matches.length;
   while (l--) {
-    matches[l].onclick = function() { navigator.id.request(); };
+    matches[l].onclick = function() {
+      navigator.id.request({siteName: 'KitHub'});
+    };
   }
 
   var signoutLink = document.getElementById('signout');
