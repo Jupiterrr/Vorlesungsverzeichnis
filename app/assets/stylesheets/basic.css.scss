@@ -25,7 +25,13 @@ hr.clear {
 .hide { display: none; }
 
 
-
+#site-waring {
+  margin: 0;
+  text-align: center;
+  display: none;
+  border-radius: 0;
+  .actions { white-space: nowrap; }
+}
 
 aside h5 {
   margin: 0 0 8px 0;

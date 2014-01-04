@@ -27,8 +27,8 @@
 </head>
 <% page = params[:controller] + "-page" %>
 <body class="<%=page%>">
+  <%= render :partial => "layouts/sitewarning" %>
   <%= render :partial => "layouts/topbar" %>
-  <%#= render :partial => "layouts/breadcrumb" %>
 
   <div class="main-content" role="main">
     <%= yield %>

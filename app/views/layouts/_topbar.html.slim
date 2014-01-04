@@ -25,7 +25,10 @@ header#topbar
                 '
                 span abmelden
             - else
-              button#signin.signin-btn.signin-btn-js signin
+              - if feature(:backdoor)
+                a#signin.signin-btn.signin-btn-js href=backdoor_path signin
+              - else
+                button#signin.signin-btn.signin-btn-js signin
 
     h1#logo
       a href=root_path KitHub

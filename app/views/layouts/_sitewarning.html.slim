@@ -1,0 +1,28 @@
+#site-waring.alert.alert-info.alert-dismissable
+  | Diese Seite wird privat betrieben und kann Fehler enthalten. &emsp;
+  span.actions
+    a href="/pages/about" mehr erfahren
+  button.close aria-hidden="true" data-dismiss="alert" type="button" &times;
+
+javascript:
+  (function() {
+    var force = false;
+    var el = document.querySelector("#site-waring");
+    var btn = el.querySelector("button");
+    btn.addEventListener("click", dismissWarning);
+    var link = el.querySelector("a");
+    link.addEventListener("click", dismissWarning);
+
+    function showWarning() {
+      el.style.display = "block"
+    }
+
+    function dismissWarning() {
+      el.style.display = "none";
+      localStorage.alertChecked = "1";
+    }
+
+    if(force || (localStorage && localStorage.alertChecked != "1")) { showWarning(); }
+    window.dismissWarning = dismissWarning;
+  })();
+
