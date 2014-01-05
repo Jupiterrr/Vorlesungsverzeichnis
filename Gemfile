@@ -1,21 +1,22 @@
 source ENV['GEMFURY_URL'] if ENV['GEMFURY_URL']
 source 'http://rubygems.org'
-ruby '1.9.3'
+ruby '2.1.0'
 
 gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 
 gem 'awesome_print'
 gem 'pry-rails'
+gem 'launchy', group: [:development, :test]
 
 gem 'kit_api', '~> 0.0.5'#, :path => File.join('..', 'kit_api')
 gem 'celluloid'
 
 # API
-gem 'grape', '>= 0.4.1'
-gem 'grape-swagger', '>= 0.5.0'
+gem 'grape', '~> 0.4.1'
+gem 'grape-swagger', '> 0.5.0'
 gem 'rack-cors'
-gem 'garner', '>= 0.3.2'
+gem 'garner', '~> 0.3.2'
 
 # View
 gem 'slim-rails'
@@ -26,6 +27,7 @@ gem 'sitemap_generator'
 gem 'kaminari' # pagination
 gem 'rails_autolink'
 gem 'redcarpet' # markdown
+gem "autoprefixer-rails"
 
 # Database
 gem 'pg'
@@ -45,6 +47,7 @@ gem 'validates_timeliness', '~> 3.0'
 group :production do
   gem 'newrelic_rpm'
   gem 'newrelic-grape'
+  gem 'rails_12factor'
 end
 gem 'intercom-rails', '~> 0.2.21'
 
@@ -73,10 +76,9 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request', '>= 0.2.5'
   gem 'taps'
-  gem 'launchy'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
-  gem 'pry-debugger'
+  # gem 'pry-debugger'
 end
 
 group :development, :test do
@@ -94,7 +96,6 @@ group :test do
 
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'launchy'
   gem 'spork'
   gem 'vcr'
   gem 'timecop'

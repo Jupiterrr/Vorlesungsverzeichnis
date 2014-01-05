@@ -1,7 +1,7 @@
 ---
 language: ruby
 rvm:
-- 1.9.3
+- 2.1.0
 env:
   matrix:
   - DB=postgresql
@@ -9,7 +9,7 @@ env:
     secure: ! 'JvUqVRVSJWtDZa7t4uj1j9OvUttja28u5a26CSc+x38eSmrGRAZoDHykEcAxpHYNNTSoE1Q7DbLoe/H+phYAKGxtjUYK6Cf+/3+pWAF2SNJBNytloZDKMGUm1jDqL7tELVOZz/uunmfi1gmTRjus31WYzxBsKN+QBduYM6CVk84='
 before_script:
 - psql -c 'create database vvz_test;' -U postgres
-- rake db:migrate
+- bundle exec rake db:migrate
 - export RUBY_GC_MALLOC_LIMIT=50000000
 bundler_args: --without development production
 script: bundle exec rspec -t ~no_ci && bundle exec script/cucumber
