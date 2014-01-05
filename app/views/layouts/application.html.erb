@@ -17,7 +17,9 @@
   <%= csrf_meta_tags %>
   <%= render partial: "layouts/fb/meta" if feature(:facebook) %>
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
+
   <%= stylesheet_link_tag "lib", "application" %>
   <%= yield :stylesheet %>
 

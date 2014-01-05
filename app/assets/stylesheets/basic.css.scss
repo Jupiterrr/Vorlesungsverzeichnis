@@ -1,3 +1,5 @@
+@import "breakpoints.css.scss";
+
 $bg_color: #E3E3E2;
 $bg_color: #DDDDD1;
 $blue: #0069D6;
@@ -124,8 +126,6 @@ form .field_with_errors {
   overflow-y: auto;
 }
 
-
-
 .icon-box {
   display: table;
   i, .content {
@@ -135,6 +135,7 @@ form .field_with_errors {
 
 
 
+@import "landing.css.scss";
 @import "vvz.css.scss";
 @import "vvz/breadcrumb.css.scss";
 @import "vvz/topbar.css.scss";
