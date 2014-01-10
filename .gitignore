@@ -12,16 +12,16 @@
 .rbenv-vars
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
-/spec/tmp
+log/*.log
+tmp
+spec/tmp
 spec/cassettes
 
 # Ignore the default SQLite database and db dumps
-/db/*.sqlite3
-/dbs/*.sql
-/dbs/*.sql.gz
-/db/structure.sql
+db/*.sqlite3
+dbs/*.sql
+dbs/*.sql.gz
+db/structure.sql
 
 vvz.sublime-workspace
 zeus.json
