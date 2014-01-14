@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   def index
     dates = EventDate.where(event_id: current_user.events).includes(:event)
     @today = dates.today.order(:start_time)
-
+    # @today = dates.order("random()").limit(7)
     # if today.empty?
     #   if Time.now.wday < 5
     #     @upcomming = dates.tomorrow

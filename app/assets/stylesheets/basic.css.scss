@@ -22,6 +22,7 @@ hr.clear {
   clear: both;
   border: 0;
   height: 0;
+  margin: 0;
 }
 
 .hide { display: none; }
@@ -34,6 +35,17 @@ hr.clear {
   border-radius: 0;
   .actions { white-space: nowrap; }
 }
+
+// .custom-btns .btn {
+//   background-image: none;
+//   box-shadow: none;
+//   border-color: #ccc;
+//   padding: 3px 12px;
+// }
+
+// .custom-btns .btn-link {
+//   border-color: rgba(0, 0, 0, 0);
+// }
 
 aside h5 {
   margin: 0 0 8px 0;

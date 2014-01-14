@@ -19,7 +19,7 @@ $ ->
 
   switchToPreview = (html) ->
     input.hide()
-    preview = $('<div class="markdown md-preview-js well main-small"></div>')
+    preview = $('<div class="markdown md-preview-js well md-preview"></div>')
     preview.append(html)
     preview.insertAfter(input)
     setActive(false)

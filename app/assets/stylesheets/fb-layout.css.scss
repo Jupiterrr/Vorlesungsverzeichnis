@@ -1,0 +1,66 @@
+@import "mixins/layout";
+@import "breakpoints";
+
+.clearfix {
+    zoom:1;
+    &:before, &:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.default-layout, .sidebar-layout {
+  @include container;
+
+  & > header {
+    @include white-box;
+    @extend .clearfix;
+    padding: 0px 20px;
+    margin-bottom: 1em;
+    line-height: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    h1 {
+      margin: 0;
+      float: left;
+      line-height: 40px;
+    }
+  }
+
+  & > .content-box {
+    @include white-box;
+    padding: 20px;
+  }
+
+  .white-box { @include white-box; }
+
+  @include breakpoint(mobil) {
+    width: auto;
+    & > .content-box {
+      width: auto !important;
+    }
+  }
+}
+
+.sidebar-layout {
+  & > .content, & > .content-box {
+    width: 640px;
+    position: relative;
+  }
+
+  .rigth-sidebar {
+    h5 {
+      padding: 0px 20px 0 20px;
+      color: #898F9C;
+    }
+    h5.first { padding-top: 10px; }
+    hr { margin: 1em; }
+
+    .padding { @include padding; }
+  }
+}

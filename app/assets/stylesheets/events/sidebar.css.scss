@@ -1,0 +1,44 @@
+#event_page .rigth-sidebar {
+
+  @include white-box;
+
+  .miscellaneous {
+    margin-bottom: 20px;
+  }
+
+  .vvz_occurence {
+    .ac-btn {
+      cursor: pointer;
+      user-select: none;
+      &:after {
+        content: "\f0dd";
+        font-family: FontAwesome;
+        top: -2px;
+        position: relative;
+        margin-left: 3px;
+      }
+    }
+    // &.active .ac-btn:before {
+    //   content: "close"
+    // }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    ul.collapse-body {
+      display: none;
+    }
+    &.active ul.collapse-body {
+      display: block;
+    }
+    li:first-child {
+      margin-top: 1em;
+    }
+    li {
+      font-size: 12px;
+      line-height: 1em;
+      margin-bottom: 1em;
+    }
+  }
+}

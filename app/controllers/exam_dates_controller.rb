@@ -1,3 +1,4 @@
+require_dependency "exam_date_calendar"
 class ExamDatesController < ApplicationController
 
   before_filter :authorize #, except: [:index, :show, :calendar]

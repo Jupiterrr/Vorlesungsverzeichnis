@@ -1,10 +1,11 @@
-.container
-  .content#event_page
-    = render partial: "header", locals: {nonav: true}
+- page_title event.name
+#event_page.sidebar-layout
+  = render partial: "header"
+  = render partial: "sidebar"
+  .content.white-box
+    h2.sub-title Termine
 
-    h1.sub-title Termine
-
-    - dates = @event.dates.order("start_time")
+    - dates = event.dates.order("start_time")
     - if dates.count > 0
       .dates
         - groups = EventDateGrouper.group(dates)
@@ -31,4 +32,6 @@
 
     - else
       | Es wurden keine Termine eingetragen.
+
+    hr.clear
 

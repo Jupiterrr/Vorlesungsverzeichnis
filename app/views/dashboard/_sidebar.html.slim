@@ -1,0 +1,24 @@
+aside.rigth-sidebar.wide
+  .white-box
+    ul
+      li
+        a.link href=timetable_index_path Stundenplan
+      /li
+        a.link href=discipline_exam_dates_path(current_user.disciplines.first) Klausurtermine
+
+  - unless @today.empty?
+    .white-box
+      h5 Heute
+      ul.next-dates-list
+        - @today.each do |date|
+          li
+            - event = date.event
+            a.title href=event_path(event) = event.name
+            .date
+              - df = date_formater(date)
+              span.time = df.time_short + " Uhr"
+              ' ,
+              - if date.room && date.room.poi
+                a.room href=map_path(date.room.poi)  = df.room
+              - else
+                span.room = df.room

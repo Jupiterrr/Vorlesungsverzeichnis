@@ -15,6 +15,10 @@ module VvzsHelper
     end
   end
 
+  def readable_vvz_path(vvz)
+    vvz.path.map(&:name)[2..-1].join(" / ")
+  end
+
   private
   def nodes_js(children)
     children.map do |hash|

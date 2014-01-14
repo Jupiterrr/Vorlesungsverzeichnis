@@ -1,22 +1,23 @@
 == javascript_include_tag "edit_md", defer: true
-.container
-  .content#event_page
-    = render partial: "header", locals: {nonav: true}
+- page_title event.name
+#event_page.sidebar-layout
+  = render partial: "header"
+  = render partial: "sidebar"
+  .content.white-box
+    h2 Bearbeite „Hinweise von Studenten“
 
-    h1.sub-title Bearbeite „Hinweise von Studenten“
-
-    = simple_form_for event, url: update_user_text_event_path(event), html: {class: "md-form-js"} do |f|
-      /ul.nav.nav-tabs
+    = simple_form_for event, url: update_user_text_event_path(event), html: {class: "md-form-js md-form"} do |f|
+      ul.nav.nav-tabs
         li.active.write-btn-js
           a href="#write" Schreiben
         li.preview-btn-js
           a href="#preview" Vorschau
-      .fr.muted
+      = f.input :user_text_md, input_html: {class: "md-input-js md-input", rows: 12,  data: {provide: "markdown"}}, label: false
+      .muted
         ' Benutze
         a href="http://markable.in/file/aa191728-9dc7-11e1-91c7-984be164924a/" target="_blank" Markdown
-        br
         |  um deinen Text zu formatieren.
-      = f.input :user_text_md, input_html: {class: "span9 md-input-js", rows: 12,  data: {provide: "markdown"}}, label: false
+
       .actions
         = f.button :submit, value: "Speichern", class: "btn"
         a.btn.btn-link href=event_path Zurück

@@ -1,130 +1,14 @@
-// Place all the styles related to the Events controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-.container { width: 940px;}
-#stundenplan {
-  $all_w: 940px;
-  $first_w: 20px;
-  $width: ( $all_w - $first_w )/7;
-  $row-height: 20px;
-  $quart: $row-height / 4;
-
-  th { text-align: center; }
-
-  position: relative;
-  width: $all_w;
-
-  td:nth-child(1) { width: $first_w; }
-  td:nth-child(2n) { background: #ccc; }
-  tr:hover td:nth-child(2n) { background: #e6e6e6; }
-  td {
-    width: $width;
-    height: $row-height;
-    font-size: 0.1;
-    padding: 0;
-    border: 0;
-    overflow: hidden;
-  }
-
-  tr {
-    height: $row-height;
-    padding: 0;
-    border: 0;
-    postion: relative;
-  }
-
-  .event {
-    position: absolute;
-    background: white;
-    width: $width;
-    top: $row-height*1;
-    font-size: 0.8em;
-  }
-
-  @for $i from 1 through 7 {
-    .d#{$i} { left: $first_w + $width*($i) - 1; }
-  }
-
-  @for $i from 0 through 52 {
-    .s#{$i} { top: $row-height + $quart*($i); }
-  }
-
-
-  @for $i from 0 through 52 {
-    .l#{$i} { height: $quart*$i; }
-  }
-}
-
-
-.termine {
-  position: relative;
-  margin-bottom: 30px;
-}
-.termin {
-  margin-top: 5px;
-  margin-right: 10px;
-  font-size: 1.2em;
-  display: inline-block;
-  background: white;
-  padding: 10px;
-  line-height: 1.3em;
-}
-
-
-#minitable {
-  .first {
-    width: 20px;
-  }
-  th, td {
-    padding: 2px;
-    height: 5px;
-  }
-}
-
-#minitable2 {
-  table {
-    border-collapse:separate;
-    border-spacing:2px;
-    width: 100%;
-
-    td {
-      background: white;
-      padding: 5px;
-      border: 0;
-    }
-  }
-
-  td { padding: 0; }
-}
-
-.subscribe-btn {
-  &.subscribe {
-
-  }
-}
+@import "mixins/layout.scss";
 
 #event_page {
-  h1 {
-    margin-bottom: 3px;
-    max-width: 700px;
-    //float: left;
+
+  .white-box {
+    padding: 20px;
   }
-  .subscribe-btn {
-    float: right;
-  }
-  .lecturer {
-    color: #777;
-    margin-bottom: 30px;
-  }
-  .description {
-    margin-bottom: 30px;
-  }
-  a.collapse-btn {
-    margin-bottom: 5px;
-    display: inline-block;
-  }
-  .sub-title {
+
+  h2 {
+    margin: 0;
+    line-height: 1em;
     margin-bottom: 1em;
   }
 
@@ -139,8 +23,6 @@
       width: 160px;
     }
   }
-
-
 
   .dates {
     h3 {
@@ -164,15 +46,6 @@
       background: #ccc;
       color: #555
     }
-/*    li {
-      border-radius: 4px;
-      position: relative;
-      display: block;
-      padding: 6px 10px;
-      border: 1px solid #EEE;
-      background: #EEE;
-      margin-bottom: 0.5em;
-    }*/
 
     .seperator:before {
       content: "|";
@@ -189,23 +62,11 @@
     }
   }
 
-  h4 {
-    font-weight: normal;
-    color: #F14E32;
-  }
-  .desc:first-child h4 { margin-top: 0; }
 
-  .desc p { margin: 0; }
-  .desc strong { margin: 1em 0 .5em 0; position: relative; display: block; }
 }
 
-#event-description-tab {
-  .desc {
-    margin-bottom: 1.5em;
-    overflow: hidden;
-    max-width: 600px;
-  }
-}
+
+
 
 .sidebar-box {
   border-radius: 4px;
@@ -246,19 +107,29 @@
   }
 }
 
-.event_user_text_md {
-  display: inline-block;
-  width: 700px;
-  textarea.md-input {
-    background: inherit;
-    box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    padding: 10px;
+.md-form {
+  overflow: hidden;
+  .nav-tabs {
+    margin-bottom: .5em;
   }
-  .md-editor>.md-preview {
+  .actions {
+    margin-top: 1em;
+  }
+
+  textarea.md-input {
+    box-sizing:border-box;
+    width: 100%;
+    margin-bottom: .5em;
+  }
+  .md-preview.well {
     min-height: 200px;
     background: #f0f0f0;
-    padding: 10px;
+    padding: 10px 5px;
+    box-sizing:border-box;
   }
-  margin-bottom: .5em;
+
 }
+
+@import "events/header.css.scss";
+@import "events/sidebar.css.scss";
+@import "events/description.css.scss";

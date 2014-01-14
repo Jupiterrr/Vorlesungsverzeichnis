@@ -1,19 +1,45 @@
 @import "breakpoints.css.scss"
+@import "events.css.scss"
 
-.dashboard
+#dashboard-page
+  .white-box
+    padding: 10px 0
+
+  .white-box:first-child
+    margin-bottom: 1em
+    padding: 0
+    & > ul
+      @include unstyled-list
+    .link
+      padding: 6px 20px
+      display: block
+      border-bottom: 1px solid #eee
+    li:last-child .link
+      border: 0
+
   .remove-all
     margin-left: 1em
     color: #999
     &:hover
       color: #DA4F49
 
-  .remove-action
-    color: #999
-    transition: color 1s
-    -webkit-transition: color 1s
-    &:hover
-      color: #DA4F49
-      text-decoration: none
+  .next-dates-list
+    @include unstyled-list
+    @include padding
+    li
+      margin-bottom: .5em
+      line-height: 1.3em
+    .title
+      color: #333
+    .date
+      @include ellipsis
+      font-size: .9em
+    .time
+      font-weight: bold
+      color: #666
+      // #687491
+    .room
+      color: #555
 
   .next-dates-list .title
     line-height: 1.2em
@@ -38,29 +64,6 @@
   header
     background: #c3c3c3 //#f6f7f8
     font-size: 16px
-
-// #activity-feed
-  .activity
-    padding: 1em 0 1em 45px
-    position: relative
-    border-top: 1px solid #f1f1f1
-
-    &:first-child
-      border-top: 0
-
-    a
-      margin-right: 5px
-      display: inline-block
-
-    .event-date
-      color: #bbb
-      display: inline
-
-    .icon
-      position: absolute
-      //top: 15px
-      left: 11px
-      color: #bbb
 
 
 .main-small

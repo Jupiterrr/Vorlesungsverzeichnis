@@ -3,25 +3,27 @@ class EventsController < ApplicationController
   before_filter :authorize, except: [:show]
 
   def show
-    @event = Event.find(params[:id])
-    @date_groups = EventDateGrouper.group(@event.dates)
+    @date_groups = EventDateGrouper.group(event.dates)
     respond_to do |format|
       format.html {
-        redirect_to event_vvz_path(@event.vvzs.first, @event) unless authorized?
+        redirect_to event_vvz_path(event.vvzs.first, event) unless authorized?
         # authorize
       }
       format.json do
-        data = @event.as_json(current_user)
+        data = event.as_json(current_user)
         data[:authenticated] = !!current_user
-        data[:html] = render_to_string(partial: "vvz/event_col", layout: false, locals: {event: @event})
+        data[:html] = render_to_string(partial: "vvz/event_col", layout: false, locals: {event: event})
         render json: data
       end
     end
   end
 
   def dates
-    @event = Event.find(params[:id])
   end
+
+  def info
+  end
+
 
   def subscribe
     event = Event.find(params[:id])

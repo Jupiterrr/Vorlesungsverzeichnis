@@ -3,9 +3,10 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require events
  *= require basic
- *2 = require font-awesome
+ *= require events
+ *= require fb-layout
+ *x= require font-awesome
  *= require map
  *= require timetable
  *= require search
@@ -16,5 +17,5 @@
  *= require dashboard
  *= require exam_dates
  *= require bootstrap-markdown/css/bootstrap-markdown.min.css
- * require_tree .
+ *x= require_tree .
  */

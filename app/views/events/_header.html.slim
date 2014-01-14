@@ -1,29 +1,37 @@
 header
   - unless local_assigns[:nonav]
-    ul.pull-right.nav.nav-pills
-      - if website = event.data["website"]
-        li
-          a href=website target="_blank"
+    nav.controlls
+      ul.event-header-nav
+        - if website = event.data["website"]
+          li.nav-item
+            a href=website target="_blank"
+              i.fa-external-link.fa
+              |  Webseite
+        - if vab = event.data["workspace_url"]
+          li.nav-item
+            a href=vab target="_blank"
+              i.fa-external-link.fa
+              |  VAB
+        li.nav-item
+          a href=event.url target="_blank"
             i.fa-external-link.fa
-            |  Webseite
-      - if vab = event.data["workspace_url"]
-        li
-          a href=vab target="_blank"
-            i.fa-external-link.fa
-            |  VAB
-      li
-        a href=event.url target="_blank"
-          i.fa-external-link.fa
-          |  KIT Vorlesungsverzeichnis
-      li
-        - if event.subscribed?(current_user)
-          a.subscribe.muted href=unsubscribe_event_path(event)
-            |  abmelden
-        - else
-          a.unsubscribe href=subscribe_event_path(event)
-           |  anmelden
+            |  KIT Vorlesungsverzeichnis
+        li.nav-item
+          - if event.subscribed?(current_user)
+            a.subscribe.muted href=unsubscribe_event_path(event)
+              |  abmelden
+          - else
+            a.unsubscribe href=subscribe_event_path(event)
+             |  anmelden
 
-  h1
+  h1 title=event.name
     a href=event_path(event) = event.name
+  nav.main
+    ul.event-header-nav
+      li.nav-item
+        a href=info_event_path(event) Info
+      li.nav-item
+        a href=dates_event_path(event) Termine
+
 
   hr.clear

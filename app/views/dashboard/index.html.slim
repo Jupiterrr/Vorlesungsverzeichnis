@@ -1,4 +1,45 @@
-- if feature(:activity_stream)
-  = render partial: "beta_index"
-- else
-  = render partial: "index"
+#dashboard-page.sidebar-layout
+
+  /header
+    h1 Meine Veranstaltungen
+
+  = render partial: "sidebar"
+
+  .content-box.with-sidebar
+
+    #user-event-list
+      - if @user_events.empty?
+        .emptyy
+          ' Wähle deine Vorlesungen im
+          a href=vvz_index_path Vorlesungsverzeichnis
+          |  aus.
+          br
+          br
+          div
+            a href=vvz_index_path
+              = image_tag "attend-tutorial.jpg", class: "img-polaroid"
+
+        br
+      - else
+        ul.list
+          - @user_events.each do |event|
+            li.item
+              i.fa-book.fa.icon
+              a.title href=event_path(event)
+                = event.name
+              /.actions
+                a.remove-action href=unsubscribe_event_path(event) title="entfernen" rel="tooltip"
+                  i.fa-trash-o.fa
+
+      hr
+      a.add-more-btn.btn href=vvz_index_path title="mehr hinzufügen"
+        i.fa-plus.fa
+        |  Veranstaltungen hinzufügen
+      - unless @user_events.empty?
+        a.remove-all style="margin-left:1em;" href=unsubscribe_all_events_path onclick='return confirm("Willst du wirklich alle entfernen?")'
+          i.fa-trash-o.fa
+          |  alle entfernen
+
+
+    .clearfix
+
