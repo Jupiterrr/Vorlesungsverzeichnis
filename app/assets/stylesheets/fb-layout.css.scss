@@ -30,6 +30,9 @@
       float: left;
       line-height: 40px;
     }
+    @include breakpoint(mobil) {
+      height: auto;
+    }
   }
 
   & > .content-box {
@@ -41,7 +44,7 @@
 
   @include breakpoint(mobil) {
     width: auto;
-    & > .content-box {
+    & > .content, & > .content-box {
       width: auto !important;
     }
   }

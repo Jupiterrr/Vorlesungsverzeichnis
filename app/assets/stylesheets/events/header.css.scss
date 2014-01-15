@@ -16,10 +16,18 @@
     @include inline-list;
   }
 
+
+
   .nav-item a {
     padding: 0px 1em;
     display: inline-block;
     border-right: 1px solid #eee;
+    @include breakpoint(mobil) {
+      line-height: 1em;
+      border: 0;
+      padding: 0;
+      margin-right: .5em;
+    }
   }
   .nav-item:first-child a { border-left: 1px solid #eee; }
 
@@ -29,4 +37,24 @@
     li:last-child a { border-right: 0; }
   }
 
+  @include breakpoint(mobil) {
+    padding-bottom: 5px;
+    h1, nav.main, nav.controlls {
+      float: none;
+    }
+    nav.main ul, nav.controlls ul {
+      li, li:first-child {
+        display: block;
+        a {
+          display: block;
+          padding: 0;
+          font-size: 15px;
+          line-height: 2.5em;
+          border: 0;
+          margin: 0;
+          border-top: 1px solid #eee;
+        }
+      }
+    }
+  }
 }

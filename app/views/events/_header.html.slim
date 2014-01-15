@@ -1,5 +1,15 @@
 header
   - unless local_assigns[:nonav]
+    h1 title=event.name
+      a href=event_path(event) = event.name
+
+    nav.main
+      ul.event-header-nav
+        li.nav-item
+          a href=info_event_path(event) Info
+        li.nav-item
+          a href=dates_event_path(event) Termine
+
     nav.controlls
       ul.event-header-nav
         - if website = event.data["website"]
@@ -24,14 +34,7 @@ header
             a.unsubscribe href=subscribe_event_path(event)
              |  anmelden
 
-  h1 title=event.name
-    a href=event_path(event) = event.name
-  nav.main
-    ul.event-header-nav
-      li.nav-item
-        a href=info_event_path(event) Info
-      li.nav-item
-        a href=dates_event_path(event) Termine
+
 
 
   hr.clear
