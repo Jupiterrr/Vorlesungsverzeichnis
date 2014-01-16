@@ -56,7 +56,7 @@ module KITBox
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.precompile << %w(application.js vvz.js timetable.js map.js exam_dates.js edit_md.js)
-    config.assets.precompile += %w(application.css lib.css)
+    config.assets.precompile += %w(application.css lib.css jquery.weekcalendar.css)
     config.quiet_assets = true
 
     # Version of your assets, change this if you want to expire all your assets
