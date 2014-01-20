@@ -24,18 +24,19 @@ aside.rigth-sidebar.wide
         - else
           | Es wurden keine Termine eingetragen.
   hr
-  section.event-wiki-text
-    h5
-      ' Hinweise von Studenten
-      a href=edit_user_text_event_path(event) bearbeiten
-    .padding
-      - if event.user_text_md.present?
-        = markdown event.user_text_md
-      - else
-        ' Gibt es ein Übungsblatt? Link zu den Vorlesungsfolien? Passwort zum VAB?
-        a href=edit_user_text_event_path(event) Mach den Anfang
-        '  und schreibe einen Hinweise für deine Kommilitonen.
-  hr
+  - if authorized?
+    section.event-wiki-text
+      h5
+        ' Hinweise von Studenten
+        a href=edit_user_text_event_path(event) bearbeiten
+      .padding
+        - if event.user_text_md.present?
+          = markdown event.user_text_md
+        - else
+          ' Gibt es ein Übungsblatt? Link zu den Vorlesungsfolien? Passwort zum VAB?
+          a href=edit_user_text_event_path(event) Mach den Anfang
+          '  und schreibe einen Hinweise für deine Kommilitonen.
+    hr
   section.miscellaneous
     h5 Sonstiges
     .padding

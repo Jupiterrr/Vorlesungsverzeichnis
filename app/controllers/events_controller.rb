@@ -1,13 +1,12 @@
 class EventsController < ApplicationController
 
-  before_filter :authorize, except: [:show]
+  before_filter :authorize, except: [:show, :info, :dates]
 
   def show
     @date_groups = EventDateGrouper.group(event.dates)
     respond_to do |format|
       format.html {
-        redirect_to event_vvz_path(event.vvzs.first, event) unless authorized?
-        # authorize
+        render action: :info #unless authorized?
       }
       format.json do
         data = event.as_json(current_user)

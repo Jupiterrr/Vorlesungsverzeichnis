@@ -26,13 +26,14 @@ header
           a href=event.url target="_blank"
             i.fa-external-link.fa
             |  KIT Vorlesungsverzeichnis
-        li.nav-item
-          - if event.subscribed?(current_user)
-            a.subscribe.muted href=unsubscribe_event_path(event)
-              |  abmelden
-          - else
-            a.unsubscribe href=subscribe_event_path(event)
-             |  anmelden
+        - if authorized?
+          li.nav-item
+            - if event.subscribed?(current_user)
+              a.subscribe.muted href=unsubscribe_event_path(event)
+                |  abmelden
+            - else
+              a.unsubscribe href=subscribe_event_path(event)
+               |  anmelden
 
 
 

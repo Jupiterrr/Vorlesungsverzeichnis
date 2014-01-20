@@ -3,13 +3,14 @@
   = render partial: "header"
   = render partial: "sidebar"
   .content.white-box
-    section.desc
-      h4 Dozenten
-      = event.lecturer
+    - if !event.lecturer
+      section.desc
+        h4 Dozenten
+        = event.lecturer
     - if event.j_description.present?
       = event.j_description
     - else
       br
       .sidebar-box Für diese Veranstaltung liegt keine Beschreibung vor.
 
-    hr.clear
+  hr.clear

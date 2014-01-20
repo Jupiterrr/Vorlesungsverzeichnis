@@ -63,11 +63,17 @@
     }
   }
 
+  .desc {
+    margin-bottom: 2.5em;
+  }
+  h4 {
+    // font-weight: normal;
+    color: #F14E32;
+  }
+  .desc:first-child h4 { margin-top: 0; }
+  .desc p { margin: 0; }
 
 }
-
-
-
 
 .sidebar-box {
   border-radius: 4px;
@@ -131,6 +137,5 @@
 
 }
 
-@import "events/header.css.scss";
-@import "events/sidebar.css.scss";
-@import "events/description.css.scss";
+@import "events/header";
+@import "events/sidebar";

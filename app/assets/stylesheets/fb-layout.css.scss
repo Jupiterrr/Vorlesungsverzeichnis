@@ -52,8 +52,10 @@
 
 .sidebar-layout {
   & > .content, & > .content-box {
+    float: left;
     width: 640px;
     position: relative;
+    min-height: 300px;
   }
 
   .rigth-sidebar {

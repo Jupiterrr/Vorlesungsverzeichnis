@@ -30,7 +30,7 @@ KITBox::Application.routes.draw do
   match '/timetable/:timetable_id.ics', to: 'timetable#ical', :as => :timetable_ical
 
 
-  get "events/:id" => 'events#info', :constraints => {:format => /html/}
+  # get "events/:id" => 'events#info', :constraints => {:format => /html/}
   resources :events, only: [:show] do
     member do
       get 'subscribe'
