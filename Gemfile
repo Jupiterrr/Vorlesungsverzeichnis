@@ -28,6 +28,7 @@ gem 'kaminari' # pagination
 gem 'rails_autolink'
 gem 'redcarpet' # markdown
 gem "autoprefixer-rails"
+gem 'gravtastic'
 
 # Database
 gem 'pg'
@@ -92,7 +93,7 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara', '~> 2.0'
-  gem 'poltergeist', '~> 1.1'
+  gem 'poltergeist', '~> 1.5.0'
 
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'

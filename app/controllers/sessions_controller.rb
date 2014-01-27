@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
   # for cucumber testing only
   def backdoor
-    user = User.find_by_uid("test@user.edu")
+    user = User.test_user
     session[:user_id] = user.id
     redirect_to root_url
   end

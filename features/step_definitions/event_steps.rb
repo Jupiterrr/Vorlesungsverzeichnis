@@ -12,3 +12,7 @@ end
 Then(/^I should see the updated description$/) do
   page.should have_content(@new_description)
 end
+
+Given /^I am subscribed to the Event$/ do
+  @current_user.events << @event
+end

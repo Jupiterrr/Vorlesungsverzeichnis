@@ -1,6 +1,8 @@
 //= require jquery/jquery
 //= require bootstrap-css/js/bootstrap
 //= require search
+//= require post
+//= require comments
 //= require lib/typeahead.min
 //= require twitter/bootstrap-dropdown
 

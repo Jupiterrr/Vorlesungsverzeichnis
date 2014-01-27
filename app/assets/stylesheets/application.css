@@ -16,6 +16,8 @@
  *= require typeahead
  *= require dashboard
  *= require exam_dates
+ *= require posts
+ *= require comments
  *= require bootstrap-markdown/css/bootstrap-markdown.min.css
  *x= require_tree .
  */

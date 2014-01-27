@@ -29,9 +29,27 @@ KITBox::Application.routes.draw do
   end
   match '/timetable/:timetable_id.ics', to: 'timetable#ical', :as => :timetable_ical
 
+  class PostFeatureConstraint
+    def self.matches?(request)
+      request.format == :html && allowed?(request)
+    end
+    def self.allowed?(request)
+      id = request.session[:user_id] or return
+      user = User.find_by_id(id) or return
+      event = Event.find(request.params[:id]) or return
+      user.data["post_feature_flip"] == "true" && event.subscribed?(user)
+    end
+  end
 
-  # get "events/:id" => 'events#info', :constraints => {:format => /html/}
-  resources :events, only: [:show] do
+
+get "events/:id" => 'events#show', :constraints => PostFeatureConstraint
+get "events/:id" => 'events#info', :constraints => {:format => /html/}
+resources :events, only: [:show] do
+    collection do
+      get 'unsubscribe_all'
+      post 'preview_md'
+    end
+
     member do
       get 'subscribe'
       get 'unsubscribe'
@@ -40,12 +58,11 @@ KITBox::Application.routes.draw do
       get 'edit_user_text'
       put 'update_user_text'
     end
-    collection do
-      get 'unsubscribe_all'
-      post 'preview_md'
-    end
+
     resources :dates, controller: "event_dates", only: [:new, :create]
   end
+  # get "events/:id" => 'events#show', :constraints => PostFeatureConstraint
+  # get ":id" => 'events#info', :constraints => {:format => /html/}, as: :event
 
 
   resources :map, only: [:index] do
@@ -64,6 +81,8 @@ KITBox::Application.routes.draw do
     end
   end
 
+  resources :posts, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
 
   # skips login proccess
   if %w( development test cucumber ).include?(Rails.env.to_s)

@@ -9,3 +9,7 @@ javascript:
 .no-padding
   #calendar
     | Stundenplan wird geladen ...
+
+= form_tag print_timetable_index_path, method: :post, class: "timetable-download-form"
+  = hidden_field_tag :html
+button.js-print-timetable-btn print

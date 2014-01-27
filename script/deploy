@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# bootstrap
+#
+# SETUP YOUR DEVELOPMENT ENVIRONMENT
+
+
+set -u # prevent unbound variables
+set -e # terminate on error
+
+
+git push heroku master && heroku run rails runner Rails.cache.clear

@@ -1,0 +1,17 @@
+.post-form.custom-btns.col-box data={board_id:@board.id}
+  .col.profile-image
+    = image_tag current_user.gravatar_url(default: "retro", size: 50)
+  .col
+    .content
+      /header
+        .header-item
+          i.fa.fa-pencil-square
+          '  Schreib einen Beitrag
+      .body
+        textarea name="text" placeholder="Schreib einen Beitrag..."
+      footer
+        .btns
+          button.btn.btn-primary.js-submit-btn Veröffentlichen
+          '
+          button.btn.js-cancel-btn Abbrechen
+

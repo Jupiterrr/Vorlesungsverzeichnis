@@ -1,0 +1,36 @@
+article.post.col-box data-id=post.id
+  .col.profile-image
+    = image_tag post.author.gravatar_url(default: "retro", size: 50)
+  .col
+    .post-content
+      header
+        .timestamp
+          = distance_of_time_in_words(post.created_at, Time.now) + " ago"
+          - if post.author == current_user
+            '
+            i.fa.fa-times-circle.js-post-delete-btn aria-role="button"
+        .title = post.author.name
+      .body
+        = simple_format(post.text)
+      footer
+        /.btn-row
+          button
+            i.fa.fa-thumbs-o-up
+            '  like
+        section.comments
+          - post.comments.order("created_at").each do |comment|
+            .comment.col-box data-id=comment.id
+              .col.small-profile-image
+                = image_tag comment.author.gravatar_url(default: "retro", size: 30)
+              .col
+                .content
+                  .actions.pull-right
+                    - if comment.author == current_user
+                      /a href="#" Bearbeiten
+                      i.fa.fa-times-circle.js-comment-delete-btn aria-role="button"
+                  span.title = comment.author.name
+                  '
+                  = simple_format(comment.text, class: "text")
+                  / small= distance_of_time_in_words(comment.created_at, Time.now) + " ago"
+        .comment-form data={"post-id" => post.id}
+          textarea name="comment" placeholder="Schreib einen Kommentar..."

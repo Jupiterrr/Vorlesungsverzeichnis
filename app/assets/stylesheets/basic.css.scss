@@ -36,16 +36,33 @@ hr.clear {
   .actions { white-space: nowrap; }
 }
 
-// .custom-btns .btn {
-//   background-image: none;
-//   box-shadow: none;
-//   border-color: #ccc;
-//   padding: 3px 12px;
-// }
+.custom-btns .btn {
+  background-image: none;
+  box-shadow: none;
+  border-color: #ccc;
+  padding: 3px 12px;
+  -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+  box-shadow: 0 1px 0 rgba(0,0,0,.05);
+  text-shadow: none;
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid #d9d9d9;
 
-// .custom-btns .btn-link {
-//   border-color: rgba(0, 0, 0, 0);
-// }
+  &.btn-primary {
+    border: 1px solid transparent;
+    border-radius: 2px;
+  }
+}
+
+.custom-btns .btn-link {
+  border-color: rgba(0, 0, 0, 0);
+}
 
 aside h5 {
   margin: 0 0 8px 0;
@@ -143,6 +160,18 @@ form .field_with_errors {
   i, .content {
     display: table-cell;
   }
+}
+.col-box {
+  display: table;
+  width: 100%;
+  & > .col {
+    display: table-cell;
+    vertical-align: top;
+  }
+}
+
+*[aria-role="button"] {
+  cursor: pointer;
 }
 
 

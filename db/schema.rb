@@ -11,7 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131023110805) do
+ActiveRecord::Schema.define(:version => 20140110232704) do
+
+  create_table "boards", :force => true do |t|
+    t.integer "postable_id"
+    t.string  "postable_type"
+    t.hstore  "data"
+  end
+
+  add_index "boards", ["postable_id"], :name => "index_boards_on_postable_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "author_id"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.text     "text"
+    t.hstore   "data"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
+  add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
+  add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
 
   create_table "disciplines", :force => true do |t|
     t.string   "name"
@@ -95,6 +117,8 @@ ActiveRecord::Schema.define(:version => 20131023110805) do
     t.integer "event_id"
   end
 
+  add_index "events_users", ["user_id", "event_id"], :name => "index_events_users_on_user_id_and_event_id"
+
   create_table "events_vvzs", :force => true do |t|
     t.integer "event_id"
     t.integer "vvz_id"
@@ -137,6 +161,8 @@ ActiveRecord::Schema.define(:version => 20131023110805) do
     t.integer "poi_id"
   end
 
+  add_index "poi_groups_pois", ["poi_group_id", "poi_id"], :name => "index_poi_groups_pois_on_poi_group_id_and_poi_id"
+
   create_table "pois", :force => true do |t|
     t.string   "name"
     t.float    "lat"
@@ -147,6 +173,19 @@ ActiveRecord::Schema.define(:version => 20131023110805) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "posts", :force => true do |t|
+    t.integer  "author_id"
+    t.integer  "board_id"
+    t.text     "text"
+    t.string   "type"
+    t.hstore   "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "posts", ["author_id"], :name => "index_posts_on_author_id"
+  add_index "posts", ["board_id"], :name => "index_posts_on_board_id"
 
   create_table "rooms", :force => true do |t|
     t.integer  "poi_id"

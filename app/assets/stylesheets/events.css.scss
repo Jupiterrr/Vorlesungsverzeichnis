@@ -94,23 +94,12 @@
   p:last-child { margin-bottom: 0; }
 }
 
-.top-date-row {
-  display: table;
-  width: 100%;
-  .room, .time, .date {
-    display: table-cell;
-  }
-  .time {
-    text-align: center;
-  }
-  .room {
-    text-align: right;
-  }
-}
-
 .next-dates-list {
-  li {
-    margin-bottom: .5em;
+  width: 100%;
+  .date {
+    padding: 4px 0;
+    border-bottom: 1px solid #EEE;
+    &:last-child { border-bottom: 0; }
   }
 }
 

@@ -3,10 +3,11 @@ class EventsController < ApplicationController
   before_filter :authorize, except: [:show, :info, :dates]
 
   def show
-    @date_groups = EventDateGrouper.group(event.dates)
     respond_to do |format|
       format.html {
-        render action: :info #unless authorized?
+        @board = event.board
+        @posts = @board.posts.limit(20).includes(:author, {comments: :author})
+        @date_groups = EventDateGrouper.group(event.dates.includes({room: :poi}))
       }
       format.json do
         data = event.as_json(current_user)
@@ -17,16 +18,12 @@ class EventsController < ApplicationController
     end
   end
 
-  def dates
-  end
+  # def dates; end
 
-  def info
-  end
-
+  # def info; end
 
   def subscribe
-    event = Event.find(params[:id])
-    event.subscribe current_user
+    event.subscribe(current_user)
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Erfolgreich angemeldet' }
       format.json { render json: { message: "Erfolgreich angemeldet" }  }
@@ -34,8 +31,7 @@ class EventsController < ApplicationController
   end
 
   def unsubscribe
-    event = Event.find(params[:id])
-    current_user.events.delete event
+    event.unsubscribe(current_user)
     respond_to do |format|
       format.html { redirect_to :back, notice: "Erfolgreich entfernt" }
       format.json { render json: { message: "Erfolgreich entfernt" }  }
@@ -50,8 +46,7 @@ class EventsController < ApplicationController
     end
   end
 
-  def edit_user_text
-  end
+  # def edit_user_text; end
 
   def update_user_text
     if event.update_attributes params[:event].slice(:user_text_md)

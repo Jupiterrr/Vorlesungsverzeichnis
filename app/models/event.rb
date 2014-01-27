@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :event_dates, :dependent => :destroy #, :as => :dates
   has_many :activities, class_name: "EventActivity"
+  has_one :board, as: :postable#, :dependent => :destroy
 
   serialize :linker_attributes, ActiveRecord::Coders::Hstore
   serialize :data, ActiveRecord::Coders::Hstore
@@ -37,6 +38,10 @@ class Event < ActiveRecord::Base
   # scope :tomorrow, lambda {
   #   joins(:event_dates).where("DATE(start_time) = DATE(?)", Time.now + 1.day)
   # }
+
+  def board
+    @board ||= super || create_board
+  end
 
   def track_activity(action, data={})
     activity = activities.new action: action
@@ -165,8 +170,8 @@ class Event < ActiveRecord::Base
     read_attribute(:description).html_safe
   end
 
-  def find_by_no(event_no)
-    where("nr LIKE '%?'", event_no).first
+  def self.find_by_no(event_no)
+    where("nr LIKE ?", "%" + event_no).last
   end
 
 

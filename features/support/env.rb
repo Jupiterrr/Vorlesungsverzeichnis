@@ -11,6 +11,7 @@ require 'capybara/poltergeist'
 require "pry"
 require "awesome_print"
 
+require_relative "wait_for_ajax"
 
 Capybara.default_selector = :css
 Capybara.default_driver = :rack_test
@@ -22,6 +23,7 @@ end
 
 Capybara.server do |app, port|
   require 'rack/handler/thin'
+  Thin::Logging.silent = true
   Rack::Handler::Thin.run(app, :Port => port)
   Rails.configuration.action_dispatch.show_exceptions = false
 end
