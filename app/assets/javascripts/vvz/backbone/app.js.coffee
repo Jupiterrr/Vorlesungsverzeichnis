@@ -90,7 +90,6 @@ class AppView extends Backbone.View
       #   $(@el).find("a.active").last().focus()
       #   return false
 
-
 @vvz ||= {}
 
 trackPageview = (pageTitle, pageUrl) ->
@@ -98,6 +97,14 @@ trackPageview = (pageTitle, pageUrl) ->
     _gaq.push(["_set", "title", pageTitle])
     _gaq.push(['_trackPageview', pageUrl])
 vvz.trackPageview = _.debounce(trackPageview, 3000);
+
+vvz.setHistory = (model) ->
+  pageTitle = model.get("name")
+  pageUrl = model.url()
+  if history && history.replaceState
+    history.replaceState({}, pageTitle, pageUrl)
+  $('title').text(pageTitle)
+  vvz.trackPageview(pageTitle, pageUrl)
 
 $ ->
   el = $("#vvz .overflow")

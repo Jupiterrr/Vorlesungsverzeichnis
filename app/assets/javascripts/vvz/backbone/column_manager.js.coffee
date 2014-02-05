@@ -90,7 +90,12 @@ class vvz.ColumnManagerClass
     # console.log "back"
     @pop(true)
     _(@cols).last().collection.deactivateActive()
+    @setHistory()
     @reorder()
+
+  setHistory: ->
+    activeModel = this.cols[this.cols.length-2].collection.activeModel
+    vvz.setHistory(activeModel)
 
   push: (colView) ->
     @el.append(colView.el)
