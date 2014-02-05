@@ -41,10 +41,7 @@ KITBox::Application.routes.draw do
     end
   end
 
-
-get "events/:id" => 'events#show', :constraints => PostFeatureConstraint
-get "events/:id" => 'events#info', :constraints => {:format => /html/}
-resources :events, only: [:show] do
+resources :events, only: [] do
     collection do
       get 'unsubscribe_all'
       post 'preview_md'
@@ -61,9 +58,9 @@ resources :events, only: [:show] do
 
     resources :dates, controller: "event_dates", only: [:new, :create]
   end
-  # get "events/:id" => 'events#show', :constraints => PostFeatureConstraint
-  # get ":id" => 'events#info', :constraints => {:format => /html/}, as: :event
-
+  get "events/:id" => 'events#show', :constraints => PostFeatureConstraint
+  get "events/:id" => 'events#info', :constraints => {:format => /html/}
+  get "events/:id" => 'events#show', :constraints => {:format => /js|json/}, :as => :event
 
   resources :map, only: [:index] do
     collection do
