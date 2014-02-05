@@ -14,6 +14,7 @@ class window.LayerControl
     @checkbox.prop("checked", @showOverlay);
 
     $(controlDiv).on("click", => @change() )
+    @change() unless isMobile() # show kit map
 
   change: ->
     @showOverlay = !@showOverlay

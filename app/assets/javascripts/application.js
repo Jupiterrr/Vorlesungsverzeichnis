@@ -46,8 +46,9 @@ $(function() {
 })
 
 function isMobile() {
-  var size = window.getComputedStyle(document.body,':after').getPropertyValue('content');
-  return size.indexOf("mobile") !=-1;
+  //var size = window.getComputedStyle(document.body,':after').getPropertyValue('content');
+  //return size.indexOf("mobile") !=-1;
+  return $(window).width() < 767;
 }
 
 $.ajaxSetup({

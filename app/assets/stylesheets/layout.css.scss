@@ -5,6 +5,14 @@
 ::-webkit-scrollbar { height:10px; width:7px; background: #eee; }
 
 
+@include breakpoint(mobil) {
+  body:after {
+    content: "mobil";
+    display: none;
+  }
+}
+
+
 //  ========
 //  = Typo =
 //  ========
