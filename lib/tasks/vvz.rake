@@ -4,7 +4,7 @@ namespace :term do
 
   # Diesplays the available terms
   task :list do
-    require "kit_adapter"
+    require "kit_api"
     # KitApi.logger.level = Logger::INFO
     connection = KitApi::Connection.connect
     terms = KitApi.get_terms(connection)

@@ -1,58 +1,28 @@
 module VVZUpdater
   class TreeDiff
-    # This class tries to merge an array of db_node and and an array of new_nodes
-    # based on there external_id.
-    #
-    # Example:
-    #
-    #   merger = NodeMerger.new([existing1, existing2], [new])
-    #   merger.merge!
-    #   merger.remaining_existing_nodes
-    #   # => [existing2]
-    #
-    # Results can be accessed throug :matches, :remaining_existing_nodes, :remaining_new_nodes
-    class PairFinder
+    class NodeGrouper
 
-      attr_reader :pairs, :unmatched
-
-      def initialize(existing_nodes, new_nodes)
-        @existing_nodes = existing_nodes
-        @new_nodes = new_nodes
+      def initialize(nodes, db_nodes)
+        @node_set = ValueSet.new(nodes, :external_id)
+        @db_node_set = ValueSet.new(db_nodes, :external_id)
       end
 
-      def existing_node_index
-        index = {}
-        @existing_nodes.each {|a| index[a.external_id] = a }
-        index
+      def new_nodes
+        new_ids = @node_set - @db_node_set
+        new_ids.map {|id| @node_set[id] }
       end
 
-      # Find pairs of existing and new nodes based on their external_id.
-      # Returns an array of "pairs".
-      # A pair can be:
-      #   match: [existing_node, new_node]
-      #   new node without a match: [nil, new_node]
-      #   existing node without a match: [existing_node, nil]
-      def search!
-        @pairs = find_pairs
-        @unmatched = get_unused(@pairs)
+      def removed_db_nodes
+        removed_ids = @db_node_set - @node_set
+        removed_ids.map {|id| @db_node_set[id] }
       end
 
-      def find_pairs
-        index = existing_node_index
-        @new_nodes.map do |new_node|
-          if existing = index[new_node.external_id]
-            [existing, new_node]
-          end
-        end.compact
+      def node_pairs
+        existing_ids = @node_set & @db_node_set
+        existing_ids.map {|id| DatePair.new(@node_set[id], @db_node_set[id]) }
       end
 
-      def get_unused(pairs)
-        used_existing = pairs.map(&:first)
-        unused_existing = @existing_nodes - used_existing
-        used_new = pairs.map(&:second)
-        unused_new = @new_nodes - used_new
-        [*unused_existing, *unused_new]
-      end
+      NodePair = Struct.new(:node, :db_node)
 
     end
   end

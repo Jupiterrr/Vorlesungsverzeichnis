@@ -85,6 +85,7 @@ end
 group :development, :test do
   # gem 'highline' # user input in rake task
   gem 'rspec-rails'
+  gem 'zeus'
 end
 
 # To use debugger

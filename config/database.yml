@@ -2,7 +2,6 @@ development:
    encoding: unicode
    adapter: postgresql
    host: localhost
-   username: postgres
    database: vvz_dev_p
    pool: 5
    timeout: 5000
@@ -14,7 +13,6 @@ test: &test
   encoding: unicode
   adapter: postgresql
   host: localhost
-  username: postgres
   database: vvz_test
   pool: 5
   timeout: 2000

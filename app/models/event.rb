@@ -15,6 +15,7 @@ class Event < ActiveRecord::Base
   has_paper_trail only: [:user_text_md]
 
   multisearchable :against => [:name, :nr, :lecturer, :description]
+  multisearchable :against => [:name, :no, :lecturer, :description]
 
   pg_search_scope :vvz_search,
     :against => :name,
@@ -43,6 +44,9 @@ class Event < ActiveRecord::Base
     @board ||= super || create_board
   end
 
+  def nr
+    no || orginal_no[4..-1]
+  end
   def track_activity(action, data={})
     activity = activities.new action: action
     activity[:data] = data

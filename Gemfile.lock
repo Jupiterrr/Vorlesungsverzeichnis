@@ -159,7 +159,7 @@ GEM
     mini_portile (0.5.2)
     multi_json (1.8.4)
     multi_xml (0.5.4)
-    net-ssh (2.7.0)
+    net-ssh (2.8.0)
     newrelic-grape (1.3.0)
       grape
       newrelic_rpm
@@ -331,6 +331,8 @@ GEM
     websocket-driver (0.3.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    zeus (0.13.3)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -398,3 +400,4 @@ DEPENDENCIES
   validates_timeliness (~> 3.0)
   vcr
   webmock (>= 1.10)
+  zeus

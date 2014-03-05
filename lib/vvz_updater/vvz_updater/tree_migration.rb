@@ -48,7 +48,8 @@ module VVZUpdater
       def attributes(new_node)
          {
             name: new_node.name,
-            is_leaf: new_node.children.empty?
+            is_leaf: new_node.children.empty?,
+            external_id: new_node.external_id
          }
       end
 
