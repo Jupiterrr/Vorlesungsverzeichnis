@@ -8,7 +8,7 @@ describe Timetable do
   after  { Timecop.return }
 
   let(:event) { Event.create name: "Test Event" }
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { User.test_user }
 
   before do
     @start = now+2.hours
@@ -29,7 +29,7 @@ describe Timetable do
 
   describe "to_cal" do
     before do
-      user.events << event
+      event.subscribe(user)
     end
     it "returns dates with correct time" do
       ical = Timetable.to_ical(user.timetable_id)

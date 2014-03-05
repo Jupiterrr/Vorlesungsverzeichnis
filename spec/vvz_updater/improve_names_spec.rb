@@ -16,7 +16,7 @@ describe VVZUpdater::DataEnhancer do
   end
 
   describe "main event exists" do
-    before(:each) { Event.create(name: "Wurst-Vorlesung I", nr: 123, term: term) }
+    before(:each) { Event.create(name: "Wurst-Vorlesung I", no: 123, term: term) }
     it "doesn't improve correct names" do
       event = Event.create(name: "Übung zu Wurst-Vorlesung I", term: term)
       subject.improve_name(event)
@@ -30,7 +30,7 @@ describe VVZUpdater::DataEnhancer do
   end
 
   it "only uses events within the same term" do
-    master = Event.create(name: "Wurst-Vorlesung I", nr: 123, term: "not term")
+    master = Event.create(name: "Wurst-Vorlesung I", no: 123, term: "not term")
     event = Event.create(name: "Übung zu 123", term: term)
     subject.improve_name(event)
     event.name.should_not == "Übung zu Wurst-Vorlesung I"

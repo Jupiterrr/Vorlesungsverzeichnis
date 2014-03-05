@@ -15,7 +15,8 @@ module VVZUpdater
 
       def attributes_hash(event)
         hash = {
-          nr: event.nr,
+          no: event.nr,
+          orginal_no: event.nr,
           term: event.term,
           _type: event.type,
           lecturer: event.lecturer.map(&:title).join(", "),

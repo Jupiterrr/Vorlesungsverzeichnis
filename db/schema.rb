@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140110232704) do
+ActiveRecord::Schema.define(:version => 20140305223148) do
 
   create_table "boards", :force => true do |t|
     t.integer "postable_id"
@@ -92,8 +92,18 @@ ActiveRecord::Schema.define(:version => 20140110232704) do
   add_index "event_dates", ["event_id"], :name => "index_event_dates_on_event_id"
   add_index "event_dates", ["room_id"], :name => "index_event_dates_on_room_id"
 
+  create_table "event_subscriptions", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.hstore   "data"
+    t.datetime "deleted_at"
+  end
+
+  add_index "event_subscriptions", ["deleted_at"], :name => "index_event_subscriptions_on_deleted_at"
+  add_index "event_subscriptions", ["user_id", "event_id"], :name => "index_events_users_on_user_id_and_event_id"
+
   create_table "events", :force => true do |t|
-    t.string   "nr"
+    t.string   "orginal_no"
     t.text     "name"
     t.string   "_type"
     t.text     "lecturer"
@@ -108,16 +118,10 @@ ActiveRecord::Schema.define(:version => 20140110232704) do
     t.hstore   "linker_attributes"
     t.hstore   "data"
     t.text     "user_text_md"
+    t.string   "no"
   end
 
   add_index "events", ["external_id"], :name => "index_events_on_external_id"
-
-  create_table "events_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "event_id"
-  end
-
-  add_index "events_users", ["user_id", "event_id"], :name => "index_events_users_on_user_id_and_event_id"
 
   create_table "events_vvzs", :force => true do |t|
     t.integer "event_id"
@@ -178,10 +182,10 @@ ActiveRecord::Schema.define(:version => 20140110232704) do
     t.integer  "author_id"
     t.integer  "board_id"
     t.text     "text"
-    t.string   "type"
+    t.string   "content_type"
     t.hstore   "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "posts", ["author_id"], :name => "index_posts_on_author_id"

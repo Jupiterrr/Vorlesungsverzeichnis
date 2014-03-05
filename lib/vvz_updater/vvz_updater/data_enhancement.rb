@@ -38,7 +38,7 @@ module VVZUpdater
     end
 
     def find_event(event_no, event)
-      @event_scope.find(:first, conditions: ["nr LIKE ? AND id != ?", "%" + event_no.to_s, event.id])
+      @event_scope.find(:first, conditions: ["no LIKE ? AND id != ?", "%" + event_no.to_s, event.id])
     end
 
     class GenericMatcher

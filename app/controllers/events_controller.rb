@@ -1,13 +1,14 @@
+require_dependency "event_unsubscriber"
 class EventsController < ApplicationController
 
   before_filter :authorize, except: [:show, :info, :dates]
 
   def show
+    @date_groups = EventDateGrouper.group(event.dates.includes({room: :poi}))
     respond_to do |format|
       format.html {
         @board = event.board
         @posts = @board.posts.limit(20).includes(:author, {comments: :author})
-        @date_groups = EventDateGrouper.group(event.dates.includes({room: :poi}))
       }
       format.json do
         data = event.as_json(current_user)
@@ -39,7 +40,8 @@ class EventsController < ApplicationController
   end
 
   def unsubscribe_all
-    current_user.events.clear
+    EventUnsubscriber.unsubscribe_all(current_user)
+
     respond_to do |format|
       format.html { redirect_to :back, notice: "Erfolgreich entfernt" }
       format.json { render json: { message: "Erfolgreich entfernt" }  }

@@ -16,7 +16,7 @@ class DashboardController < ApplicationController
     #   @upcomming = today
     # end
 
-    @user_events = current_user.events.order(:name)
+    @user_events = current_user.events.sort_by(&:name)
   end
 
   private

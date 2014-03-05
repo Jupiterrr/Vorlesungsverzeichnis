@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   include ActionView::Helpers::UrlHelper
 
   has_and_belongs_to_many :vvzs#, uniq: true
-  has_and_belongs_to_many :users
+  has_many :event_subscriptions
   has_many :event_dates, :dependent => :destroy #, :as => :dates
   has_many :activities, class_name: "EventActivity"
   has_one :board, as: :postable#, :dependent => :destroy
@@ -14,7 +14,6 @@ class Event < ActiveRecord::Base
 
   has_paper_trail only: [:user_text_md]
 
-  multisearchable :against => [:name, :nr, :lecturer, :description]
   multisearchable :against => [:name, :no, :lecturer, :description]
 
   pg_search_scope :vvz_search,
@@ -44,9 +43,14 @@ class Event < ActiveRecord::Base
     @board ||= super || create_board
   end
 
-  def nr
-    no || orginal_no[4..-1]
+  def users
+    event_subscriptions.active.includes(:user).map(&:user)
   end
+
+  def nr
+    no || (orginal_no && orginal_no[4..-1])
+  end
+
   def track_activity(action, data={})
     activity = activities.new action: action
     activity[:data] = data
@@ -55,15 +59,15 @@ class Event < ActiveRecord::Base
   end
 
   def subscribe(user)
-    user.events << self
+    event_subscriptions.create user_id: user.id
   end
 
   def unsubscribe(user)
-    user.events.delete self
+    EventUnsubscriber.unsubscribe(user, self)
   end
 
   def subscribed?(user)
-    user.events.include? self
+    event_subscriptions.active.exists?(user_id: user.id)
   end
 
   JSON_PREFIX = "*"
@@ -175,7 +179,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.find_by_no(event_no)
-    where("nr LIKE ?", "%" + event_no).last
+    where("no LIKE ?", "%" + event_no).last
   end
 
 

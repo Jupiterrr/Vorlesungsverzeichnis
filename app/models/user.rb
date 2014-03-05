@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :events
+  has_many :event_subscriptions
   has_and_belongs_to_many :disciplines
   before_create :generate_timetable_id
   has_many :posts
@@ -17,6 +17,11 @@ class User < ActiveRecord::Base
 
   def event_dates
     EventDate.joins(:event => :users).where("users.id" => User.first)
+  end
+
+  def events
+    event_ids = event_subscriptions.active.pluck(:event_id)
+    Event.where(id: event_ids)
   end
 
   def authorize_status
