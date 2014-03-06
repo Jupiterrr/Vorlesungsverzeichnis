@@ -1,4 +1,5 @@
-Feature: Post to Event
+@wip
+Feature: Comment to Post
 
 Background:
   Given an Event

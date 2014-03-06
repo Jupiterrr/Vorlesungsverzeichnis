@@ -2,6 +2,7 @@ require 'rubygems'
 require 'vcr'
 require 'timeout'
 require 'database_cleaner'
+require 'factory_girl'
 
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
@@ -22,10 +23,12 @@ RSpec.configure do |config|
   #c.filter_run_excluding :
   #config.filter_run :focus
   config.use_transactional_examples = false
+  config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    FactoryGirl.lint
   end
 
   config.before(:each) do
