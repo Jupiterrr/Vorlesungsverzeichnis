@@ -12,7 +12,7 @@ class EventUnsubscriber
 
   def self.mark_as_deleted(subscriptions, method)
     # update_all does not work with hstore
-    subscriptions.map do |subscription|
+    subscriptions.active.map do |subscription|
       subscription.deleted_at = Time.now
       subscription.data[:delete_method] = method
       subscription.save!
