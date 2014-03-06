@@ -1,4 +1,5 @@
 - page_title "Suche"
+- sr = @search_result
 
 .container
   .content#search_page
@@ -8,25 +9,25 @@
     form.form-search
       input type="hidden" name="type" value="vvz"
       .input-append
-        input#big-search.search-query.input-xlarge  type="search" name="q" value=params[:q] autocomplete="off"
+        input#big-search.search-query.input-xlarge  type="search" name="q" value=sr.query autocomplete="off"
         button.btn type="submit" Suchen
       '
       select name="term" style="width: auto;"
         - @terms.each do |term|
-          option value=term.id selected=@term==term = human_term_name(term.name, :long)
+          option value=term.id selected=sr.term = human_term_name(term.name, :long)
 
-    - if @vvz_results && !@vvz_results.empty?
+    - unless sr.vvzs.empty?
       .results
-        - @vvz_results.each do |r|
+        - sr.vvzs.each do |r|
           .result.directory
             a href=vvz_url(r)
               = r.name
             |
             i.fa.fa-folder
       hr
-    - if @event_results
+    - unless sr.events.empty?
       ol.results.unstyled
-        - @event_results.each do |r|
+        - sr.events.each do |r|
             li.result
               a href=vvz_event_url(r) = r.name
               .description
@@ -34,4 +35,4 @@
                 span.seperator
                 = r.lecturer
 
-      = paginate @event_results, theme: "bootstrap", param_name: "p"
+      = paginate sr.events, theme: "bootstrap", param_name: "p"

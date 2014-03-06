@@ -1,4 +1,0 @@
-class Search
-  
-  
-end
