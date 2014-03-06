@@ -179,7 +179,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.find_by_no(event_no)
-    where("no LIKE ?", "%" + event_no).last
+    where("no LIKE ?", "%" + event_no)
   end
 
 
