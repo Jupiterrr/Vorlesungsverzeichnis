@@ -25,14 +25,17 @@
             |
             i.fa.fa-folder
       hr
-    - unless sr.events.empty?
-      ol.results.unstyled
-        - sr.events.each do |r|
-            li.result
-              a href=vvz_event_url(r) = r.name
-              .description
-                = r.simple_type
-                span.seperator
-                = r.lecturer
+
+
+    ol.results.unstyled
+      - events = sr.events
+      - events.unshift(sr.event_no_match) if sr.event_no_match
+      - events.each do |r|
+          li.result
+            a href=vvz_event_url(r) = r.name
+            .description
+              = r.simple_type
+              span.seperator
+              = r.lecturer
 
       = paginate sr.events, theme: "bootstrap", param_name: "p"
