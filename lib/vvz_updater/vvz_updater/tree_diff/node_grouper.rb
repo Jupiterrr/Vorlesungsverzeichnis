@@ -19,7 +19,7 @@ module VVZUpdater
 
       def node_pairs
         existing_ids = @node_set & @db_node_set
-        existing_ids.map {|id| DatePair.new(@node_set[id], @db_node_set[id]) }
+        existing_ids.map {|id| NodePair.new(@node_set[id], @db_node_set[id]) }
       end
 
       NodePair = Struct.new(:node, :db_node)

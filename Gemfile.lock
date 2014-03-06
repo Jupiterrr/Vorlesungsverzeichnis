@@ -133,7 +133,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.0)
-    kit_api (0.0.5)
+    kit_api (0.0.6)
       activesupport (>= 3.2.13)
       net-ssh (>= 2.6.8)
       nokogiri (>= 1.6.0)
@@ -361,7 +361,7 @@ DEPENDENCIES
   hogan_assets
   intercom-rails (~> 0.2.21)
   kaminari
-  kit_api (~> 0.0.5)
+  kit_api (~> 0.0.6)
   launchy
   less-rails (~> 2.3.3)
   memcachier

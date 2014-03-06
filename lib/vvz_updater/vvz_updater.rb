@@ -3,7 +3,6 @@ require 'celluloid'
 
 require "vvz_updater/vvz_updater/tree_migration"
 require "vvz_updater/vvz_updater/tree_diff"
-require "vvz_updater/vvz_updater/tree_diff/pair_finder"
 require "vvz_updater/vvz_updater/event_linker"
 require "vvz_updater/vvz_updater/event_updater"
 require "vvz_updater/vvz_updater/event_date_updater"
@@ -22,7 +21,7 @@ module VVZUpdater
       connection = KitApi::Connection.connect
       root = KitApi.get_tree(connection, term)
 
-      uni = Vvz.university("KIT")
+      uni = Vvz.find_or_create_by_name("KIT")
       db_root = uni.children.find_or_create_by_name(term)
 
       TreeMigration.new(db_root, root).migrate!
@@ -37,13 +36,17 @@ module VVZUpdater
 
       def initialize(r)
         @start = Time.now
-        @instant_logging = !ENV["DYNO"].present?
+        @instant_logging = false #!ENV["DYNO"].present?
         @log_timer = @instant_logging ? 1 : 5
-        every(@log_timer) { print_r }
+        @timer = every(@log_timer) { print_r }
         @r = r
       end
 
       def print_r
+        if @r[:done] >= @r[:jobs]
+          @timer.cancel
+          puts "end"
+        end
         finished_jobs = @r[:done]
         leafs = @r[:jobs]
         connection = @r[:connection]
@@ -71,7 +74,7 @@ module VVZUpdater
 
 
 
-    Link = Struct.new(:db_leaf, :events)
+    Link = Struct.new(:leaf_external_id, :events)
 
     class LinkGetter
       include Celluloid
@@ -80,43 +83,51 @@ module VVZUpdater
         @connection = connection
       end
 
-      def get_link(leaf)
-        events = KitApi.get_events_by_parent(@connection, leaf.external_id)
-        link = Link.new(leaf, events)
+      def get_link(leaf_external_id)
+        events = KitApi.get_events_by_parent(@connection, leaf_external_id)
+        link = Link.new(leaf_external_id, events)
       end
 
     end
 
-
+    def mem_debug
+      require "pp"
+      objects = Hash.new(0)
+      ObjectSpace.each_object{|obj| objects[obj.class] += 1 }
+      pp objects.sort_by{|k,v| -v}
+      #ap objects[KitApi::EventParser::Date]
+    end
 
     def link_events(term_name)
       Celluloid.start
       connection = KitApi::Connection.connect
       term = Vvz.term("KIT", term_name)
-      leafs = term.leafs
+      leaf_external_ids = term.leafs.pluck(:external_id)
 
       # reporter
       r = {
         done: 0,
-        jobs: leafs.count,
+        jobs: leaf_external_ids.count,
         connection: connection
       }
       reporter = Reporter.new(r)
 
       pool = LinkGetter.pool(size: 30, args: [connection])
 
-      futures = leafs.map { |leaf| pool.future.get_link(leaf) }
+      futures = leaf_external_ids.map { |leaf_eid| pool.future.get_link(leaf_eid) }
 
       futures.each do |future|
         link = future.value
-        EventLinker.new(link.db_leaf, term_name).link(link.events)
+        db_leaf = Vvz.find_by_external_id(link.leaf_external_id)
+        EventLinker.new(db_leaf, term_name).link(link.events)
         r[:done] += 1
+        link.events = nil
+        link.leaf_external_id = nil
+        GC.start
       end
 
       connection.disconnect
     end
-
-
 
     def update_event(db_event, use_linker=true)
       connection = KitApi::Connection.connect
@@ -134,11 +145,6 @@ module VVZUpdater
       EventUpdater.new(db_event).update(updater_event)
       connection.disconnect
     end
-
-
-
-
-
 
 
 
@@ -177,12 +183,12 @@ module VVZUpdater
 
       reporter = Reporter.new(r)
       pool = EventGetter.pool(size: 30, args: [connection])
-      # pool = EventGetter.new(connection)
 
       futures = uuids.map { |uuid| pool.future.get_event(uuid) }
 
       futures.each do |future|
-        uuid, event = future.value
+        value = future.value
+        uuid, event = value
         db_event = Event.find_by_external_id(uuid)
         if event
           EventUpdater.new(db_event).update(event)
@@ -190,35 +196,12 @@ module VVZUpdater
           r[:destroyed] << db_event.destroy
         end
         r[:done] += 1
+        value.clear
+        GC.start
       end
 
       connection.disconnect
     end
-
-
-    # def print_report(processor, leafs, start)
-    #   durations = processor.results.flat_map(&:duration)
-    #   finished_jobs = leafs.count - processor.jobs
-
-    #   job_duration = (Time.now - start) / finished_jobs
-    #   time_prediction = job_duration * processor.jobs / 60
-
-    #   probe = durations.last(10)
-    #   av_druation = probe.count == 0 ? 0 : probe.inject(:+).to_f / probe.count
-
-    #   rq_duration = (Time.now - start) / processor.results.count
-
-    #   progress = ("%3i" % finished_jobs) + "/"  + leafs.count.to_s
-    #   prediction = ("%5.1f" % time_prediction) + "m"
-    #   rq_speed = ("%4.1f" % rq_duration) + "s"
-    #   job_speed = ("%4.1f" % av_druation) + "s"
-    #   rqs = "%4i" % processor.results.count
-
-    #   print 13.chr
-    #   # col=$(tput cols)
-    #   # printf '%s%*s%s' "$GREEN" $col "[OK]" "$NORMAL"
-    #   print "[#{processor.count}] #{progress}  ~ #{prediction}   |   #{job_speed} per job   | #{rqs} rqs @#{rq_speed}"
-    # end
 
 
   end

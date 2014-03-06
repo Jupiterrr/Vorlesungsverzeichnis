@@ -32,9 +32,9 @@ module VVZUpdater
     end
 
     def self.pair_changes(grouper)
-      grouper.node_pairs.map do |db_node, new_node|
+      grouper.node_pairs.map do |pair|
         # check children
-        diff(db_node, new_node)
+        diff(pair.db_node, pair.node)
       end
     end
 
@@ -43,4 +43,4 @@ module VVZUpdater
   end
 end
 
-require_relative "tree_diff/pair_finder"
+require_relative "tree_diff/node_grouper"
