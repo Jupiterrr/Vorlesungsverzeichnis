@@ -15,7 +15,7 @@ module VVZUpdater
 
       def attributes_hash(event)
         hash = {
-          no: event.nr,
+          no: event.nr[4..-1],
           orginal_no: event.nr,
           term: event.term,
           _type: event.type,
