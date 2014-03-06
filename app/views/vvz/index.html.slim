@@ -19,6 +19,7 @@
               a href=vvz_path(term) = human_term_name(term.name)
       form#vvz_search.form-search action=search_index_path
         input type="hidden" name="type" value="vvz"
+        input type="hidden" name="term" value=@term.id
         /.input-prepend
           label.add-on for="vvz-search-i"
             i.fa-search.fa

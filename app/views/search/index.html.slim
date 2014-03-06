@@ -14,7 +14,7 @@
       '
       select name="term" style="width: auto;"
         - @terms.each do |term|
-          option value=term.id selected=sr.term = human_term_name(term.name, :long)
+          option value=term.id selected=(sr.term==term) = human_term_name(term.name, :long)
 
     - unless sr.vvzs.empty?
       .results
