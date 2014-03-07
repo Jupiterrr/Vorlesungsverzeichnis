@@ -4,6 +4,7 @@ class AppView extends Backbone.View
     @el = $("#vvz .overflow")
     @back_btn = $("#vvz .back")
     @build(current_path)
+    @termNode = new vvz.Node.Model({name: window.term.name, id: window.term.id})
 
     setStyle = -> $("#vvz").toggleClass("mobile", isMobile())
     $(window).on("styleChange", setStyle)

@@ -69,7 +69,6 @@ class NodeCollumnView extends CollumnView
     # console.log "open", @cid, model.get("name"), model
     view = @createChildView(model)
     vvz.columnManager.addAfter(this, view)
-    vvz.setHistory(model)
 
   close: ->
     # console.log "close", @collection.activeModel.get("name")

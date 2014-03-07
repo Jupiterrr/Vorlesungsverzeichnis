@@ -32,4 +32,5 @@
 
 javascript:
   window.current_path = #{@path};
-  window.eventID=#{@event ? @event.id : "null"}
+  window.eventID=#{@event ? @event.id : "null"};
+  window.term = {id: #{@term.id}, name: "#{human_term_name(@term.name)}"};

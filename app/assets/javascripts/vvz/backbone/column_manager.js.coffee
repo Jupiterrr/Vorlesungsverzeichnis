@@ -35,6 +35,7 @@ class vvz.ColumnManagerClass
     @add(colView)
     if colView.class == "Event:EventView"
       @reorder(true)
+    @setHistory()
 
   add: (colView, noReorder) ->
     # console.log "add"#, colView
@@ -94,8 +95,11 @@ class vvz.ColumnManagerClass
     @reorder()
 
   setHistory: ->
-    activeModel = this.cols[this.cols.length-2].collection.activeModel
+    activeModel = @getActiveCol().collection.activeModel || vvz.App.termNode
     vvz.setHistory(activeModel)
+
+  getActiveCol: ->
+    @cols[@cols.length-2] || @cols[0]
 
   push: (colView) ->
     @el.append(colView.el)
