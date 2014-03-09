@@ -14,7 +14,7 @@ class Search
   def search()
     vvz_results = search_vvz(@query, @term, @page)
     event_results = search_event_paged(@query, @term, @page)
-    event_no_match = search_event_no(@query, @term, @page).first
+    event_no_match = search_event_no(@query, @term, @page)
     SearchResult.new(@query, @term, vvz_results, event_results, event_no_match)
   end
 
@@ -46,7 +46,7 @@ class Search
 
   def search_event_no(query, term, page=0)
     if page == 0
-      Event.where(term: term.name).not_orphans.find_by_no(query).limit(1)
+      Event.where(term: term.name).not_orphans.find_by_no(query).first
     end
   end
 
