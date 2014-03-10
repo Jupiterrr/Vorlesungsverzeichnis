@@ -53,7 +53,7 @@ class Search
   def autocomplete_search(query, term)
     vvz_results = search_vvz(query, term).limit(10)
     event_results = search_event(query, term).limit(10)
-    event_no_match = search_event_no(@query, @term, @page)
+    event_no_match = [search_event_no(@query, @term, @page)].compact
     results = vvz_results + event_results + event_no_match
     js_result(results)
   end
