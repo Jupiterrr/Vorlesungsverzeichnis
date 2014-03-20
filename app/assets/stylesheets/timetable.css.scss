@@ -98,7 +98,6 @@ p.desc-export {
   background: #eee;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-bottom: 4em;
   // text-align: center;
 
   h5 {
@@ -121,9 +120,13 @@ p.desc-export {
   }
 }
 
+small.google-hint {
+  color: #555;
+}
 
-p.desc-alertnate-ical {
+.desc-alertnate-ical {
   margin-bottom: 1em;
+  // margin-top: 2em;
 }
 
 .ical_url {

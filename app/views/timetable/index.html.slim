@@ -17,7 +17,7 @@
         h5 Termine hinzufügen zu:
         a.btn href="http://www.google.com/calendar/render?cid=#{timetable_ical_url(current_user.timetable_id)}" target="_blank"
           i.fa.fa-google-plus style="color: #B12C23;"
-          |  Google Kalender
+          |  Google Kalender *
         '
         a.btn href="#{timetable_ical_url(current_user.timetable_id, protocol: "webcal")}"
           i.fa.fa-apple style="color: #7A7A7A;"
@@ -27,8 +27,14 @@
           i.fa.fa-windows style="color: #5CB4E3;"
           |  Microsoft Outlook
 
-    p.desc-alertnate-ical
-      | Alternativ kannst du Termine mit einer ICS-Dateien oder Kalender-URL in dein Kalender-Programm importieren.
+    small.google-hint * Es kann bis zu 24 Stunden dauern bis Termine im <u>Google Kalender</u> erscheinen.
+
+    hr
+
+    .desc-alertnate-ical
+      h5 Andere Programme
+      p
+        | Alternativ kannst du Termine mit einer ICS-Dateien oder Kalender-URL in dein Kalender-Programm importieren.
 
     .no-padding.ical_url
       .padding
