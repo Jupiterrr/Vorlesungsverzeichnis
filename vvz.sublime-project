@@ -15,7 +15,9 @@
     { "path": "script" },
     { "path": "spec" },
     { "path": "features" },
-    { "path": ".", "name": "root"}
+    { "path": ".", "name": "root"},
+    { "path": "app/assets/stylesheets", "name": "css"},
+    { "path": "app/assets/javascripts", "name": "js"}
   ],
   "settings":
   {

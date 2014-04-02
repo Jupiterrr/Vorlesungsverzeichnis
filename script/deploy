@@ -9,4 +9,18 @@ set -u # prevent unbound variables
 set -e # terminate on error
 
 
-git push heroku master && heroku run rails runner Rails.cache.clear
+
+if [ -n "$(git diff heroku/master master)" ]; then
+  echo "Pushing to heroku"
+  git push heroku master || exit $?
+fi
+
+if [ -n "$(git pending-migrations)" ]; then
+  echo "Creating db backup"
+  heroku pgbackups:capture || exit $?
+  echo "Running migrations"
+  heroku run rake db:migrate || exit $?
+fi
+
+echo "Clearing cache"
+heroku run rails runner Rails.cache.clear || exit $?
