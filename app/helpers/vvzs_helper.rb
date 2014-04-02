@@ -1,17 +1,46 @@
 module VvzsHelper
-  def tree_seed(node_hash)
+  def tree_seed(term)
     #node, children = node_hash.to_a.first
 
-    tree(node_hash).first.to_s.html_safe
+    #tree(node_hash).first.to_s.html_safe
+
+    # nodes = @term.subtree.includes(:events)
+
+    # node_hash = @term.subtree(to_depth: 5).includes(:events).arrange
+    tree = term.subtree.includes(:events).arrange
+    node_map = {}
+    tree3(tree, node_map)
+    node_map.to_json.html_safe
   end
 
   def tree(node_hash)
     node_hash.map do |node, children|
       if children.empty?
-        [node.id, node.name, 0, events_js(node)]
+        [node.id, node.name, 0, []] #events_js(node)
       else
         [node.id, node.name, 0, tree(children)]
       end
+    end
+  end
+
+  def tree2(node_hash, h, child_of)
+    node_hash.each do |node, children|
+      ids = []
+      h[node.id] = [node.name, ids]
+      child_of.push(node.id)
+      tree2(children, h, ids)
+    end
+  end
+
+  def tree3(node_hash, h)
+    node_hash.map do |node, children|
+      if node.is_leaf
+        ids = node.events.where("name IS NOT NULL").pluck(:id)
+      else
+        ids = tree3(children, h)
+      end
+      h[node.id] = [node.name, ids, node.is_leaf]
+      node.id
     end
   end
 

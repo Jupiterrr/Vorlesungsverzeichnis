@@ -31,7 +31,7 @@ gem "autoprefixer-rails"
 gem 'gravtastic'
 
 # Database
-gem 'pg'
+gem 'pg', '~> 0.17.1'
 gem 'ancestry', '~> 2.0.0'
 # gem 'redis', :require=> false
 gem 'pg_search' # search

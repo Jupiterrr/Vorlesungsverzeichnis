@@ -3,7 +3,6 @@
 - else
   - page_title "#{human_term_name @term.name}" if @term != Vvz.current_term
 == javascript_include_tag "vvz", defer: true
-== javascript_include_tag preload_vvz_path(@term), defer: true
 
 .container.verzeichnis#vvz-page
   .content
@@ -20,17 +19,37 @@
       form#vvz_search.form-search action=search_index_path
         input type="hidden" name="type" value="vvz"
         input type="hidden" name="term" value=@term.id
-        /.input-prepend
-          label.add-on for="vvz-search-i"
-            i.fa-search.fa
         .search-input
           - term_name = @term.name.sub("_", " ").sub("-", "/")
           input.typeahead id="vvz-search-i" data-term=@term.id type="search" name="q" value="" placeholder="Vorlesungssuche #{term_name}" autocomplete="off"
       hr.clear
-    = render partial: "vvz"
+
+    a#vvz-back-btn class=@column_view.back_btn_class href=@column_view.back_btn_href
+      i.fa-chevron-left.fa
+    #vvz.column-view
+      style type="text/css"
+        | #vvz .carriage { width: auto; }
+        | #vvz .column { width: 33.4%; }
+      .carriage
+        - @column_view.columns.each do |column|
+          - if column.respond_to?(:groups)
+            - if column.groups.empty?
+              .column.html.empty
+                | Keine Veranstaltungen vorhanden
+            - else
+              .column role="group"
+                = render partial: "col", locals: {groups: column.groups}
+          - elsif column.respond_to?(:event)
+            .column.html
+              = render partial: "event_col", locals: {event: column.event}
 
 
 javascript:
   window.current_path = #{@path};
   window.eventID=#{@event ? @event.id : "null"};
   window.term = {id: #{@term.id}, name: "#{human_term_name(@term.name)}"};
+  window.preload = {
+    rootID: #{@term.id},
+    tree: #{tree_seed(@term)},
+    events: #{@events_json || "{}"}
+  };

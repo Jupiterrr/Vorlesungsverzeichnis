@@ -1,5 +1,4 @@
 #= require twitter/bootstrap-typeahead
-#= require lib/underscore-min
 
 $ ->
   el = $(".form-search")

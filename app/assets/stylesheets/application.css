@@ -19,5 +19,6 @@
  *= require posts
  *= require comments
  *= require bootstrap-markdown/css/bootstrap-markdown.min.css
+ *= require column-view/column-view
  *x= require_tree .
  */

@@ -41,6 +41,7 @@ h5 { color: #333; }
 p {
   margin: 0 0 2em 0;
 }
+.content { position: relative; }
 
 small {
   font-size: .8em;
@@ -241,7 +242,7 @@ header form {
 
 
 
-@import "vvz.css.scss";
-@import "vvz/breadcrumb.css.scss";
+// @import "vvz.css.scss";
+// @import "vvz/breadcrumb.css.scss";
 
-@import "v3.css.scss";
+// @import "v3.css.scss";

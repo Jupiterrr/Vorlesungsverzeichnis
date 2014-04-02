@@ -79,7 +79,7 @@ class Event < ActiveRecord::Base
   end
 
   def name
-    read_attribute(:name) || original_name
+    read_attribute(:name) || original_name || ""
   end
 
   def to_preload
