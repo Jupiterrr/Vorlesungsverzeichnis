@@ -31,7 +31,7 @@ gem "autoprefixer-rails"
 gem 'gravtastic'
 
 # Database
-gem 'pg'
+gem 'pg', '~> 0.17.1'
 gem 'ancestry', '~> 2.0.0'
 # gem 'redis', :require=> false
 gem 'pg_search' # search
@@ -65,7 +65,7 @@ end
 group :assets do
   gem 'sass-rails', '>= 3.1.5'
   gem 'coffee-rails', '>= 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '~> 2.5.0'
 end
 #gem 'font-awesome-sass', '~> 4.0.0'
 gem "font-awesome-rails", '~> 4.0.0'

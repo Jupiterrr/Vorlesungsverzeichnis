@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140305223148) do
+ActiveRecord::Schema.define(:version => 20140105152115) do
 
   create_table "boards", :force => true do |t|
     t.integer "postable_id"

@@ -1,6 +1,5 @@
-window.vvz.Node.Tree.seed(
-   <%= tree_seed @tree %>
-);
+// window.vvz.Node.Tree.seed();
 window.preload = {
-  rootID: <%= @term.id %>
+  rootID: <%= @term.id %>,
+  tree: <%= tree_seed @tree %>
 };

@@ -59,7 +59,7 @@
             - et = template % event_date_group.end_time
             - dates = event_date_group.event_dates
             - dp = dates.first
-            .sidebar-box.combined-date data-toggle="collapse-js"
+            .combined-date data-toggle="collapse-js"
               span.badge.fr = dates.count
               - if dp.room && dp.room.poi
                 a.room.fr href=map_path(dp.room.poi) = event_date_group.room_name

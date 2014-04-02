@@ -74,7 +74,10 @@ resources :events, only: [] do
   resources :vvz, only: [:index, :show, :preload] do
     member do
       get "events/:event_id" => "vvz#events", :as => :event
-      get "preload", format: "js"
+
+    end
+    collection do
+      get "preload", :constraints => {:format => /js|json/}
     end
   end
 

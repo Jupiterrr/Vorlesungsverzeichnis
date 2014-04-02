@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Vvz < ActiveRecord::Base
   has_and_belongs_to_many :events, uniq: true
-  has_ancestry
+  has_ancestry cache_depth: true
 
   include PgSearch
   multisearchable :against => [:name]
@@ -42,61 +42,13 @@ class Vvz < ActiveRecord::Base
     JSON_PREFIX + id.to_s
   end
 
-  ColItem = Struct.new(:item, :active, :parent)
-  def mapping(array, active)
-    begin
-      array.sort! {|a,b| a[:name] <=> b[:name]}
-    rescue
-    end
-    array.map do |i|
-      ColItem.new(i, i == active, self)
-    end
-  end
-
   def is_term?
     depth == 1
   end
   alias_method :term?, :is_term?
 
-
   def vvz_node?
     depth > 1
-  end
-
-  ItemGroup = Struct.new(:name, :items)
-
-  class Col < Struct.new(:items, :is_event_col)
-    def groups
-      [ItemGroup.new(nil, items)]
-    end
-
-    def is_event_col; false end
-
-  end
-
-  class VvzEventListCol < Col
-
-    def is_event_col; true end
-
-    def groups
-      groups = items.group_by {|item| item.item.simple_type }
-      groups.map {|type, events| ItemGroup.new(type, events) }
-    end
-
-  end
-
-  def collums(event=nil)
-    a = []
-    unless is_term?
-      a.push(Col.new(mapping(parent.siblings, parent))) unless parent.is_term?
-      a.push(Col.new(mapping(siblings, self)))
-    end
-
-    if children.empty?
-      a.push(VvzEventListCol.new(mapping(events, event)))
-    else
-      a.push(Col.new(mapping(children, nil)))
-    end
   end
 
   def self.current_term

@@ -5,6 +5,7 @@
 //= require comments
 //= require lib/typeahead.min
 //= require twitter/bootstrap-dropdown
+//= require lib/underscore-min
 
 function accordionyziseThis(parent) {
   parent = parent || $(document.body);
@@ -67,3 +68,4 @@ $(function() {
   });
 
 })
+
