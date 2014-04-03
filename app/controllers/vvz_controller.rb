@@ -40,11 +40,8 @@ class VvzController < ApplicationController
 
   def preload
     events = Event.where(id: params[:ids].split(","))
-    event_map = events.map {|e| [e.id, [e.name, e._type]]}.to_h
+    event_map = events.map {|e| [e.id, [e.name, e.simple_type]]}.to_h
     render text: event_map.to_json
-    # @term = Vvz.find(params[:id])
-    # @term.term? or raise "#{@term} is not a term"
-    # @tree = @term.subtree.includes(:events).arrange
   end
 
 end
