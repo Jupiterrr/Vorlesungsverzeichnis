@@ -3,7 +3,7 @@ class ExamDate < ActiveRecord::Base
   belongs_to :discipline
   attr_accessible :data, :date, :name, :type, :discipline_id, :text
 
-  validates_date :date
+  #validates_date :date
 
   serialize :data, ActiveRecord::Coders::Hstore
   include Rails.application.routes.url_helpers

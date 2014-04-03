@@ -1,8 +1,8 @@
 begin
-  silence_warnings do
-    require 'pry'
-    IRB = Pry
-  end
+  # silence_warnings do
+  #   require 'pry'
+  #   IRB = Pry
+  # end
 
   if defined?(Zeus::Rails)
     class Zeus::Rails

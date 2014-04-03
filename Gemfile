@@ -5,12 +5,8 @@ ruby '2.1.0'
 gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 
-gem 'awesome_print'
-gem 'pry-rails'
-gem 'launchy', group: [:development, :test]
-
-gem 'kit_api', '~> 0.0.6'#, :path => File.join('..', 'kit_api')
-gem 'celluloid'
+gem 'kit_api', '~> 0.0.6', require: false #, path: File.join('..', 'kit_api')
+gem 'celluloid', require: false
 
 # API
 gem 'grape', '~> 0.4.1'
@@ -22,8 +18,7 @@ gem 'garner', '~> 0.3.2'
 gem 'slim-rails'
 gem 'simple_form'
 gem 'high_voltage'
-gem 'simple_calendar', '~> 0.1.8'
-gem 'sitemap_generator'
+gem 'sitemap_generator', require: false
 gem 'kaminari' # pagination
 gem 'rails_autolink'
 gem 'redcarpet' # markdown
@@ -41,35 +36,35 @@ gem "acts_as_paranoid", "~>0.4.0"
 gem 'paper_trail', '>= 3.0.0.beta1' # versioning
 
 # gem 'cancan' # authorization
-gem 'rspec_candy'
 
-gem 'validates_timeliness', '~> 3.0'
+# gem 'validates_timeliness', '~> 3.0'
 
 group :production do
   gem 'newrelic_rpm'
   gem 'newrelic-grape'
   gem 'rails_12factor'
+  gem 'intercom-rails', '~> 0.2.21'
 end
-gem 'intercom-rails', '~> 0.2.21'
 
 group :production, :staging do
   gem 'memcachier'
   gem 'dalli', '>= 2.6.4' # memcach
   gem 'rack-cache', :require => 'rack/cache'
   # gem 'rack-contrib', :require => 'rack/contrib'
-  gem 'therubyracer'
-  gem 'less-rails', '~> 2.3.3'
-  gem 'thin'
+  # gem 'therubyracer'
+  # gem 'less-rails', '~> 2.3.3'
+  # gem 'thin'
+  gem 'unicorn-worker-killer'
 end
 
 group :assets do
   gem 'sass-rails', '>= 3.1.5'
   gem 'coffee-rails', '>= 3.1.1'
   gem 'uglifier', '~> 2.5.0'
+  #gem 'font-awesome-sass', '~> 4.0.0'
+  gem "font-awesome-rails", '~> 4.0.0'
+  gem 'hogan_assets'
 end
-#gem 'font-awesome-sass', '~> 4.0.0'
-gem "font-awesome-rails", '~> 4.0.0'
-gem 'hogan_assets'
 
 group :development do
   gem 'quiet_assets'
@@ -86,6 +81,9 @@ group :development, :test do
   # gem 'highline' # user input in rake task
   gem 'rspec-rails'
   gem 'zeus'
+  gem 'awesome_print'
+  gem 'pry-rails'
+  gem 'launchy'
 end
 
 # To use debugger
@@ -102,5 +100,6 @@ group :test do
   gem 'vcr'
   gem 'timecop'
   gem 'webmock', '>= 1.10'
+  gem 'rspec_candy'
   # gem 'rspec-prof'
 end
