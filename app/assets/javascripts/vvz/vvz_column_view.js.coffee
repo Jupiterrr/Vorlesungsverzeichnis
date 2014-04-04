@@ -58,8 +58,8 @@ class VvzColumnView
     # console.log("change", value)
     @$backBtn.toggleClass("hidden", !@collumnView.canMoveBack())
     path = @pathObj(value)
-    promise = @dataStore.asyncGetNode(path.nodeID, path.eventID)
-    promise.done (node) => @setHistory(node.name, node.url)
+    node = @dataStore.getNode(path.nodeID, path.eventID)
+    @setHistory(node.name, node.url)
     accordionyziseThis(@el) if path.eventID
 
   _layout: () -> if isMobile() then "mobile" else "default"
@@ -87,8 +87,9 @@ class VvzColumnView
     {dom: div}
 
   asyncSourceLeaf: (node) ->
-    promise = @dataStore.asyncGetGroupedEventNodes(node.id, node.childIDs)
-    promise.pipe (groups)-> {groups: groups}
+    @dataStore.asyncGetEventNodesByLeaf(node)
+      .pipe(@dataStore.groupEventNodes)
+      .pipe((groups)-> {groups: groups})
 
   sourceVvzNode: (node) ->
     nodes = @dataStore.getVvzs(node.childIDs)
@@ -99,10 +100,10 @@ class VvzColumnView
     node = @dataStore.getVvz(nodeID)
     childIDs = node.childIDs || []
 
-    if childIDs.length == 0
-      defer.resolve @sourceEmpty(node)
-    else if node.isLeaf
+    if node.isLeaf
       @asyncSourceLeaf(node).done(defer.resolve)
+    else if childIDs.length == 0
+      defer.resolve @sourceEmpty(node)
     else
       defer.resolve @sourceVvzNode(node)
 

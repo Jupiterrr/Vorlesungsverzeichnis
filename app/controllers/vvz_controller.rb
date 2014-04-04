@@ -8,21 +8,18 @@ class VvzController < ApplicationController
 
   def index
     expire_page :action => :preload, :format => :js if params[:expire]
-    @vvz = Vvz.find_or_current_term(params[:id])
-    @id = @vvz.preload_id
-    @event = Event.find_by_id(params[:event_id])
-
-    @path = @vvz.vvz_path
-    @term = @vvz.term or raise "Term not found!"
+    @id = vvz.preload_id
+    @path = vvz.vvz_path
+    @term = vvz.term or raise "Term not found!"
     @terms = Vvz.terms
 
-    if @vvz.is_leaf
-      events = @vvz.events
+    if vvz.is_leaf
+      events = vvz.events
       event_map = events.map {|e| [e.id, [e.name, e._type]]}.to_h
       @events_json = event_map.to_json.html_safe
     end
 
-    @column_view = ColumnView.new(@vvz, @event)
+    @column_view = ColumnView.new(vvz, @event)
   end
 
   def show
@@ -31,17 +28,29 @@ class VvzController < ApplicationController
   end
 
   def events
-    @event = Event.find(params[:event_id])
-    days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
-    @date_groups = EventDateGrouper.group(@event.dates)
+    @event ||= Event.find(params[:event_id])
     index
     render :action => :index
   end
 
   def preload
-    events = Event.where(id: params[:ids].split(","))
-    event_map = events.map {|e| [e.id, [e.name, e.simple_type]]}.to_h
+    events = Vvz.find(params[:id]).events
+    event_map = events.map do |e|
+      {
+        id: e.id,
+        name: e.name,
+        eventType: e.simple_type
+      }
+    end
     render text: event_map.to_json
   end
+
+  private
+
+  def vvz
+    @vvz ||= Vvz.find_or_current_term(params[:id])
+  end
+  helper_method :vvz
+
 
 end

@@ -6,7 +6,7 @@ module VvzsHelper
   end
 
   def tree_seed(term)
-    tree = term.subtree.includes(:events).arrange
+    tree = term.subtree.arrange
     node_map = {}
     tree(tree, node_map)
     node_map.to_json.html_safe
@@ -15,11 +15,11 @@ module VvzsHelper
   def tree(node_hash, h)
     node_hash.map do |node, children|
       if node.is_leaf
-        ids = node.event_ids
+        ids = nil #node.event_ids
       else
         ids = tree(children, h)
       end
-      h[node.id] = [node.name, ids, node.is_leaf]
+      h[node.id] = [node.name, ids]
       node.id
     end
   end
