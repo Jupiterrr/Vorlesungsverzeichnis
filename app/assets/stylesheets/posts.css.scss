@@ -81,6 +81,7 @@
       padding: 0px 20px 10px 20px;
       background-color: white;
       border-bottom: 1px solid #ddd;
+      word-break: break-all;
     }
     & > footer {
       background-color: #eee;
@@ -122,6 +123,7 @@
     &:last-child { margin-bottom: 0; }
     .title, .text {
       font-size: 13px;
+      word-break: break-all;
     }
     .title {
       font-weight: bold;
