@@ -29,7 +29,7 @@ class Timetable
   end
 
   def js_time(time)
-    time.to_i*1000
+    time.to_a[0..5].reverse # eg [2014, 3, 31, 11, 30, 0]
   end
 
   def self.to_ical(timetable_id)

@@ -38,23 +38,18 @@ $(document).ready(function() {
    });
 
    function getEventData() {
-      var year = new Date().getFullYear();
-      var month = new Date().getMonth();
-      var day = new Date().getDate();
-
       var new_events = [];
-      $(events).each(function(i, e) {
+      _.each(events, function(event) {
+         var s = event.start, e = event.end;
          var new_event = {
-            "start": new Date(e.start),
-            "end": new Date(e.end),
-            "title": e.title,
-            "id": e.id,
-            "url": e.url
+            "start": new Date(s[0], s[1]-1, s[2], s[3], s[4], s[5]),
+            "end": new Date(e[0], e[1]-1, e[2], e[3], e[4], e[5]),
+            "title": event.title,
+            "id": event.id,
+            "url": event.url
          };
          new_events.push(new_event)
       });
-
-      //console.log(new_events);
       return {events : new_events};
    };
 
