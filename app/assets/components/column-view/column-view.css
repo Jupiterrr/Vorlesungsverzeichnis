@@ -36,6 +36,7 @@
   transition: background-color linear .1s;
   border-right: 1px solid #E2E2E2;
   word-break: break-word;
+  vertical-align: top;
 }
 
 .column-view .column:last-child {
