@@ -49,7 +49,12 @@ small {
 
 
 
-.container { width: 990px; }
+.container {
+  width: 990px;
+  @include breakpoint(mobil) {
+    width: auto;
+  }
+}
 
 .no-padding {
   margin: 0 -20px 0 -20px;
