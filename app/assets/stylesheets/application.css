@@ -20,5 +20,14 @@
  *= require comments
  *= require bootstrap-markdown/css/bootstrap-markdown.min.css
  *= require column-view/column-view
+
+ *= require landing
+ *= require vvz
+ *= require vvz/breadcrumb
+ *= require vvz/topbar
+
+ *= require v3
+ *= require layout
+
  *x= require_tree .
  */
