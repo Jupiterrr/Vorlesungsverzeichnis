@@ -37,6 +37,8 @@
     li:last-child a { border-right: 0; }
   }
 
+  .unsubscribe:hover { color: red; }
+
   @include breakpoint(mobil) {
     padding-bottom: 5px;
     h1, nav.main, nav.controlls {

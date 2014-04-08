@@ -29,11 +29,14 @@ header
         - if authorized?
           li.nav-item
             - if event.subscribed?(current_user)
-              a.subscribe.muted href=unsubscribe_event_path(event)
-                |  abmelden
+              a.unsubscribe href=unsubscribe_event_path(event)
+                i.fa.fa-calendar
+                |  entfernen
             - else
-              a.unsubscribe href=subscribe_event_path(event)
-               |  anmelden
+
+              a.subscribe href=subscribe_event_path(event)
+                i.fa.fa-calendar
+                |  hinzufügen
 
 
 
