@@ -50,6 +50,6 @@ javascript:
   window.term = {id: #{@term.id}, name: "#{human_term_name(@term.name)}"};
   window.preload = {
     rootID: #{@term.id},
-    tree: #{tree_seed(@term)},
+    tree: #{tree_seed_cached(@term)},
     events: #{@events_json || "{}"}
   };
