@@ -35,6 +35,8 @@ gem 'activerecord-postgres-hstore'
 gem "acts_as_paranoid", "~>0.4.0"
 gem 'paper_trail', '>= 3.0.0.beta1' # versioning
 
+gem 'font_assets'
+
 # gem 'cancan' # authorization
 
 # gem 'validates_timeliness', '~> 3.0'
