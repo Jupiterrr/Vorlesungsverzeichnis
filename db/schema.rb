@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140105152115) do
+ActiveRecord::Schema.define(:version => 20140411104710) do
 
   create_table "boards", :force => true do |t|
     t.integer "postable_id"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(:version => 20140105152115) do
   add_index "event_dates", ["event_id"], :name => "index_event_dates_on_event_id"
   add_index "event_dates", ["room_id"], :name => "index_event_dates_on_room_id"
 
-  create_table "event_subscriptions", :id => false, :force => true do |t|
+  create_table "event_subscriptions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "event_id"
     t.hstore   "data"
@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(:version => 20140105152115) do
   end
 
   add_index "event_subscriptions", ["deleted_at"], :name => "index_event_subscriptions_on_deleted_at"
-  add_index "event_subscriptions", ["user_id", "event_id"], :name => "index_events_users_on_user_id_and_event_id"
 
   create_table "events", :force => true do |t|
     t.string   "orginal_no"
@@ -122,6 +121,13 @@ ActiveRecord::Schema.define(:version => 20140105152115) do
   end
 
   add_index "events", ["external_id"], :name => "index_events_on_external_id"
+
+  create_table "events_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+  end
+
+  add_index "events_users", ["user_id", "event_id"], :name => "index_events_users_on_user_id_and_event_id"
 
   create_table "events_vvzs", :force => true do |t|
     t.integer "event_id"
@@ -212,6 +218,8 @@ ActiveRecord::Schema.define(:version => 20140105152115) do
     t.hstore   "data"
   end
 
+  add_index "users", ["timetable_id"], :name => "index_users_on_timetable_id"
+
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false
     t.integer  "item_id",    :null => false
@@ -229,7 +237,8 @@ ActiveRecord::Schema.define(:version => 20140105152115) do
     t.string   "external_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_leaf",     :default => false
+    t.boolean  "is_leaf",        :default => false
+    t.integer  "ancestry_depth", :default => 0
   end
 
   add_index "vvzs", ["ancestry"], :name => "index_vvzs_on_ancestry"

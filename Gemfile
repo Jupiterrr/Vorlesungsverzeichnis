@@ -40,12 +40,12 @@ gem 'font_assets'
 # gem 'cancan' # authorization
 
 # gem 'validates_timeliness', '~> 3.0'
+gem 'intercom-rails', '~> 0.2.21'
 
 group :production do
   gem 'newrelic_rpm'
   gem 'newrelic-grape'
   gem 'rails_12factor'
-  gem 'intercom-rails', '~> 0.2.21'
 end
 
 group :production, :staging do

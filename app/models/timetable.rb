@@ -49,6 +49,7 @@ class Timetable
             e.description = event_url
             e.url         = event_url
             e.uid         = "#{date.id}@kit.edu"
+            e.dtstamp     = date.created_at || Time.now
           end
         end
       end

@@ -15,7 +15,9 @@ class TimetableController < ApplicationController
 
   def ical
     text = Timetable.to_ical(params[:timetable_id])
-    render text: text, content_type: Mime::ICS
+    # response.headers['Content-Type'] = "text/calendar; charset=UTF-8"
+    # response.headers['Cache-Control'] = "no-cache, must-revalidate"
+    render text: text, content_type: Mime::ICS #"text/calendar" #
   end
 
   def exam
