@@ -6,8 +6,11 @@ class Timetable
 
   attr_reader :week
 
+  COLORS = %w(#e67d7b #ff8a4f #c0de84 #c3dcb8 #afe6eb #c6b0fd #4e90dd #188D98 #c1721b #fbe983 #2A9C6C #F67710 #d6b6ba #d791e9 #d4c9cb #90B127 #a093cc)
+
   def initialize(events=[])
     dates = events.map(&:dates).flatten
+    @event_colors = event_colors(events)
     @week_dates = WeekTimetable.new(dates).dates
   end
 
@@ -22,10 +25,17 @@ class Timetable
         "id" => date.event.id,
         "start" => js_time(date.start_time),
         "end" => js_time(date.end_time),
-        "title" => "#{date.event.name} <br>#{date.room_name}",
-        "url" => event_path(date.event)
+        "title" => "<span class=\"title\">#{date.event.name}</span><span class=\"room\">#{date.room_name}</span>",
+        "url" => event_path(date.event),
+        "color" => @event_colors[date.event.id]
       }
     end
+  end
+
+  def event_colors(events)
+    colors = COLORS.cycle
+    m = events.flat_map {|e| [e.id, colors.next] }
+    mapping = Hash[*m]
   end
 
   def js_time(time)

@@ -17,6 +17,10 @@
 
 #calendar .wc-cal-event {
   overflow: visible;
+  overflow: hidden;
+  opacity: 1;
+  word-wrap: break-word;
+  &:hover .title { text-decoration: underline; }
 }
 
 .tt-title {
@@ -46,13 +50,30 @@
   min-width: 650px;
 }
 
-.wc-cal-event .wc-time {
+#calendar .wc-cal-event .wc-time {
   font-size: 10px !important;
+  background-color: #61717A;
+  border: 0;
 }
 .wc-cal-event .wc-title {
   font-size: 12px !important;
   padding-top: 5px;
+  color: #000;
+
+  .title {
+    font-weight: bold;
+    margin-bottom: .7em;
+    margin-bottom: 0.1em;
+    display: block;
+  }
+
+  .room {
+    font-size: 11px;
+    display: block;
+    line-height: initial;
+  }
 }
+
 
 #calendar .wc-grid-timeslot-header, #calendar .wc-time-column-header {
   width: 40px;
@@ -61,6 +82,9 @@
 .wc-time-header-cell {
   padding: 0 5px 10px 5px !important;
 }
+
+
+
 
 #calendar {
   position: relative;
