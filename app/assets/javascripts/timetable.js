@@ -4,6 +4,7 @@
 $(document).ready(function() {
    var $calendar = $('#calendar');
    var id = 10;
+   var toCurrentWeek = weekMapper(new Date());
 
    var showSaturday = _.any(window.events, function(e) {
       var s = e.start;
@@ -48,13 +49,32 @@ $(document).ready(function() {
       else { window.location = url; }
    })
 
+   function weekMapper(d) {
+      function getMonday(d) {
+        var d = new Date(d),
+            day = d.getDay(),
+            diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+        return new Date(d.setDate(diff));
+      }
+      var monday = getMonday(d);
+      return function mapToCurrentWeek(d) {
+        var d = new Date(d),
+            day = d.getDay(),
+            gday = day == 0 ? 6 : day-1, // wday starting with monday
+            date = monday.getDate() + gday;
+        return new Date(monday.getFullYear(), monday.getMonth(), date, d.getHours(), d.getMinutes(), d.getSeconds());
+      };
+   }
+
    function getEventData() {
       var new_events = [];
       _.each(events, function(event) {
          var s = event.start, e = event.end;
+         var startDate = new Date(s[0], s[1]-1, s[2], s[3], s[4], s[5]);
+         var endDate = new Date(e[0], e[1]-1, e[2], e[3], e[4], e[5]);
          var new_event = {
-            "start": new Date(s[0], s[1]-1, s[2], s[3], s[4], s[5]),
-            "end": new Date(e[0], e[1]-1, e[2], e[3], e[4], e[5]),
+            "start": toCurrentWeek(startDate),
+            "end": toCurrentWeek(endDate),
             "title": event.title,
             "id": event.id,
             "url": event.url,
