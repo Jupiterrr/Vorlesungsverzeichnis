@@ -26,7 +26,7 @@
               - else
                 .room = df.room
             ul.repeated-dates-list
-              - dates.each do |d|
+              - group.event_dates.each do |d|
                 li class=("past" if d.end_time.past?) = d.start_time.strftime("%d.%m.%Y")
             hr
 
