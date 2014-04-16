@@ -8,14 +8,12 @@
   .content
     header
       h1 KIT Vorlesungsverzeichnis
-      #terms-dropdown.btn-group
-        a.btn.selected-title href=vvz_path(@term) = human_term_name @term.name
-        button.btn.dropdown-toggle data-toggle="dropdown"
-          span.caret
-        ul.dropdown-menu
-          - @terms.each do |term|
-            li
-              a href=vvz_path(term) = human_term_name(term.name)
+
+      select.term-selector#term-selector-js name="term" onchange="window.location = document.getElementById('term-selector-js').value;"
+        - sort_terms(@terms).each do |term|
+          option value=vvz_path(term) selected=(@term==term) = human_term_name(term.name, :long)
+
+
       form#vvz_search.form-search action=search_index_path
         input type="hidden" name="type" value="vvz"
         input type="hidden" name="term" value=@term.id

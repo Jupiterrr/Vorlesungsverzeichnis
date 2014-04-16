@@ -13,7 +13,7 @@ form name="searchform"
   .container
     .content#search_page
       select.term-selector name="term" onchange="document.searchform.submit();"
-        - @terms.each do |term|
+        - sort_terms(@terms).each do |term|
           option value=term.id selected=(sr.term==term) = human_term_name(term.name, :long)
 
       hr

@@ -57,16 +57,37 @@ module VvzsHelper
   end
 
   def human_term_name(name, type=:normal)
-    t = name.clone
-    t.gsub!("_", " ")
+    period, year = split_term(name)
+
+    if period == "WS"
+      yi = year.to_i
+      year = "20#{yi}/#{yi+1}"
+    else
+      year = "20#{year}"
+    end
+
     unless type == :short
-      t.gsub!("WS", "Wintersemester")
-      t.gsub!("SS", "Sommersemester")
+      period = case period
+        when "WS" then "Wintersemester"
+        when "SS" then "Sommersemester"
+      end
     end
-    t.gsub!("-", "/")
-    if t =~ / \d\d\/\d\d/
-      t.gsub!(" ", " 20")
-    end
-    t
+
+    new_term = "#{period} #{year}"
   end
+
+  def sort_terms(terms)
+    sorted = terms.sort_by do |term|
+      period, year = split_term(term.name)
+      year = year.split("/").first
+      "#{year} #{period}"
+    end.reverse
+  end
+
+  private
+
+  def split_term(term)
+    term.match(/(\w+) 20(.+)/).captures
+  end
+
 end
