@@ -5,6 +5,9 @@ header#topbar
         .open-btn.fa-reorder.fa
         .close-btn.fa-minus.fa
       ul.inline
+        - if authorized?
+          li
+            a href=dashboard_index_path Dashboard
         li
           a href=vvz_index_path Vorlesungsverzeichnis
         li
@@ -29,7 +32,7 @@ header#topbar
                 button#signin.signin-btn.signin-btn-js signin
 
     h1#logo
-      a href=root_path KitHub
+      a href=vvz_index_path KitHub
 
 
 - if content_for?(:inline_flash)
