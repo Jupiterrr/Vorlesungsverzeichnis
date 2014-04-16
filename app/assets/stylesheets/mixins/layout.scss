@@ -31,6 +31,9 @@
   width: 990px;
   margin-right: auto;
   margin-left: auto;
+  @include breakpoint(mobil) {
+    width: auto;
+  }
 }
 
 @mixin padding {

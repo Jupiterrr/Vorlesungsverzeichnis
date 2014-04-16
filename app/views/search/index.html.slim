@@ -1,41 +1,25 @@
 - page_title "Suche"
 - sr = @search_result
 
-.container
-  .content#search_page
-    h1
-      | Suche
 
-    form.form-search
-      input type="hidden" name="type" value="vvz"
-      .input-append
-        input#big-search.search-query.input-xlarge  type="search" name="q" value=sr.query autocomplete="off"
-        button.btn type="submit" Suchen
-      '
-      select name="term" style="width: auto;"
+form name="searchform"
+  .search-form
+    input type="hidden" name="type" value="vvz"
+    input#big-search  type="search" name="q" value=sr.query autocomplete="off"
+
+    a.submit-btn href="javascript: document.searchform.submit();"
+      i.fa.fa-search
+
+  .container
+    .content#search_page
+      select.term-selector name="term" onchange="document.searchform.submit();"
         - @terms.each do |term|
           option value=term.id selected=(sr.term==term) = human_term_name(term.name, :long)
 
-    - unless sr.vvzs.empty?
-      .results
-        - sr.vvzs.each do |r|
-          .result.directory
-            a href=vvz_url(r)
-              = r.name
-            |
-            i.fa.fa-folder
       hr
 
+      ol.results.unstyled
+        - sr.results.each do |result|
+          = render partial: "#{result["_type"]}_result", locals: {result: result}
 
-    ol.results.unstyled
-      - events = sr.events
-      - events.unshift(sr.event_no_match) if sr.event_no_match
-      - events.each do |r|
-          li.result
-            a href=vvz_event_url(r) = r.name
-            .description
-              = r.simple_type
-              span.seperator
-              = r.lecturer
-
-      = paginate sr.events, theme: "bootstrap", param_name: "p"
+        = paginate @paginatable_array, theme: "bootstrap", param_name: "p"

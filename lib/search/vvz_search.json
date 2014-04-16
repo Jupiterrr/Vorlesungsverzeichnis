@@ -1,0 +1,30 @@
+{
+  "size": %size,
+  "from": %from,
+  "sort":["_score"],
+  "query": {
+    "function_score": {
+      "query": {
+        "multi_match":{
+          "query":"%query",
+          "fields": [ "name.partial", "course_id" ]
+        }
+      },
+      "functions": []
+    }
+
+  },
+  "filter": {
+    "and": [
+      {
+        "or": [
+          {"type": { "value": "event" }},
+          {"type": { "value": "vvz-node" }}
+        ]
+      },
+      {
+        "term": { "term": "%term" }
+      }
+    ]
+  }
+}

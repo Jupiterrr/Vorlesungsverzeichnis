@@ -1,0 +1,8 @@
+- r = result["_source"]
+li.result
+  a.title-link href=r["url"] = r["name"]
+  .description
+    = r["lecturer"]
+    .info
+      i.fa.fa-book
+      |#{human_term_name(r["term"], :short)}, #{r["event_type"]}

@@ -1,0 +1,7 @@
+- r = result["_source"]
+li.result
+  a.title-link href=vvz_path(result["_id"]) = r["name"]
+  .description
+    .info
+      i.fa.fa-columns
+      = human_term_name(r["term"], :short)

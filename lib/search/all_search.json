@@ -1,0 +1,41 @@
+TEST TEST TEST
+{
+  "size": #{size},
+  "from": #{from},
+  "sort":["_score"],
+  "query":{
+    "function_score": {
+      "query": {
+        "match":{
+          "name.partial":"#{query}"
+        }
+      },
+      "functions": [
+        {
+          "filter": {
+            "not": {
+              "or": [
+                { "term": { "term": "SS 2014" } },
+                { "type": { "value": "poi" } }
+              ]
+            }
+          },
+          "boost_factor": 0.5
+        }
+      ]
+    }
+  },
+  "filter": {
+    "and": [
+      {
+        "or": [
+          {"type": { "value": "event" }},
+          {"type": { "value": "vvz-node" }}
+        ]
+      },
+      {
+        "term": { "term": "#{term}" }
+      }
+    ]
+  }
+}
