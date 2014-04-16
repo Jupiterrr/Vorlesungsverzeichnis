@@ -2,6 +2,7 @@
 .DS_Store
 .Trashes
 .bundle
+Makefile
 
 .env
 .rvmrc
