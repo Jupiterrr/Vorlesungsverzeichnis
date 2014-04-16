@@ -7,7 +7,7 @@
       "query": {
         "multi_match":{
           "query":"%query",
-          "fields": [ "name.partial", "course_id" ]
+          "fields": [ "name.partial", "course_id", "lecturer", "event_type^5" ]
         }
       },
       "functions": []
