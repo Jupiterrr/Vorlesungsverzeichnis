@@ -48,10 +48,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :authorized?, :authorize
 
   def record_newrelic_custom_parameters
-    if current_user
-      ::NewRelic::Agent.add_custom_parameters({ user_id: current_user.id })
-    end
-    true
+    ::NewRelic::Agent.add_custom_parameters({ session_id: request.session_options[:id] })
+    ::NewRelic::Agent.add_custom_parameters({ user_id: current_user.id }) if current_user
   end
 
 end
