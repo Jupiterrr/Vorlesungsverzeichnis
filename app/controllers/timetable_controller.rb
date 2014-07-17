@@ -14,6 +14,11 @@ class TimetableController < ApplicationController
   end
 
   def ical
+    ::NewRelic::Agent.add_custom_parameters({ 
+      timetable_id: params[:timetable_id],
+      user_agent: request.user_agent
+    })
+    
     text = Timetable.to_ical(params[:timetable_id])
     # response.headers['Content-Type'] = "text/calendar; charset=UTF-8"
     # response.headers['Cache-Control'] = "no-cache, must-revalidate"

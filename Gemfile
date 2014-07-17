@@ -44,9 +44,9 @@ gem 'font_assets'
 
 # gem 'validates_timeliness', '~> 3.0'
 gem 'intercom-rails', '~> 0.2.21'
+gem 'newrelic_rpm'
 
 group :production do
-  gem 'newrelic_rpm'
   gem 'newrelic-grape'
   gem 'rails_12factor'
 end

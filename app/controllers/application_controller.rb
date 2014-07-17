@@ -5,6 +5,7 @@ require_dependency "event_date_grouper"
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :prepend_view_paths
+  before_filter :record_newrelic_custom_parameters
 
   private
 
@@ -45,6 +46,13 @@ class ApplicationController < ActionController::Base
   helper_method :feature
 
   helper_method :current_user, :authorized?, :authorize
+
+  def record_newrelic_custom_parameters
+    if current_user
+      ::NewRelic::Agent.add_custom_parameters({ user_id: current_user.id })
+    end
+    true
+  end
 
 end
 
