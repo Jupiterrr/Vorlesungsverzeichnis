@@ -10,7 +10,7 @@ class VvzController < ApplicationController
     expire_page :action => :preload, :format => :js if params[:expire]
     @id = vvz.preload_id
     @path = vvz.vvz_path
-    @term = vvz.term or raise "Term not found!"
+    @term = vvz.term or raise ActionController::RoutingError.new('Term not found!')
     @terms = Vvz.terms
 
     if vvz.is_leaf
