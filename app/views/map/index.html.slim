@@ -11,15 +11,16 @@
     header
       h1
         ' KIT Campus Karte
-        - if @map_presenter.poi
-          '  -
-          span#poi-title-js= @map_presenter.poi.name
+        / - if @map_presenter.poi
+          span#poi-title-js
+            '  -
+            = @map_presenter.poi.name
       .search-input
         input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
       hr.clear
 
     .no-padding
-      #map_canvas data-poi=@map_presenter.poi.to_json
+      #map_canvas
 
 
     .categories-bar.no-padding
@@ -27,8 +28,8 @@
         - @map_presenter.color_groups.each do |colour_group|
           - group = colour_group.group
           li
-            label.btn.btn-label for="ccb#{group.id}" style="border-left-color:#{colour_group.color};"
-              input id="ccb#{group.id}" type="checkbox" data-group-id=group.id data-pois=group.pois.map(&:id) data-color=colour_group.color[1..6]
+            label.btn.btn-label for="ccb#{group.id}" style="border-color:#{colour_group.color};"
+              input id="ccb#{group.id}" type="checkbox" data-group-id=group.id
               = group.name
 
     br
@@ -40,3 +41,4 @@
 javascript:
   var pois = #{raw @map_presenter.js_pois.as_json.to_json};
   var poi = #{raw @map_presenter.poi ? @map_presenter.poi.to_json.to_json : "null"};
+  var groups = #{raw @map_presenter.color_groups.map {|g| {color: g.color, pois: g.group.pois.map(&:id), id: g.group.id}}.to_json};

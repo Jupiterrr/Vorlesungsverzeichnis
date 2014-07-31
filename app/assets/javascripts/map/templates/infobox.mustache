@@ -1,7 +1,13 @@
 <h5>
-  <i class="building-no">{{poi.building_no}}</i>
   {{poi.name}}
+  <i class="building-no">{{poi.building_no}}</i>
 </h5>
-<span class="address">{{poi.address}}</span>
-<br/>
-<a href="{{link}}">permalink</a>
+<p>
+  <span class="address">{{poi.address}}</span>
+</p>
+{{! <hr class="footer-hr"> }}
+<footer>
+  <span class="action"><a id="map-share-link-js" href="javascript:;">
+    Karte teilen
+  </a></span>
+</footer>

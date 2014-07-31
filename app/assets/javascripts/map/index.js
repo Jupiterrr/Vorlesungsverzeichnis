@@ -1,6 +1,7 @@
-//= require hogan.js
+//= require hogan
 //= require_tree ./templates
-//#= require ../twitter/bootstrap-tooltip.js
-//= require ../twitter/bootstrap-modal.js
-//= require ../coffee_helper
-//= require_tree .
+//= require ./layer_control
+//= require ./home_control
+//= require ./infobox
+//= require ./map_search
+//= require ./map
