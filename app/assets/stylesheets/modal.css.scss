@@ -1,0 +1,17 @@
+#styledModal {
+  background: #FFF;
+  width: 400px;
+  padding: 0;
+  margin: 1em auto;
+  border: 0;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+#styledModal + .backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+}

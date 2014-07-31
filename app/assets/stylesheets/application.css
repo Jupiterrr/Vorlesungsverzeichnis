@@ -20,6 +20,7 @@
  *= require comments
  *= require bootstrap-markdown/css/bootstrap-markdown.min.css
  *= require column-view/column-view
+ *= require modal
 
  *= require landing
  *= require vvz

@@ -6,6 +6,7 @@
 //= require lib/typeahead.min
 //= require twitter/bootstrap-dropdown
 //= require lib/underscore-min
+//= require dialog-polyfill/dialog-polyfill
 
 function accordionyziseThis(parent) {
   parent = parent || $(document.body);
