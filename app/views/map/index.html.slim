@@ -42,3 +42,20 @@ javascript:
   var pois = #{raw @map_presenter.js_pois.as_json.to_json};
   var poi = #{raw @map_presenter.poi ? @map_presenter.poi.to_json.to_json : "null"};
   var groups = #{raw @map_presenter.color_groups.map {|g| {color: g.color, pois: g.group.pois.map(&:id), id: g.group.id}}.to_json};
+
+- if @map_presenter.poi
+  |
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "CivicStructure",
+      "name": "#{@map_presenter.poi.name}",
+      "hasMap": "http://www.kithub.de/map/#{@map_presenter.poi.id}",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "#{@map_presenter.poi.lat}",
+        "longitude": "#{@map_presenter.poi.lng}"
+      },
+      "address": "#{@map_presenter.poi.address}"
+    }
+    </script>
