@@ -2,6 +2,27 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.user_event_list, #user-event-list, .dashboard-event-list {
+   background-color: #fff;
+
+   .icon {
+      color: #F14E32;
+      margin-right: 5px;
+      display: inline-block;
+   }
+
+   li.no-link {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      line-height: 20px;
+      padding-right: 12px;
+      padding-left: 12px;
+      margin-right: 0;
+      border: 1px solid #ddd;
+      border-radius: 0;
+   }
+}
+
 .user_event_list, #user-event-list {
    font-size: 12pt;
    color: #333;

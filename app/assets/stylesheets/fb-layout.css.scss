@@ -35,7 +35,7 @@
     }
   }
 
-  & > .content-box {
+  .default-box {
     @include white-box;
     padding: 20px;
   }
@@ -46,6 +46,8 @@
     width: auto;
     & > .content, & > .content-box {
       width: auto !important;
+      float: none !important;
+      min-height: inherit !important;
     }
   }
 }

@@ -5,9 +5,40 @@
 
   = render partial: "sidebar"
 
-  .content-box.with-sidebar
 
-    #user-event-list
+
+  .content-box
+    - if @user_events.empty?
+      .default-box.emptyy
+        |
+          Du hast noch keine Veranstaltungen markiert. Im
+          <a href=vvz_index_path>Vorlesungsverzeichnis</a>
+          kannst du sie auswählen.
+        br
+        br
+        div
+          a href=vvz_index_path
+            = image_tag "attend-tutorial.jpg", class: "img-polaroid"
+    - else
+      ul class="nav nav-tabs nav-stacked dashboard-event-list"
+        - @user_events.each do |event|
+          li.item
+            /
+            a.title href=event_path(event)
+              i.fa-book.fa.icon
+              '
+              = event.name
+            / .actions
+              a.remove-action href=unsubscribe_event_path(event) title="entfernen" rel="tooltip"
+                i.fa-trash-o.fa.icon
+
+        - unless @user_events.empty?
+          li
+            a.remove-all href=unsubscribe_all_events_path onclick='return confirm("Willst du wirklich alle entfernen?")'
+              i.fa-trash-o.fa.icon
+              |  alle entfernen
+
+    /#user-event-list
       - if @user_events.empty?
         .emptyy
           ' Wähle deine Vorlesungen im
