@@ -1,10 +1,11 @@
 header#topbar
   .container
+    h1#logo
+      a href=vvz_index_path KitHub
+
+    #menue-btn MENÜ <i class="fa fa-caret-down"></i>
     nav#main-nav
-      #menue-btn
-        .open-btn.fa-reorder.fa
-        .close-btn.fa-minus.fa
-      ul.inline
+      ul class="nav nav-tabs nav-stacked"
         - if authorized?
           li
             a href=dashboard_index_path Dashboard
@@ -16,11 +17,11 @@ header#topbar
           li
             a.link href=timetable_index_path Stundenplan
         - if feature(:login, request) || authorized?
-          li.login date-login=(current_user ? 0 : 1)
+          li.no-link.login date-login=(current_user ? 0 : 1)
             - if authorized?
               a.user-name href="/" = current_user.name
-              - if current_user.admin?
-                span style="color:red;" admin
+                - if current_user.admin?
+                  span style="color:red;" admin
               a#signout href=signout_path title="abmelden" data-placement="bottom"
                 i.fa-power-off.fa
                 '
@@ -31,8 +32,7 @@ header#topbar
               - else
                 button#signin.signin-btn.signin-btn-js signin
 
-    h1#logo
-      a href=vvz_index_path KitHub
+
 
 
 - if content_for?(:inline_flash)

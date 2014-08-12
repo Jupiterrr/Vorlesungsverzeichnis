@@ -59,14 +59,19 @@ $.ajaxSetup({
   }
 });
 
-$(function() {
-  $("#menue-btn").click(function() {
-    $("#main-nav").toggleClass("active");
-    return false;
-  })
-  $(window).click(function() {
-    $("#main-nav").removeClass("active");
-  });
 
-})
+$(function() {
+  var menueBtn = $("#menue-btn");
+  var mainNav = $("#main-nav");
+  var active = false;
+
+  function toggle(state) {
+    active = state;
+    menueBtn.toggleClass("active", active);
+    mainNav.toggleClass("active", active);
+  }
+
+  menueBtn.click(function() { toggle(!active); return false; });
+  $(document.body).click(function() { toggle(false); });
+});
 
