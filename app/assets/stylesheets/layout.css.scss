@@ -1,4 +1,5 @@
-@import "breakpoints.css.scss";
+@import "breakpoints";
+@import "mixins/layout";
 
 ::-webkit-scrollbar-thumb:vertical {background-color: #bbb; height:200px; }
 ::-webkit-scrollbar-thumb:horizontal {background-color: #999; height:10px !important;}
@@ -60,13 +61,8 @@ small {
   margin: 0 -20px 0 -20px;
 }
 
-@mixin conatiner-padding {
-  padding-right: 20px;
-  padding-left: 20px;
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-}
 .padding {
-  @include conatiner-padding;
+  @include padding;
 }
 
 .signin-btn {
@@ -86,7 +82,7 @@ small {
 body > .main-content {
 
   .container {
-    @include conatiner-padding;
+    @include padding;
     padding-top: 20px;
     padding-bottom: 20px;
 
@@ -105,7 +101,7 @@ body > .main-content {
 body > footer {
 
   .container {
-    @include conatiner-padding;
+    @include padding;
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: .9em;
@@ -244,6 +240,17 @@ header form {
   }
 }
 
+
+.nav.nav-tabs.nav-stacked .no-link {
+  border: 1px solid #ddd;
+  border-radius: 0;
+  margin-right: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 20px;
+  padding-right: 12px;
+  padding-left: 12px;
+}
 
 
 

@@ -116,6 +116,7 @@
 
   #topbar nav .login {
     margin-left: 2em;
+    border: 0;
 
     a:hover { color: #0069d6; }
 
@@ -190,17 +191,6 @@
   #main-nav .user-name { display: none !important; }
 
   #menue-btn { display: inline-block; }
-
-  .nav.nav-tabs.nav-stacked .no-link {
-    border: 1px solid #ddd;
-    border-radius: 0;
-    margin-right: 0;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    line-height: 20px;
-    padding-right: 12px;
-    padding-left: 12px;
-  }
 
 }
 

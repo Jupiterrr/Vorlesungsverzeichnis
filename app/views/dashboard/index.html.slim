@@ -21,6 +21,8 @@
             = image_tag "attend-tutorial.jpg", class: "img-polaroid"
     - else
       ul class="nav nav-tabs nav-stacked dashboard-event-list"
+        li.no-link
+          | Meine Veranstaltungen:
         - @user_events.each do |event|
           li.item
             /
