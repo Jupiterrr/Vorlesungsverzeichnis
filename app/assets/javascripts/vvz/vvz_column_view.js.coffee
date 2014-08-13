@@ -16,21 +16,22 @@ class VvzColumnView
     @setHistory = _.debounce(@_setHistory, 300)
 
     @collumnView = @initView()
-    @$backBtn.toggleClass("hidden", !@collumnView.canMoveBack())
 
     $(window).on("styleChange", (e, isMobile) => @collumnView.setLayout(@_layout()) )
     @$el.on("click", ".combined-date", => @collumnView._resize() )
 
 
   initView: () ->
+    that = this
     new ColumnView @$el[0],
       source: @source
       path: @initialPath()
       onChange: @onChange
       itemTemplate: @itemTemplate
       layout: @_layout()
-      ready: => accordionyziseThis(@el)
-
+      ready: ->
+        accordionyziseThis(that.el)
+        that.$backBtn.toggleClass("hidden", !this.canMoveBack())
 
   initialPath: () ->
     path = window.current_path.slice(0)

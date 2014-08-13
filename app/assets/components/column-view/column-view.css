@@ -31,7 +31,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   overflow-y: auto;
-  white-space: initial;
+  white-space: normal;
   -webkit-transition: background-color linear .1s;
   transition: background-color linear .1s;
   border-right: 1px solid #E2E2E2;
@@ -55,6 +55,7 @@
 .column-view .item {
   display: block;
   padding: 3px;
+  white-space: normal;
 }
 
 .column-view .item:hover {
