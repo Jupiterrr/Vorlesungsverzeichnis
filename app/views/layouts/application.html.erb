@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>
-    <%= yield(:title).presence || page_title %>
-  </title>
   <meta charset="utf-8">
-
-  <meta name="description" content="Ein modernes und schnelles Vorlesungsverzeichnis für das Karlsruher Institut für Technologie (KIT)">
-  <meta name="keywords" content="KIT, VVZ, Karlsruher Institut für Technologie, Vorlesungsverzeichnis, Uni Karlsruhe, Campusmap, Karte">
+  <%= metamagic site: "KitHub", title: [:title, :site], separator: " · ", keywords: [:keywords, "KIT", "Karlsruher Institut für Technologie", "Uni Karlsruhe"] %>
   <meta name="language" content="de">
   <meta name="robots" content="index,follow">
   <meta name="author" content="Carsten Griesheimer">

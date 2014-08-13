@@ -1,14 +1,14 @@
-- page_title "Liste aller Einrichtungen"
+- meta title: "Liste aller Einrichtungen", site: "KitHub Karte", description: nil, keywords: %w(Campusmap, Karte, Campuskarte)
 .container.map
   .content
     h1 Liste aller Einrichtungen
     hr.clear
-    
+
     ul.nav.nav-tabs
       - @categories.each do |c|
         li
           a href="##{c.name}" = c.name
-      
+
     ul.unstyled.big-list
       li
         - @categories.each do |c|
@@ -17,14 +17,14 @@
             - c.pois.sort_by(&:name).each do |poi|
               li
                 = link_to poi.name, map_path(poi)
-      
+
     /table.table
-      
+
         tr
           th colspan="3" = c.name
         - c.pois.each do |poi|
           tr
-            td= 
+            td=
             td= link_to 'Bearbeiten', edit_map_path(poi)
             td= link_to 'Löschen', map_path(poi), :confirm => 'Are you sure?', :method => :delete
 

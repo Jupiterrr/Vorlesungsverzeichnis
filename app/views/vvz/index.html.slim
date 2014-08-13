@@ -1,7 +1,8 @@
 - if @event
-  - page_title @event.name
+  - meta title: @event.name, description: nil, keywords: %w(Vorlesung Übung)
 - else
-  - page_title "#{human_term_name @term.name}" if @term != Vvz.current_term
+  - meta title: "KIT Vorlesungsverzeichnis", description: descriptions(:vvz), keywords: %w(Vorlesungsverzeichnis VVZ)
+
 == javascript_include_tag "vvz", defer: true
 
 .container.verzeichnis#vvz-page

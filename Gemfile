@@ -24,6 +24,7 @@ gem 'rails_autolink'
 gem 'redcarpet' # markdown
 gem "autoprefixer-rails"
 gem 'gravtastic'
+gem 'metamagic'
 
 # Database
 gem 'pg', '~> 0.17.1'

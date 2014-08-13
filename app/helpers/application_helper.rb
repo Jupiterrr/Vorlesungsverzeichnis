@@ -2,13 +2,14 @@ module ApplicationHelper
 
   DEFAULT_TITLE = "KIT Vorlesungsverzeichnis"
 
-  def page_title(title=nil)
-    if title
-      @page_title = "#{title} - #{DEFAULT_TITLE}"
-      content_for(:title, title)
-    else
-      @page_title ||= DEFAULT_TITLE
-    end
+  DESCRIPTIONS = {
+    vvz: "Ein modernes und schnelles Vorlesungsverzeichnis für das Karlsruher Institut für Technologie (KIT)",
+    landing: "Ein modernes und schnelles Vorlesungsverzeichnis für das Karlsruher Institut für Technologie (KIT)",
+    map: "Alle Hörsääle, Bibliotheken, Fachschaften und Institute auf einer interaktiven Karte."
+  }
+
+  def descriptions(key)
+    DESCRIPTIONS.fetch(key)
   end
 
   def browser_id_uid

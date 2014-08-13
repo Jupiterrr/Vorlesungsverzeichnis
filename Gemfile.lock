@@ -162,6 +162,8 @@ GEM
       callsite
       rack-contrib
       railties
+    metamagic (3.1.6)
+      rails (>= 3.0.0)
     method_source (0.8.1)
     mime-types (1.25.1)
     mini_portile (0.5.2)
@@ -371,6 +373,7 @@ DEPENDENCIES
   launchy
   memcachier
   meta_request (>= 0.2.5)
+  metamagic
   newrelic-grape
   newrelic_rpm
   paper_trail (>= 3.0.0.beta1)

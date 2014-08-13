@@ -1,7 +1,7 @@
 - if @map_presenter.poi
-  - page_title @map_presenter.poi.name + " - KitHub Campus Karte"
+  - meta title: @map_presenter.poi.name, site: "KitHub Karte", description: descriptions(:map), keywords: %w(Campusmap, Karte, Campuskarte, Hörsaal)
 - else
-  - page_title "KitHub Campus Karte"
+  - meta title: "KIT Campus Karte", description: descriptions(:map), keywords: %w(Campusmap, Karte, Campuskarte, Hörsaal)
 
 == javascript_include_tag "map", defer: true
 <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
