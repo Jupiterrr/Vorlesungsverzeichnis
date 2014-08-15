@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   before_create :generate_timetable_id
   has_many :posts
   has_many :comments
+  has_many :sessions
 
   serialize :data, ActiveRecord::Coders::Hstore
   validates :uid, :name, :disciplines, :presence => true
@@ -25,11 +26,11 @@ class User < ActiveRecord::Base
   end
 
   def authorize_status
-    if new?
-      :signup
-    else
-      :ok
-    end
+    new? ? :signup : :authorized
+  end
+
+  def self.authorize_status(user)
+    user ? user.authorize_status : :unauthorized
   end
 
   def new?

@@ -38,7 +38,8 @@
         },
         error: function(res, status, xhr) {
           console.log("Login failure", res, status);
-          alert("Login failure")
+          alert("Login failure");
+          throw "Login failure";
           navigator.id.logout();
         }
       });

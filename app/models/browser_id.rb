@@ -10,7 +10,7 @@ class BrowserID
 
     request = Net::HTTP::Post.new("/verify")
     request.set_form_data(assertion: assertion, audience: host)
-    response = http.request(request)    
+    response = http.request(request)
 
     response.is_a?(Net::HTTPSuccess) or raise "request failed"
       

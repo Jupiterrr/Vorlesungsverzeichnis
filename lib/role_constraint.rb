@@ -1,9 +1,12 @@
 class RoleConstraint
+  # include SessionsHelper
+  # attr_accessor :cookies
+
   def initialize(*roles)
     #@roles = roles
   end
 
   def matches?(request)
-    (id = request.session[:user_id]) and (user = User.find_by_id(id)) and !user.new?
+    request.cookies.key?("session_token")
   end
 end
