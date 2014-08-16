@@ -3,7 +3,6 @@
 - else
   - meta title: "KIT Vorlesungsverzeichnis", description: descriptions(:vvz), keywords: %w(Vorlesungsverzeichnis VVZ)
 
-== javascript_include_tag "vvz", defer: true
 
 .container.verzeichnis#vvz-page
   .content
@@ -52,3 +51,6 @@ javascript:
     tree: #{tree_seed_cached(@term)},
     events: #{@events_json || "{}"}
   };
+
+- content_for :javascript
+  == javascript_include_tag "vvz"

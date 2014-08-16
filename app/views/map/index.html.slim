@@ -3,45 +3,49 @@
 - else
   - meta title: ["KIT Campus Süd", "KitHub Karte"], description: descriptions(:map), keywords: %w(Campusmap, Karte, Campuskarte, Hörsaal)
 
-== javascript_include_tag "map", defer: true
-<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+- cache('map') do
+  .container#map-page.map
+    .content
+      header
+        h1
+          ' KIT Campus Karte
+          / - if @map_presenter.poi
+            span#poi-title-js
+              '  -
+              = @map_presenter.poi.name
+        .search-input
+          input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
+        hr.clear
 
-.container#map-page.map
-  .content
-    header
-      h1
-        ' KIT Campus Karte
-        / - if @map_presenter.poi
-          span#poi-title-js
-            '  -
-            = @map_presenter.poi.name
-      .search-input
-        input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
-      hr.clear
-
-    .no-padding
-      #map_canvas
+      .no-padding
+        #map_canvas
 
 
-    .categories-bar.no-padding
-      ul.flat#categories_selector.categories.padding
-        - @map_presenter.color_groups.each do |colour_group|
-          - group = colour_group.group
-          li
-            label.btn.btn-label for="ccb#{group.id}" style="border-color:#{colour_group.color};"
-              input id="ccb#{group.id}" type="checkbox" data-group-id=group.id
-              = group.name
+      .categories-bar.no-padding
+        ul.flat#categories_selector.categories.padding
+          - @map_presenter.color_groups.each do |colour_group|
+            - group = colour_group.group
+            li
+              label.btn.btn-label for="ccb#{group.id}" style="border-color:#{colour_group.color};"
+                input id="ccb#{group.id}" type="checkbox" data-group-id=group.id
+                = group.name
 
-    br
-    = link_to "Liste aller Einrichtungen", list_map_index_path
-    ',
-    = link_to "offizielle Karte (PDF)", "http://www.kit.edu/downloads/Campus-Sued.pdf"
+      br
+      = link_to "Liste aller Einrichtungen", list_map_index_path
+      ',
+      = link_to "offizielle Karte (PDF)", "http://www.kit.edu/downloads/Campus-Sued.pdf"
+
+  javascript:
+    var pois = #{raw @map_presenter.js_pois.as_json.to_json};
+    var groups = #{raw @map_presenter.color_groups.map {|g| {color: g.color, pois: g.group.pois.map(&:id), id: g.group.id}}.to_json};
 
 
 javascript:
-  var pois = #{raw @map_presenter.js_pois.as_json.to_json};
   var poi = #{raw @map_presenter.poi ? @map_presenter.poi.to_json.to_json : "null"};
-  var groups = #{raw @map_presenter.color_groups.map {|g| {color: g.color, pois: g.group.pois.map(&:id), id: g.group.id}}.to_json};
+
+- content_for :javascript
+  == javascript_include_tag "//maps.googleapis.com/maps/api/js?sensor=false"
+  == javascript_include_tag "map"
 
 - if @map_presenter.poi
   |

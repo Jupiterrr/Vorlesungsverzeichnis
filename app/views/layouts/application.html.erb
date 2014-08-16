@@ -18,10 +18,6 @@
 
   <%= stylesheet_link_tag "lib", "application" %>
   <%= yield :stylesheet %>
-
-  <%= javascript_include_tag "application", :defer => "defer" %>
-  <%= yield :javascript %>
-
 </head>
 <% page = params[:controller] + "-page" %>
 <body class="<%=page%>">
@@ -38,5 +34,8 @@
   <%= render partial: "layouts/analytics" if feature(:analytics) %>
   <%= render partial: "layouts/fb/like_setup" if feature(:facebook) %>
   <%= render partial: "layouts/uservoice" if feature(:uservoice) %>
+
+  <%= javascript_include_tag "application" %>
+  <%= yield :javascript %>
 </body>
 </html>

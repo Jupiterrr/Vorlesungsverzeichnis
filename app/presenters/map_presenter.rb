@@ -1,14 +1,19 @@
 class MapPresenter
 
-  attr_reader :poi, :pois
-
   COLORS = ["#4499ff", "#324189", "#730F5B", "#F52410", "#188D98", "#90B127", "#2A9C6C", "#F67710", "#3165C9"]
 
   ColorGroup = Struct.new(:group, :color)
 
   def initialize(poi_id=nil)
-    @poi = poi_id && Poi.find_by_id(poi_id)
-    @pois = Poi.all
+    @poi_id = poi_id
+  end
+
+  def poi
+    @poi ||= @poi_id && Poi.find_by_id(@poi_id)
+  end
+
+  def pois
+    @pois ||= Poi.all
   end
 
   def color_groups
@@ -17,7 +22,7 @@ class MapPresenter
   end
 
   def js_pois
-    @pois.map {|poi| MapPoiPresenter.new(poi) }
+    pois.map {|poi| MapPoiPresenter.new(poi) }
   end
 
   class MapPoiPresenter < Struct.new(:poi)

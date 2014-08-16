@@ -1,6 +1,6 @@
 class MapController < ApplicationController
 
-  caches_action :index, :list, :layout => false
+  caches_action :list, :layout => false
 
   def search
     result = Poi.search(params[:q]).map(&:to_search_json)
