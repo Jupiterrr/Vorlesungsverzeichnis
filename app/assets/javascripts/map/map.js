@@ -173,11 +173,13 @@
 
       if (panTo !== false) this._panTo(poi);
 
-      var title = poi.name + " · " + this.baseTitle;
-      document.title = title;
-      $("#poi-title-js").text("");
-      if (window.history)
-        window.history.replaceState(null , title, "/map/"+poi.id);
+      setTimeout(function() {
+        var title = poi.name + " · " + that.baseTitle;
+        document.title = title;
+        $("#poi-title-js").text("");
+        if (window.history)
+          window.history.replaceState(null , title, "/map/"+poi.id);
+      }, 100)
     },
 
     _setTooltipFor: function setTooltipFor(feature) {
