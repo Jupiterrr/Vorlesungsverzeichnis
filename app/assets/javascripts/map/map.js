@@ -55,7 +55,7 @@
     this.el = el;
     this.initPoi = poi;
     this.infoBoxTemplate = HoganTemplates["map/templates/infobox"];
-    this.baseTitle = document.title.split(" - ")[1] || document.title;
+    this.baseTitle = document.title.split(" · ")[1] || document.title;
 
     this.options = {
       defaultCenter: [49.012419, 8.41527]
@@ -173,7 +173,7 @@
 
       if (panTo !== false) this._panTo(poi);
 
-      var title = poi.name + " - " + this.baseTitle;
+      var title = poi.name + " · " + this.baseTitle;
       document.title = title;
       $("#poi-title-js").text("");
       if (window.history)

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <%= metamagic site: "KitHub", title: [:title, :site], separator: " · ", keywords: [:keywords, "KIT", "Karlsruher Institut für Technologie", "Uni Karlsruhe"] %>
+  <%= metamagic site: "KitHub", title: -> { meta_title_for(title, site) }, keywords: [:keywords, "KIT", "Karlsruher Institut für Technologie", "Uni Karlsruhe"] %>
   <meta name="language" content="de">
   <meta name="robots" content="index,follow">
   <meta name="author" content="Carsten Griesheimer">
