@@ -22,7 +22,7 @@ module ApplicationHelper
 
   def meta_title_for(title, site)
     array = Array(title)
-    array.push(site) unless title.last.include?(site)
+    array.push(site) unless array.last && array.last.include?(site)
     array.join(" · ")
   end
 
