@@ -99,7 +99,7 @@ body > .main-content {
 body > footer {
 
   .container {
-    @include padding;
+
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: .9em;
@@ -110,27 +110,36 @@ body > footer {
 
   .social-btn {
     display: inline-block;
-    height: 20px;
+    // height: 20px;
     width: 136px;
     position: relative;
     vertical-align: text-bottom;
   }
 
-  #fame {
-    position: fixed;
-    bottom: 0px;
-    right: 3px;
-    font-size: 10px;
-    a {
-      color: black;
-      text-decoration: underline;
+  @include breakpoint(big) {
+    #fame {
+      position: fixed;
+      bottom: 0px;
+      right: 3px;
+      font-size: 10px;
+      a {
+        color: black;
+        text-decoration: underline;
+      }
     }
   }
+
   @include breakpoint(mobil) {
-    #fame { display: none; }
+    #fame {
+      font-size: 10px;
+      text-align: center;
+      background: #FFF;
+    }
   }
 
+
   .footer-menu {
+    @include padding;
     &:first-child { margin-left: 0; }
     ul {
       list-style: none;
@@ -146,39 +155,56 @@ body > footer {
       color: #555;
     }
 
-    @include breakpoint(mobil) {
-      margin-bottom: 1em;
-      margin-left: 0;
+
+  }
+
+  @include breakpoint(mobil) {
+
+    #disclaimer-hint {
       float: none;
-      li {
-        line-height: 1.5em;
-        font-size: 11pt;
+      display: block;
+    }
+
+    .footer-menu {
+      display: flex;
+      flex-direction: column-reverse;
+      text-align: center;
+      font-size: 1.2em;
+      line-height: 2em;
+      a {
+        display: inline-block;
+      }
+
+      & > div {
+        display: block;
+        float: none;
+      }
+
+      a:hover { text-decoration: none; }
+
+      .social-links {
+        margin-top: .2em;
+        display: block;
+        font-size: 1.2em;
+        a {
+          padding: 1em;
+          margin-right: 1em;
+        }
+        i.fa { opacity: 1; }
       }
     }
   }
 
+  .social-links {
+    display: inline-block;
+    font-size: 16px;
+  }
   .social-link i.fa {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 21px;
-    color: #FFF;
-    margin-right: 5px;
-    &.fa-facebook { background: #2C4389; }
-    &.fa-twitter { background: #139AE9; }
-    &.fa-github {
-      color: #262626;
-      background: rgba(0, 0, 0, 0);
-      font-size: 20px;
-    }
-  }
-  .social-links li {
-    // line-height: 30px;
-  }
-
-  .span3 {
-    width: 175px;
+    opacity: .7;
+    &.fa-facebook { color: #2C4389; }
+    &.fa-twitter { color: #139AE9; }
+    &.fa-github { color: #262626; }
+    &:hover { opacity: 1; }
   }
 
 }
