@@ -38,9 +38,9 @@
     width: auto;
   }
 }
-.feature {
+.feature.span4 {
   text-align: center;
-  padding: 0 10px;
+  padding: 1em;
   cursor: pointer;
 
   .content {
@@ -71,29 +71,14 @@
     height: 104px;
   }
 
-  .feature-link {
-    border: 2px solid #CCC;
-    display: inline-block;
-    border-radius: 4px;
-    // color: #555;
-    padding: 2px 8px;
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 12px;
-    transition: all 0.2s ease;
-    color: #888;
-  }
-  &:hover .feature-link {
-    background-color: #e4e4e4;
-    color: #0069D6;
-  }
   // .smartphone { color: deeppink; }
   // .computer { color: cadetblue; }
   .smartphone, .computer { color: #34977F; }
 
   @include breakpoint(mobil) {
-    width: auto !important;
+    // width: auto !important;
+    width: 100% !important;
+    margin: 0;
     margin-bottom: 2em;
     border-bottom: 2px solid #EEE;
     padding: 0;
@@ -106,5 +91,79 @@
     img {
       height: auto;
     }
+  }
+
+  &:hover .feature-link {
+    background-color: #e4e4e4;
+    color: #0069D6;
+  }
+}
+
+.feature-link {
+  border: 2px solid #CCC;
+  display: inline-block;
+  border-radius: 4px;
+  // color: #555;
+  padding: 2px 8px;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  color: #888;
+}
+
+
+
+#img-banner {
+  position: relative;
+  margin-bottom: 1em;
+  margin-top: -20px;
+  border-radius: 4px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #ccc;
+
+  @include breakpoint(mobil) {
+    margin-bottom: 2em;
+  }
+
+  img {
+    width: 100%;
+    z-index: 40;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 50;
+    padding: 0 50px;
+    top: 80px;
+    line-height: 49px;
+    max-width: 480px;
+
+    @include breakpoint(mobil) {
+      display: none;
+    }
+  }
+  h1 {
+    color: #fff;
+    font-size: 32px;
+    line-height: 49px;
+    small {
+      display: block;
+      font-size: .65em;
+      color: #fff;
+    }
+  }
+
+  .feature-link {
+    line-height: 2em;
+    color: #fff;
+  }
+
+  .feature-link:hover {
+    background-color: #e4e4e4;
+    color: #000;
+    text-decoration: none;
   }
 }

@@ -1,5 +1,5 @@
 - meta description: descriptions(:landing)
-header.landing-header
+/ header.landing-header
   h1
     ' Besser studieren am
     a href="https://www.kit.edu"
@@ -7,11 +7,21 @@ header.landing-header
 
 .container
   .content
+    section#img-banner.no-padding
+      div.content
+        h1
+          | Orientierung verloren? - alle Hörsääle, Bibliotheken und Institute auf einen Blick
+        a.feature-link href=map_index_path
+          ' Zur Karte
+          i.fa.fa-angle-right
+      = image_tag("landing-phone-loss.jpg")
+
     .row-fluid
       a.span4.feature href=vvz_index_path
         .content
           h3 Vorlesungsverzeichnis
           p Finde schnell und bequem deine Vorlesungen und Kurse.
+
         = image_tag("landing-vvz.jpg")
         .feature-link
           ' Zum Vorlesungsverzeichnis
