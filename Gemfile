@@ -5,7 +5,7 @@ ruby '2.1.0'
 gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 
-gem 'kit_api', '~> 0.0.7', require: false #, path: File.join('..', 'kit_api')
+# gem 'kit_api', '~> 0.0.7', require: false #, path: File.join('..', 'kit_api')
 gem 'celluloid', require: false
 
 # API
@@ -42,6 +42,7 @@ gem 'elasticsearch'
 gem 'font_assets'
 
 # gem 'cancan' # authorization
+gem 'omniauth-saml', '~> 1.2.0'
 
 # gem 'validates_timeliness', '~> 3.0'
 gem 'intercom-rails', '~> 0.2.21'

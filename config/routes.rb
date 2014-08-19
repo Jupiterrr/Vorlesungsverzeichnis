@@ -89,11 +89,10 @@ resources :events, only: [] do
     match "/backdoor" => "sessions#backdoor", :as => :backdoor
   end
 
-
   post "/signin" => "sessions#create", :as => :signin
   match "/signout" => "sessions#destroy", :as => :signout
   match "/signup" => "users#new", :as => :signup
-
+  match "/auth/:provider/callback" => "sessions#saml"
 
   get '/robots.txt' => 'welcomes#robots'
 
