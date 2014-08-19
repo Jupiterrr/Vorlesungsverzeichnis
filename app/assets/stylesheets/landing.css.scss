@@ -63,12 +63,13 @@
   }
   &:hover { text-decoration: none;}
   img {
-    border-radius: 13px;
-    border: 1px solid #CCC;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 1em;
-    height: 104px;
+    // border-radius: 13px;
+    // border: 1px solid #CCC;
+    // width: 100%;
+    // box-sizing: border-box;
+    // margin-bottom: 1em;
+    // height: 104px;
+    display: none;
   }
 
   // .smartphone { color: deeppink; }

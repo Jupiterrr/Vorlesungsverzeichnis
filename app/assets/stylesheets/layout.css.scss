@@ -139,7 +139,8 @@ body > footer {
 
 
   .footer-menu {
-    @include padding;
+    @include breakpoint(big) { @include padding; }
+
     &:first-child { margin-left: 0; }
     ul {
       list-style: none;
@@ -169,10 +170,11 @@ body > footer {
       display: flex;
       flex-direction: column-reverse;
       text-align: center;
-      font-size: 1.2em;
+      // font-size: 1.2em;
       line-height: 2em;
       a {
         display: inline-block;
+        opacity: .7;
       }
 
       & > div {
@@ -181,17 +183,7 @@ body > footer {
       }
 
       a:hover { text-decoration: none; }
-
-      .social-links {
-        margin-top: .2em;
-        display: block;
-        font-size: 1.2em;
-        a {
-          padding: 1em;
-          margin-right: 1em;
-        }
-        i.fa { opacity: 1; }
-      }
+      .social-links i.fa { opacity: 1; }
     }
   }
 
