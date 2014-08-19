@@ -1,3 +1,4 @@
+//= require lib/console-fix
 //= require jquery/jquery
 //= require bootstrap-css/js/bootstrap
 //= require search
