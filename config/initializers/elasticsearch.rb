@@ -4,7 +4,7 @@ require 'typhoeus/adapters/faraday'
 module KITBox
   class Application < Rails::Application
     # YAML.load_file("#{File.join(Rails.root, '/config/environments/', Rails.env, 'elasticsearch.yml')}").each { |k,v| config.send "#{k}=", v }
-    elasticsearch_client = Elasticsearch::Client.new host: ENV['ELASTICSEARCH_HOST'], log: true, reload_connections: true
+    elasticsearch_client = Elasticsearch::Client.new host: ENV['ELASTICSEARCH_HOST'], log: true, reload_connections: true, transport_options: { request: { timeout: 2*60 } }
     config.send 'elasticsearch_client=', elasticsearch_client
   end
 end
