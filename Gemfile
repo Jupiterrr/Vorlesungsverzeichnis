@@ -5,7 +5,7 @@ ruby '2.1.0'
 gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 
-# gem 'kit_api', '~> 0.0.7', require: false #, path: File.join('..', 'kit_api')
+gem 'kit_api', '~> 0.1.0', require: false #, path: File.join('..', 'kit_api')
 gem 'celluloid', require: false
 
 # API

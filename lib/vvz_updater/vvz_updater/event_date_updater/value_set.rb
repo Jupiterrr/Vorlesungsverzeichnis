@@ -2,9 +2,9 @@ require "set"
 module VVZUpdater
   class ValueSet < Set
 
-    def initialize(ary, key_retriver)
+    def initialize(ary, &key_retriver)
       @index = ValueSet.index_by(ary, &key_retriver)
-      super(@index.keys)
+      super(@index.keys, &nil)
     end
 
     # index_by([1,2], &:to_s) => {"1" => 1, "2" => 2}

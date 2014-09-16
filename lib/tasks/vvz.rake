@@ -6,62 +6,47 @@ namespace :term do
   task :list do
     require "kit_api"
     # KitApi.logger.level = Logger::INFO
-    connection = KitApi::Connection.connect
-    terms = KitApi.get_terms(connection)
+    terms = KitApi.get_terms
     names = terms.map {|t| t.name }
     puts names
-    connection.disconnect
-  end
-
-  task :update_tree, [:term] => :environment do |t, args|
-    puts "Update Term tree"
-    require "vvz_updater/vvz_updater"
-    #.gsub("_", " ") # Heroku doesn't like witespaces
-    args.term or raise "You have to pass a term!"
-    #KitApi.logger.level = Logger::DEBUG
-    VVZUpdater.updater_tree(args.term)
-  end
-
-  task :link_events, [:term] => :environment do |t, args|
-    puts "Links Events"
-    require "vvz_updater/vvz_updater"
-    #.gsub("_", " ") # Heroku doesn't like witespaces
-    args.term or raise "You have to pass a term!"
-    #KitApi.logger.level = Logger::WARN
-    VVZUpdater.link_events(args.term)
-    #binding.pry
-  end
-
-  task :update_events, [:term] => :environment do |t, args|
-    puts "Update events"
-    require "vvz_updater/vvz_updater"
-    #.gsub("_", " ") # Heroku doesn't like witespaces
-    args.term or raise "You have to pass a term!"
-    #KitApi.logger.level = Logger::WARN
-    VVZUpdater.update_events(args.term)
-    #binding.pry
-  end
-
-  task :update, [:term] => :environment do |t, args|
-    require "vvz_updater/vvz_updater"
-    args.term or raise "You have to pass a term!"
-    puts "Updating tree:"
-    VVZUpdater.updater_tree(args.term)
-    puts "Linking leafs to events:"
-    VVZUpdater.link_events(args.term)
-    puts "Updating events:"
-    VVZUpdater.update_events(args.term)
-    puts "Improve event names:"
-    VVZUpdater.improve_names(args.term)
-  end
-
-  task :update_event, [:event_id] => :environment do |t, args|
-    require "vvz_updater/vvz_updater"
-    db_event = Event.find(args[:event_id])
-    VVZUpdater.update_event(db_event)
   end
 
 end
+
+task :update_local => :environment do |t, args|
+  require "vvz_updater/vvz_updater"
+  package_dir = "x.tar.gz"
+  VVZUpdater.load_term(package_dir)
+end
+
+task :update => :environment do |t, args|
+  require "vvz_updater/vvz_updater"
+  url = "http://kithub.s3.amazonaws.com/terms/WS_14-15.tar.gz"
+  package_dir = "tmp-term.tar.gz"
+  VVZUpdater.download_term(url, package_dir)
+  VVZUpdater.load_term(package_dir)
+  puts "Don't forget to run rake elastic:index"
+end
+
+# task :update => :environment do |t, args|
+#   require "kit_api"
+#   connection = KitApi::Connection.connect
+#   terms = KitApi.get_terms(KitApi::Connection.connect)
+#   names = terms.map {|t| t.name }
+#   puts names
+#   connection.disconnect
+
+#   require "vvz_updater/vvz_updater"
+#   package_dir = "spec/vvz_updater/SS\ 2006-json.tar.gz"
+#   term = "SS 2006"
+#   VVZUpdater.load_term(package_dir, term)
+
+#   STDOUT.puts "Are you sure? (y/n)"
+#   input = STDIN.gets.strip
+
+# end
+
+
 
 
 
@@ -113,7 +98,17 @@ end
 #
 # term_id - ID of the term you want to remove
 task :remove_term, [:term_id] => :environment do |t, args|
-  term = Vvz.find(args[:term_id])
+  # term = Vvz.find(args[:term_id])
+  # Event.where(term: term.name).delete_all
+  # term.subtree.delete_all
+  # term.delete
+  [14457].each do |id|
+    delete_term(id)
+  end
+end
+
+def delete_term(id)
+  term = Vvz.find(id)
   Event.where(term: term.name).delete_all
   term.subtree.delete_all
   term.delete

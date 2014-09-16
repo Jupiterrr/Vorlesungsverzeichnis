@@ -3,8 +3,8 @@ module VVZUpdater
     class DateGrouper
 
       def initialize(dates, db_dates)
-        @date_set = ValueSet.new(dates, :id)
-        @db_date_set = ValueSet.new(db_dates, :uuid)
+        @date_set = ValueSet.new(dates) {|h| h.fetch("id")}
+        @db_date_set = ValueSet.new(db_dates, &:uuid)
       end
 
       def new_dates

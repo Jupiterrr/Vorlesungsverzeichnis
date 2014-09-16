@@ -1,9 +1,9 @@
 module VVZUpdater
-  class TreeDiff
-    class NodeGrouper
+  class EventUpdater
+    class EventGrouper
 
       def initialize(nodes, db_nodes)
-        @node_set = ValueSet.new(nodes, &:external_id)
+        @node_set = ValueSet.new(nodes) {|event| event.fetch("id") }
         @db_node_set = ValueSet.new(db_nodes, &:external_id)
       end
 

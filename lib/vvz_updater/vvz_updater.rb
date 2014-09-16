@@ -1,5 +1,5 @@
-require "kit_api"
-require 'celluloid'
+# require "kit_api"
+# require 'celluloid'
 
 require "vvz_updater/vvz_updater/tree_migration"
 require "vvz_updater/vvz_updater/tree_diff"
@@ -7,202 +7,154 @@ require "vvz_updater/vvz_updater/event_linker"
 require "vvz_updater/vvz_updater/event_updater"
 require "vvz_updater/vvz_updater/event_date_updater"
 require "vvz_updater/vvz_updater/data_enhancement"
+require 'tmpdir'
+# require "pry"
+require 'json'
+# KitApi.logger.level = Logger::INFO
 
-KitApi.logger.level = Logger::INFO
 
 module VVZUpdater
+
+  Node = Struct.new(:external_id, :name, :children, :event_ids)
+
   class << self
 
     def improve_names(term_name)
-      VVZUpdater::DataEnhancer.new(term_name).improve_names()
+      puts "improving names"
+      DataEnhancer.new(term_name).improve_names()
     end
 
-    def updater_tree(term)
-      connection = KitApi::Connection.connect
-      root = KitApi.get_tree(connection, term)
+    def download_term(url, target)
+      `curl -o #{target} #{url}`
+    end
 
+    def load_term(package_path)
+      puts "start migration from #{package_path}"
+      Dir.mktmpdir {|tmp_dir|
+        dir = untar(package_path, tmp_dir)
+        root = load_tree(dir)
+        term = root.term_name
+        mirgrate_tree!(root, term)
+        update_events!(dir, term)
+        link_events!(root, term)
+        improve_names(term)
+      }
+      puts "done."
+    end
+
+    def untar(package_path, tmp_dir)
+      puts "unpacking #{package_path}"
+      `tar -xzf '#{package_path}' -C #{tmp_dir}`
+      dir = Dir[File.join(tmp_dir, "*")].first
+    end
+
+    def load_tree(dir)
+      tree_json = File.read(File.join(dir, "tree.json"))
+      tree_hash = JSON.parse(tree_json)
+      tree = parse_node(tree_hash)
+    end
+
+    class Node < Struct.new(:id, :name, :children, :event_ids)
+
+      def child_ids
+        children.map(&:id)
+      end
+
+      def external_id
+        id
+      end
+
+      def is_leaf?
+        children.empty?
+      end
+
+      def as_json
+        base = {id: id, name: name}
+        if is_leaf?
+          base[:event_ids] = event_ids
+        else
+          base[:children] = children.map(&:as_json)
+        end
+        base
+      end
+
+      def flatten(nodes=[])
+        nodes << self
+        children.each {|child| child.flatten(nodes) }
+        nodes
+      end
+
+      def leafs(nodes=[])
+        if is_leaf?
+          nodes << self
+        else
+          children.map {|child| child.leafs(nodes) }
+        end
+        nodes
+      end
+
+      def term_name
+        if name.include?("/")
+          term, y = name.match(/(..)\s(\d+)/).captures
+          "#{term} 20#{y}"
+        else
+          name
+        end
+      end
+
+    end
+
+
+    def parse_node(tree_hash)
+      Node.new(
+        tree_hash.fetch("id"),
+        tree_hash.fetch("name"),
+        tree_hash.fetch("children", []).map {|h| parse_node(h) },
+        tree_hash.fetch("event_ids", []),
+      )
+    end
+
+    def mirgrate_tree!(root, term)
+      puts "start TreeMigration"
+      db_root = get_db_term(term)
+      TreeMigration.new(db_root, root).migrate!
+      db_root.update_attribute(:name, term)
+    end
+
+    def get_db_term(term)
       uni = Vvz.find_or_create_by_name("KIT")
       db_root = uni.children.find_or_create_by_name(term)
-
-      TreeMigration.new(db_root, root).migrate!
-      connection.disconnect
     end
 
-
-
-    class Reporter
-      include Celluloid
-      attr_reader :fired, :timer
-
-      def initialize(r)
-        @start = Time.now
-        @instant_logging = false #!ENV["DYNO"].present?
-        @log_timer = @instant_logging ? 1 : 5
-        @timer = every(@log_timer) { print_r }
-        @r = r
-      end
-
-      def print_r
-        if @r[:done] >= @r[:jobs]
-          @timer.cancel
-          puts "end"
-        end
-        finished_jobs = @r[:done]
-        leafs = @r[:jobs]
-        connection = @r[:connection]
-
-        duration = Time.now - @start
-        job_duration = duration / finished_jobs
-        time_prediction = job_duration * (leafs-finished_jobs) / 60
-
-        progress = ("%3i" % finished_jobs) + "/"  + leafs.to_s
-        prediction = ("%5.1f" % time_prediction) + "m"
-
-        rqs = "%5.1f" % (connection.request_count / duration)
-        destroyed_events = @r[:destroyed] ? ("%3i" % @r[:destroyed].count) : ""
-        txt = "#{progress}  ~ #{prediction}  ~  #{rqs}rqs  -  #{destroyed_events}"
-        if @instant_logging
-          print 13.chr
-          print txt
-        else
-          puts txt
-        end
-      end
-
+    def link_events!(root, term)
+      puts "start EventLinker"
+      EventLinker.run!(term, root.leafs)
     end
 
-
-
-
-    Link = Struct.new(:leaf_external_id, :events)
-
-    class LinkGetter
-      include Celluloid
-
-      def initialize(connection)
-        @connection = connection
-      end
-
-      def get_link(leaf_external_id)
-        events = KitApi.get_events_by_parent(@connection, leaf_external_id)
-        link = Link.new(leaf_external_id, events)
-      end
-
+    def update_events!(dir, term)
+      puts "load events"
+      events = load_events(dir)
+      puts "start EventUpdater"
+      EventUpdater.run!(term, events)
+      puts "start EventDateUpdater"
+      EventDateUpdater.run!(term, events)
     end
 
-    def mem_debug
-      require "pp"
-      objects = Hash.new(0)
-      ObjectSpace.each_object{|obj| objects[obj.class] += 1 }
-      pp objects.sort_by{|k,v| -v}
-      #ap objects[KitApi::EventParser::Date]
+    def load_events(dir)
+      files = Dir[File.join(dir, "events", "*.json")]
+      files.map do |file_path|
+        json = File.read(file_path)
+        hash = JSON.parse(json)
+      end
     end
 
-    def link_events(term_name)
-      Celluloid.start
-      connection = KitApi::Connection.connect
-      term = Vvz.term("KIT", term_name)
-      leaf_external_ids = term.leafs.pluck(:external_id)
-
-      # reporter
-      r = {
-        done: 0,
-        jobs: leaf_external_ids.count,
-        connection: connection
-      }
-      reporter = Reporter.new(r)
-
-      pool = LinkGetter.pool(size: 30, args: [connection])
-
-      futures = leaf_external_ids.map { |leaf_eid| pool.future.get_link(leaf_eid) }
-
-      futures.each do |future|
-        link = future.value
-        db_leaf = Vvz.find_by_external_id(link.leaf_external_id)
-        EventLinker.new(db_leaf, term_name).link(link.events)
-        r[:done] += 1
-        link.events = nil
-        link.leaf_external_id = nil
-        GC.start
-      end
-
-      connection.disconnect
-    end
-
-    def update_event(db_event, use_linker=true)
-      connection = KitApi::Connection.connect
-
-      # linker
-      if use_linker
-        db_leaf = db_event.vvzs.first
-        events = KitApi.get_events_by_parent(connection, db_leaf.external_id)
-        linker_event = events.find {|e| e.external_id == db_event.external_id}
-        EventLinker.new(db_leaf, db_leaf.term.name).update(linker_event)
-      end
-
-      # event updater
-      updater_event = KitApi.get_event(connection, db_event.external_id)
-      EventUpdater.new(db_event).update(updater_event)
-      connection.disconnect
-    end
-
-
-
-    class EventGetter
-      include Celluloid
-
-      def initialize(connection)
-        @connection = connection
-      end
-
-      def get_event(uuid)
-        event = KitApi.get_event(@connection, uuid)
-        [uuid, event]
-      rescue KitApi::Parser::ResponseEmpty
-        # puts "Response empty, #{uuid}"
-        [uuid, nil]
-      end
-
-    end
-
-
-    def update_events(term_name)
-      Celluloid.start
-      connection = KitApi::Connection.connect
-      term = Vvz.term("KIT", term_name)
-      uuids = Event.where(term: term_name).order("RANDOM()").pluck(:external_id)
-      # uuids = Event.where(term: term_name).limit(20).pluck(:external_id)
-
-      # reporter
-      r = {
-        done: 0,
-        jobs: uuids.count,
-        connection: connection,
-        destroyed: []
-      }
-
-      reporter = Reporter.new(r)
-      pool = EventGetter.pool(size: 30, args: [connection])
-
-      futures = uuids.map { |uuid| pool.future.get_event(uuid) }
-
-      futures.each do |future|
-        value = future.value
-        uuid, event = value
-        db_event = Event.find_by_external_id(uuid)
-        if event
-          EventUpdater.new(db_event).update(event)
-        else
-          r[:destroyed] << db_event.destroy
-        end
-        r[:done] += 1
-        value.clear
-        GC.start
-      end
-
-      connection.disconnect
-    end
-
+    # def mem_debug
+    #   require "pp"
+    #   objects = Hash.new(0)
+    #   ObjectSpace.each_object{|obj| objects[obj.class] += 1 }
+    #   pp objects.sort_by{|k,v| -v}
+    #   #ap objects[KitApi::EventParser::Date]
+    # end
 
   end
 end
