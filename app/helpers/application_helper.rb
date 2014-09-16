@@ -5,7 +5,7 @@ module ApplicationHelper
   DESCRIPTIONS = {
     vvz: "Ein modernes und schnelles Vorlesungsverzeichnis für das Karlsruher Institut für Technologie (KIT)",
     landing: "Ein modernes und schnelles Vorlesungsverzeichnis für das Karlsruher Institut für Technologie (KIT)",
-    map: "Alle Hörsääle, Bibliotheken, Fachschaften und Institute auf einer interaktiven Karte."
+    map: "Alle Hörsäle, Bibliotheken, Fachschaften und Institute auf einer interaktiven Karte."
   }
 
   def descriptions(key)
