@@ -4,6 +4,7 @@ module VVZUpdater
     def initialize(term)
       # @source = source.to_s
       @term = term
+      @connection = ActiveRecord::Base.connection
     end
 
     def run!(events)
@@ -20,7 +21,7 @@ module VVZUpdater
       # puts "update"
       # update(grouper.existing_date_pairs)
       puts "delete all dates"
-      existing_dates(events).delete_all
+      delete_existing()
       puts "create"
       create(dates)
     end
@@ -37,10 +38,16 @@ module VVZUpdater
       end
     end
 
-    def existing_dates(events)
-      event_ids = events.map {|event| event.fetch("id")}
-      EventDate.where(event_id: event_ids).select([:id, :uuid])
+    def delete_existing()
+      EventDate.where(term: @term).delete_all
     end
+
+    # def existing_dates(events)
+    #   # event_ids = events.map {|event| event.fetch("id")}
+    #   # EventDate.where(event_id: event_ids).select([:id, :uuid])
+    #   uuids = events.flat_map {|event| event.fetch("dates")}.map {|date| date.fetch("id")}
+    #   EventDate.where(uuid: uuids).select([:id, :uuid])
+    # end
 
     def create(dates)
       puts "prepare create"
@@ -59,7 +66,7 @@ module VVZUpdater
         "(#{items})"
       end
       sql = "INSERT INTO event_dates (#{keys.join(", ")}) VALUES #{inserts.join(", ")}"
-      ActiveRecord::Base.connection.execute(sql)
+      @connection.execute(sql)
     end
 
     # def delete(db_dates)
@@ -78,8 +85,8 @@ module VVZUpdater
     end
 
     def attributes(date)
-      start_time = Time.parse("#{date.fetch("start_time")} #{date.fetch("start_date")}")
-      end_time = Time.parse("#{date.fetch("end_time")} #{date.fetch("end_date")}")
+      start_time = Time.zone.parse("#{date.fetch("start_time")} #{date.fetch("start_date")}").utc.to_s(:db)
+      end_time = Time.zone.parse("#{date.fetch("end_time")} #{date.fetch("end_date")}").utc.to_s(:db)
       room_id = date.fetch("room") ? date.fetch("room").fetch("id") : nil
       {
         uuid: date.fetch("id"),
@@ -88,7 +95,8 @@ module VVZUpdater
         api_last_modified: date.fetch("last_modified"),
         room_id: @room_index[room_id],
         relation: date.fetch("relation"),
-        event_id: date.fetch("event_id")
+        event_id: date.fetch("event_id"),
+        term: @term
       }
     end
 
