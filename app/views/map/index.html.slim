@@ -1,7 +1,9 @@
-- if @map_presenter.poi
-  - meta title: [@map_presenter.poi.name, "KitHub Karte"], description: descriptions(:map), keywords: %w(Campusmap, Karte, Campuskarte, Hörsaal)
+- if @poi
+  - description = "#{@poi.building_no}, #{@poi.address}, #{@poi.group_name}"
+  - meta title: [@poi.name, "KitHub Karte"], description: description, keywords: %w(Campusmap Karte Campuskarte Hörsaal Gebäude KIT)
 - else
-  - meta title: ["KIT Campus Süd", "KitHub Karte"], description: descriptions(:map), keywords: %w(Campusmap, Karte, Campuskarte, Hörsaal)
+  - meta title: ["KIT Campus Süd", "KitHub Karte"], description: descriptions(:map), keywords: %w(Campusmap Karte Campuskarte Hörsaal KIT)
+
 
 - cache('map') do
   .container#map-page.map
@@ -9,13 +11,21 @@
       header
         h1
           ' KIT Campus Karte
-          / - if @map_presenter.poi
-            span#poi-title-js
+          - if @poi
+            span#poi-title-js.seo-hide
               '  -
-              = @map_presenter.poi.name
+              = @poi.name
         .search-input
           input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
         hr.clear
+
+      - if @poi
+        p.seo-hide
+          | Adresse: #{@poi.address}
+          br
+          | Gebäudenummer: #{@poi.building_no}
+          br
+          | Kategorien: #{@poi.group_names.join(", ")}
 
       .no-padding
         #map_canvas
@@ -41,25 +51,25 @@
 
 
 javascript:
-  var poi = #{raw @map_presenter.poi ? @map_presenter.poi.to_json.to_json : "null"};
+  var poi = #{raw @poi ? @poi.to_json.to_json : "null"};
 
 - content_for :javascript
   == javascript_include_tag "//maps.googleapis.com/maps/api/js?sensor=false"
   == javascript_include_tag "map"
 
-- if @map_presenter.poi
+- if @poi
   |
     <script type="application/ld+json">
     {
       "@context": "http://schema.org",
       "@type": "CivicStructure",
-      "name": "#{@map_presenter.poi.name}",
-      "hasMap": "http://www.kithub.de/map/#{@map_presenter.poi.id}",
+      "name": "#{@poi.name}",
+      "hasMap": "http://www.kithub.de/map/#{@poi.id}",
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": "#{@map_presenter.poi.lat}",
-        "longitude": "#{@map_presenter.poi.lng}"
+        "latitude": "#{@poi.lat}",
+        "longitude": "#{@poi.lng}"
       },
-      "address": "#{@map_presenter.poi.address}"
+      "address": "#{@poi.address}"
     }
     </script>

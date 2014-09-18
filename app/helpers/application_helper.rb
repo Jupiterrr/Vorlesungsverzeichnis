@@ -20,12 +20,6 @@ module ApplicationHelper
     end
   end
 
-  def meta_title_for(title, site)
-    array = Array(title)
-    array.push(site) unless array.last && array.last.include?(site)
-    array.join(" · ")
-  end
-
   def to_params(params)
     parameterize(params)
   end

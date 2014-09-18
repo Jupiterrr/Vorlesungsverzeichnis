@@ -16,6 +16,14 @@ class Poi < ActiveRecord::Base
     attributes.except("created_at", "updated_at")
   end
 
+  def group_name
+    group_names.first
+  end
+
+  def group_names
+    poi_groups.pluck(:name)
+  end
+
   scope :not_in_any_group, {
     :joins      => "LEFT JOIN poi_groups_pois ON pois.id = poi_groups_pois.poi_id",
     :conditions => "poi_groups_pois.poi_id IS NULL",

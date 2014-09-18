@@ -9,6 +9,7 @@ class MapController < ApplicationController
 
   def index
     @map_presenter = MapPresenter.new(params[:id])
+    @poi = @map_presenter.poi
   end
 
   def list

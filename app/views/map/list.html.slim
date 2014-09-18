@@ -1,4 +1,5 @@
-- meta title: "Liste aller Einrichtungen", site: "KitHub Karte", description: nil, keywords: %w(Campusmap, Karte, Campuskarte)
+- categories_names = @categories.map(&:name)
+- meta title: "Liste aller Einrichtungen", site: "KitHub Karte", description: categories_names.join(", "), keywords: %w(Campusmap Karte Campuskarte).push(*categories_names)
 .container.map
   .content
     h1 Liste aller Einrichtungen
