@@ -5,11 +5,9 @@ module KITBox
   class Application < Rails::Application
     # YAML.load_file("#{File.join(Rails.root, '/config/environments/', Rails.env, 'elasticsearch.yml')}").each { |k,v| config.send "#{k}=", v }
     elasticsearch_client = Elasticsearch::Client.new({
-      host: ENV['ELASTICSEARCH_HOST'],
+      url: "http://#{ENV['ELASTICSEARCH_USER']}:#{ENV['ELASTICSEARCH_KEY']}@#{ENV['ELASTICSEARCH_HOST']}",
       log: true,
-      transport_options: { request: { timeout: 2*60 } },
-      user: ENV['ELASTICSEARCH_USER'],
-      password: ENV['ELASTICSEARCH_KEY']
+      transport_options: { request: { timeout: 2*60 } }
     })
     config.send 'elasticsearch_client=', elasticsearch_client
   end
