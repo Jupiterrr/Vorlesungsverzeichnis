@@ -12,13 +12,26 @@ $(document).ready(function() {
       return date.getDay() == 6;
    });
 
+   var myEvents = getEventData();
+
+   if ($(".print").length) {
+      var minH = _.min(myEvents, function(e) { return e.start; });
+      var maxH = _.max(myEvents, function(e) { return e.end; });
+      var startH = minH.start_h < 8 ? minH.start_h : 8;
+      var endH = minH.end_h > 18 ? minH.end_h : 18;
+   } else {
+      var startH = 7;
+      var endH = 20;
+   }
+
+
    $calendar.empty()
    $calendar.weekCalendar({
       timeslotsPerHour : 4,
       allowCalEventOverlap : true,
       overlapEventsSeparate: true,
       firstDayOfWeek : 1,
-      businessHours :{start: 7, end: 20, limitDisplay: true },
+      businessHours :{start: startH, end: endH, limitDisplay: true },
       daysToShow : showSaturday ? 6: 5,
       use24Hour: true,
       readonly: true,
@@ -30,7 +43,8 @@ $(document).ready(function() {
       scrollToHourMillis: 0,
       timeslotHeight: 15,
       height : function($calendar) {
-         return 830; //$(window).height() - $("h1").outerHeight() - 1;
+         return 830;
+         // return $(window).height() - $("h1").outerHeight() - 1;
       },
       eventRender : function(calEvent, $event) {
          $event.css({
@@ -38,10 +52,7 @@ $(document).ready(function() {
          });
       },
       // eventClick : function(calEvent, $event) {},
-      data : function(start, end, callback) {
-         //console.log("se", {s:start, e:end})
-         callback(getEventData());
-      }
+      data : {events : myEvents}
    });
    $calendar.find(".wc-cal-event").on("click", function(e) {
       var url = $(this).data("calEvent").url;
@@ -78,11 +89,13 @@ $(document).ready(function() {
             "title": event.title,
             "id": event.id,
             "url": event.url,
-            "color": event.color
+            "color": event.color,
+            "start_h": s[3],
+            "end_h": e[3]
          };
          new_events.push(new_event)
       });
-      return {events : new_events};
+      return new_events;
    };
 
 });

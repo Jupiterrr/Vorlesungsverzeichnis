@@ -1,0 +1,11 @@
+html
+  head
+    = stylesheet_link_tag "application", "jquery.weekcalendar", media: :all
+    = javascript_include_tag "timetable_print"
+    css:
+      html, body {
+        background: inherit;
+      }
+  body
+    .print class=('no-color' if params["no_color"]=="1")
+      = render partial: "timetable"

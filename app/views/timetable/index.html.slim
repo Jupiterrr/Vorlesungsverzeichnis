@@ -2,8 +2,18 @@
 .container#timetable-page
   / #map-bar
   .content
-    h1 Stundenplan
+    .btn-group.pull-right
+      a.btn.dropdown-toggle data-toggle="dropdown" href="#"
+        i.fa.fa-download
+        '  download (.pdf)
+        span.caret
+      ul.dropdown-menu
+        li
+          a href=print_timetable_index_path(timetable_id: current_user.timetable_id, no_color: 0) target="_blank" farbig
+        li
+          a href=print_timetable_index_path(timetable_id: current_user.timetable_id, no_color: 1) target="_blank" schwarz-weiß
 
+    h1 Stundenplan
     = render partial: "timetable"
 
 

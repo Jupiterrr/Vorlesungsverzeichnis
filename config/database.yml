@@ -21,7 +21,7 @@ production: &production
   encoding: unicode
   adapter: postgresql
   host: localhost
-  database: vvz_dev
+  database: vvz_dev_p
   pool: 5
   timeout: 2000
 

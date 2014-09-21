@@ -76,7 +76,7 @@
 
 
 #calendar .wc-grid-timeslot-header, #calendar .wc-time-column-header {
-  width: 40px;
+  width: 50px;
 }
 
 .wc-time-header-cell {
@@ -88,34 +88,9 @@
 
 #calendar {
   position: relative;
-  min-height: 500px;
+  min-height: 830px;
   overflow: auto;
   width: 100%;
-}
-
-#calender-timetable-page {
-  .calendar td { height: 100px; width: 14.28%; }
-
-  .next-month, .previous-month {
-    display: inline-block;
-    padding: 0px 10px;
-  }
-
-  .event {
-    padding-bottom: 2px;
-    margin-bottom: 2px;
-    border-bottom: 1px solid #eee;
-
-    &:last-child {
-      padding-bottom: 0;
-      margin-bottom: 0;
-      border-bottom: 0;
-    }
-  }
-}
-
-p.desc-export {
-  // margin-bottom: 1.5em;
 }
 
 .ical-btns {
@@ -198,4 +173,44 @@ small.google-hint {
   max-width: 800px;
 }
 
+.print {
+  width: 110%;
+  transform: translateX(-5%) translateY(-5%) scale(.85);
 
+  width: 130%;
+  transform: translateX(-12%) translateY(-12%) scale(.72);
+
+  #calendar .wc-header .wc-today {
+    font-weight: normal;
+  }
+
+  #calendar .wc-time-slots .wc-today {
+    background-color: transparent;
+  }
+
+  &.no-color {
+    * {
+      background-color: transparent !important;
+    }
+    #calendar .wc-cal-event {
+      background-color: white !important;
+    }
+  }
+  #calendar .wc-cal-event {
+    box-sizing: border-box;
+    border: 1px solid #555;
+  }
+  #calendar .wc-cal-event .wc-time {
+    box-sizing: border-box;
+    background-color: transparent;
+    color: #000;
+  }
+
+  #calendar .wc-cal-event .title {
+    max-height: 45%;
+    overflow: hidden;
+  }
+  .wc-header {
+    border: 0;
+  }
+}
