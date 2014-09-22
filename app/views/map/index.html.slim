@@ -4,47 +4,45 @@
 - else
   - meta title: ["KIT Campus Süd", "KitHub Karte"], description: descriptions(:map), keywords: %w(Campusmap Karte Campuskarte Hörsaal KIT)
 
+.container#map-page.map
+  .content
+    header
+      h1
+        ' KIT Campus Karte
+        - if @poi
+          span#poi-title-js.seo-hide
+            '  -
+            = @poi.name
+      .search-input
+        input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
+      hr.clear
 
-- cache('map') do
-  .container#map-page.map
-    .content
-      header
-        h1
-          ' KIT Campus Karte
-          - if @poi
-            span#poi-title-js.seo-hide
-              '  -
-              = @poi.name
-        .search-input
-          input.typeahead id="map-search" type="search" value="" placeholder="Suche nach Orten" autocomplete="off"
-        hr.clear
+    - if @poi
+      p.seo-hide
+        | Adresse: #{@poi.address}
+        br
+        | Gebäudenummer: #{@poi.building_no}
+        br
+        | Kategorien: #{@poi.group_names.join(", ")}
 
-      - if @poi
-        p.seo-hide
-          | Adresse: #{@poi.address}
-          br
-          | Gebäudenummer: #{@poi.building_no}
-          br
-          | Kategorien: #{@poi.group_names.join(", ")}
+    .no-padding
+      #map_canvas
 
-      .no-padding
-        #map_canvas
+    .categories-bar.no-padding
+      ul.flat#categories_selector.categories.padding
+        - @map_presenter.color_groups.each do |colour_group|
+          - group = colour_group.group
+          li
+            label.btn.btn-label for="ccb#{group.id}" style="border-color:#{colour_group.color};"
+              input id="ccb#{group.id}" type="checkbox" data-group-id=group.id
+              = group.name
 
+    br
+    = link_to "Liste aller Einrichtungen", list_map_index_path
+    ',
+    = link_to "offizielle Karte (PDF)", "http://www.kit.edu/downloads/Campus-Sued.pdf"
 
-      .categories-bar.no-padding
-        ul.flat#categories_selector.categories.padding
-          - @map_presenter.color_groups.each do |colour_group|
-            - group = colour_group.group
-            li
-              label.btn.btn-label for="ccb#{group.id}" style="border-color:#{colour_group.color};"
-                input id="ccb#{group.id}" type="checkbox" data-group-id=group.id
-                = group.name
-
-      br
-      = link_to "Liste aller Einrichtungen", list_map_index_path
-      ',
-      = link_to "offizielle Karte (PDF)", "http://www.kit.edu/downloads/Campus-Sued.pdf"
-
+- cache('map-data') do
   javascript:
     var pois = #{raw @map_presenter.js_pois.as_json.to_json};
     var groups = #{raw @map_presenter.color_groups.map {|g| {color: g.color, pois: g.group.pois.map(&:id), id: g.group.id}}.to_json};
