@@ -7,5 +7,5 @@ html
         background: inherit;
       }
   body
-    .print class=('no-color' if params["no_color"]=="1")
+    .print class=('no-color' if no_color?)
       = render partial: "timetable"
