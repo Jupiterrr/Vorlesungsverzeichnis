@@ -1,7 +1,7 @@
 'use strict';
 
 (function(root) {
-  
+
   var poiIndex = {};
   _.each(window.pois, function(poi) {
     poiIndex[poi.id] = poi;
@@ -32,12 +32,12 @@
     styledModal.innerHTML = html;
     document.body.appendChild(styledModal);
     dialogPolyfill.registerDialog(styledModal);
-    
+
     // Get the buttons.
     var styledModalBtn = document.getElementById('launchStyledModal');
     var closeBtns = document.querySelectorAll('dialog .close');
 
-    
+
     for (var i = 0; i < closeBtns.length; i++) {
       closeBtns[i].addEventListener('click', function(e) {
         this.parentNode.close();
@@ -56,13 +56,14 @@
     this.initPoi = poi;
     this.infoBoxTemplate = HoganTemplates["map/templates/infobox"];
     this.baseTitle = document.title.split(" · ")[1] || document.title;
+    this.mobile = window.isMobile();
 
     this.options = {
       defaultCenter: [49.012419, 8.41527]
     };
 
     var center = poi ? [poi.lat, poi.lng] : this.options.defaultCenter;
-    
+
     this._initMap(center);
     this._initMapControlls(this.map);
     this._initInfoWindow();
@@ -75,7 +76,7 @@
     })
 
     this.search = new MapSearch($('#map-search'))
-    
+
     $(this.search).on("select", function(event, poi) {
       // console.log("select");
       that.select(poi.id);
@@ -102,7 +103,7 @@
           style: google.maps.ZoomControlStyle.SMALL
         }
       };
-      
+
       console.log("init map")
       this.map = new google.maps.Map(this.el, mapOptions);
     },
@@ -183,6 +184,7 @@
     },
 
     _setTooltipFor: function setTooltipFor(feature) {
+      if (this.mobile) return;
       if (this.lastSelectedFeature === feature) return;
       var poi = poiIndex[feature.getId()];
       var boxText = document.createElement("div");
@@ -266,7 +268,7 @@
         var checkbox = document.getElementById("ccb" + group.id);
         if (!checkbox) return console.warn("Can't find checkbox!");
         checkbox.poiGroup = group;
-        
+
         var data = that._initDataLayer(group);
         group.dataLayer = data;
       });
@@ -283,7 +285,7 @@
 
   };
 
-  
+
   google.maps.event.addDomListener(window, 'load', function() {
     var el = document.getElementById('map_canvas');
     window.map = new KitHubMap(el, window.poi);
