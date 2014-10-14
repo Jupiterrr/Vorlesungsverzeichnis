@@ -97,11 +97,12 @@ class ColumnView
 
   end
 
-  EventCol = Struct.new(:event)
+  class EventCol < Struct.new(:event)
 
+    def date_groups
+      @date_groups ||= EventDateGrouper.group(event.dates.includes({room: :poi}))
+    end
 
-
-
-
+  end
 
 end

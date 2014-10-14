@@ -22,8 +22,8 @@
       - if event.data["workspace_url"].present?
         a href=event.data["workspace_url"] VAB
     .bar-item
-      - if event.data["website"].present?
-        a href=event.data["website"] Website
+      - if event.website.present?
+        a href=event.data["website"] target="_blank" Website
 
   section.padding
     - if current_user
@@ -49,10 +49,10 @@
     .description
       = event.j_description
 
-    - if @date_groups.present?
+    - if date_groups.present?
       section.desc.dates
         h4 Termine
-        - @date_groups.each do |event_date_group|
+        - date_groups.each do |event_date_group|
           div.date-group
             - template = "%02i:%02i"
             - st = template % event_date_group.start_time

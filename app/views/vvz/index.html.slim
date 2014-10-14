@@ -1,5 +1,5 @@
-- if @event
-  - meta title: @event.name, description: nil, keywords: %w(Vorlesung Übung)
+- if event
+  - meta title: event.name, description: nil, keywords: %w(Vorlesung Übung)
 - else
   - meta title: "KIT Vorlesungsverzeichnis", description: descriptions(:vvz), keywords: %w(Vorlesungsverzeichnis VVZ)
 
@@ -39,7 +39,7 @@
                 = render partial: "col", locals: {groups: column.groups}
           - elsif column.respond_to?(:event)
             .column.html
-              = render partial: "event_col", locals: {event: column.event}
+              = render partial: "event_col", locals: {event: column.event, date_groups: column.date_groups}
 
 
 javascript:

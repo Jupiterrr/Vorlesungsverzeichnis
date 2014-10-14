@@ -19,7 +19,7 @@ class VvzController < ApplicationController
       @events_json = event_map.to_json.html_safe
     end
 
-    @column_view = ColumnView.new(vvz, @event)
+    @column_view = ColumnView.new(vvz, event)
   end
 
   def show
@@ -28,7 +28,6 @@ class VvzController < ApplicationController
   end
 
   def events
-    @event ||= Event.find(params[:event_id])
     index
     render :action => :index
   end
@@ -52,5 +51,9 @@ class VvzController < ApplicationController
   end
   helper_method :vvz
 
+  def event
+    @event ||= Event.find(params[:event_id]) if params[:event_id]
+  end
+  helper_method :event
 
 end

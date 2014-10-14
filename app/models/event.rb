@@ -126,6 +126,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def website
+    external_url(data["website"])
+  end
+
   def as_json(user=nil)
     keys = [:name, :nr, :url, :lecturer].map(&:to_s)
     hash = self.attributes.slice(*keys)
@@ -182,7 +186,10 @@ class Event < ActiveRecord::Base
     where("no LIKE ?", "%" + event_no)
   end
 
-
+  def external_url(url)
+    return if url.nil?
+    new_url = url =~ /^http/ ? url : "//#{url}"
+  end
 
   def pretty_event_date(date)
     days = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)

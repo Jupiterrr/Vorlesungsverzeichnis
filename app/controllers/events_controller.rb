@@ -13,7 +13,7 @@ class EventsController < ApplicationController
       format.json do
         data = event.as_json(current_user)
         data[:authenticated] = !!current_user
-        data[:html] = render_to_string(partial: "vvz/event_col", layout: false, locals: {event: event})
+        data[:html] = render_to_string(partial: "vvz/event_col.html", layout: false, locals: {event: event, date_groups: @date_groups})
         render json: data
       end
     end
