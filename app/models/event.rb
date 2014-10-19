@@ -126,16 +126,21 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def url
+    "https://campus.studium.kit.edu/events/catalog.php#!campus/all/event.asp?gguid=#{external_id}" if attribute(:url)
+  end
+
   def website
     external_url(data["website"])
   end
 
   def as_json(user=nil)
-    keys = [:name, :nr, :url, :lecturer].map(&:to_s)
+    keys = [:name, :nr, :lecturer].map(&:to_s)
     hash = self.attributes.slice(*keys)
     hash[:type] = simple_type.rstrip
     hash[:description] = j_description
     hash[:data] = data
+    hash[:url] = url
     if user
       hash[:authenticated] = true
       hash[:subscribed] = subscribed?(user)
