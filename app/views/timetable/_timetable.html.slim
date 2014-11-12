@@ -4,7 +4,7 @@
   = javascript_include_tag "timetable", defer: true
 
 javascript:
-  var events = #{raw @timetable.to_json};
+  var events = #{raw @timetable.as_json.to_json};
 
 .no-padding
   #calendar

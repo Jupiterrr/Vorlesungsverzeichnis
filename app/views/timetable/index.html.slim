@@ -16,6 +16,25 @@
     h1 Stundenplan
     = render partial: "timetable"
 
+    h2 XXX
+    ul
+      - @timetable.events_with_dates.each do |event, dates|
+        li
+          = event.name
+          table
+            - dates.each do |date|
+              tr
+                td
+                  = german_day(date.start_time)[0..1]
+                  '
+                  =  date.start_time.strftime("%H:%M")
+                  '  -
+                  = date.end_time.strftime("%H:%M")
+                  ' ,
+                td = date.room.name
+                td
+                  input type="checkbox"
+
 
     h2 Export
 

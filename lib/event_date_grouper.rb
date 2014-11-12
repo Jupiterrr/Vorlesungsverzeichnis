@@ -1,11 +1,12 @@
 class EventDateGrouper
 
-  EventDateGroup = Struct.new(:wday, :start_time, :end_time, :room_name, :event_dates)
+  EventDateGroup = Struct.new(:wday, :start_time, :end_time, :room_name, :event_dates, :key)
 
   def self.group(event_dates)
     raw_groups = event_dates.group_by {|date| self.group_key(date) }
     groups = raw_groups.map do |(wday, start_time, end_time, room_name), dates|
-      EventDateGroup.new(wday, start_time, end_time, room_name, dates)
+      key = self.group_key(dates.first)
+      EventDateGroup.new(wday, start_time, end_time, room_name, dates, key)
     end
     groups = self.sort_by_wday(groups)
   end

@@ -4,11 +4,12 @@ require_dependency "event_date_grouper"
 class Timetable
   include Rails.application.routes.url_helpers
 
-  attr_reader :week
+  attr_reader :week_dates, :events
 
   COLORS = %w(#e67d7b #ff8a4f #c0de84 #c3dcb8 #afe6eb #c6b0fd #4e90dd #188D98 #c1721b #fbe983 #2A9C6C #F67710 #d6b6ba #d791e9 #d4c9cb #90B127 #a093cc)
 
   def initialize(events=[])
+    @events = events
     dates = events.map(&:dates).flatten
     @event_colors = event_colors(events)
     @week_dates = WeekTimetable.new(dates).dates
@@ -17,6 +18,13 @@ class Timetable
   def self.by_user(user)
     events = user.events.includes(:event_dates => :room)
     Timetable.new(events)
+  end
+
+  def events_with_dates
+    index = {}
+    events.each {|e| index[e.id] = [] }
+    week_dates.map {|d| index[d.event_id] << d }
+    events.map {|e| [e, index[e.id]] }
   end
 
   def as_json
