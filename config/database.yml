@@ -1,10 +1,19 @@
+# development:
+#   encoding: unicode
+#   adapter: postgresql
+#   host: localhost
+#   database: vvz_dev_p
+#   pool: 5
+#   timeout: 5000
+
 development:
    encoding: unicode
    adapter: postgresql
-   host: localhost
-   database: vvz_dev_p
+   database: vvz_dev
    pool: 5
    timeout: 5000
+   username: postgres
+   host: db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -12,10 +21,11 @@ development:
 test: &test
   encoding: unicode
   adapter: postgresql
-  host: localhost
   database: vvz_test
   pool: 5
   timeout: 2000
+  username: postgres
+  host: db
 
 production: &production
   encoding: unicode
