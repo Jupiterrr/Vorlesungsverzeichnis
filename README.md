@@ -5,16 +5,43 @@ For students of the [Karlsruher Institut für Technologie](http://www.kit.edu).
 
 
 
-## Getting Started
-If you like to run the site lokally feel free to run the bootstrap command. It will guide you through the configuration setup.
-```shell
-$ script/bootstrap
-```
+## Streamlined setup
 
-To start the server run
-```shell
-$ script/server
-```
+**With the help of docker and our `./d` tool it should be easy to run this application without any knowledge of rails or ruby.** Although all dependecies are install into docker containers and nothing will mess up you system and everything needed to getting startet will be set up for you.
+
+
+### <a id="#env-osx"></a> Mac OS X
+
+1. Install [boot2docker](http://boot2docker.io/)
+	
+	The installer of boot2docker will install everything we need (virtualbox, docker).
+	Docker depends on Linux so everything have to run inside a vm.
+
+2. Run `boot2docker init`
+	
+3. Run `./d sync`
+
+	The shared folders boot2docker uses are too slow for us. For faster file access inside the vm you can use the `./d sync` command that syncs all files into the vm. It has to run all the time to sync changed files.   
+
+4. Run `./d init`
+
+#### Alternative:
+
+You can run this rails app on your mac natively, but you have to figure out how to install everything yourself.
+
+### Linux
+
+1. [Install docker](https://docs.docker.com/installation/#installation)
+2. Run `./d init`
+
+#### Digital Ocean
+
+
+
+### Windows
+
+Something like [the stept of Mac OS X](#env-osx) should work. I don't know.
+
 
 ## Built With
 - [Ruby on Rails](https://github.com/rails/rails) - Our back end is a Rails app.

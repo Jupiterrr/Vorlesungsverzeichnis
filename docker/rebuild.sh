@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cp Gemfile* docker/rails/
 docker build -t kithub/rails docker/rails/
 # docker build -t kithub/rails .
