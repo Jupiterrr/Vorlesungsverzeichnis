@@ -10,7 +10,7 @@ For students of the [Karlsruher Institut für Technologie](http://www.kit.edu).
 **With the help of docker and our `./d` tool it should be easy to run this application without any knowledge of rails or ruby.** Although all dependecies are install into docker containers and nothing will mess up you system and everything needed to getting startet will be set up for you.
 
 
-### <a id="#env-osx"></a> Mac OS X
+### <a id="osx"></a> Mac OS X
 
 1. Install [boot2docker](http://boot2docker.io/)
 	
@@ -27,20 +27,32 @@ For students of the [Karlsruher Institut für Technologie](http://www.kit.edu).
 
 #### Alternative:
 
-You can run this rails app on your mac natively, but you have to figure out how to install everything yourself.
+You can run this rails app on your mac natively, but you have to figure out how to install everything yourself. It's not too hard if you're already familiar with rails.
 
-### Linux
+
+### <a id="linux"></a>Linux
 
 1. [Install docker](https://docs.docker.com/installation/#installation)
-2. Run `./d init`
 
-#### Digital Ocean
+2. Clone this project 
+	```
+	git clone https://github.com/Jupiterrr/Vorlesungsverzeichnis.git
+	cd Vorlesungsverzeichnis
+	```
+3. Run `./d init`
 
 
 
 ### Windows
 
-Something like [the stept of Mac OS X](#env-osx) should work. I don't know.
+Something like [the stept of Mac OS X](#osx) should work. I don't know.
+
+
+### Digital Ocean
+
+You can get KitHub running within minutes on [Digital Ocean](digitalocean.com). 
+Just create a new instance and select the Docker Image under Apllication. SSH to it (username is *root*).
+At this point you can follow the [Linux instructions](#linux).
 
 
 ## Built With
