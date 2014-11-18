@@ -1,7 +1,7 @@
 # Vorlesungsverzeichnis [![Build Status](https://travis-ci.org/Jupiterrr/Vorlesungsverzeichnis.png?branch=master)](https://travis-ci.org/Jupiterrr/Vorlesungsverzeichnis) [![Code Climate](https://codeclimate.com/github/Jupiterrr/Vorlesungsverzeichnis.png)](https://codeclimate.com/github/Jupiterrr/Vorlesungsverzeichnis)
 [www.kithub.de](http://www.kithub.de)
 
-For students of the [Karlsruher Institut für Technologie](http://www.kit.edu).
+For students of the [Karlsruhe Institute of Technology](http://www.kit.edu).
 
 
 
@@ -14,7 +14,7 @@ For students of the [Karlsruher Institut für Technologie](http://www.kit.edu).
 
 1. Install [boot2docker](http://boot2docker.io/)
 	
-	The installer of boot2docker will install everything you need ([VirtualBox](https://www.virtualbox.org/), [docker](https://github.com/docker/docker)).
+	The installer of boot2docker will install everything you need (i.e. [VirtualBox](https://www.virtualbox.org/) and [docker](https://github.com/docker/docker)).
 	Docker depends on Linux so everything has to run inside a VM.
 
 2. Run `boot2docker init`
@@ -45,7 +45,7 @@ You can run this Rails app natively on your Mac, but you have to figure out how 
 
 ### Windows
 
-The installations process should be similar to that for [Mac OS X](#osx).
+The installation process should be similar to that for [Mac OS X](#osx).
 I haven't tried though.
 
 
