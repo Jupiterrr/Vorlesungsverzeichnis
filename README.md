@@ -1,33 +1,33 @@
 # Vorlesungsverzeichnis [![Build Status](https://travis-ci.org/Jupiterrr/Vorlesungsverzeichnis.png?branch=master)](https://travis-ci.org/Jupiterrr/Vorlesungsverzeichnis) [![Code Climate](https://codeclimate.com/github/Jupiterrr/Vorlesungsverzeichnis.png)](https://codeclimate.com/github/Jupiterrr/Vorlesungsverzeichnis)
 [www.kithub.de](http://www.kithub.de)
 
-For students of the [Karlsruher Institut für Technologie](http://www.kit.edu).
+For students of the [Karlsruhe Institute of Technology](http://www.kit.edu).
 
 
 
 ## Streamlined setup
 
-**With the help of docker and our `./d` tool it should be easy to run this application without any knowledge of rails or ruby.** Although all dependecies are install into docker containers and nothing will mess up you system and everything needed to getting startet will be set up for you.
+**With the help of docker and our `./d` tool it should be easy to run this application without any knowledge of Rails or Ruby.** All dependecies are installed into docker containers, thus nothing will mess up your system, and everything needed to getting started will be set up for you.
 
 
 ### <a id="osx"></a> Mac OS X
 
 1. Install [boot2docker](http://boot2docker.io/)
 	
-	The installer of boot2docker will install everything we need (virtualbox, docker).
-	Docker depends on Linux so everything have to run inside a vm.
+	The installer of boot2docker will install everything you need (i.e. [VirtualBox](https://www.virtualbox.org/) and [docker](https://github.com/docker/docker)).
+	Docker depends on Linux so everything has to run inside a VM.
 
 2. Run `boot2docker init`
 	
 3. Run `./d sync`
 
-	The shared folders boot2docker uses are too slow for us. For faster file access inside the vm you can use the `./d sync` command that syncs all files into the vm. It has to run all the time to sync changed files.   
+	boot2docker uses very slow shared folders. For faster file access inside the VM you can use the `./d sync` command that syncs all files into the VM. For it to keep all files synchronized, it needs to run all the time.   
 
 4. Run `./d init`
 
 #### Alternative:
 
-You can run this rails app on your mac natively, but you have to figure out how to install everything yourself. It's not too hard if you're already familiar with rails.
+You can run this Rails app natively on your Mac, but you have to figure out how to install everything yourself. It shouldn't be too hard, if you're already familiar with Rails.
 
 
 ### <a id="linux"></a>Linux
@@ -45,13 +45,14 @@ You can run this rails app on your mac natively, but you have to figure out how 
 
 ### Windows
 
-Something like [the stept of Mac OS X](#osx) should work. I don't know.
+The installation process should be similar to that for [Mac OS X](#osx).
+I haven't tried though.
 
 
 ### Digital Ocean
 
-You can get KitHub running within minutes on [Digital Ocean](digitalocean.com). 
-Just create a new instance and select the Docker Image under Apllication. SSH to it (username is *root*).
+You can get KitHub running within minutes on [Digital Ocean](https://www.digitalocean.com/).
+Just create a new instance and select the Docker Image under Application. Connect to it via SSH (username is *root*).
 At this point you can follow the [Linux instructions](#linux).
 
 
@@ -96,4 +97,4 @@ Carsten Griesheimer:
 [Personal page](http://carstengriesheimer.de)
 
 ## Copyright / License
-> Copyright © 2013 Carsten Griesheimer (hallo@carstengriesheimer.de)
+> Copyright © 2014 Carsten Griesheimer (hallo@carstengriesheimer.de)
