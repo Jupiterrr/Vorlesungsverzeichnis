@@ -32,8 +32,10 @@
   <%= render :partial => "layouts/topbar" %>
 
   <div class="main-content" role="main">
+    <%= render partial: "layouts/ad" %>
     <%= yield %>
   </div>
+
 
   <%= render :partial => "layouts/footer" %>
 

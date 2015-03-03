@@ -268,6 +268,23 @@ header form {
   padding-left: 12px;
 }
 
+.adsbygoogle {
+  display: none;
+}
+
+@include breakpoint(ad) {
+  .main-content, #topbar, body > footer {
+    width: 87%;
+    position: reslative;
+  }
+  .adsbygoogle {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+}
+
 
 
 // @import "vvz.css.scss";

@@ -8,4 +8,7 @@
   // @else if $point == mama-bear {
   //   @media (max-width: 1250px) { @content; }
   // }
+  @if $point == ad {
+    @media only screen and (min-width: 1170px) { @content; }
+  }
 }
