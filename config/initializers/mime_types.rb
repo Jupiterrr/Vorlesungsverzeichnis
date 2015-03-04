@@ -5,4 +5,3 @@
 # Mime::Type.register_alias "text/html", :iphone
 
 Mime::Type.register 'text/calendar', :ics unless Mime::Type.lookup_by_extension(:ics)
-Mime::Type.register "application/pdf", :pdf
