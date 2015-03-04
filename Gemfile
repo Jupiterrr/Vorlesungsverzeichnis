@@ -5,8 +5,9 @@ ruby '2.1.0'
 gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 
-gem 'kit_api', '~> 0.1.0', require: false #, path: File.join('..', 'kit_api')
-gem 'celluloid', require: false
+gem 'kit_api', '~> 0.2.0', require: false, path: File.join('..', 'Downloader')
+# gem 'celluloid', require: false
+gem 'yo-ruby', require: false
 
 # API
 gem 'grape', '~> 0.4.1'
@@ -35,6 +36,7 @@ gem 'ri_cal' # timetable -> ical
 gem 'activerecord-postgres-hstore'
 gem "acts_as_paranoid", "~>0.4.0"
 gem 'paper_trail', '>= 3.0.0.beta1' # versioning
+# gem 'heroku_backup_task'
 
 gem "typhoeus"#, require: false
 gem 'elasticsearch'
@@ -50,7 +52,6 @@ gem 'newrelic_rpm'
 
 group :production do
   gem 'newrelic-grape'
-  gem 'rails_12factor'
 end
 
 group :production, :staging do
@@ -62,6 +63,7 @@ group :production, :staging do
   # gem 'less-rails', '~> 2.3.3'
   # gem 'thin'
   gem 'unicorn-worker-killer'
+  gem 'rails_12factor'
 end
 
 group :assets do
