@@ -239,6 +239,10 @@ test:
   # unit, functional or integration tests or the like.
   monitor_mode: false
 
+rake:
+  <<: *default_settings
+  monitor_mode: false
+
 # Turn on the agent in production for 24x7 monitoring.  NewRelic
 # testing shows an average performance impact of < 5 ms per
 # transaction, you you can leave this on all the time without
