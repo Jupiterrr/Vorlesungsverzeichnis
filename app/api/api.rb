@@ -6,7 +6,7 @@ class API < Grape::API
   class << self
 
     def api_url
-      "http://#{HOST}/api"
+      "http://#{ENV["HOST"]}/api"
     end
 
     def event_url
@@ -16,7 +16,7 @@ class API < Grape::API
 
   format :json
 
-  
+
   rescue_from ActiveRecord::RecordNotFound do |e|
     Rack::Response.new({message: e.message}.to_json, 404, { "Content-type" => "text/error" }).finish
   end
@@ -26,9 +26,9 @@ class API < Grape::API
   end
 
   mount API_v1
-  
+
   add_swagger_documentation base_path: API.api_url, markdown: true, hide_documentation_path: true
-  
+
   helpers do
     # def current_user
     #   @current_user ||= User.authorize!(env)
