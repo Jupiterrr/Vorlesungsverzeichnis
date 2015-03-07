@@ -110,11 +110,16 @@ body > footer {
 
   .social-btn {
     display: inline-block;
-    // height: 20px;
-    width: 136px;
     position: relative;
     vertical-align: text-bottom;
+    a { margin: 0; }
   }
+
+  .social-btn-fb {
+    width: 136px;
+    margin-right: 10px;
+  }
+
 
   @include breakpoint(big) {
     #fame {
