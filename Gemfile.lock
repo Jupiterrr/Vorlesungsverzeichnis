@@ -1,5 +1,5 @@
 GEM
-  remote: https://HL2DPFmrx1MsSmkyh2pQ@gem.fury.io/app15743927_heroku_com/
+  remote: https://gem.fury.io/app15743927_heroku_com/
   remote: http://rubygems.org/
   specs:
     actionmailer (3.2.13)
