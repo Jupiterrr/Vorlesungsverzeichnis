@@ -27,3 +27,5 @@ db/structure.sql
 vvz.sublime-workspace
 zeus.json
 custom_plan.rb
+
+*.sublime-workspace

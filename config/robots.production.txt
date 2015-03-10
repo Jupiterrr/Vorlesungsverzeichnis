@@ -4,4 +4,4 @@
 # User-Agent: *
 # Disallow: /
 
-Sitemap: http://kit.carstengriesheimer.de/sitemap.xml
+Sitemap: http://www.kithub.de/sitemap.xml
