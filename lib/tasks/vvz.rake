@@ -4,112 +4,46 @@ namespace :term do
 
   # Diesplays the available terms
   task :list do
-    require "kit_api"
-    # KitApi.logger.level = Logger::INFO
-    terms = KitApi.get_terms
-    names = terms.map {|t| t.name }
+    terms = KitApi::Client.new.get_terms
+    names = terms.sort.map {|t| t.name }
     puts names
   end
 
+  # task :update_local => :environment do |t, args|
+  #   package_dir = "x.tar.gz"
+  #   VVZUpdater.load_term(package_dir)
+  # end
+
+  # task :update_test => :environment do |t, args|
+  #   url = "http://kithub.s3.amazonaws.com/terms/WS_14-15.tar.gz"
+  #   Rake::Task["vvz:update"].invoke(url)
+  # end
+
+  task :update, [:term] => :environment do |t, args|
+    term = args.term || abort("TERM argument missing!")
+    require "vvz_updater/vvz_updater"
+    VVZUpdater.update(term)
+    Rake::Task["elastic:index"].invoke
+  end
+
 end
 
-task :update_local => :environment do |t, args|
-  require "vvz_updater/vvz_updater"
-  package_dir = "x.tar.gz"
-  VVZUpdater.load_term(package_dir)
-end
-
-task :update => :environment do |t, args|
-  require "vvz_updater/vvz_updater"
-  url = "http://kithub.s3.amazonaws.com/terms/WS_14-15.tar.gz"
-  package_dir = "tmp-term.tar.gz"
-  VVZUpdater.download_term(url, package_dir)
-  VVZUpdater.load_term(package_dir)
-  puts "Don't forget to run rake elastic:index"
-end
-
-# task :update => :environment do |t, args|
-#   require "kit_api"
-#   connection = KitApi::Connection.connect
-#   terms = KitApi.get_terms(KitApi::Connection.connect)
-#   names = terms.map {|t| t.name }
-#   puts names
-#   connection.disconnect
-
+# # Some event names contain the numbers insted of
+# # the actual name. This task calls the DataEnhancement
+# # to fix that
+# task :fix_names, [:term] => :environment do |t, args|
 #   require "vvz_updater/vvz_updater"
-#   package_dir = "spec/vvz_updater/SS\ 2006-json.tar.gz"
-#   term = "SS 2006"
-#   VVZUpdater.load_term(package_dir, term)
-
-#   STDOUT.puts "Are you sure? (y/n)"
-#   input = STDIN.gets.strip
-
+#   VVZUpdater.improve_names(args.term)
 # end
 
-
-
-
-
-# Some event names contain the numbers insted of
-# the actual name. This task calls the DataEnhancement
-# to fix that
-task :fix_names, [:term] => :environment do |t, args|
-  require "vvz_updater/vvz_updater"
-  VVZUpdater.improve_names(args.term)
-end
-
-
-# depracted
-task :mark_leafs => :environment do
-  uni = Vvz.root
-  terms = uni.children
-  terms.each do |term|
-    term_name = term.name
-    puts term_name
-    leafs = term.descendants.select {|v| v.children.empty? }
-    leafs.each do |leaf|
-      leaf.is_leaf = true
-      leaf.save
-    end
-  end
-end
-
-# depracted
-# When created eventes currently doesn't get the terms assigned
-# so we do it afterwards with this task
-task :set_term => :environment do |t, args|
-  uni = Vvz.root
-  terms = uni.children
-  terms.each do |term|
-    term_name = term.name
-    puts term_name
-    leafs = term.descendants.select {|v| v.children.empty? }
-    leafs.each do |leaf|
-      Event.update_all({:term => term_name}, {:id => leaf.events})
-    end
-  end
-end
-
-
-
-# Sometimes you want to delete a term.
-# This task removes als nodes and events
-# that belong to the term.
-#
-# term_id - ID of the term you want to remove
 task :remove_term, [:term_id] => :environment do |t, args|
-  # term = Vvz.find(args[:term_id])
-  # Event.where(term: term.name).delete_all
-  # term.subtree.delete_all
-  # term.delete
-  [14457].each do |id|
-    delete_term(id)
-  end
+  delete_term("SS 2015")
 end
 
-def delete_term(id)
-  term = Vvz.find(id)
-  Event.where(term: term.name).delete_all
+def delete_term(term_name)
+  Event.where(term: term_name).delete_all
+  EventDate.where(term: term_name).delete_all
+  term = Vvz.find_by_name(term_name)
   term.subtree.delete_all
   term.delete
 end

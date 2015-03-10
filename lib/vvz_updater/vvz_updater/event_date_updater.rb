@@ -1,3 +1,7 @@
+require 'upsert'
+require 'upsert/active_record_upsert'
+require 'pg_hstore'
+
 module VVZUpdater
   class EventDateUpdater
 
@@ -24,6 +28,7 @@ module VVZUpdater
       delete_existing()
       puts "create"
       create(dates)
+      # upsert(dates)
     end
 
     def self.run!(term, events)
@@ -32,8 +37,8 @@ module VVZUpdater
 
     def get_dates(events)
       events.flat_map do |event|
-        dates = event.fetch("dates")
-        dates.each {|date| date["event_id"] = @event_index.fetch(event.fetch("id")) }
+        dates = event.fetch(:dates)
+        dates.each {|date| date[:event_id] = @event_index.fetch(event.fetch(:id)) }
         dates
       end
     end
@@ -43,9 +48,9 @@ module VVZUpdater
     end
 
     # def existing_dates(events)
-    #   # event_ids = events.map {|event| event.fetch("id")}
+    #   # event_ids = events.map {|event| event.fetch(:id)}
     #   # EventDate.where(event_id: event_ids).select([:id, :uuid])
-    #   uuids = events.flat_map {|event| event.fetch("dates")}.map {|date| date.fetch("id")}
+    #   uuids = events.flat_map {|event| event.fetch(:dates)}.map {|date| date.fetch(:id)}
     #   EventDate.where(uuid: uuids).select([:id, :uuid])
     # end
 
@@ -54,7 +59,15 @@ module VVZUpdater
       hashes = dates.map {|date| attributes(date) }
       puts "actually create"
       mass_insert(hashes)
-      # EventDate.create(hashes)
+    end
+
+    def upsert(dates)
+      Upsert.batch(@connection, :event_dates) do |upsert|
+        dates.each do |date|
+          attributes = attributes(date)
+          upsert.row({uuid: attributes[:uuid]}, attributes)
+        end
+      end
     end
 
     def mass_insert(hashes)
@@ -76,26 +89,28 @@ module VVZUpdater
     #   raise
     # end
 
-    def update(pairs)
-      zipped = pairs.map do |pair|
-        [pair.db_node.id, attributes_hash(pair.node)]
-      end
-      ids, hashes = zipped.transpose
-      EventDate.update(ids, hashes)
-    end
+    # def update(pairs)
+    #   zipped = pairs.map do |pair|
+    #     [pair.db_node.id, attributes_hash(pair.node)]
+    #   end
+    #   ids, hashes = zipped.transpose
+    #   EventDate.update(ids, hashes)
+    # end
 
     def attributes(date)
-      start_time = Time.zone.parse("#{date.fetch("start_time")} #{date.fetch("start_date")}").utc.to_s(:db)
-      end_time = Time.zone.parse("#{date.fetch("end_time")} #{date.fetch("end_date")}").utc.to_s(:db)
-      room_id = date.fetch("room") ? date.fetch("room").fetch("id") : nil
+      start_time = Time.zone.parse("#{date.fetch(:start_time)} #{date.fetch(:start_date)}").utc.to_s(:db)
+      end_time = Time.zone.parse("#{date.fetch(:end_time)} #{date.fetch(:end_date)}").utc.to_s(:db)
+      room_id = date.fetch(:room) ? date.fetch(:room).fetch(:id) : nil
       {
-        uuid: date.fetch("id"),
+        uuid: date.fetch(:id),
         start_time: start_time,
         end_time: end_time,
-        api_last_modified: date.fetch("last_modified"),
+        # api_last_modified: date.fetch(:last_modified),
         room_id: @room_index[room_id],
-        relation: date.fetch("relation"),
-        event_id: date.fetch("event_id"),
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s,
+        relation: date.fetch(:relation),
+        event_id: date.fetch(:event_id),
         term: @term
       }
     end
@@ -109,17 +124,25 @@ module VVZUpdater
     end
 
     def create_rooms(dates)
-      rooms = dates.map {|date| date.fetch("room") }.compact
+      rooms = dates.map {|date| date.fetch(:room) }.compact
       db_rooms = Room.select([:id, :uuid])
       grouper = RoomGrouper.new(rooms, db_rooms)
-      hashes = grouper.new_nodes.map {|room| room_attributes(room) }
-      Room.create(hashes)
+      rooms = grouper.new_nodes
+
+      Upsert.batch(@connection, :rooms) do |upsert|
+        rooms.each do |room|
+          attributes = room_attributes(room)
+          upsert.row({uuid: attributes[:uuid]}, attributes)
+        end
+      end
     end
 
     def room_attributes(room)
       {
-        uuid: room.fetch("id"),
-        name: room.fetch("name")
+        uuid: room.fetch(:id),
+        name: room.fetch(:name),
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s
       }
     end
 

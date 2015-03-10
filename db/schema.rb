@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411104710) do
+ActiveRecord::Schema.define(:version => 20141231142256) do
 
   create_table "boards", :force => true do |t|
     t.integer "postable_id"
     t.string  "postable_type"
-    t.hstore  "data"
+    t.hstore  "data",          :null => false
   end
 
   add_index "boards", ["postable_id"], :name => "index_boards_on_postable_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.text     "text"
-    t.hstore   "data"
+    t.hstore   "data",             :null => false
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.string   "name"
     t.string   "type"
     t.string   "file_url"
-    t.hstore   "data"
+    t.hstore   "data",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
   create_table "event_activities", :force => true do |t|
     t.integer  "event_id"
     t.string   "action"
-    t.hstore   "data"
+    t.hstore   "data",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -85,21 +85,28 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.integer  "event_id"
     t.string   "uuid"
     t.datetime "api_last_modified"
-    t.hstore   "data"
+    t.hstore   "data",              :null => false
     t.integer  "room_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "relation"
+    t.string   "term"
+    t.string   "data_source"
   end
 
   add_index "event_dates", ["event_id"], :name => "index_event_dates_on_event_id"
   add_index "event_dates", ["room_id"], :name => "index_event_dates_on_room_id"
+  add_index "event_dates", ["uuid"], :name => "index_event_dates_on_uuid"
 
   create_table "event_subscriptions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "event_id"
-    t.hstore   "data"
+    t.hstore   "data",       :null => false
     t.datetime "deleted_at"
   end
 
   add_index "event_subscriptions", ["deleted_at"], :name => "index_event_subscriptions_on_deleted_at"
+  add_index "event_subscriptions", ["user_id", "event_id"], :name => "index_events_users_on_user_id_and_event_id"
 
   create_table "events", :force => true do |t|
     t.string   "orginal_no"
@@ -114,20 +121,14 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.datetime "updated_at"
     t.string   "external_id"
     t.text     "original_name"
-    t.hstore   "linker_attributes"
-    t.hstore   "data"
+    t.hstore   "linker_attributes", :null => false
+    t.hstore   "data",              :null => false
     t.text     "user_text_md"
     t.string   "no"
+    t.string   "data_source"
   end
 
   add_index "events", ["external_id"], :name => "index_events_on_external_id"
-
-  create_table "events_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "event_id"
-  end
-
-  add_index "events_users", ["user_id", "event_id"], :name => "index_events_users_on_user_id_and_event_id"
 
   create_table "events_vvzs", :force => true do |t|
     t.integer "event_id"
@@ -141,7 +142,7 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.integer  "event_id"
     t.date     "date"
     t.integer  "discipline_id"
-    t.hstore   "data"
+    t.hstore   "data",          :null => false
     t.string   "type"
     t.string   "name"
     t.datetime "created_at",    :null => false
@@ -182,6 +183,8 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "data_source"
+    t.hstore   "data"
   end
 
   create_table "posts", :force => true do |t|
@@ -189,7 +192,7 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.integer  "board_id"
     t.text     "text"
     t.string   "content_type"
-    t.hstore   "data"
+    t.hstore   "data",         :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
@@ -201,21 +204,32 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.integer  "poi_id"
     t.string   "uuid"
     t.string   "name"
+    t.hstore   "data",        :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "data_source"
+  end
+
+  add_index "rooms", ["poi_id"], :name => "index_rooms_on_poi_id"
+
+  create_table "sessions", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "token"
     t.hstore   "data"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "rooms", ["poi_id"], :name => "index_rooms_on_poi_id"
+  add_index "sessions", ["token"], :name => "index_sessions_on_token"
 
   create_table "users", :force => true do |t|
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
+    t.string   "timetable_id"
+    t.hstore   "data",         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "timetable_id"
-    t.hstore   "data"
   end
 
   add_index "users", ["timetable_id"], :name => "index_users_on_timetable_id"
@@ -239,6 +253,7 @@ ActiveRecord::Schema.define(:version => 20140411104710) do
     t.datetime "updated_at"
     t.boolean  "is_leaf",        :default => false
     t.integer  "ancestry_depth", :default => 0
+    t.string   "data_source"
   end
 
   add_index "vvzs", ["ancestry"], :name => "index_vvzs_on_ancestry"

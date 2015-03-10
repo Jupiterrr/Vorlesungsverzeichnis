@@ -6,8 +6,9 @@ gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 
 gem 'kit_api', '~> 0.2.3', require: false#, path: File.join('..', 'Downloader')
-# gem 'celluloid', require: false
 gem 'yo-ruby', require: false
+gem 'upsert', require: false
+# gem 'pg-hstore', require: false
 
 # API
 gem 'grape', '~> 0.4.1'

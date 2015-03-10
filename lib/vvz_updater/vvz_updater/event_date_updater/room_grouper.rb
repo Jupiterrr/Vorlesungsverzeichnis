@@ -3,7 +3,7 @@ module VVZUpdater
     class RoomGrouper
 
       def initialize(nodes, db_nodes)
-        @node_set = ValueSet.new(nodes) {|room| room.fetch("id") }
+        @node_set = ValueSet.new(nodes) {|room| room.fetch(:id) }
         @db_node_set = ValueSet.new(db_nodes, &:uuid)
       end
 

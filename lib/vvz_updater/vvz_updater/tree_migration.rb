@@ -49,7 +49,7 @@ module VVZUpdater
          {
             name: new_node.name,
             is_leaf: new_node.children.empty?,
-            external_id: new_node.external_id
+            external_id: new_node.external_id.downcase
          }
       end
 

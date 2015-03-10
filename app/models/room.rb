@@ -6,8 +6,6 @@ class Room < ActiveRecord::Base
   validates :name, :uuid, presence: true
   validates :uuid, uniqueness: true
 
-  serialize :data, ActiveRecord::Coders::Hstore
-
   before_create :try_to_find_poi
 
   def try_to_find_poi

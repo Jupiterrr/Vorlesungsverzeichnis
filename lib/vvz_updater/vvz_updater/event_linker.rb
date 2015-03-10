@@ -1,21 +1,16 @@
 module VVZUpdater
   class EventLinker
 
-    # def self.link!(db_leaf, term_name, event_uids)
-    #   EventLinker.new(db_leaf, term_name).link(event_uids)
-    # end
-
     def initialize(term)
       @term = term
     end
 
-    def run!(leafs)
-      db_event_index = event_index()
-      db_leaf_index = vvz_index(leafs)
-
-      mass_delete(db_leaf_index.values)
-
-      pairs = get_id_pairs(leafs, db_event_index, db_leaf_index)
+    def run!(events)
+      nodes = Vvz.term("KIT", @term).subtree
+      @db_event_index = event_index()
+      @db_leaf_index = vvz_index(nodes)
+      mass_delete(nodes)
+      pairs = events.flat_map(&method(:get_links))
       mass_insert(pairs)
     end
 
@@ -23,8 +18,10 @@ module VVZUpdater
       new(term).run!(leafs)
     end
 
+    private
+
     def mass_insert(pairs)
-      values = pairs.map {|pair| "(#{pair.join(", ")})"}.join(", ")
+      values = pairs.map {|pair| "(#{pair.vvz_id}, #{pair.event_id})"}.join(", ")
       sql = "INSERT INTO events_vvzs (vvz_id, event_id) VALUES #{values}"
       ActiveRecord::Base.connection.execute(sql)
     end
@@ -35,14 +32,16 @@ module VVZUpdater
       ActiveRecord::Base.connection.execute(sql)
     end
 
-    def get_id_pairs(leafs, db_event_index, db_leaf_index)
-      leafs.flat_map do |leaf|
-        event_uuids = leaf.event_ids
-        event_ids = event_uuids.map {|uuid| db_event_index.fetch(uuid) }
-
-        db_leaf = db_leaf_index.fetch(leaf.id)
-        [db_leaf.id].product(event_ids)
-      end
+    def get_links(event_hash)
+      event_hash.fetch(:heading).map do |heading|
+        event_id = @db_event_index.fetch(event_hash.fetch(:id))
+        vvz_id = @db_leaf_index.fetch(heading.fetch(:id)) do
+          VVZUpdater.logger.warn("Matching leaf not found! event: #{event_id}")
+          nil
+        end
+        next if vvz_id.nil?
+        Link.new(vvz_id, event_id)
+      end.compact
     end
 
     def event_index()
@@ -54,13 +53,13 @@ module VVZUpdater
     end
 
     def vvz_index(leafs)
-      leaf_ids = leafs.map {|leaf| leaf.id }
-      db_leafs = Vvz.where(external_id: leaf_ids).select([:id, :external_id])
-      db_leafs.reduce({}) do |index, db_leaf|
-        index[db_leaf.external_id] = db_leaf
+      leafs.reduce({}) do |index, db_leaf|
+        index[db_leaf.external_id] = db_leaf.id
         index
       end
     end
+
+    Link = Struct.new(:vvz_id, :event_id)
 
   end
 end

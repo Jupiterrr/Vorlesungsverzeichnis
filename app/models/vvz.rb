@@ -72,9 +72,14 @@ class Vvz < ActiveRecord::Base
     university(name) or Vvz.roots.create name: name
   end
 
-  def self.term(university, term_name)
+  def self.find_or_create_term(university, term_name)
     root = self.university(university)
-    root.children.find_by_name(term_name)
+    root.children.find_or_create_by_name(term_name)
+  end
+
+  def self.term(university, term_name)
+    uni = self.find_or_create_university(university)
+    uni.children.find_by_name(term_name)
   end
 
   def term

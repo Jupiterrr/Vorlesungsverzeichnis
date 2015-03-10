@@ -363,6 +363,7 @@ GEM
       raindrops (~> 0.7)
     unicorn-worker-killer (0.4.2)
       unicorn (~> 4)
+    upsert (2.0.3)
     uuid (2.3.7)
       macaddr (~> 1.0)
     vcr (2.5.0)
@@ -445,6 +446,7 @@ DEPENDENCIES
   uglifier (~> 2.5.0)
   unicorn
   unicorn-worker-killer
+  upsert
   vcr
   webmock (>= 1.10)
   yo-ruby
