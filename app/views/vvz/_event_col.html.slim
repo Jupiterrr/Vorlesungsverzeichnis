@@ -26,6 +26,7 @@
         a href=event.data["website"] target="_blank" Website
 
   section.padding
+
     - if current_user
       .settings
         - if event.subscribed?(current_user)
@@ -38,16 +39,6 @@
             i.fa-plus.fa
             '
             span teilnehmen
-
-    /- event.group_by_day.each do |d|
-      div
-        = to_german_day d["date"]
-        = " " + d["time"]
-        |   |
-        = d["room"]
-
-    .description
-      = event.j_description
 
     - if date_groups.present?
       section.desc.dates
@@ -70,6 +61,19 @@
             ol.collapse-body
               - dates.sort_by(&:start_time).each do |date|
                 li = date.start_time.strftime("%d.%m.%Y")
+
+
+
+
+    /- event.group_by_day.each do |d|
+      div
+        = to_german_day d["date"]
+        = " " + d["time"]
+        |   |
+        = d["room"]
+
+    .description
+      = event.j_description
 
   br
   br
