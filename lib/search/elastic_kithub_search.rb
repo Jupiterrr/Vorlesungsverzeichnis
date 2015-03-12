@@ -16,10 +16,14 @@ class ElasticKithubSearch
     raw_request.gsub!("%size", size.to_s)
     raw_request.gsub!("%from", from.to_s)
     raw_request.gsub!("%term", term.name)
-    raw_request.gsub!("%query", query)
+    raw_request.gsub!("%query", escape(query))
 
     result = @client.search(index: 'kithub', body: raw_request)["hits"]
     SearchResponse.new(query: query, results: result["hits"], total: result["total"], from: from, size: size, term: term)
+  end
+
+  def escape(query)
+    query.gsub('"', '')
   end
 
   #ap @client.explain(index: 'kithub', type: 'event', id: '3514', body: QUERY.gsub("%q", q))
