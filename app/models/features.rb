@@ -2,6 +2,7 @@ class Features
   extend FeatureFlipper
 
   flipper(:facebook) { Rails.env.production? }
+  flipper(:ads) { Rails.env.production? }
   flipper :uservoice, false
   flipper(:analytics) { Rails.env.production? }
 

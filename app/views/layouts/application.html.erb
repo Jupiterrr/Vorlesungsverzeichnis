@@ -32,7 +32,7 @@
   <%= render :partial => "layouts/topbar" %>
 
   <div class="main-content" role="main">
-    <%= render partial: "layouts/ad" %>
+    <%= render partial: "layouts/ad" if feature(:ads) %>
     <%= yield %>
   </div>
 
