@@ -36,7 +36,7 @@ module VVZUpdater
       puts "start TreeMigration"
       db_root = get_db_term(term)
       TreeMigration.new(db_root, root).migrate!
-      db_root.update_attribute(:name, term)
+      # db_root.update_attribute(:name, term)
     end
 
     def update_events(term)

@@ -6,7 +6,7 @@ module VVZUpdater
     end
 
     def run!(events)
-      nodes = Vvz.term("KIT", @term).subtree
+      nodes = get_db_term(@term).subtree
       @db_event_index = event_index()
       @db_leaf_index = vvz_index(nodes)
       mass_delete(nodes)
@@ -60,6 +60,11 @@ module VVZUpdater
     end
 
     Link = Struct.new(:vvz_id, :event_id)
+
+    def get_db_term(term)
+      uni = Vvz.find_or_create_by_name("KIT")
+      db_root = uni.children.find_or_create_by_name(term)
+    end
 
   end
 end
