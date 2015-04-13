@@ -5,7 +5,7 @@ ruby '2.1.0'
 gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 
-gem 'kit_api', '~> 0.2.3', require: false#, path: File.join('..', 'Downloader')
+gem 'kit_api', '~> 0.2.4', require: false#, path: File.join('..', 'Downloader')
 gem 'yo-ruby', require: false
 gem 'upsert', require: false
 # gem 'pg-hstore', require: false

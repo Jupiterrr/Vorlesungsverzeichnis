@@ -36,7 +36,7 @@ GEM
     acts_as_paranoid (0.4.2)
       activerecord (~> 3.2)
     addressable (2.3.4)
-    akami (1.2.2)
+    akami (1.3.0)
       gyoku (>= 0.4.0)
       nokogiri
     ancestry (2.0.0)
@@ -45,15 +45,14 @@ GEM
     autoprefixer-rails (1.0.20140103)
       execjs
     awesome_print (1.1.0)
-    aws-sdk (2.0.29)
-      aws-sdk-resources (= 2.0.29)
-    aws-sdk-core (2.0.29)
+    aws-sdk (2.0.38)
+      aws-sdk-resources (= 2.0.38)
+    aws-sdk-core (2.0.38)
       builder (~> 3.0)
       jmespath (~> 1.0)
       multi_json (~> 1.0)
-      multi_xml (~> 0.5)
-    aws-sdk-resources (2.0.29)
-      aws-sdk-core (= 2.0.29)
+    aws-sdk-resources (2.0.38)
+      aws-sdk-core (= 2.0.38)
     backports (3.3.1)
     better_errors (0.9.0)
       coderay (>= 1.0.0)
@@ -142,7 +141,7 @@ GEM
       grape (>= 0.2.0)
       kramdown
     gravtastic (3.2.6)
-    gyoku (1.2.2)
+    gyoku (1.3.1)
       builder (>= 2.1.2)
     hashie (3.2.0)
     high_voltage (1.2.2)
@@ -165,7 +164,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.0)
-    kit_api (0.2.3)
+    kit_api (0.2.4)
       activesupport (>= 3.2.13)
       akami (>= 1.2.2)
       aws-sdk (>= 1.59.0)
@@ -200,7 +199,7 @@ GEM
       newrelic_rpm
     newrelic_rpm (3.7.3.204)
     nokogiri (1.5.11)
-    nori (2.4.0)
+    nori (2.5.0)
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
@@ -307,7 +306,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    sentry-raven (0.12.3)
+    sentry-raven (0.13.0)
       faraday (>= 0.7.6)
     sequel (3.20.0)
     simple_form (2.1.0)
@@ -409,7 +408,7 @@ DEPENDENCIES
   hogan_assets
   intercom-rails (~> 0.2.21)
   kaminari
-  kit_api (~> 0.2.3)
+  kit_api (~> 0.2.4)
   launchy
   memcachier
   meta_request (>= 0.2.5)
