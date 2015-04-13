@@ -10,7 +10,7 @@ class SearchController < ApplicationController
         @terms = Vvz.terms
         term_id = params.fetch(:term, Vvz.current_term.id)
         term = Vvz.find(term_id)
-        @search_result = ElasticKithubSearch.new().search_all(params[:q], term: term, page: params.fetch("p", 1).to_i)
+        @search_result = ElasticKithubSearch.new().search_all(params.fetch(:q, ""), term: term, page: params.fetch("p", 1).to_i)
         @paginatable_array = Kaminari.paginate_array([], total_count: @search_result.total).page(@search_result.page).per(@search_result.size)
       }
       format.json {
