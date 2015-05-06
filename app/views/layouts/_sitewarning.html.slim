@@ -2,6 +2,8 @@
   | Diese Seite wird privat betrieben und kann Fehler enthalten. &emsp;
   span.actions
     a href="/pages/about" mehr erfahren
+    | &emsp;
+    a href="javascript:;" schließen
   button.close aria-hidden="true" data-dismiss="alert" type="button" &times;
 
 javascript:
@@ -10,8 +12,10 @@ javascript:
     var el = document.querySelector("#site-waring");
     var btn = el.querySelector("button");
     btn.addEventListener("click", dismissWarning);
-    var link = el.querySelector("a");
-    link.addEventListener("click", dismissWarning);
+    var links = el.querySelectorAll("a");
+    Array.prototype.slice.call(links).forEach(function(link) {
+      link.addEventListener("click", dismissWarning);
+    });
 
     function showWarning() {
       el.style.display = "block"

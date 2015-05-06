@@ -32,7 +32,10 @@ hr.clear {
   text-align: center;
   display: none;
   border-radius: 0;
+  padding: 4px;
+  color: #444;
   .actions { white-space: nowrap; }
+  .close { right: 0; }
 }
 
 .custom-btns .btn {
