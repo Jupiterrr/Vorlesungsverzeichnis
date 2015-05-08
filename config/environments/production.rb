@@ -20,6 +20,10 @@ KITBox::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  config.action_controller.default_url_options = {
+    :host => ENV["HOST"]
+  }
+
   #config.cache_store = :dalli_store, :expires_in => 1.day, :compress => true
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH

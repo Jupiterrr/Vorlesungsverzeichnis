@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def create
     # The request has to have an assertion for us to verify
     assertion = params[:assertion] or head :bad_request
-    host = request.host_with_port
+    host = ENV["HOST"]
     BrowserID.verify_assertion(assertion, host) do |email, data|
       user = User.sign_in(email)
       sign_in(user)
