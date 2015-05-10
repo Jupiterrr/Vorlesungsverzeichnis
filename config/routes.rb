@@ -2,8 +2,8 @@ require "role_constraint"
 KITBox::Application.routes.draw do
 
   constraints(:host => /kit.carstengriesheimer.de/) do
-    root :to => redirect("http://www.kithub.de")
-    match '/*path', :to => redirect {|params,request| "http://www.kithub.de/#{params[:path]}"}
+    root :to => redirect("https://www.kithub.de")
+    match '/*path', :to => redirect {|params,request| "https://www.kithub.de/#{params[:path]}"}
    end
 
   resources :disciplines, only: [:index, :show] do
