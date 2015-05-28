@@ -6,7 +6,7 @@ class API < Grape::API
   class << self
 
     def api_url
-      "http://#{ENV["HOST"]}/api"
+      "https://#{ENV["HOST"]}/api"
     end
 
     def event_url
