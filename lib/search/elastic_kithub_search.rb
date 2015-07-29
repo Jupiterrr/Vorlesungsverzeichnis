@@ -1,4 +1,5 @@
 require 'elasticsearch'
+require_relative 'sanitize_string'
 
 class ElasticKithubSearch
 
@@ -23,7 +24,7 @@ class ElasticKithubSearch
   end
 
   def escape(query)
-    query.gsub('"', '')
+    ElasticSearchHelpers.sanitize_string(query)
   end
 
   #ap @client.explain(index: 'kithub', type: 'event', id: '3514', body: QUERY.gsub("%q", q))
