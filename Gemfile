@@ -44,9 +44,6 @@ gem 'elasticsearch'
 
 gem 'font_assets'
 
-# gem 'cancan' # authorization
-gem 'omniauth-saml', '~> 1.2.0'
-
 # gem 'validates_timeliness', '~> 3.0'
 gem 'intercom-rails', '~> 0.2.21'
 gem 'newrelic_rpm'

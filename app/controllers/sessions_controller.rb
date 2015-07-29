@@ -25,12 +25,4 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
-  def saml
-    text = "login succeeded<br>"
-    text << "<pre>"
-    text << JSON.pretty_generate(request.env['omniauth.auth'].as_json)
-    text << "</pre>"
-    render text: text
-  end
-
 end
