@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   serialize :data, ActiveRecord::Coders::Hstore
   validates :uid, :name, :disciplines, :presence => true
 
-  include Gravtastic
-  gravtastic :uid
+  # include Gravtastic
+  # gravtastic :uid
 
   def generate_timetable_id
     self.timetable_id = SecureRandom.urlsafe_base64

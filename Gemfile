@@ -19,13 +19,13 @@ gem 'garner', '~> 0.3.2'
 # View
 gem 'slim-rails'
 gem 'simple_form'
-gem 'high_voltage'
+gem 'high_voltage' # static pages
 gem 'sitemap_generator', require: false
 gem 'kaminari' # pagination
 gem 'rails_autolink'
 gem 'redcarpet' # markdown
 gem "autoprefixer-rails"
-gem 'gravtastic'
+# gem 'gravtastic'
 gem 'metamagic'
 
 # Database
@@ -35,7 +35,7 @@ gem 'ancestry', '~> 2.0.0'
 gem 'pg_search' # search
 gem 'ri_cal' # timetable -> ical
 gem 'activerecord-postgres-hstore'
-gem "acts_as_paranoid", "~>0.4.0"
+# gem "acts_as_paranoid", "~>0.4.0"
 gem 'paper_trail', '>= 3.0.0.beta1' # versioning
 # gem 'heroku_backup_task'
 
