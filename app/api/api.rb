@@ -27,7 +27,7 @@ class API < Grape::API
 
   mount API_v1
 
-  add_swagger_documentation base_path: API.api_url, markdown: true, hide_documentation_path: true
+  #add_swagger_documentation base_path: API.api_url, markdown: true, hide_documentation_path: true
 
   helpers do
     # def current_user

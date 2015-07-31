@@ -15,12 +15,12 @@ RUN apt-get update && \
 # Old Gemfiles for better gem caching
 ADD docker/Gemfile /usr/src/app/docker/Gemfile
 ADD docker/Gemfile.lock /usr/src/app/docker/Gemfile.lock
-RUN bundle install --gemfile /usr/src/app/docker/Gemfile
+RUN bundle install --gemfile /usr/src/app/docker/Gemfile --without development:test
 
 
 ADD Gemfile /usr/src/app/
 ADD Gemfile.lock /usr/src/app/
-RUN bundle install
+RUN bundle install --without development:test
 
 ADD . /usr/src/app
 

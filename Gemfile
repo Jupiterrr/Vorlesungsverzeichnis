@@ -11,8 +11,8 @@ gem 'upsert', require: false
 # gem 'pg-hstore', require: false
 
 # API
-gem 'grape', '~> 0.4.1'
-gem 'grape-swagger', '> 0.5.0'
+gem 'grape', '~> 0.12.0'
+gem 'grape-swagger', '~> 0.10.1'
 gem 'rack-cors'
 gem 'garner', '~> 0.3.2'
 
