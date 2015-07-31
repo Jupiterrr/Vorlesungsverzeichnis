@@ -193,7 +193,7 @@ class Event < ActiveRecord::Base
 
   def external_url(url)
     return if url.nil?
-    new_url = url =~ /^http/ ? url : "//#{url}"
+    new_url = url =~ /^http/ ? url : "http://#{url}"
   end
 
   def pretty_event_date(date)

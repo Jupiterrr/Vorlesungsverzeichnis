@@ -15,8 +15,7 @@ class TimetableController < ApplicationController
 
   def ical
     ::NewRelic::Agent.add_custom_parameters({
-      timetable_id: params[:timetable_id],
-      user_agent: request.user_agent
+      timetable_id: params[:timetable_id]
     })
 
     text = Timetable.to_ical(params[:timetable_id])
