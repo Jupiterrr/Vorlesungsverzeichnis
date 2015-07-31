@@ -15,7 +15,7 @@ class VvzController < ApplicationController
 
     if vvz.is_leaf
       events = vvz.events
-      event_map = events.map {|e| [e.id, [e.name, e._type]]}.to_h
+      event_map = events.map {|e| [e.id, [e.name, e._type]]}
       @events_json = event_map.to_json.html_safe
     end
 
