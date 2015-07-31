@@ -29,7 +29,7 @@ KITBox::Application.routes.draw do
       get 'print_service'
     end
   end
-  match '/timetable/:timetable_id.ics', to: 'timetable#ical', :as => :timetable_ical
+  match '/timetable/:timetable_id(.ics)', to: 'timetable#ical', :as => :timetable_ical
 
   class PostFeatureConstraint
     def self.matches?(request)
