@@ -64,76 +64,76 @@ task :seed_disciplines => :environment do
   end
 end
 
-require "nokogiri"
-require 'open-uri'
-class EventDateTester
+# require "nokogiri"
+# require 'open-uri'
+# class EventDateTester
 
-  # db_events = Event.where(term: "WS 13/14").limit(tests).order("RANDOM()")
+#   # db_events = Event.where(term: "WS 13/14").limit(tests).order("RANDOM()")
 
-  def run_tests(db_events)
-    db_events.all? {|db_event| exist_all_dates?(db_event) }
-  end
+#   def run_tests(db_events)
+#     db_events.all? {|db_event| exist_all_dates?(db_event) }
+#   end
 
-  def run_test(db_event)
-    leaf = db_event.vvzs.first
-    exist_all_dates?(db_event)
-  end
+#   def run_test(db_event)
+#     leaf = db_event.vvzs.first
+#     exist_all_dates?(db_event)
+#   end
 
-  def exist_all_dates?(db_event)
-    db_date = get_db_dates(db_event)
-    web_dates = get_web_dates(db_event)
-    result = (web_dates - db_date).empty?
-    unless result
-      ap({
-        event_id: db_event.id,
-        url: db_event.url,
-        web_dates: web_dates,
-        db_date: db_date,
-        diff: (web_dates - db_date)
-      })
-    end
-    result
-  end
+#   def exist_all_dates?(db_event)
+#     db_date = get_db_dates(db_event)
+#     web_dates = get_web_dates(db_event)
+#     result = (web_dates - db_date).empty?
+#     unless result
+#       ap({
+#         event_id: db_event.id,
+#         url: db_event.url,
+#         web_dates: web_dates,
+#         db_date: db_date,
+#         diff: (web_dates - db_date)
+#       })
+#     end
+#     result
+#   end
 
-  def get_db_dates(db_event)
-    db_event.dates.map {|d| d.start_time.to_date }
-  end
+#   def get_db_dates(db_event)
+#     db_event.dates.map {|d| d.start_time.to_date }
+#   end
 
-  def get_web_dates(db_event)
-    doc = Nokogiri::HTML(open(db_event.url))
-    trs = doc.css("#appointmentlist .tablecontent > tr")
-    days = trs.each_slice(2)
-    days.flat_map do |doc_head, doc_dates|
-      day, time, room = doc_head.at_css("td:nth-child(2) a:last-child").text.split(", ")
-      if doc_dates.nil?
-        day, date_s = day.match(/(\S+) \((\S+)\)/).captures
-        dates = [Date.parse(date_s)]
-      else
-        dates = doc_dates.css("table td").map {|d| Date.parse(d.text) }
-      end
-      dates
-    end
-  end
+#   def get_web_dates(db_event)
+#     doc = Nokogiri::HTML(open(db_event.url))
+#     trs = doc.css("#appointmentlist .tablecontent > tr")
+#     days = trs.each_slice(2)
+#     days.flat_map do |doc_head, doc_dates|
+#       day, time, room = doc_head.at_css("td:nth-child(2) a:last-child").text.split(", ")
+#       if doc_dates.nil?
+#         day, date_s = day.match(/(\S+) \((\S+)\)/).captures
+#         dates = [Date.parse(date_s)]
+#       else
+#         dates = doc_dates.css("table td").map {|d| Date.parse(d.text) }
+#       end
+#       dates
+#     end
+#   end
 
-end
+# end
 
 
-task :test_dates => :environment do
-  db_events = Event.where(term: "WS 13/14").limit(50).order("RANDOM()")
-  ap EventDateTester.new.run_tests(db_events)
-end
+# task :test_dates => :environment do
+#   db_events = Event.where(term: "WS 13/14").limit(50).order("RANDOM()")
+#   ap EventDateTester.new.run_tests(db_events)
+# end
 
 # task :test_all_dates => :environment do
 #   db_events = Event.where(term: "WS 13/14").limit(50).order("RANDOM()")
 #   ap EventDateTester.new.run_tests(db_events)
 # end
 
-task :update_event_and_test, [:event_id] => :environment do |t, args|
-  require "vvz_updater/vvz_updater"
-  db_event = Event.find(args[:event_id])
-  VVZUpdater.update_event(db_event)
-  ap EventDateTester.new.run_test(db_event)
-end
+# task :update_event_and_test, [:event_id] => :environment do |t, args|
+#   require "vvz_updater/vvz_updater"
+#   db_event = Event.find(args[:event_id])
+#   VVZUpdater.update_event(db_event)
+#   ap EventDateTester.new.run_test(db_event)
+# end
 
 task :destroy_event_dates_without_source => :environment do |t, args|
   EventDate.where("data is not NULL").where("not data ? 'source'").destroy_all
