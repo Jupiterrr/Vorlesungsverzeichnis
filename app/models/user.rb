@@ -1,20 +1,17 @@
 class User < ActiveRecord::Base
   has_many :event_subscriptions
   has_and_belongs_to_many :disciplines
-  before_create :generate_timetable_id
   has_many :posts
   has_many :comments
   has_many :sessions
+  has_one :ical_file
 
   serialize :data, ActiveRecord::Coders::Hstore
   validates :uid, :name, :disciplines, :presence => true
+  before_create :create_ical_file
 
   # include Gravtastic
   # gravtastic :uid
-
-  def generate_timetable_id
-    self.timetable_id = SecureRandom.urlsafe_base64
-  end
 
   def event_dates
     EventDate.joins(:event => :users).where("users.id" => User.first)
@@ -74,5 +71,11 @@ class User < ActiveRecord::Base
       disciplines: [Discipline.create(name: "Test Discipline")]
     })
   end
+
+  private
+    def create_ical_file
+      user.create_ical_file!
+      true
+    end
 
 end

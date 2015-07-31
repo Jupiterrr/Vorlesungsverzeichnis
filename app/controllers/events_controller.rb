@@ -24,6 +24,7 @@ class EventsController < ApplicationController
   # def info; end
 
   def subscribe
+    trigger_ical_update
     event.subscribe(current_user)
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Erfolgreich angemeldet' }
@@ -32,6 +33,7 @@ class EventsController < ApplicationController
   end
 
   def unsubscribe
+    trigger_ical_update
     event.unsubscribe(current_user)
     respond_to do |format|
       format.html { redirect_to :back, notice: "Erfolgreich entfernt" }
@@ -40,6 +42,7 @@ class EventsController < ApplicationController
   end
 
   def unsubscribe_all
+    trigger_ical_update
     EventUnsubscriber.unsubscribe_all(current_user)
 
     respond_to do |format|
@@ -68,5 +71,9 @@ class EventsController < ApplicationController
     @event ||= Event.find(params[:id])
   end
   helper_method :event
+
+  def trigger_ical_update
+    IcalUpdateWorker.perform_async(current_user.id)
+  end
 
 end

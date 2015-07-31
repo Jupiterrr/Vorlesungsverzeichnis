@@ -22,7 +22,7 @@ production: &production
   adapter: postgresql
   host: localhost
   database: vvz_dev_p
-  pool: 5
+  pool: 10
   timeout: 2000
 
 staging:

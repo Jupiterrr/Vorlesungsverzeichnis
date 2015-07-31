@@ -59,7 +59,7 @@ class Event < ActiveRecord::Base
   end
 
   def subscribe(user)
-    event_subscriptions.create user_id: user.id
+    event_subscriptions.create user_id: user.id, data: {}
   end
 
   def unsubscribe(user)

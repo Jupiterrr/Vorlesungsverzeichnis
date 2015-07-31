@@ -119,6 +119,7 @@ common: &default_settings
   #     a comma separated list of HTTP parameter names.
   #     ex: ignored_params: credit_card, ssn, password
   capture_params: true
+  attributes.include: job.sidekiq.args.*
 
 
   # Transaction tracer captures deep information about slow

@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require_dependency "feature_flipper"
 require_dependency "event_date_grouper"
+require_dependency "ical_service"
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
