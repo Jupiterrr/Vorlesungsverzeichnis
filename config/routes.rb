@@ -95,7 +95,7 @@ resources :events, only: [] do
   match "/signout" => "sessions#destroy", :as => :signout
   match "/signup" => "users#new", :as => :signup
 
-  get '/robots.txt' => 'welcomes#robots'
+  get '/robots(.txt)' => 'welcomes#robots'
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
