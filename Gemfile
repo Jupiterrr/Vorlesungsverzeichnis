@@ -49,9 +49,8 @@ gem 'font_assets'
 gem 'intercom-rails', '~> 0.2.21'
 gem 'newrelic_rpm'
 
-group :production do
-  gem 'newrelic-grape'
-end
+# group :production do
+# end
 
 group :production, :staging do
   gem 'dalli', '>= 2.6.4' # memcach

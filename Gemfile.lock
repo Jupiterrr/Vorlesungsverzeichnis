@@ -175,9 +175,6 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    newrelic-grape (1.3.0)
-      grape
-      newrelic_rpm
     newrelic_rpm (3.12.1.298)
     nokogiri (1.5.11)
     paper_trail (3.0.0.beta1)
@@ -388,7 +385,6 @@ DEPENDENCIES
   launchy
   meta_request (>= 0.2.5)
   metamagic
-  newrelic-grape
   newrelic_rpm
   paper_trail (>= 3.0.0.beta1)
   pg (~> 0.17.1)
