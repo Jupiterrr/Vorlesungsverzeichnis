@@ -22,7 +22,7 @@ module ElasticSearchHelpers
     # Escape odd quotes
     quote_count = str.count '"'
     str = str.gsub(/(.*)"(.*)/, '\1\"\3') if quote_count % 2 == 1
-
+    str = str.gsub(/[\(\)]/, '*')
     str
   end
 end
