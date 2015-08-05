@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require_dependency "config/features"
+require_dependency File.join(Rails.root, "config/features")
 require_dependency "event_date_grouper"
 require_dependency "ical_service"
 
