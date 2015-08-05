@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
   helper_method :feature
 
   def record_newrelic_custom_parameters
-    ::NewRelic::Agent.add_custom_parameters({
+    ::NewRelic::Agent.add_custom_attributes({
         session_id: request.session_options[:id],
         user_agent: request.user_agent
     })
-    ::NewRelic::Agent.add_custom_parameters({ user_id: current_user.id }) if current_user
+    ::NewRelic::Agent.add_custom_attributes({ user_id: current_user.id }) if current_user
   end
 
 end

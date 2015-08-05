@@ -14,7 +14,7 @@ class TimetableController < ApplicationController
   end
 
   def ical
-    ::NewRelic::Agent.add_custom_parameters({
+    ::NewRelic::Agent.add_custom_attributes({
       timetable_id: params[:timetable_id]
     })
 
@@ -32,7 +32,7 @@ class TimetableController < ApplicationController
     timetable_url = print_service_timetable_index_url(user_id: current_user.id, no_color: params[:no_color])
     url64 = Base64.encode64(timetable_url)
     color_code = no_color? ? "b/w" : "color"
-    ::NewRelic::Agent.add_custom_parameters(print_type: color_code)
+    ::NewRelic::Agent.add_custom_attributes(print_type: color_code)
     redirect_to "http://service.kithub.de/print/?url=#{url64}"
     # redirect_to "http://localhost:3000/?url=#{url64}"
   end
