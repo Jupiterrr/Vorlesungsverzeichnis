@@ -39,7 +39,7 @@
 
   <%= render :partial => "layouts/footer" %>
 
-  <%= render partial: "layouts/browserid_js" unless feature(:backdoor) || authorized? %>
+  <%= render partial: "layouts/browserid_js" unless feature(:backdoor) %>
   <%= render partial: "layouts/analytics" if feature(:analytics) %>
   <%= render partial: "layouts/fb/like_setup" if feature(:facebook) %>
   <%= render partial: "layouts/uservoice" if feature(:uservoice) %>

@@ -8,7 +8,7 @@
         | Hallo. Wer bist du?
       = render partial: "layouts/show_flash"
 
-    = simple_form_for @user, url: signup_path do |f|
+    = simple_form_for @user do |f|
       = f.input :name, placeholder: "z.B. Paul", required: false
       /= f.label :discipline_ids, "Studiengang"
       = f.input :discipline_ids, collection: Discipline.order(:name).collect {|p| [ p.name, p.id ] }, prompt: 'Wähle deinen Studiengang', required: false, label: "Studiengang"

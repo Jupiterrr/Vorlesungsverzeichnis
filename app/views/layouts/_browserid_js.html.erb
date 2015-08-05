@@ -1,54 +1,62 @@
 <script src="//login.persona.org/include.js"></script>
 <script type="text/javascript">
 
+  var watching = false;
+
+  function watch() {
+    if (watching) return;
+    watching = true;
+    navigator.id.watch({
+      // loggedInUser: currentUser,
+      onlogin: function(assertion) {
+        // alert("login")
+        $.ajax({
+          type: 'POST',
+          url: '/signin', // This is a URL on your website.
+          data: {assertion: assertion},
+          success: function(res, status, xhr) {
+            //console.log("login successful", res.email);
+            //console.log("redirect", res.redirect)
+            window.location = res.redirect;
+          },
+          error: function(res, status, xhr) {
+            console.log("Login failure", res, status);
+            alert("Login failure");
+            throw "Login failure";
+            navigator.id.logout();
+          }
+        });
+      },
+      onlogout: function() {
+        // A user has logged out! Here you need to:
+        // Tear down the user's session by redirecting the user or making a call to your backend.
+        // alert("logout")
+        // if (currentUser) window.location = "/signout?r=browserid"
+      }
+    });
+  }
+
   var matches = document.getElementsByClassName("signin-btn-js");
   var l = matches.length;
   while (l--) {
     matches[l].onclick = function() {
+      watch();
       navigator.id.request({siteName: 'KitHub'});
     };
   }
 
-  var signoutLink = document.getElementById('signout');
-  if (signoutLink) {
-    signoutLink.onclick = function() {
-      navigator.id.logout(); };
-  };
+  // var signoutLink = document.getElementById('signout');
+  // if (signoutLink) {
+  //   signoutLink.onclick = function() {
+  //     navigator.id.logout(); };
+  // };
 
-  var currentUser = <%= browser_id_uid %>;
-  console.log("currentUser", currentUser)
+  // var currentUser = <%= browser_id_uid %>;
+  // console.log("currentUser", currentUser)
 
-  <% if session[:browserID_logout] %>
-    <% session[:browserID_logout] = false %>
+  <% if flash[:browserID_logout] %>
+    <% flash[:browserID_logout] = false %>
     <%= "navigator.id.logout();" %>
   <% end %>
 
-  navigator.id.watch({
-    loggedInUser: currentUser,
-    onlogin: function(assertion) {
-      // alert("login")
-      $.ajax({
-        type: 'POST',
-        url: '/signin', // This is a URL on your website.
-        data: {assertion: assertion},
-        success: function(res, status, xhr) {
-          //console.log("login successful", res.email);
-          //console.log("redirect", res.redirect)
-          window.location = res.redirect;
-        },
-        error: function(res, status, xhr) {
-          console.log("Login failure", res, status);
-          alert("Login failure");
-          throw "Login failure";
-          navigator.id.logout();
-        }
-      });
-    },
-    onlogout: function() {
-      // A user has logged out! Here you need to:
-      // Tear down the user's session by redirecting the user or making a call to your backend.
-      // alert("logout")
-      if (currentUser) window.location = "/signout?r=browserid"
-    }
-  });
 </script>

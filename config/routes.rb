@@ -18,7 +18,7 @@ KITBox::Application.routes.draw do
   resources :dashboard, only: :index
   resources :documents, only: :new
   resources :search, only: :index
-  resources :users, only: [:new]
+  resources :users, only: [:new, :create]
 
 
   resources :timetable, only: :index do
