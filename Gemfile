@@ -52,6 +52,7 @@ gem 'newrelic_rpm'
 # end
 
 group :production, :staging do
+  gem 'memcachier'
   gem 'dalli', '>= 2.6.4' # memcach
   gem 'rack-cache', :require => 'rack/cache'
   # gem 'rack-contrib', :require => 'rack/contrib'

@@ -164,6 +164,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     meta_request (0.2.6)
       callsite
       rack-contrib
@@ -383,6 +384,7 @@ DEPENDENCIES
   intercom-rails (~> 0.2.21)
   kaminari
   launchy
+  memcachier
   meta_request (>= 0.2.5)
   metamagic
   newrelic_rpm
