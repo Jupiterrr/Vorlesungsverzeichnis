@@ -44,8 +44,14 @@ class Timetable
 
   def self.to_ical(timetable_id)
     user = User.find_by_timetable_id!(timetable_id)
-    events = user.events.includes(:event_dates => :room)
-    IcalService.ical(events)
+    if Features.feature("background_ical_generation")
+      Rails.logger.info "Serve ical from database"
+      user.ical_file.content
+    else
+      Rails.logger.info "Generate ical on the fly"
+      events = user.events.includes(:event_dates => :room)
+      IcalService.ical(events)
+    end
   end
 
 end

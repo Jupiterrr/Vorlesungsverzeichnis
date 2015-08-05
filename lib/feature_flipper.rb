@@ -10,13 +10,8 @@ module FeatureFlipper
     end
   end
 
-  def get(name, args=[])
-    value = @@features[name]
-    value.respond_to?(:call) ? !!value.call(*args) : value
-  end
-
   def feature(name, args=[], &block)
-    active = self.get(name, args)
+    active = get(name, args)
     if active
       block.call if block_given?
       true
@@ -24,5 +19,14 @@ module FeatureFlipper
       false
     end
   end
+
+  class FeatureNotFound < StandardError; end
+
+  private
+    def get(name, args=[])
+      raise FeatureNotFound unless @@features.key?(name.to_sym)
+      value = @@features[name.to_sym]
+      value.respond_to?(:call) ? !!value.call(*args) : value
+    end
 
 end

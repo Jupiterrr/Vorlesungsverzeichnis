@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require_dependency "feature_flipper"
+require_dependency "config/features"
 require_dependency "event_date_grouper"
 require_dependency "ical_service"
 

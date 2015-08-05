@@ -1,3 +1,4 @@
+require "feature_flipper"
 class Features
   extend FeatureFlipper
 
@@ -9,6 +10,7 @@ class Features
   flipper(:backdoor) { Rails.env.test? }
   flipper(:restrict_beta_access) { Features.public? }
   flipper(:login, true)
+  flipper(:background_ical_generation) { ENV["BACKGROUND_ICAL_GENERATION"].present? }
 
   def self.public?
     Rails.env.production? || Rails.env.staging?
