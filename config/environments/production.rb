@@ -64,6 +64,7 @@ KITBox::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  config.active_record.schema_format = :ruby
 
   # Use Dalli as the rack-cache metastore
   config.action_dispatch.rack_cache = {
