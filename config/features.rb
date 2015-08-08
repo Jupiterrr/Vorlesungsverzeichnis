@@ -7,7 +7,7 @@ class Features
   flipper :uservoice, false
   flipper(:analytics) { Rails.env.production? }
 
-  flipper(:backdoor) { Rails.env.test? }
+  flipper(:backdoor) { Rails.env.test? || Rails.env.development? }
   flipper(:restrict_beta_access) { Features.public? }
   flipper(:login, true)
   flipper(:background_ical_generation) { ENV["BACKGROUND_ICAL_GENERATION"].present? }

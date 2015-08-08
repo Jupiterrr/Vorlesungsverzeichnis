@@ -1,10 +1,17 @@
+require_dependency "react_renderer"
+
 class TimetableController < ApplicationController
 
-  before_filter :authorize, only: [:index, :regenerate]
+  before_filter :authorize, only: [:index, :regenerate, :new_timetable]
 
   def index
     timetable = Timetable.by_user(current_user)
     @timetable = timetable.as_json
+  end
+
+  def new_timetable
+    timetable = Timetable.by_user(current_user)
+    @timetable_html = ReactRenderer.timetable(timetable.as_json)
   end
 
   def regenerate

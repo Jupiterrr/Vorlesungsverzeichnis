@@ -26,6 +26,8 @@ class Timetable
         "start" => js_time(date.start_time),
         "end" => js_time(date.end_time),
         "title" => "<span class=\"title\">#{date.event.name}</span><span class=\"room\">#{date.room_name}</span>",
+        "_title" => date.event.name,
+        "room" => date.room_name,
         "url" => event_path(date.event),
         "color" => @event_colors[date.event.id]
       }

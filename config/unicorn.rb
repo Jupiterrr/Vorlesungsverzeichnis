@@ -11,6 +11,8 @@ before_fork do |server, worker|
 
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.connection.disconnect!
+
+  @sidekiq_pid ||= spawn("cd react_renderer && node server.js")
 end
 
 after_fork do |server, worker|

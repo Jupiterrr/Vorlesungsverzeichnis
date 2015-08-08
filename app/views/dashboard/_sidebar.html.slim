@@ -5,6 +5,11 @@ aside.rigth-sidebar.wide
         a.link href=timetable_index_path
           i.fa.fa-calendar
           |  Stundenplan
+      - if current_user.admin?
+        li
+          a.link href=new_timetable_timetable_index_path
+            i.fa.fa-calendar
+            |  Stundenplan Beta
       /li
         a.link href=discipline_exam_dates_path(current_user.disciplines.first) Klausurtermine
 

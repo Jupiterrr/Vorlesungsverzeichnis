@@ -1,0 +1,174 @@
+$hour-widt: 40px;
+$grid-color: #ddd;
+
+.react-timetable {
+  &.weekContainer {
+    page-break-after: always;
+    page-break-inside: avoid;
+    clear: both;
+    display: flex;
+    /*border: 1px solid $grid-color;*/
+    box-sizing: border-box;
+    padding-left: $hour-widt;
+    position: relative;
+    font-family: Arial, sans-serif;
+  }
+
+  .weekday {
+    flex: 1 auto;
+    box-sizing: border-box;
+    border-left: 1px solid $grid-color;
+    z-index: 10;
+    // transition: width .15s;
+    width: 100px;
+    // &:hover {
+    //   width: 15%;;
+    // }
+  }
+
+  .weekday:nth-child(2) {
+    border-left: 0;
+  }
+
+  .hours {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    box-sizing: border-box;
+    padding-left: $hour-widt;
+    z-index: 0;
+  }
+
+  .grid-line {
+    box-sizing: border-box;
+    // border-top: 1px solid $grid-color;
+    border-top: 1px dotted $grid-color;
+    padding-top: .3em;
+    position: relative;
+    &.hour {
+      border-top: 1px solid $grid-color;
+    }
+    &.pause {
+      // background-color: #eee;
+      background: repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 10px,
+        #FFF8E7 10px,
+        #FFF8E7 20px
+      );
+    }
+  }
+
+  .hour-label {
+    display: inline-block;
+    position: relative;
+    left: -$hour-widt;
+    top: -14px;
+    width: $hour-widt;
+    text-align: right;
+    box-sizing: border-box;
+    padding-right: 5px;
+    font-size: 12px;
+  }
+
+  .weekday > header,
+  .hours > header {
+    line-height: 30px;
+    height: 30px;
+    /*border: 0 0 1px 0 solid black;*/
+    border-left: 1px solid white;
+    left: -1px;
+    padding-left: 1px;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: white;
+  }
+
+  .weekday > .body,
+  .hours > .body {
+    box-sizing: border-box;
+    position: relative;
+    height: 800px;
+  }
+
+  .event {
+    position: absolute;
+    box-sizing: border-box;
+    /*border: 1px solid #333;*/
+
+    /*outline: 1px solid #CBCB00;*/
+    // background-color: yellow;
+    overflow: hidden;
+    padding: 1px;
+
+    .inner {
+      box-sizing: border-box;
+      height: 100%;
+      border-radius: 2px;
+      padding: .5em 2px;
+      box-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+      display: block;
+      color: inherit;
+    }
+
+
+  }
+
+
+  .event {
+    text-align: center;
+    word-wrap: break-word;
+    cursor: pointer;
+    line-height: normal;
+  }
+
+  .event:active {
+    background-color: #aaa;
+  }
+
+  // .event .body {
+  //   overflow: hidden;
+  //   height: 100%;
+  // }
+
+  .event .title {
+    font-weight: bold;
+    // margin-bottom: 0.1em;
+    display: block;
+    // font-size: 12px !important;
+    // padding-top: 5px;
+    // color: #000;
+    font-size: 12px;
+    margin-top: .5em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .event .room {
+    font-size: 11px;
+    display: block;
+    margin-top: .5em;
+    // color: #fff;
+  }
+
+  .event .time {
+    // display: none;
+    // position: absolute;
+    // top: -.5em;
+    font-size: 11px;
+    // // background: rgba(255, 255, 255, .7);
+    // text-shadow: stroke(1px, rgba(255,255,255, 0.5));
+    // display: inline-block;
+    // font-size: 10px;
+    // left: 3px;
+    // padding: 0 1px;
+    // white-space: nowrap;
+    // max-width: 90%;
+    // overflow: hidden;
+    // text-overflow: ellipsis
+  }
+
+
+}

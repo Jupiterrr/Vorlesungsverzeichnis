@@ -27,6 +27,7 @@ KITBox::Application.routes.draw do
       get 'exam'
       get 'print'
       get 'print_service'
+      get 'new_timetable'
     end
   end
   match '/timetable/:timetable_id(.ics)', to: 'timetable#ical', :as => :timetable_ical

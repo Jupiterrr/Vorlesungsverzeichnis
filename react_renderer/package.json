@@ -1,0 +1,50 @@
+{
+  "name": "react-timetable",
+  "version": "1.0.0",
+  "description": "Boilerplate for ReactJS project with hot code reloading",
+  "scripts": {
+    "start": "node server.js",
+    "server": "iojs server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "boilerplate",
+    "hot",
+    "hot",
+    "reload",
+    "hmr",
+    "live",
+    "edit",
+    "webpack"
+  ],
+  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+  },
+  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
+  "devDependencies": {
+    "babel-core": "^5.7.4",
+    "babel-loader": "^5.3.2",
+    "react-hot-loader": "^1.2.8",
+    "react-tools": "^0.13.3",
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.10.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "css-loader": "^0.15.5",
+    "express": "^4.13.3",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "lodash": "^3.10.0",
+    "node-sass": "^3.2.0",
+    "react": "^0.13.3",
+    "sass-loader": "^1.0.2",
+    "style-loader": "^0.12.3"
+  }
+}
