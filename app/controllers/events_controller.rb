@@ -73,7 +73,7 @@ class EventsController < ApplicationController
   helper_method :event
 
   def trigger_ical_update
-    IcalUpdateWorker.perform_async(current_user.id)
+    IcalUpdateWorker.perform_async(current_user.id) if feature(:background_ical_generation)
   end
 
 end
