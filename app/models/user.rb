@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
     find_or_create_by_uid({
       uid: "test@user.edu",
       name: "Test User",
-      disciplines: [Discipline.create(name: "Test Discipline")]
+      disciplines: [Discipline.create(name: "Test Discipline")],
+      data: {}
     })
   end
 
@@ -48,6 +49,7 @@ class User < ActiveRecord::Base
 
   class << self
     alias_method :qf, :quick_find
+    alias_method :f, :quick_find
   end
 
 end
