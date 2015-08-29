@@ -50,8 +50,10 @@ module VVZUpdater
       EventLinker.run!(term, events)
     end
 
-
-
+    def exists?(term)
+      terms = KitApi::Client.new.get_terms.map(&:name)
+      terms.include?("SS 2015")
+    end
 
 
     def improve_names(term_name)
