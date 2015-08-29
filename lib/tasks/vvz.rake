@@ -4,6 +4,7 @@ namespace :term do
 
   # Diesplays the available terms
   task :list do
+    require "kit_api"
     terms = KitApi::Client.new.get_terms
     names = terms.sort.map {|t| t.name }
     puts names

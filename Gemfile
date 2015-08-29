@@ -1,4 +1,3 @@
-source ENV['GEMFURY_URL'] if ENV['GEMFURY_URL']
 source 'http://rubygems.org'
 ruby '2.0.0'
 
@@ -6,7 +5,11 @@ gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 gem 'sidekiq'
 
-gem 'kit_api', '~> 0.2.4', require: false#, path: File.join('..', 'Downloader')
+if ENV['GEMFURY_URL']
+  source ENV['GEMFURY_URL'] do
+    gem 'kit_api', '~> 0.2.4', require: false#, path: File.join('..', 'Downloader')
+  end
+end
 gem 'yo-ruby', require: false
 gem 'upsert', require: false
 
