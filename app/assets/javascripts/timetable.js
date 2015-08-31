@@ -15,10 +15,10 @@ $(document).ready(function() {
    var myEvents = getEventData();
 
    if ($(".print").length) {
-      var minH = _.min(myEvents, function(e) { return e.start; });
-      var maxH = _.max(myEvents, function(e) { return e.end; });
+      var minH = _.min(myEvents, function(e) { return e.start_h; });
+      var maxH = _.max(myEvents, function(e) { return e.end_h; });
       var startH = minH.start_h < 8 ? minH.start_h : 8;
-      var endH = minH.end_h > 18 ? minH.end_h : 18;
+      var endH = maxH.end_h > 18 ? maxH.end_h : 18;
    } else {
       var startH = 7;
       var endH = 20;
@@ -90,8 +90,8 @@ $(document).ready(function() {
             "id": event.id,
             "url": event.url,
             "color": event.color,
-            "start_h": s[3],
-            "end_h": e[3]
+            "start_h": s[4] == 0 ? s[3] : s[3]-1,
+            "end_h": e[4] == 0 ? e[3] : e[3]+1
          };
          new_events.push(new_event)
       });
