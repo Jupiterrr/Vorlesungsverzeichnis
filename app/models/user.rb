@@ -47,6 +47,16 @@ class User < ActiveRecord::Base
     where("uid LIKE :query OR name LIKE :query", {query: "%#{query}%"})
   end
 
+  # for backward compatibility
+  def self.find_by_timetable_id!(id)
+    IcalFile.find_by_reference_key!(id).user
+  end
+
+  # for backward compatibility
+  def timetable_id
+    ical_file.reference_key
+  end
+
   class << self
     alias_method :qf, :quick_find
     alias_method :f, :quick_find
