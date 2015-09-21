@@ -30,6 +30,8 @@ class EventsController < ApplicationController
       format.html { redirect_to :back, notice: 'Erfolgreich angemeldet' }
       format.json { render json: { message: "Erfolgreich angemeldet" }  }
     end
+  rescue ActionController::RedirectBackError
+    redirect_to event_path(event)
   end
 
   def unsubscribe
@@ -39,16 +41,19 @@ class EventsController < ApplicationController
       format.html { redirect_to :back, notice: "Erfolgreich entfernt" }
       format.json { render json: { message: "Erfolgreich entfernt" }  }
     end
+  rescue ActionController::RedirectBackError
+    redirect_to event_path(event)
   end
 
   def unsubscribe_all
     trigger_ical_update
     EventUnsubscriber.unsubscribe_all(current_user)
-
     respond_to do |format|
       format.html { redirect_to :back, notice: "Erfolgreich entfernt" }
       format.json { render json: { message: "Erfolgreich entfernt" }  }
     end
+  rescue ActionController::RedirectBackError
+    redirect_to root_path
   end
 
   # def edit_user_text; end
