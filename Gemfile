@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.0.0'
+ruby ENV['CUSTOM_RUBY_VERSION'] || '2.1.7'
 
 gem 'rails', '~> 3.2.13'
 gem 'unicorn'
