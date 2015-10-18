@@ -478,7 +478,7 @@ var ColumnView = (function() {
         col = this.lastColEl;
         col.innerHTML = "";
         // col.selectIndex = null;
-        col.scrollTo(0, 0);
+        col.scrollTop = 0;
       } else {
         col = document.createElement("div");
         col.classList.add("column");
