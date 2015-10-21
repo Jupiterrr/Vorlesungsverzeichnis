@@ -21,6 +21,7 @@ module VVZUpdater
     private
 
     def mass_insert(pairs)
+      return if pairs.empty?
       values = pairs.map {|pair| "(#{pair.vvz_id}, #{pair.event_id})"}.join(", ")
       sql = "INSERT INTO events_vvzs (vvz_id, event_id) VALUES #{values}"
       ActiveRecord::Base.connection.execute(sql)
