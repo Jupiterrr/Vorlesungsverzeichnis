@@ -106,7 +106,7 @@ module VVZUpdater
         start_time: start_time,
         end_time: end_time,
         # api_last_modified: date.fetch(:last_modified),
-        room_id: @room_index[room_id],
+        room_id: room_id && @room_index[room_id],
         created_at: Time.now.to_s,
         updated_at: Time.now.to_s,
         relation: date.fetch(:relation),
@@ -119,7 +119,7 @@ module VVZUpdater
       create_rooms(dates)
       room_index = {}
       db_rooms = Room.select([:id, :uuid])
-      db_rooms.each {|room| room_index[room.uuid] = room.id }
+      db_rooms.each {|room| room_index[room.uuid] = room.id if room.uuid }
       room_index
     end
 
