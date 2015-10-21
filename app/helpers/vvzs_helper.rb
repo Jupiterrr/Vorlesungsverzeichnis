@@ -87,7 +87,19 @@ module VvzsHelper
   private
 
   def split_term(term)
+    if term.include?("/")
+      term = convert_term_name(term)
+    end
     term.match(/(\w+) 20(.+)/).captures
+  end
+
+  def convert_term_name(name)
+    term = name[0..1]
+    if term == "SS"
+      name
+    else
+      "#{term} 20#{name[3..4]}"
+    end
   end
 
 end

@@ -5,6 +5,7 @@ class Room < ActiveRecord::Base
   has_many :event_dates
   validates :name, :uuid, presence: true
   validates :uuid, uniqueness: true
+  serialize :data, ActiveRecord::Coders::Hstore
 
   before_create :try_to_find_poi
 

@@ -158,7 +158,7 @@ task :room_to_poi => :environment do |t, args|
   rooms_without_poi.each do |room|
     if result = selector.select(room.name)
       room.poi = result.poi
-      room.data["poi.accuracy"] = result.accuracy
+      #room.data["poi.accuracy"] = result.accuracy
       room.save!
     end
   end
