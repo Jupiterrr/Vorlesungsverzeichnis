@@ -5,6 +5,8 @@ gem 'rails', '~> 3.2.13'
 gem 'unicorn'
 gem 'sidekiq'
 
+gem 'awesome_print'
+
 if ENV['GEMFURY_URL']
   source ENV['GEMFURY_URL'] do
     gem 'kit_api', '~> 0.2.4', require: false#, path: File.join('..', 'Downloader')
@@ -90,7 +92,6 @@ group :development, :test do
   # gem 'highline' # user input in rake task
   gem 'rspec-rails'
   gem 'zeus'
-  gem 'awesome_print'
   gem 'pry-rails'
   gem 'launchy'
   gem 'thin'
